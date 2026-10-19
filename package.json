@@ -1,6 +1,6 @@
 {
   "name": "eckey-thump-game-night",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "private": true,
   "description": "ECKEY THUMP private games night with 1,200 original Cheeky/Adult-heavy comedy entries and no-repeat shuffle decks",
   "main": "server/index.js",

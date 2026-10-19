@@ -1,3 +1,7 @@
+# ECKEY THUMP v0.9.2 — Showtime Lobby Edition
+
+Original game-night lobby makeover with a brand new SVG show logo, a QR-first room lobby and locally generated lobby soundtrack.
+
 # ECKEY THUMP Game Night v0.9 — After Dark
 
 **New:** 1,200 original editorial-draft comedy entries (995 Cheeky or Adult), a no-repeat shuffle deck across repeat matches within one room, a one-card swap per card-based round, and `CONTENT-REVIEW.html` for editorial evaluation.

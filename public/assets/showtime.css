@@ -1,0 +1,62 @@
+/* ECKEY THUMP v0.9.2 — original Showtime identity (not NOGGIN artwork). */
+:root{--show-yellow:#ffe600;--show-pink:#ff2fac;--show-blue:#00dfff;--show-ink:#070914}
+.visually-hidden{position:absolute!important;width:1px;height:1px;clip:rect(0,0,0,0);overflow:hidden;white-space:nowrap}
+body[data-ui="Chaos-Arena"]{background:radial-gradient(ellipse at 50% -9%,#3d2082 0,transparent 34%),radial-gradient(circle at 2% 25%,#063875,transparent 27%),linear-gradient(180deg,#070513 0,#080d2c 36%,#08081b 100%)}
+body[data-ui="Chaos-Arena"] .ambient{background:radial-gradient(ellipse at 50% 0,rgba(99,24,169,.32),transparent 60%),repeating-conic-gradient(from 20deg at 50% -38%,#4c6ce215 0deg 5deg,transparent 5deg 13deg),#070914}
+body[data-ui="Chaos-Arena"] .ambient:after{opacity:.55}
+.app-shell{width:min(1320px,calc(100% - 34px));padding-top:26px}
+.showtime-hero{padding:8px 14px 30px;margin:0 auto 20px;overflow:visible;background:radial-gradient(ellipse at 50% 36%,#8c187e33,transparent 56%);min-height:unset}
+.hero-tools,.lobby-stage-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.hero-private{font-weight:950;letter-spacing:.1em;font-size:.8rem;color:#fff5b3}
+.sound-switch{cursor:pointer;display:inline-flex;align-items:center;gap:9px;border:2px solid #2edbff;color:#ecfaff;border-radius:100px;padding:9px 15px;background:linear-gradient(130deg,#101d59,#0c1039);font-size:.79rem;font-weight:900;letter-spacing:.05em;box-shadow:0 4px 0 #06102d,0 0 15px #00dfff30;transition:filter .15s,transform .15s}
+.sound-switch:hover{filter:brightness(1.12);transform:translateY(-1px)}.sound-switch:focus-visible{outline:3px solid #fff9ab;outline-offset:4px}.sound-switch span{font-size:1.3rem;line-height:1;color:#fff2ab}.sound-switch[aria-pressed="true"]{background:linear-gradient(#fff9bd,#ffe05b);color:#18163d;border-color:#fff5c6;box-shadow:0 5px 0 #ad5a2b,0 0 20px #ffe75d7d}.sound-switch[aria-pressed="true"] span{color:#542188}
+.showtime-eyebrow{font-size:clamp(.8rem,1.5vw,1.05rem);font-weight:1000;letter-spacing:.17em;color:#fff3a1;margin:10px auto 1px;text-shadow:0 2px 9px #000}
+.showtime-logo-wrap{position:relative;max-width:930px;margin:-15px auto -5px}
+.eckey-wordmark{display:block;height:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 15px 13px #0009) drop-shadow(0 0 21px #fb40bc55)}
+.eckey-wordmark--big{width:100%;max-height:405px;margin:auto}
+.logo-orbit{position:absolute;z-index:1;display:grid;place-items:center;font:1000 3.4rem Impact,sans-serif;border:4px solid #080a27;border-radius:17px;color:#070917;box-shadow:0 6px #1b1147,0 0 23px #eb86ff70;animation:orbitBounce 2.9s ease-in-out infinite alternate}
+.orbit-left{left:3%;bottom:17%;background:#fff066;width:64px;height:64px;transform:rotate(-17deg)}.orbit-right{right:0;bottom:29%;background:#fe36ad;width:58px;height:58px;transform:rotate(14deg);animation-delay:1s}
+@keyframes orbitBounce{to{translate:0 -12px;rotate:8deg}}
+.showtime-hero .show-subline{font-weight:1000;border-width:2px;border-color:#fff5af;transform:rotate(-1deg);margin:0 auto 11px}
+.showtime-hero .chaos-cast{max-width:1000px;gap:clamp(5px,1.4vw,20px);margin-top:25px}
+.showtime-hero .cast-seat{width:clamp(86px,14vw,170px);background:radial-gradient(circle at 50% 13%,#4c2a93,#060b2c 75%);border-color:#ffc95d;box-shadow:0 7px 0 #12103f,0 0 23px #fbb83564;transition:transform .3s}
+.showtime-hero .cast-seat img{height:clamp(93px,16vw,205px);width:100%;object-fit:contain}
+.showtime-hero .cast-seat span{font-size:clamp(.55rem,.9vw,.83rem)}
+.showtime-hero .cast-badge{font-size:clamp(.7rem,1.35vw,.99rem);background:linear-gradient(125deg,#fb2a9c,#662fd5);border-color:#fff07a;margin:4px auto 16px}
+.showtime-hero p{max-width:690px;font-size:clamp(.95rem,1.35vw,1.1rem)}
+.showtime-launch-grid .panel{border-width:2px;border-color:#ffda69;box-shadow:0 4px 0 #af5528,0 0 22px #6941d066,0 14px 40px #0009}
+.showtime-launch-grid .panel:nth-child(2){border-color:#ff5acb;box-shadow:0 5px 0 #72215d,0 0 22px #e347c366,0 14px 40px #0009}
+.showtime-launch-grid .panel h2{font-size:clamp(1.8rem,2.7vw,2.6rem);color:#fff2a1}
+.showtime-launch-grid .panel .btn.wide{font-size:1.35rem;min-height:67px}
+.showtime-room{grid-template-columns:minmax(0,1.47fr) minmax(255px,.73fr)}
+.showtime-room .showtime-lobby{padding:0 18px 22px;overflow:visible;border-color:#ffce65}
+.lobby-ticker{border-radius:0 0 15px 15px;padding:13px 9px;background:#ffdb3e;color:#1c0d3e;text-align:center;font-weight:1000;font-size:.71rem;letter-spacing:.055em;line-height:1.25}
+.lobby-stage{position:relative;overflow:hidden;border:3px solid #d696fc;border-radius:21px;margin-top:17px;padding:15px 12px 16px;background:radial-gradient(circle at 50% 55%,#8c16875b 0,#441a6f38 35%,transparent 62%),repeating-conic-gradient(from -22deg at 50% -31%,#2b93ec30 0 5deg,transparent 5deg 14deg),linear-gradient(180deg,#101047,#081743);box-shadow:inset 0 0 38px #894be653,0 0 25px #841de64f}
+.lobby-stage:after{position:absolute;bottom:0;left:0;right:0;content:'';height:9px;background:linear-gradient(90deg,#0ef3ff,#fe48ad,#ffd947,#0ef3ff)}
+.lobby-stage-top{position:relative;z-index:2}.showtime-status{display:inline-block;padding:9px 12px;border:2px solid #fff087;border-radius:7px;background:#301a63;font-size:.71rem;font-weight:950;letter-spacing:.07em;color:#fff4ac}
+.lobby-logo{max-width:580px;margin:-20px auto -19px}.lobby-logo .eckey-wordmark{width:100%;max-height:260px}
+.lobby-heading{margin:0;color:#fff17d;font:1000 clamp(1.6rem,3vw,2.55rem)/1.05 Impact,'Arial Black',sans-serif;letter-spacing:.035em;text-align:center;text-shadow:0 4px #a73282,0 8px 18px #0009}
+.lobby-lede{margin:10px auto 18px!important;max-width:600px!important;color:#fff!important;text-align:center;font-weight:700}
+.lobby-stage-cast{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:10px}
+.stage-contestant{display:flex;flex-direction:column;align-items:center;gap:3px;width:100px;min-width:0;padding:5px 4px 8px;border-radius:13px;border:2px solid #ffe27b;background:linear-gradient(175deg,#25136f,#0a1238);box-shadow:0 5px #0a0b2c,0 0 17px #ffdd7645;transform:rotate(calc((var(--i) - 2)*1deg))}
+.stage-contestant .player-avatar{width:70px;height:70px;object-fit:cover;border-radius:10px}.stage-contestant strong{font-size:.76rem;overflow:hidden;max-width:100%;text-overflow:ellipsis;white-space:nowrap}.stage-contestant span{font-size:.56rem;font-weight:900;color:#95f8d4}
+.lobby-join-panel{display:flex;align-items:center;gap:22px;margin:18px 0 14px;border:3px solid #ffe47c;border-radius:19px;padding:16px;background:linear-gradient(115deg,#0d376f,#321453 70%,#0f1845);box-shadow:0 7px 0 #41194b,0 0 19px #e4af5282}
+.lobby-qr-frame{width:178px;height:178px;flex:0 0 178px;background:#fff;padding:10px;border-radius:12px;box-shadow:0 3px 15px #000a}
+.lobby-qr-frame img{width:100%;height:100%;image-rendering:auto}
+.lobby-join-details{min-width:0}.lobby-invite-code{color:#ffec84;font:1000 clamp(2.3rem,4.5vw,3.5rem)/1 Impact,system-ui,sans-serif;letter-spacing:.19em;text-shadow:0 4px #4b154e;overflow-wrap:anywhere;margin:7px 0}
+.lobby-join-details p{margin:5px 0!important;line-height:1.4}.lobby-invite-details small,.lobby-join-details small{display:block;margin-top:9px;color:#c3ddff;font-size:.72rem;line-height:1.35}.lobby-invite-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.lobby-agenda{border:2px dashed #fd98cd;background:#1b1248c9;border-radius:16px;padding:16px;margin:18px 0}.lobby-agenda .challenge-chip{background:linear-gradient(120deg,#461b87,#902b80);border-color:#ffcb71;color:#fff6b1}.lobby-agenda .sub{margin-top:8px}
+.showtime-lobby .your-avatar{margin:14px 0 18px}.showtime-lobby .btn.showtime-start{font-size:1.45rem;min-height:73px;transform:rotate(-.6deg)}
+.showtime-side{position:relative;overflow:hidden;border-color:#25dcff!important;background:radial-gradient(circle at 50% 0,#3730a47a,transparent 47%),linear-gradient(#101a52,#080d2d)!important}
+.showtime-side h2{font-size:2.2rem}.lobby-side-control .utility-actions{display:grid;grid-template-columns:1fr 1fr;gap:11px}.lobby-side-control .utility-actions .btn{white-space:normal;font-size:.8rem}
+.side-rules p{padding:12px 0;margin:0;border-bottom:1px solid #40508c}.side-rules strong{font-size:1.15rem;color:#ffda61;margin-right:5px}
+.tv-minimal-head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;padding:8px 2px 15px;color:#ffe6a1;font-weight:1000;letter-spacing:.14em;text-shadow:0 3px #190b45}
+.tv-minimal-head strong{font-size:1.15rem}
+.showtime-tv-lobby{justify-content:flex-start;padding-top:8px}
+.tv-sound-toolbar{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.tv-showtime-logo{width:min(950px,90%);height:auto;max-height:335px;margin:-16px auto -20px}
+.tv-chaos-slogan{margin:0 auto 12px;color:#fff09b;font:1000 clamp(1.15rem,2.3vw,2rem) Impact,system-ui,sans-serif;letter-spacing:.06em;text-shadow:0 3px #852682}
+.showtime-tv-lobby .tv-cast{margin:5px auto 0}.showtime-tv-lobby .tv-scan-to-join{margin:14px auto 0}
+@media(max-width:850px){.showtime-room{grid-template-columns:1fr}.showtime-side{order:2}.lobby-stage{padding:12px 10px 14px}.lobby-join-panel{gap:15px}.showtime-hero .cast-seat{width:22%}.logo-orbit{font-size:2rem;width:42px;height:42px}.showtime-eyebrow{letter-spacing:.06em}}
+@media(max-width:480px){.app-shell{width:calc(100% - 20px);padding-top:12px}.showtime-hero{padding:4px 1px 10px}.hero-private{display:none}.showtime-logo-wrap{margin:-6px auto -5px}.showtime-hero .show-subline{letter-spacing:.02em}.showtime-hero .chaos-cast{gap:5px;margin-top:18px}.showtime-hero .cast-seat{padding:4px 2px 2px;border-width:2px}.showtime-hero .cast-seat img{height:95px}.showtime-room .showtime-lobby{padding:0 10px 18px}.lobby-ticker{font-size:.6rem}.lobby-logo{margin:-8px auto -8px}.lobby-stage-top .sound-switch{padding:7px 10px;font-size:.67rem}.showtime-status{font-size:.58rem;padding:7px}.stage-contestant{width:84px}.stage-contestant .player-avatar{width:62px;height:62px}.lobby-join-panel{padding:12px;gap:12px;flex-direction:column;text-align:center}.lobby-qr-frame{width:160px;height:160px;flex-basis:160px}.lobby-invite-actions{justify-content:center}.lobby-join-details small{font-size:.66rem}.lobby-invite-code{font-size:2.7rem}}
+@media(prefers-reduced-motion:reduce){.logo-orbit{animation:none}.sound-switch{transition:none}}

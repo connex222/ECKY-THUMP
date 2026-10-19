@@ -10,7 +10,7 @@ const rooms=new Map();
 const connections=new Map();
 const allowed='ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 const port=Number(process.env.PORT||3000);
-const mime={'.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'application/javascript; charset=utf-8','.svg':'image/svg+xml','.ico':'image/x-icon','.json':'application/json; charset=utf-8'};
+const mime={'.ogg':'audio/ogg','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'application/javascript; charset=utf-8','.svg':'image/svg+xml','.ico':'image/x-icon','.json':'application/json; charset=utf-8'};
 const RATE_WINDOW=60000, perIp=new Map();
 function code() {let str='';for(let i=0;i<6;i++)str+=allowed[crypto.randomInt(allowed.length)];return str;}
 function send(res,status,data){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));}
@@ -52,7 +52,7 @@ function requireOrigin(req) {
 function route(req,res) {
   const url=new URL(req.url,`http://${req.headers.host||'localhost'}`);
   const pathname=url.pathname;
-  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKEY THUMP',version:'0.8.0',uptime:process.uptime()});
+  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKEY THUMP',version:'0.9.2',uptime:process.uptime()});
   if(pathname==='/api/rooms'&&req.method==='POST')return (async()=>{
     requireOrigin(req);const body=await readBodyOrEmpty(req);
     const created=game.newRoom(body);let c;do{c=code();}while(rooms.has(c));created.room.code=c;
@@ -175,5 +175,5 @@ const timer=setInterval(()=>{
   for(const [key,value] of perIp)if(now-value.start>2*RATE_WINDOW)perIp.delete(key);
 },300);
 server.on('close',()=>clearInterval(timer));
-if(require.main===module)server.listen(port,'0.0.0.0',()=>console.log(`ECKEY THUMP Game Night v0.9 running at http://localhost:${port}`));
+if(require.main===module)server.listen(port,'0.0.0.0',()=>console.log(`ECKEY THUMP Game Night v0.9.2 running at http://localhost:${port}`));
 module.exports={server,rooms};

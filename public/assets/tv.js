@@ -13,13 +13,12 @@
   let current=null,connected=false;
   const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const joinLink=`${location.origin}/join/?room=${encodeURIComponent(code)}`;
-  function header(s){return `<header class="tv-head"><div class="brand"><span class="brand-mark">✸</span><span class="brand-words">ECKEY THUMP<small>THE GAMES NIGHT CHAOS SHOW</small></span></div>
-    <div class="tv-room"><span class="eyebrow">JOIN ECKEY THUMP</span><strong>${esc(s.code)}</strong></div></header><div class="themed-marquee" aria-hidden="true">★ WELCOME TO THE CHAOS ARENA ★ PRIVATE GAMES NIGHT ★ ZERO DIGNITY · MAXIMUM LAUGHS ★</div>`;}
+  function header(s){return s.phase==='LOBBY'?'':`<header class="tv-minimal-head"><strong>ECKEY THUMP</strong><span>ROOM ${esc(s.code)}</span></header>`;}
+  const soundControl=()=>`<button type="button" class="sound-switch tv-sound-switch" data-sound-toggle aria-pressed="${window.ECKEY_AUDIO?.enabled?'true':'false'}"><span aria-hidden="true">♫</span><strong>${window.ECKEY_AUDIO?.enabled?'MUSIC ON':'PLAY LOBBY MUSIC'}</strong></button>`;
   function footer(s){return `<footer class="tv-footer"><span>${esc(s.config.rating.toUpperCase())} HUMOUR · ${s.players.length} CONTESTANTS</span><span>JOIN ON YOUR PHONE · ${esc(location.host)}/join/ · CODE ${esc(s.code)}</span></footer>`;}
   function leaderboard(s,amount=6){return `<div class="tv-board">${s.players.slice(0,amount).map((p,i)=>`<div class="tv-board-item"><span class="tv-with-avatar">${avatar(p.avatar)}${i+1}. ${esc(p.name)}</span><strong>${p.score} POINTS</strong></div>`).join('')}</div>`;}
-  function intro(s){return `<section class="tv-center"><div class="eyebrow">LIVE FROM THE CHAOS ARENA · ZERO DIGNITY GUARANTEED</div>
-    <h1 class="tv-title">GOOD FRIENDS.<br><em>VERY BAD IDEAS.</em></h1>
-    <div class="tv-subtitle">Join on your phone. Cause a scene. One player leaves as the official nonsense champion.</div>
+  function intro(s){return `<section class="tv-center showtime-tv-lobby"><div class="tv-sound-toolbar">${soundControl()}<span class="eyebrow">THE GAME NIGHT CHAOS SHOW</span></div><h1 class="visually-hidden">ECKEY THUMP</h1><img class="eckey-wordmark tv-showtime-logo" src="/assets/eckey-logo.svg" alt="ECKEY THUMP" width="1280" height="550"><div class="tv-chaos-slogan">GOOD FRIENDS. TERRIBLE JUDGEMENT. BRILLIANT NIGHT.</div>
+    <div class="tv-subtitle">Join on your phone. Make terrible jokes. Crown an unlikely legend.</div>
     <div class="tv-cast" aria-hidden="true">${['adult-06','adult-13','adult-18','adult-23'].map(id=>{const a=AVATARS.find(x=>x.id===id);return a?`<div class="tv-cast-tile"><img src="${a.image}" alt=""><span>${esc(a.name.toUpperCase())}</span></div>`:'';}).join('')}</div>
     <div style="margin:30px 0 8px">${s.players.length>=3?'<span class="badge gold">READY FOR THE SHOW</span>':'<span class="badge">WAITING FOR THREE PLAYERS</span>'}</div>
     <div class="tv-names">${s.players.map(p=>`<span class="tv-player">${avatar(p.avatar)}${esc(p.name)}${p.online?' ●':''}</span>`).join('')}</div>
@@ -48,15 +47,16 @@
   function finished(s){const names=s.champions.map(p=>p.name).join(' & ');return `<section class="tv-center">
     <div class="eyebrow">THE CHAMPIONSHIP IS OVER</div><span style="font-size:7rem;margin:5px 0">♛</span><h1 class="tv-title">ECKEY <em>THUMP!</em></h1><h2 class="tv-prompt">${esc(names)}</h2>
     <div class="tv-subtitle">${s.champions.length>1?'JOINT AGENTS OF CHAOS':'YOUR ECKEY THUMP CHAMPION'}</div><div class="tv-finale-cast">${s.champions.slice(0,3).map(p=>`<div class="tv-finale-player">${celebration(p.avatar)}<strong>${esc(p.name)}</strong></div>`).join('')}</div>
-    ${leaderboard(s,12)}<div class="tv-status">THANKS FOR PLAYING · ECKEY THUMP GAME NIGHT v0.9</div></section>`;}
+    ${leaderboard(s,12)}<div class="tv-status">THANKS FOR PLAYING · ECKEY THUMP GAME NIGHT v0.9.2</div></section>`;}
   function render(s){current=s;
     const body=s.phase==='LOBBY'?intro(s):s.phase==='SEED'?contextOpening(s):s.phase==='SUBMIT'?submission(s):s.phase==='VOTE'?voting(s):s.phase==='RESULTS'?results(s):finished(s);
-    el.innerHTML=header(s)+body+footer(s);updateTimer();
+    el.innerHTML=header(s)+body+footer(s);updateTimer();window.ECKEY_AUDIO?.setScene(s.phase==='LOBBY'?'LOBBY':'GAME');
   }
   function updateTimer(){const t=document.getElementById('tv-timer');if(!current||!t)return;
     const seconds=Math.max(0,Math.ceil((current.deadline-Date.now())/1000));
     t.textContent=current.paused?'PAUSED':`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;
   }
+  el.addEventListener('click',async e=>{if(!e.target.closest('[data-sound-toggle]'))return;await window.ECKEY_AUDIO?.toggle();const control=el.querySelector('[data-sound-toggle]');if(control){control.setAttribute('aria-pressed',String(!!window.ECKEY_AUDIO?.enabled));control.querySelector('strong').textContent=window.ECKEY_AUDIO?.enabled?'MUSIC ON':'PLAY LOBBY MUSIC';}});
   setInterval(updateTimer,250);
   async function connect(){
     while(true){

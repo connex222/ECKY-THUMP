@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="550" viewBox="0 0 1280 550" role="img" aria-labelledby="title"><title id="title">ECKEY THUMP</title>
+<defs>
+ <linearGradient id="g1" x1="0" y1="0" x2=".15" y2="1"><stop stop-color="#fffce1"/><stop offset=".27" stop-color="#fff2ab"/><stop offset=".49" stop-color="#ffd748"/><stop offset=".72" stop-color="#ffab2c"/><stop offset="1" stop-color="#ff6c46"/></linearGradient>
+ <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff9ee"/><stop offset=".21" stop-color="#ffe3fa"/><stop offset=".46" stop-color="#ff8fe2"/><stop offset=".75" stop-color="#fa3aae"/><stop offset="1" stop-color="#c4148d"/></linearGradient>
+ <filter id="shade" x="-20%" y="-30%" width="150%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="13" result="b"/><feOffset dy="13" result="o"/><feComponentTransfer in="o" result="d"><feFuncA type="linear" slope=".7"/></feComponentTransfer><feMerge><feMergeNode in="d"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
+</defs>
+<!-- Radial splashes; supports transparent background -->
+<path d="M87 217l91-3-27-95 70 66 57-102 2 119 78-48-50 83-207 63z" fill="#00eaff" opacity=".9"/>
+<path d="M1025 119l52 89 106-37-49 79 67 85-124-37-68 85 4-129-88-50z" fill="#fb3da6" opacity=".95"/>
+<g fill="#fff262"><path d="M315 45l19 43 44 19-44 17-19 47-16-47-43-17 43-19z"/><path d="M991 49l15 35 37 15-37 15-15 35-15-35-35-15 35-15z"/><circle cx="189" cy="365" r="12"/><circle cx="1140" cy="400" r="13"/></g>
+<g transform="translate(655 190) rotate(-3) skewX(-4)" text-anchor="middle" font-family="Impact,Arial Black,DejaVu Sans,sans-serif" font-weight="1000" font-stretch="condensed" font-size="185" letter-spacing="-5">
+ <text x="0" y="17" fill="#09132f" stroke="#080b2a" stroke-width="39" stroke-linejoin="round">ECKEY</text>
+ <text x="0" y="7" fill="#612cbb" stroke="#612cbb" stroke-width="32" stroke-linejoin="round">ECKEY</text>
+ <text x="0" y="0" fill="#fff57e" stroke="#ffcf31" stroke-width="22" stroke-linejoin="round" filter="url(#shade)">ECKEY</text>
+ <text x="0" y="0" fill="url(#g1)" stroke="#fff9d5" stroke-width="4" paint-order="stroke fill">ECKEY</text>
+</g>
+<g transform="translate(632 393) rotate(2.7) skewX(3)" text-anchor="middle" font-family="Impact,Arial Black,DejaVu Sans,sans-serif" font-weight="1000" font-stretch="condensed" font-size="189" letter-spacing="-4">
+ <text x="0" y="24" fill="#07102e" stroke="#080b27" stroke-width="42" stroke-linejoin="round">THUMP!</text>
+ <text x="0" y="11" fill="#14dafa" stroke="#20dbfa" stroke-width="31" stroke-linejoin="round">THUMP!</text>
+ <text x="0" y="4" fill="#470b81" stroke="#640a92" stroke-width="24" stroke-linejoin="round">THUMP!</text>
+ <text x="0" y="0" fill="url(#g2)" stroke="#ffddff" stroke-width="5" stroke-linejoin="round" paint-order="stroke fill" filter="url(#shade)">THUMP!</text>
+</g>
+<g fill="#ffe66d" stroke="#0c1b52" stroke-width="7" stroke-linejoin="round"><path d="M925 28l17-45 38 32 29-47 18 55 45-9-17 62-128-8z" transform="rotate(9 995 30)"/></g>
+<path d="M110 452l52-38-8 28 59-2-69 42 11-29z" fill="#fc56c4"/><path d="M1069 443l51-44-7 31 55-3-71 49 9-27z" fill="#ffe371"/>
+</svg>
