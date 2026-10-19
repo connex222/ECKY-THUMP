@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: eckey-thump-game-night
+    runtime: node
+    buildCommand: npm run test
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
