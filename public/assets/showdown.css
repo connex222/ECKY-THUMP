@@ -1,0 +1,70 @@
+/* ECKEY THUMP v1.0 — SHOWDOWN, following the Showtime identity. */
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room){grid-template-columns:minmax(0,1.5fr) minmax(245px,.65fr);gap:20px;align-items:start}
+.show-audio-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.show-sfx-switch{border-color:#ff69cd;background:linear-gradient(140deg,#4b115f,#1a1148)}
+.show-sfx-switch[aria-pressed="true"]{background:linear-gradient(180deg,#ffe970,#ffc758);border-color:#fff6a2;color:#2a1245}
+.show-sfx-switch[aria-pressed="true"] span{color:#44205e}
+.stage-show-heading{border:2px solid #ffe979;border-radius:19px;box-shadow:0 7px 0 #3c1955,0 0 25px #f839db58;background:radial-gradient(circle at 25% 0,rgba(239,55,186,.30),transparent 37%),repeating-conic-gradient(from -11deg at 50% -65%,#5f6de525 0 6deg,transparent 6deg 14deg),linear-gradient(140deg,#24115c,#0a205e);margin:0 0 18px;padding:17px 17px 16px;position:relative;overflow:hidden;text-align:left}
+.stage-show-heading::after{content:'★  ECKEY THUMP  ★';position:absolute;right:10px;bottom:-4px;font:1000 1.28rem Impact,sans-serif;letter-spacing:.04em;color:#ffffff18;transform:rotate(-5deg);pointer-events:none}
+.stage-show-heading .stage-kicker{display:flex;align-items:center;flex-wrap:wrap;gap:9px;font-size:.75rem;font-weight:1000;letter-spacing:.09em;color:#fff0a8}
+.stage-show-heading .stage-name{margin:9px 0 3px;font:1000 clamp(2.35rem,5vw,4.4rem)/.98 Impact,'Arial Black',system-ui,sans-serif;letter-spacing:.012em;color:#fff;transform:rotate(-.35deg);text-shadow:3px 4px 0 #af2f8d,5px 7px 0 #2c104d,0 0 21px #6fa2ff8c}
+.stage-show-heading .stage-tagline{margin:8px 0 0;font-size:.93rem;font-weight:800;color:#d9edff;line-height:1.45}
+.stage-show-heading .stage-counter{display:inline-flex;align-items:center;justify-content:center;min-width:65px;min-height:43px;padding:5px 10px;border-radius:12px;background:#ffe359;color:#25083f;transform:rotate(-4deg);box-shadow:3px 4px #982f91;font:1000 1.65rem Impact,system-ui,sans-serif}
+.stage-show-heading.is-final{border-color:#ffd33c;box-shadow:0 7px #892d55,0 0 24px #ffc85686;background:radial-gradient(ellipse at 42% 0,#b65e3370,transparent 52%),linear-gradient(150deg,#541047,#1c1554)}
+.stage-show-heading.is-vote{border-color:#27eaff;box-shadow:0 7px #2046a7,0 0 26px #14bafc68}
+.stage-show-heading.is-result{border-color:#ffb85b;background:linear-gradient(130deg,#531543,#202269)}
+.stage-show-heading.is-context{border-color:#fc92f2}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .stage-panel{border:2px solid #ffaee2;background:linear-gradient(168deg,#16113f,#10112b 68%);box-shadow:0 7px #422663,0 0 35px #7237b344,0 22px 56px #0008;overflow:visible}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .stage-panel:before{height:8px;background:linear-gradient(90deg,#fcee57,#f72eaf,#27dbff,#fcee57)}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .room-head{gap:12px}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .section-title{font:1000 clamp(1.5rem,3vw,2.45rem)/1.02 Impact,system-ui,sans-serif;letter-spacing:.02em;color:#ffeb8e;text-shadow:2px 3px #8d1c7a}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .prompt-box{border:3px solid #ffdf62;border-radius:18px;background:radial-gradient(circle at 7% 0,#5e2d9aa8,transparent 55%),linear-gradient(125deg,#301557,#102469);box-shadow:5px 7px 0 #a3328e,0 0 30px #b166e842;transform:rotate(-.35deg);margin:20px 2px 23px;padding:29px 22px}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .prompt-box p{font-size:clamp(1.5rem,3.3vw,2.5rem);font-weight:950;letter-spacing:-.03em;line-height:1.18;text-wrap:balance}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .pick-card{border:3px solid #e59fe9;background:linear-gradient(145deg,#3e236d,#131944);box-shadow:3px 5px #0b0c26,0 0 15px #ee92ed33;min-height:148px}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .pick-card:nth-child(3n){border-color:#78f1fa}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .pick-card.selected{border-color:#ffe97b;background:linear-gradient(145deg,#6c3c85,#302066);box-shadow:0 0 0 3px #ffd4686e,3px 6px #6b265a;transform:rotate(0deg) scale(1.025)}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .candidate{border:3px solid #b3a6fa;background:linear-gradient(145deg,#372270,#121b4b)}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .candidate:nth-child(even){border-color:#ff94d3}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .candidate.gold-selected{border-color:#ffdb56;background:#5a2c6e;box-shadow:0 0 0 4px #f4d06055}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .candidate.silver-selected{border-color:#c7f8ff;background:#284178;box-shadow:0 0 0 4px #b0dfff44}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .candidate-text{font-size:clamp(1.06rem,2vw,1.3rem);font-weight:850}
+body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room) .btn.wide{min-height:58px;font-size:clamp(.9rem,2.4vw,1.25rem);font-weight:1000}
+.stage-progress-label{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:.83rem;font-weight:950;color:#fbf0ff;margin-top:12px}
+.stage-vote-tag{display:inline-block;background:#fff176;color:#24104e;border:2px solid #fcebb8;border-radius:8px;padding:7px 12px;transform:rotate(-2deg);font-weight:1000;box-shadow:3px 4px #ab2174;margin:10px 0 8px}
+.stage-result-winner{position:relative;overflow:hidden;border:3px solid #ffdf78;border-radius:20px;padding:18px 14px;background:radial-gradient(circle at 50% 4%,#bf3a9f7c,transparent 59%),linear-gradient(150deg,#3a1564,#18256c);box-shadow:0 7px #86396b,0 0 24px #d659dd82}
+.stage-result-winner .winner-cast{position:relative;z-index:1}
+.stage-result-winner:before{content:'✦ ★ ✦ ★ ✦ ★ ✦';position:absolute;font-size:2.4rem;letter-spacing:.35em;inset:2% 0 auto;color:#ffe86c6a;pointer-events:none;animation:spark-float 3s ease-in-out infinite alternate}
+.stage-result-winner .winner-spotlight{background:#1b174c;border:2px solid #fce185;box-shadow:0 8px 20px #0008}
+.stage-audio-location{margin:12px 0;color:#aacee8;font-size:.74rem}
+.fx-fanfare{position:relative;isolation:isolate}
+.fx-confetti{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden;border-radius:16px}
+.fx-confetti i{position:absolute;top:-22px;left:var(--x);width:12px;height:20px;transform:rotate(var(--r));background:var(--c);opacity:0;animation:confetti-fall 2.4s ease-in forwards;animation-delay:var(--d)}
+@keyframes confetti-fall{10%{opacity:1}88%{opacity:1}100%{opacity:0;transform:translate(var(--drift),110vh) rotate(730deg)}}
+@keyframes spark-float{to{transform:translateY(12px) rotate(5deg)}}
+.scene-enter .stage-show-heading{animation:stage-pop .5s cubic-bezier(.15,1.4,.42,1) both}
+.scene-enter .prompt-box{animation:stage-pop .65s .12s cubic-bezier(.15,1.3,.42,1) both}
+.scene-enter .winner-spotlight,.scene-enter .tv-winner-card{animation:stage-pop .65s .15s cubic-bezier(.15,1.35,.42,1) both}
+@keyframes stage-pop{from{opacity:.25;transform:translateY(23px) scale(.93) rotate(-2deg)}to{opacity:1;transform:translateY(0) scale(1) rotate(0)}}
+.tv-show-top{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;margin:14px auto 10px}
+.tv-show-round{font:1000 clamp(1.4rem,3vw,3rem) Impact,system-ui,sans-serif;background:#fce65a;color:#1e0e45;transform:rotate(-3deg);border:3px solid #fff7a3;box-shadow:4px 5px #a82981,0 0 18px #ffd55355;padding:6px 20px;border-radius:9px}
+.tv-show-mode{font:1000 clamp(2rem,4.3vw,4.6rem)/1 Impact,system-ui,sans-serif;color:#fff;text-shadow:4px 5px #a12580,0 0 20px #ce40ed66}
+.tv-active-prompt{max-width:1140px;border:3px solid #ffde71;border-radius:24px;padding:25px 28px;background:radial-gradient(ellipse at 35% 0,#9938b355,transparent 60%),linear-gradient(145deg,#23165a,#0b225a);box-shadow:0 8px #7e3291,0 0 29px #df6af159;margin:10px auto 26px!important;font-size:clamp(2.1rem,4vw,4.4rem)!important}
+.tv-vote-prompt{border-color:#70ecff;box-shadow:0 8px #155c9c,0 0 30px #2de8fa65}
+.tv-results-prompt{border-color:#ffae69;box-shadow:0 8px #934a88,0 0 30px #fab65d65}
+.tv-show-status{border:2px solid #d7c8ff;padding:12px 22px;border-radius:14px;line-height:1.3;background:linear-gradient(130deg,#30216c,#151d50);font-size:clamp(1rem,1.5vw,1.4rem);font-weight:950}
+.tv-show-cards{grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));max-width:1370px}
+.tv-show-cards .tv-card{border-width:3px;border-color:#ff91d5;background:linear-gradient(145deg,#4b2368,#17235c)}
+.tv-show-cards .tv-card:nth-child(even){border-color:#66e9fa}
+.tv-show-cards .tv-card.win{border-color:#ffec8b;background:linear-gradient(145deg,#744b64,#36235d)}
+.tv-fx-toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;justify-content:center}
+.tv-fx-toolbar .sound-switch{font-size:.74rem}
+.tv-finale-title{font:1000 clamp(3.4rem,7.5vw,7rem)/.92 Impact,system-ui,sans-serif;letter-spacing:.03em;color:#ffea78;text-shadow:5px 6px #ab2678,9px 12px #2d185b,0 0 30px #fcaaff88}
+.tv-body .tv-winners{position:relative}
+.tv-body .tv-winner-card{background:radial-gradient(circle at 50% 0,#c84aaf5e,transparent 59%),linear-gradient(135deg,#4b266e,#182261);border:3px solid #ffe27a;box-shadow:0 7px #93326f,0 0 30px #ffe38c50}
+.tv-body .tv-finale-cast{position:relative;z-index:1}
+.tv-minimal-head{gap:18px}
+@media(max-width:900px){body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room){grid-template-columns:1fr}.room-layout:not(.showtime-room) .side-panel{order:2}.stage-show-heading .stage-name{font-size:clamp(2.1rem,8vw,3.2rem)}}
+@media(max-width:480px){.stage-show-heading{padding:12px}.stage-show-heading .stage-kicker{font-size:.65rem}.stage-show-heading .stage-counter{min-height:36px;font-size:1.3rem}.stage-show-heading .stage-tagline{font-size:.8rem}.stage-show-heading .stage-name{font-size:2.1rem}.show-sfx-switch{font-size:.69rem;padding:7px 9px}.room-head{align-items:flex-start}.tv-show-round{padding:5px 9px}.tv-show-mode{font-size:2rem}.tv-active-prompt{padding:14px;font-size:2rem!important}.tv-show-cards{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.scene-enter .stage-show-heading,.scene-enter .prompt-box,.scene-enter .winner-spotlight,.scene-enter .tv-winner-card,.stage-result-winner:before,.fx-confetti i{animation:none!important}.fx-confetti{display:none}}
+
+.tv-scene{flex:1;display:flex;flex-direction:column;min-height:calc(100vh - 70px)}

@@ -13,8 +13,8 @@ set "GAME_URL=http://localhost:3000"
 for /f "usebackq delims=" %%I in (`powershell -NoProfile -ExecutionPolicy Bypass -Command "$ip=Get-NetIPAddress -AddressFamily IPv4 -ErrorAction SilentlyContinue | Where-Object { $_.IPAddress -match '^(192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)' -and $_.InterfaceAlias -notmatch 'Virtual|vEthernet|Loopback|WSL' } | Select-Object -First 1 -ExpandProperty IPAddress; if($ip){Write-Output $ip}"`) do set "GAME_URL=http://%%I:3000"
 echo.
 echo ================================================
-echo               ECKEY THUMP v0.8
- echo        ALL 5 CHALLENGES + CHAOS FINALE
+echo               ECKEY THUMP v1.1
+ echo        GAME NIGHT FLOW UPDATE
  echo ================================================
 echo.
 echo Open this on the hosting PC: %GAME_URL%

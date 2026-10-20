@@ -34,7 +34,7 @@ function scoreEntries(entries, ballots, multiplier = 1) {
     const base = Array.from({length:j-i}, (_,k) => ([100,60][i+k] ?? 25)).reduce((a,b)=>a+b,0)/(j-i);
     for(let k=i;k<j;k++) {
       const entry=ordered[k], stats=weights.get(entry.id);
-      scored.push({entryId:entry.id, authorId:entry.authorId, rank:i+1, isJoint:j-i>1, points:roundHalfUp(base*multiplier), ...stats});
+      scored.push({entryId:entry.id, authorId:entry.authorId, rank:i+1, isJoint:j-i>1, points:roundHalfUp(base)*multiplier, ...stats});
     }
     i=j;
   }
@@ -169,7 +169,7 @@ function startRound(room) {
   const contractText=requiredWord?`Your answer MUST contain: ${requiredWord.toUpperCase()}`:
     type==='WIT'?promptFrom(room,getPool(contracts,rating)):null;
   room.round={id:randomId(),type,prompt,contract:contractText,requiredWord,
-    hands,swaps:new Set(),seeds:new Map(),assignments:new Map(),entries:[],ballots:new Map(),awards:[],startedAt:Date.now(),scored:false,skipReason:null,
+    hands,swaps:new Set(),seeds:new Map(),assignments:new Map(),entries:[],ballots:new Map(),readyForNext:new Set(),awards:[],startedAt:Date.now(),scored:false,skipReason:null,
     multiplier:type==='FINAL'?2:1};
   room.paused=false;room.pauseRemaining=null;room.phase=stage;room.deadline=Date.now()+roundClock(room,type,stage)*1000;room.revision++;
 }
@@ -271,9 +271,22 @@ function finishRound(room,skipReason) {
       if(award.rank===1 && !award.isJoint)p.firsts++;
     }
   }
-  room.results.push({index:room.roundIndex,type:round.type,prompt:round.prompt,awards:round.awards,skipped:!!skipReason});
+  room.results.push({index:room.roundIndex,type:round.type,prompt:round.prompt,awards:round.awards,skipped:!!skipReason,
+    highlights:round.entries.filter(e=>!e.hidden).filter(e=>round.awards.some(a=>a.entryId===e.id&&a.rank===1)).map(e=>({
+      text:e.text, authorName:room.players.find(p=>p.id===e.authorId)?.name||'Player',
+      points:round.awards.find(a=>a.entryId===e.id)?.points||0,
+      weight:round.awards.find(a=>a.entryId===e.id)?.weight||0,
+      avatar:room.players.find(p=>p.id===e.authorId)?.avatar||'adult-01'
+    }))});
   // Relaxed games wait for the host: no automatic countdown during chatting/laughter.
   room.phase='RESULTS';room.deadline=room.config.pace==='relaxed'?null:Date.now()+25000;room.revision++;
+}
+function markReady(room, player) {
+  if(room.phase!=='RESULTS')throw Error('Wait until the results are shown.');
+  if(!room.round.readyForNext)room.round.readyForNext=new Set();
+  if(!room.round.readyForNext.has(player.id)){
+    room.round.readyForNext.add(player.id);room.revision++;
+  }
 }
 function nextRound(room) {
   if(room.phase!=='RESULTS') throw Error('Finish this round first.');
@@ -328,7 +341,10 @@ function snapshot(room, viewerId, isTV=false) {
   if(round) {
     const common={id:round.id,type:round.type,label:LABELS[round.type],prompt:round.prompt,contract:round.contract,multiplier:round.multiplier,
       submissionCount:room.phase==='SEED'?round.seeds.size:round.entries.length,voteCount:round.ballots.size,eligibleVotes:liveCandidates(room).length,
-      submitted:room.phase==='SEED'?round.seeds.has(viewerId):!!round.entries.find(e=>e.authorId===viewerId),swapUsed:!isTV&&round.swaps.has(viewerId),voted:round.ballots.has(viewerId),skipReason:round.skipReason};
+      submitted:room.phase==='SEED'?round.seeds.has(viewerId):!!round.entries.find(e=>e.authorId===viewerId),swapUsed:!isTV&&round.swaps.has(viewerId),voted:round.ballots.has(viewerId),skipReason:round.skipReason,
+      readyCount:round.readyForNext?.size||0,
+      youReady:!isTV&&!!round.readyForNext?.has(viewerId),
+      nextChallenge:room.playlist[room.roundIndex+1]?LABELS[room.playlist[room.roundIndex+1]]:'CHAMPION REVEAL'};
     if(room.phase==='SUBMIT' && !isTV) {
       if(round.type==='CARD'||round.type==='DOUBLE') common.hand=round.hands[viewerId]||[];
       if(round.type==='CONTEXT') common.assignedSeed=round.assignments.get(viewerId)?.seed||null;
@@ -351,6 +367,11 @@ function snapshot(room, viewerId, isTV=false) {
     base.round=common;
   }
   if(room.phase==='COMPLETE') {
+    const candidates=room.results.flatMap(result=>result.highlights||[]);
+    candidates.sort((a,b)=>b.weight-a.weight || b.points-a.points);
+    base.nightRecap={roundsPlayed:room.results.length, topMoments:candidates.slice(0,3),
+      answersSubmitted:room.results.reduce((total,r)=>total+(r.awards?.length||0),0),
+      totalBallots:room.results.reduce((total,r)=>total+(r.awards||[]).reduce((sub,a)=>sub+a.gold,0),0)};
     const ordered=sortedPlayers(room);
     const top=ordered[0];
     base.champions=ordered.filter(p=>p.score===top.score && p.firsts===top.firsts && p.golds===top.golds && p.silvers===top.silvers).map(p=>({id:p.id,name:p.name,avatar:p.avatar}));
@@ -358,4 +379,4 @@ function snapshot(room, viewerId, isTV=false) {
   return base;
 }
 module.exports={ swapCard,acceptSeed, newRoom,addPlayer,setAvatar,removePlayer,findPlayer,mintDisplay,verifyDisplay,startGame,playAgain,acceptAnswer,acceptVote,finishRound,nextRound,tick,snapshot,
-  scoreEntries,validateName,validateAnswer,hash,randomId,sortedPlayers };
+  scoreEntries,validateName,validateAnswer,hash,randomId,sortedPlayers,markReady };

@@ -1,8 +1,8 @@
 {
   "name": "eckey-thump-game-night",
-  "version": "0.9.2",
+  "version": "1.1.0",
   "private": true,
-  "description": "ECKEY THUMP private games night with 1,200 original Cheeky/Adult-heavy comedy entries and no-repeat shuffle decks",
+  "description": "ECKEY THUMP v1.1 Games Night Flow, ready signals, highlights, timing and guide panels",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",

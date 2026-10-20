@@ -1,0 +1,45 @@
+/* ECKEY THUMP 1.1: readable game-night flow, designed for real phones and TVs. */
+.round-guide{display:flex;align-items:flex-start;gap:14px;padding:16px 17px;margin:18px 0;border:2px solid #6fdefa;border-radius:16px;background:linear-gradient(135deg,#1c235d,#2a164a);box-shadow:4px 5px 0 #13163a,0 0 19px #25d8ff2b}
+.round-guide-icon{flex:0 0 41px;height:41px;display:grid;place-items:center;border-radius:10px;background:#fbea6f;color:#2d1258;font-size:1.55rem;transform:rotate(-8deg);box-shadow:3px 3px #e94eb7}
+.round-guide strong{display:block;font:1000 clamp(1.12rem,2.1vw,1.4rem) Impact,'Arial Black',system-ui,sans-serif;letter-spacing:.025em;color:#ffea86;margin:0 0 6px}
+.round-guide p{margin:0 0 7px;color:#fff;font-size:.96rem;line-height:1.35;font-weight:760}
+.round-guide small{display:block;color:#c9d8ff;line-height:1.4;font-size:.83rem}
+.ballot-tracker{position:sticky;top:0;z-index:4;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:13px 0 15px;background:#17133bfa;border:2px solid #7056a6;padding:9px;border-radius:14px;box-shadow:0 8px 25px #0008}
+.ballot-tracker span{display:flex;align-items:center;justify-content:space-between;gap:8px;border-radius:8px;background:#242158;border:1px solid #7c6ca7;color:#fff;padding:10px 12px;font-size:.82rem;font-weight:900}
+.ballot-tracker span:first-child{border-color:#ffd36d}.ballot-tracker span:last-child{border-color:#a9e7ff}
+.ballot-tracker strong{font-size:.78rem;color:#ffe996;white-space:nowrap}
+.ready-zone{border:3px solid #ffe271;border-radius:20px;padding:19px;margin:25px 0 5px;background:radial-gradient(ellipse at 100% 0,#a949bc77,transparent 50%),linear-gradient(125deg,#361952,#101e54);box-shadow:5px 7px 0 #7c308f,0 0 24px #ff93d455}
+.ready-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.ready-top>div:first-child{display:flex;flex-direction:column;gap:5px}
+.ready-top>div:first-child strong{font:1000 clamp(1.35rem,2.7vw,2.15rem) Impact,system-ui,sans-serif;letter-spacing:.02em;color:#fff}
+.ready-count{border-radius:10px;padding:10px 13px;color:#291046;background:#fbe471;font-weight:1000;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ready-meter{display:block;width:100%;height:15px;border:2px solid #5b497b;border-radius:50px;background:#110e2e;overflow:hidden;margin:15px 0;accent-color:#f6dc6b}
+.ready-meter::-webkit-progress-bar{background:#110e2e}
+.ready-meter::-webkit-progress-value{border-radius:50px;background:linear-gradient(90deg,#41e8ff,#f6dc6b,#fa79d3)}
+.ready-meter::-moz-progress-bar{border-radius:50px;background:linear-gradient(90deg,#41e8ff,#f6dc6b,#fa79d3)}
+.ready-thanks{font-size:1.08rem;font-weight:850;color:#b8ffa2;margin:15px 0}
+.ready-host-note{font-size:.86rem;color:#e1d5f3;line-height:1.5;margin-top:10px}
+.ready-zone .btn.wide{margin-top:12px}
+.night-recap{border:2px solid #79ddfb;background:linear-gradient(145deg,#18255b,#2d1547);border-radius:20px;padding:20px;margin:24px 0 8px}
+.recap-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0 23px}
+.recap-stats div{padding:12px;border-radius:10px;text-align:center;border:1px solid #8876b6;background:#1c1743}
+.recap-stats b{display:block;font:1000 clamp(1.7rem,4vw,2.3rem)/1 Impact,system-ui,sans-serif;color:#ffe16d;margin-bottom:7px}
+.recap-stats span{font-size:.7rem;line-height:1.2;letter-spacing:.035em;color:#c6dfff;font-weight:900}
+.recap-quote{padding:13px 15px;border-left:5px solid #ffdf64;border-radius:10px;background:#160f36;margin-top:11px}
+.recap-quote strong{color:#ffe38c;font-size:.82rem}.recap-quote p{margin:7px 0 0;font-size:1rem;line-height:1.4;font-weight:750;color:#fff;overflow-wrap:anywhere}
+.tv-recap{width:min(960px,95%);padding:22px;border:3px solid #fce07c;background:linear-gradient(125deg,#46195b,#17235c);border-radius:20px;margin:20px auto;box-shadow:0 10px 32px #0007}
+.tv-recap strong,.tv-recap small{display:block;color:#ffe58d;letter-spacing:.06em;font-weight:1000}
+.tv-recap blockquote{font-size:clamp(1.4rem,2.8vw,2.4rem);font-weight:900;line-height:1.25;max-width:900px;margin:12px auto}
+/* Reveal answers clearly but with TV-style stagger rather than an instant wall of cards. */
+.tv-body .scene-enter .tv-show-cards .tv-card{animation:flow-reveal .38s cubic-bezier(.18,1.15,.42,1) both;animation-delay:0ms}
+.tv-body .scene-enter .tv-show-cards .tv-card:nth-child(2){animation-delay:95ms}
+.tv-body .scene-enter .tv-show-cards .tv-card:nth-child(3){animation-delay:190ms}
+.tv-body .scene-enter .tv-show-cards .tv-card:nth-child(4){animation-delay:285ms}
+.tv-body .scene-enter .tv-show-cards .tv-card:nth-child(5){animation-delay:380ms}
+.tv-body .scene-enter .tv-show-cards .tv-card:nth-child(6){animation-delay:475ms}
+.tv-body .scene-enter .tv-show-cards .tv-card:nth-child(7){animation-delay:570ms}
+.tv-body .scene-enter .tv-show-cards .tv-card:nth-child(8){animation-delay:665ms}
+.tv-body .scene-enter .tv-show-cards .tv-card:nth-child(9){animation-delay:760ms}
+@keyframes flow-reveal{from{opacity:.4;filter:brightness(.75);transform:translateY(18px) scale(.97)}to{opacity:1;filter:brightness(1);transform:translateY(0) scale(1)}}
+@media(max-width:520px){.ballot-tracker span{display:block;text-align:center;padding:8px}.ballot-tracker strong{display:block;margin-top:3px}.ready-zone,.night-recap{padding:14px}.round-guide{gap:9px;padding:12px}.round-guide-icon{flex-basis:34px;height:34px}.recap-stats div{padding:8px 4px}.recap-stats span{font-size:.59rem}}
+@media(prefers-reduced-motion:reduce){.ready-meter span,.tv-body .scene-enter .tv-show-cards .tv-card{animation:none!important;transition:none!important}}

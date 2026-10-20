@@ -9,7 +9,7 @@ const game=require('../server/game');
 test('both player and TV pages preload the shared avatar registry',()=>{
  for(const page of ['public/index.html','public/tv/index.html']){
   const html=fs.readFileSync(path.join(root,page),'utf8');
-  assert.match(html, /assets\/avatars\.js\?v=0\.9\.1/);
+  assert.match(html, /assets\/avatars\.js\?v=1\.1\.0/);
   assert.ok(html.indexOf('/assets/avatars.js')<html.indexOf('/assets/'+(page.includes('/tv/')?'tv.js':'app.js')));
  }
 });
