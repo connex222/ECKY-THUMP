@@ -1,3 +1,32 @@
+# ECKEY THUMP v1.4 — Clean Chaos UI Rebuild
+
+**Play with 3–12 contestants on phones, with an optional TV screen and up to 30 cosmetic hecklers.**
+
+### Run
+
+- **Windows:** extract this package and double-click `START-GAME-WINDOWS.bat`. Requires Node.js 20.11+.
+- **Other systems:** run `node server/index.js`, then open `http://localhost:3000`.
+- **Tests:** `npm test`. No third-party npm dependencies required.
+- **Across houses:** deploy the complete folder to one Node.js hosting service (e.g. Render) and use the common HTTPS URL.
+
+### What changed
+
+- Home: simplified, high-contrast seaside game cover with active Host / Join controls; proper Family / Cheeky / Adult, length and pace choices in the host form.
+- Lobby: enormous room code, real server-generated join QR, legible player grid, consolidated settings and a single clear Start Game button. Avatars remain the original user-selected images.
+- TV lobby: readable code / QR and cast at distance; music and SFX remain opt-in.
+- Gameplay: unified cream/navy/red/yellow treatment on questions, cards, voting, result reveals and phone screens; no artwork behind the answer cards.
+- Corrected the TV timer initialization (`clockOffset`) discovered in the browser-state test.
+
+**Avatar preservation:** no changes to the avatar registry, avatar IDs, mappings, rendering functions, original images or celebration artwork. The automated avatar baseline test verifies all 42 assets and mappings byte-for-byte against v1.1. The new decorative donkey, hen and seagull art is entirely separate from selectable avatars.
+
+**Technical architecture remains Node.js HTTP + Server-Sent Events**, not WebSockets; localStorage session rejoin, scoring, five modes, content packs, audience features and age confirmations remain intact.
+
+**Limitations:** Screenshots shipped as previews use simulated states; the browser sandbox could not directly browse the locally running HTTP service. Live multi-phone/TV QA is still necessary. Room state is in memory and resets when the server redeploys. An adult checkbox is not formal age verification.
+
+See `docs/UI-REBUILD-v1.4.md` for design and verification.
+
+---
+
 # ECKEY THUMP — v1.3 Seaside Poster UI
 
 The front page, phone waiting room and TV lobby now follow the chosen chaotic British seaside postcard reference. The new poster illustration is served locally as optimised WebP, with responsive postcard colours, readable host/join controls and a bold text wordmark. Existing avatars and game engine logic are preserved.

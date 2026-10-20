@@ -87,7 +87,7 @@
     S.snap=snap;choice=snap.you?.avatar||choice;S.connected=true;document.body.classList.remove('net-offline');render();
   }
   function updateConnection(){const el=document.getElementById('connection-status');if(el){el.textContent=S.connected?'● Connected':'◌ Reconnecting…';el.style.color=S.connected?'#b3f1c8':'#ffbbaf';}}
-  const wordmark=(mode='big')=>`<div class="poster-logo poster-logo--${mode}" aria-label="ECKEY THUMP"><span>ECKEY</span><span>THUMP</span></div>`;
+  const wordmark=(mode='big')=>`<div class="ecky-v14-logo ecky-v14-logo--${mode}" role="img" aria-label="ECKEY THUMP"><span>ECKEY</span><span>THUMP</span></div>`;
   const posterArt=(extra='')=>`<img class="postcard-poster-art ${extra}" src="/assets/ui/ecky-seaside-poster-reference.webp" alt="ECKEY THUMP seaside postcard style poster" loading="eager" decoding="async">`;
   const soundControl=()=>`<button type="button" class="sound-switch" data-action="toggle-sound" aria-pressed="${window.ECKEY_AUDIO?.enabled?'true':'false'}" aria-label="${window.ECKEY_AUDIO?.enabled?'Mute lobby music':'Play lobby music'}"><span aria-hidden="true">${window.ECKEY_AUDIO?.enabled?'♫':'♪'}</span><strong>${window.ECKEY_AUDIO?.enabled?'MUSIC ON':'PLAY LOBBY MUSIC'}</strong></button>`;
   const sfxControl=()=>`<button type="button" class="sound-switch show-sfx-switch" data-action="toggle-sfx" aria-pressed="${!!window.ECKEY_SFX?.enabled}" aria-label="${window.ECKEY_SFX?.enabled?'Turn off show sound effects':'Enable show sound effects'}"><span aria-hidden="true">${window.ECKEY_SFX?.enabled?'🔊':'🔇'}</span><strong>${window.ECKEY_SFX?.enabled?'SHOW SFX ON':'ENABLE SHOW SFX'}</strong></button>`;
@@ -97,73 +97,78 @@
   function confetti(){const colors=['#ffe76a','#ff60c9','#5ce8ff','#a8ff79'];return `<div class="fx-confetti" aria-hidden="true">${Array.from({length:22},(_,i)=>`<i style="--x:${(i*43)%96+2}%;--d:${(i*17)%15/10}s;--r:${i*37}deg;--drift:${((i%5)-2)*28}px;--c:${colors[i%4]}"></i>`).join('')}</div>`;}
   function nav(){return '';}
   function syncScene(){window.ECKEY_AUDIO?.setScene(!S.snap||S.snap.phase==='LOBBY'?'LOBBY':'GAME');}
+  // The title screen is a cover, not a form. Both calls-to-action open the
+  // corresponding accessible dialog, with no duplicated or inactive buttons.
   function renderLanding(){
     const entry=esc(q.get('room')||'');
     const lastCode=localStorage.getItem('eckey-last-room');
-    app.innerHTML=nav()+`<section class="hero postcard-splash"><div class="hero-tools"><div class="show-audio-controls">${soundControl()}${sfxControl()}</div><span class="hero-private">★ INVITE-ONLY PARTY GAME ★</span></div>
-      <div class="postcard-splash-grid"><div class="postcard-splash-copy"><div class="showtime-eyebrow">A DAFT BRITISH PARTY GAME FOR GAME NIGHTS, HEN DOS &amp; STAG DOS</div>
-        ${wordmark('hero')}
-        <div class="poster-kicker-strip"><span>SAME DAFT PEOPLE</span><span>BIGGER LAUGHS</span><span>PROPER GOOD TIMES</span></div>
-        <p class="poster-lede">Host a room, wave your mates in, and turn your telly and phones into one giant cheeky seaside postcard. No downloads. No faff. Just full-throttle daftness.</p>
-        <div class="poster-statbar"><span>3–12 PLAYERS</span><span>15–30 MINS</span><span>PHONES + TV</span><span>FAMILY OR AFTER DARK</span></div>
-        <div class="hero-ribbon poster-ribbon"><span class="ribbon-chip">🫏 DONKEY-RIDE ENERGY</span><span class="ribbon-chip">🪿 BLOODY SEAGULL CHAOS</span><span class="ribbon-chip">🍻 HEN &amp; STAG FRIENDLY</span></div>
-      </div><div class="postcard-splash-art"><div class="poster-art-frame">${posterArt('landing-poster')}</div><div class="poster-sticker poster-sticker-left">SAME GAMES,<br>MORE MAYHEM</div><div class="poster-sticker poster-sticker-right">SEAGULLS NOT INCLUDED*</div></div></div></section>
-      <main class="layout postcard-front-grid"><section class="panel postcard-entry-panel host-panel"><div class="host-join-banner host-banner-red"><span class="host-join-icon">👥</span><div><strong>HOST A GAME</strong><small>Get your mates together</small></div></div><p class="entry-copy">You are the ringleader. Set the humour, pick the pace, and unleash the nonsense.</p>
-       <form id="create-form"><div id="host-avatar-picker"></div><label class="label" for="host-name">Your nickname</label><input class="field" id="host-name" maxlength="22" placeholder="e.g. Captain Chaos" required autocomplete="nickname">
-       <fieldset class="setup-group" aria-describedby="humour-description"><legend class="label">Humour level — pick one</legend>
-         <p class="setup-help" id="humour-description">Choose how outrageous tonight's prompts can get.</p>
-         <div class="setup-options" role="group" aria-label="Humour level choices">
-           <label class="setup-choice"><input type="radio" name="humour" value="clean" checked><span class="setup-choice-face"><span class="setup-choice-icon" aria-hidden="true">☺</span><strong>Family Friendly</strong><small>Less saucy stuff</small></span></label>
-           <label class="setup-choice"><input type="radio" name="humour" value="cheeky"><span class="setup-choice-face"><span class="setup-choice-icon" aria-hidden="true">😉</span><strong>Cheeky</strong><small>Innuendo &amp; embarrassment</small></span></label>
-           <label class="setup-choice"><input type="radio" name="humour" value="adult"><span class="setup-choice-face"><span class="setup-choice-icon" aria-hidden="true">🔥</span><strong>After Dark 18+</strong><small>Ruder, stronger comedy</small></span></label>
-         </div>
-       </fieldset>
-       <fieldset class="setup-group"><legend class="label">Game length — pick one</legend>
-         <div class="setup-options" role="group" aria-label="Game length choices">
-           <label class="setup-choice"><input type="radio" name="length" value="quick"><span class="setup-choice-face"><span class="setup-choice-icon" aria-hidden="true">⚡</span><strong>15 mins</strong><small>Quick taster</small></span></label>
-           <label class="setup-choice"><input type="radio" name="length" value="standard"><span class="setup-choice-face"><span class="setup-choice-icon" aria-hidden="true">🏆</span><strong>30 mins</strong><small>Best all-rounder</small></span></label>
-           <label class="setup-choice"><input type="radio" name="length" value="party" checked><span class="setup-choice-face"><span class="setup-choice-icon" aria-hidden="true">🎉</span><strong>Full Games Night</strong><small>6 rounds · all 5 challenges</small></span></label>
-         </div>
-       </fieldset>
-       <fieldset class="setup-group"><legend class="label">Pace of play — pick one</legend>
-         <div class="setup-options setup-options-two" role="group" aria-label="Pace of play choices">
-           <label class="setup-choice"><input type="radio" name="pace" value="relaxed" checked><span class="setup-choice-face"><span class="setup-choice-icon" aria-hidden="true">🍻</span><strong>Chilled</strong><small>Host advances results</small></span></label>
-           <label class="setup-choice"><input type="radio" name="pace" value="lively"><span class="setup-choice-face"><span class="setup-choice-icon" aria-hidden="true">🚀</span><strong>Chaotic</strong><small>Fast timers · auto-advance</small></span></label>
-         </div>
-       </fieldset>
-       <label class="checkline hidden" id="host-adult-wrap"><input id="host-adult" type="checkbox">I confirm that every participant will be an adult (18+). This is a prototype with limited content moderation.</label>
-       <button type="submit" class="btn wide poster-action poster-action-host">HOST A GAME <span aria-hidden="true">›</span></button>
-       <div class="fine">Just for invited friends. This version has no payments, accounts or public matchmaking.</div></form></section>
-       <section class="panel postcard-entry-panel join-panel"><div class="host-join-banner host-banner-blue"><span class="host-join-icon">⚡</span><div><strong>JOIN A GAME</strong><small>Enter a room code</small></div></div><p class="entry-copy">Already got a code? Nip straight in and choose your level of daftness.</p>
-        <form id="join-form"><div id="join-avatar-picker"></div><label class="label" for="join-code">Six-character room code</label><input class="field" id="join-code" maxlength="6" placeholder="ABC123" value="${entry}" required autocapitalize="characters" style="text-transform:uppercase;letter-spacing:.19em;font-weight:800">
-        <label class="label" for="join-name">Your nickname</label><input class="field" id="join-name" maxlength="22" required placeholder="e.g. Biscuit Bandit" autocomplete="nickname">
-        <label id="join-adult-wrap" class="checkline"><input id="join-adult" type="checkbox">I confirm I am 18 or older (optional for Family Friendly; required for After Dark).</label>
-        <button type="submit" class="btn pink wide poster-action poster-action-join">JOIN A GAME <span aria-hidden="true">›</span></button></form>
-        ${lastCode&&/^[A-Z2-9]{6}$/.test(lastCode)&&localStorage.getItem(storageKey(lastCode))?`<div class="rejoin-card"><strong>STILL KNOCKING ABOUT?</strong><span>Your last room was ${esc(lastCode)}.</span>${btn('rejoin','REJOIN LAST ROOM','dark small')}</div>`:''}
-        <div class="postcard-mini-note">Scan the room QR from the TV lobby if you're already in the same room.</div></section></main>`;
-    // Preserve the original chooser and its avatar ID/asset binding behaviour.
+    const previousSession=lastCode&&/^[A-Z2-9]{6}$/.test(lastCode)&&localStorage.getItem(storageKey(lastCode));
+    app.innerHTML=nav()+`<div class="v14-home">
+      <div class="v14-utility"><span class="v14-kicker">★ A PRIVATE BRITISH PARTY GAME ★</span><div class="show-audio-controls">${soundControl()}${sfxControl()}</div></div>
+      <section class="v14-cover" aria-label="ECKEY THUMP game night">
+        <div class="v14-sky" aria-hidden="true"></div>
+        <img class="v14-decor v14-decor-donkey" src="/assets/ui/donkey-poster.webp" alt="" aria-hidden="true">
+        <img class="v14-decor v14-decor-hen" src="/assets/ui/hen-poster.webp" alt="" aria-hidden="true">
+        <img class="v14-decor v14-decor-seagull" src="/assets/ui/seagull-poster.webp" alt="" aria-hidden="true">
+        <div class="v14-cover-content"><p class="v14-eyebrow">THE BROWSER PARTY GAME</p><h1 class="visually-hidden">ECKEY THUMP</h1>
+          ${wordmark('hero')}
+          <p class="v14-tagline">SAME DAFT PEOPLE. BIGGER LAUGHS.</p>
+          <div class="v14-main-actions"><button type="button" class="v14-launch v14-launch-host" data-action="go-host"><span aria-hidden="true">●●●</span><span>HOST A GAME<small>Get your mates together</small></span><b aria-hidden="true">›</b></button>
+          <button type="button" class="v14-launch v14-launch-join" data-action="go-join"><span aria-hidden="true">⚡</span><span>JOIN A GAME<small>Already have a room code?</small></span><b aria-hidden="true">›</b></button></div>
+          <div class="v14-home-modes"><span class="v14-mode-label">CHOOSE YOUR VIBE</span><button type="button" data-action="home-family" class="v14-mode is-on" aria-pressed="true">☀ FAMILY FRIENDLY</button><button type="button" data-action="home-adult" class="v14-mode" aria-pressed="false">♥ AFTER DARK · 18+</button></div>
+        </div><span class="v14-side-note">🫏 GAMES · MATES · MAYHEM</span></section>
+      <div class="v14-feature-strip"><span>3–12 PLAYERS</span><span>2 / 4 / 6 ROUNDS</span><span>NO DOWNLOADS</span><span>PHONES + TV</span></div>
+      <section class="v14-get-started" id="game-setup" aria-label="Start playing">
+        <form id="create-form" class="v14-entry" hidden><div class="v14-entry-head"><div><span class="v14-section-label">01 / HOST</span><h2>GET THE MATES IN!</h2><p>Set the tone, pick your alter ego, then share your code.</p></div><button type="button" class="v14-close" data-action="close-setup" aria-label="Close">✕</button></div>
+          <label class="label" for="host-name">YOUR NAME</label><input class="field" id="host-name" maxlength="22" placeholder="Captain Chaos" required autocomplete="nickname">
+          <details class="v14-avatar-details"><summary>CHOOSE YOUR CHARACTER <span>32 available ▾</span></summary><div id="host-avatar-picker"></div></details>
+          <fieldset class="setup-group" aria-describedby="humour-description"><legend class="label">HUMOUR LEVEL</legend><p class="setup-help" id="humour-description">All players in an Adult room must confirm they are 18+.</p>
+            <div class="setup-options" role="group" aria-label="Humour level choices">
+              <label class="setup-choice"><input type="radio" name="humour" value="clean" checked><span class="setup-choice-face"><span class="setup-choice-icon" aria-hidden="true">☀</span><strong>Family</strong><small>Keep it clean</small></span></label>
+              <label class="setup-choice"><input type="radio" name="humour" value="cheeky"><span class="setup-choice-face"><span class="setup-choice-icon" aria-hidden="true">😉</span><strong>Cheeky</strong><small>A bit saucy</small></span></label>
+              <label class="setup-choice"><input type="radio" name="humour" value="adult"><span class="setup-choice-face"><span class="setup-choice-icon" aria-hidden="true">♥</span><strong>After Dark</strong><small>Adults only</small></span></label>
+            </div></fieldset>
+          <fieldset class="setup-group"><legend class="label">GAME LENGTH</legend><div class="setup-options" role="group" aria-label="Game length choices">
+              <label class="setup-choice"><input type="radio" name="length" value="quick"><span class="setup-choice-face"><strong>QUICK</strong><small>2 rounds</small></span></label>
+              <label class="setup-choice"><input type="radio" name="length" value="standard"><span class="setup-choice-face"><strong>CLASSIC</strong><small>4 rounds</small></span></label>
+              <label class="setup-choice"><input type="radio" name="length" value="party" checked><span class="setup-choice-face"><strong>EPIC</strong><small>6 rounds</small></span></label>
+            </div></fieldset>
+          <fieldset class="setup-group"><legend class="label">PACE OF PLAY</legend><div class="setup-options setup-options-two" role="group" aria-label="Pace of play choices">
+              <label class="setup-choice"><input type="radio" name="pace" value="relaxed" checked><span class="setup-choice-face"><strong>🍻 CHILLED</strong><small>Host controls breaks</small></span></label>
+              <label class="setup-choice"><input type="radio" name="pace" value="lively"><span class="setup-choice-face"><strong>⚡ CHAOTIC</strong><small>Quick automatic rounds</small></span></label>
+            </div></fieldset>
+          <label class="checkline hidden" id="host-adult-wrap"><input id="host-adult" type="checkbox">I confirm I am 18+ and understand every player must confirm individually.</label>
+          <button type="submit" class="btn wide v14-submit v14-submit-host">CREATE MY ROOM →</button>
+        </form>
+        <form id="join-form" class="v14-entry" hidden><div class="v14-entry-head"><div><span class="v14-section-label">02 / JOIN</span><h2>YOU'RE ONE OF US!</h2><p>Enter the six-character code your mate sent.</p></div><button type="button" class="v14-close" data-action="close-setup" aria-label="Close">✕</button></div>
+          <label class="label" for="join-code">YOUR ROOM CODE</label><input class="field" id="join-code" maxlength="6" placeholder="ABC123" value="${entry}" required autocapitalize="characters" autocomplete="off">
+          <label class="label" for="join-name">YOUR NAME</label><input class="field" id="join-name" maxlength="22" placeholder="Disco Donna" required autocomplete="nickname">
+          <details class="v14-avatar-details"><summary>CHOOSE YOUR CHARACTER <span>32 available ▾</span></summary><div id="join-avatar-picker"></div></details>
+          <label id="join-adult-wrap" class="checkline"><input id="join-adult" type="checkbox">I confirm I am 18+ (required in After Dark rooms).</label>
+          <button type="submit" class="btn wide v14-submit v14-submit-join">JOIN THE MAYHEM →</button></form>
+      </section>
+      ${previousSession?`<div class="v14-rejoin">Still knocking about in room <strong>${esc(lastCode)}</strong>? ${btn('rejoin','REJOIN LAST GAME','dark small')}</div>`:''}
+      <footer class="v14-footer">GAMES · MATES · MAYHEM &nbsp; | &nbsp; PRIVATE INVITES ONLY &nbsp; | &nbsp; BAD JOKES ENCOURAGED</footer>
+    </div>`;
+    // Keep avatarPicker and all original avatar mappings exactly as before.
     document.getElementById('host-avatar-picker').innerHTML=avatarPicker();document.getElementById('join-avatar-picker').innerHTML=avatarPicker();
     const chosen=name=>document.querySelector(`input[name="${name}"]:checked`)?.value;
     document.querySelectorAll('input[name="humour"]').forEach(input=>input.addEventListener('change',()=>{
       document.getElementById('host-adult-wrap').classList.toggle('hidden',chosen('humour')!=='adult');
+      const adult=chosen('humour')==='adult';document.querySelectorAll('[data-action="home-adult"]').forEach(b=>{b.classList.toggle('is-on',adult);b.setAttribute('aria-pressed',String(adult));});document.querySelectorAll('[data-action="home-family"]').forEach(b=>{b.classList.toggle('is-on',!adult);b.setAttribute('aria-pressed',String(!adult));});
     }));
     document.getElementById('create-form').addEventListener('submit',async ev=>{
       ev.preventDefault();const button=ev.submitter;button.disabled=true;
-      try{const data=await api('/api/rooms','POST',{name:document.getElementById('host-name').value,rating:chosen('humour'),
-        length:chosen('length'),pace:chosen('pace'),avatar:choice,adultConfirmed:document.getElementById('host-adult').checked},false);
-        startSession(data.code,data.secret);
-      }catch(err){toastShow(err.message);}finally{button.disabled=false;}
+      try{const data=await api('/api/rooms','POST',{name:document.getElementById('host-name').value,rating:chosen('humour'),length:chosen('length'),pace:chosen('pace'),avatar:choice,adultConfirmed:document.getElementById('host-adult').checked},false);startSession(data.code,data.secret);}
+      catch(err){toastShow(err.message);}finally{button.disabled=false;}
     });
     document.getElementById('join-form').addEventListener('submit',async ev=>{
       ev.preventDefault();const button=ev.submitter;button.disabled=true;
       const code=document.getElementById('join-code').value.toUpperCase().trim().replace(/[^A-Z2-9]/g,'');
-      try{const data=await api(`/api/rooms/${code}/join`,'POST',{name:document.getElementById('join-name').value,avatar:choice,adultConfirmed:document.getElementById('join-adult').checked},false);
-        startSession(data.code,data.secret);
-      }catch(err){
-        if(/confirm that you are an adult/i.test(err.message)){document.getElementById('join-adult-wrap').classList.remove('hidden');}
-        toastShow(err.message);
-      }finally{button.disabled=false;}
+      try{const data=await api(`/api/rooms/${code}/join`,'POST',{name:document.getElementById('join-name').value,avatar:choice,adultConfirmed:document.getElementById('join-adult').checked},false);startSession(data.code,data.secret);}
+      catch(err){toastShow(err.message);}finally{button.disabled=false;}
     });
+    if(entry){document.querySelector('[data-action="go-join"]')?.click();}
   }
   function shareControls(s){return `<div class="utility-actions">${btn('copy-code','Copy code','dark small')}${btn('copy-link','Copy invite','dark small')}${s.you?.isHost?btn('tv','↗ OPEN TV','small')+btn('copy-tv','Copy TV link','dark small'):''}</div>`;}
   function scoreRows(players){return `<div class="player-list">${players.map((p,i)=>`<div class="player-row"><span class="identity">${avatar(p.avatar)}<strong>${i===0&&p.score?'♛ ':''}${esc(p.name)}</strong></span><span class="right"><span class="${p.online?'online-dot':'online-dot offline-dot'}"></span><strong class="stat">${num(p.score)} pts</strong></span></div>`).join('')}</div>`;}
@@ -178,19 +183,16 @@
     <div class="utility-actions">${btn('copy-link','COPY INVITE','dark small')}${btn('leave','LEAVE','ghost small')}</div></section></main>`;
   }
   function renderLobby(s){const waiting=Math.max(0,3-s.players.length);const chips=(s.config.length==='quick'?['CARD CLASH','QUICK WIT']:s.config.length==='standard'?['CARD CLASH','QUICK WIT','CONTEXT COLLAPSE','THE LAST LAUGH']:['CARD CLASH','QUICK WIT','CONTEXT COLLAPSE','DOUBLE TROUBLE','CARD CLASH','THE LAST LAUGH']);
-    return `<section class="panel stage-panel showtime-lobby postcard-lobby-shell"><div class="lobby-ticker">★ SAME DAFT PEOPLE ★ BIGGER LAUGHS ★ ROOM ${esc(s.code)} ★ ${s.players.length} ON THE PIER ★</div>
-      <div class="lobby-stage postcard-lobby-stage"><div class="lobby-stage-top"><div class="show-audio-controls">${soundControl()}${sfxControl()}</div><span class="showtime-status">${waiting?'POLISHING THE FLATCAPS':'CAST ASSEMBLED'}</span></div>
-      <div class="lobby-stage-hero"><div class="lobby-logo">${wordmark('lobby')}</div><h1 class="lobby-heading">${waiting?'POLISHING THE FLATCAPS…':'RIGHT, LET THE MAYHEM BEGIN!'}</h1>
-      <p class="lobby-lede">${waiting?`Just ${waiting} more ${waiting===1?'person':'people'} needed before the pier opens.`:'The gang is here. The host can unleash the chaos.'} Hen dos, stag dos, sore losers and all.</p>
-      <div class="poster-kicker-strip lobby-strip"><span>HEN DOS</span><span>STAG DOS</span><span>PROPER LAUGHS</span></div></div>
-      <div class="lobby-stage-cast" aria-label="Players in the lobby">${s.players.map((p,i)=>`<div class="stage-contestant" style="--i:${i%5}">${avatar(p.avatar)}<strong>${esc(p.name)}</strong><span>${p.online?'● READY':'◌ OFFLINE'}</span></div>`).join('')}</div>
-      </div>
-      <div class="lobby-join-panel postcard-join-card"><div class="lobby-qr-frame"><img src="/api/rooms/${esc(s.code)}/join-qr.svg" alt="Scan this QR code to join ECKEY THUMP room ${esc(s.code)}"></div><div class="lobby-join-details"><span class="eyebrow">SCAN TO PLAY</span><div class="lobby-invite-code">${esc(s.code)}</div><p>Scan the code with your phone camera or type this room code on the game website.</p><div class="lobby-invite-actions">${btn('copy-link','COPY INVITE LINK','small')}${btn('copy-code','COPY CODE','dark small')}</div><small>No downloads. Just good times.</small></div></div>
-      ${ratingSwitch(s)}${consentCallout(s)}
-      <div class="lobby-agenda postcard-programme"><div><span class="eyebrow">UP NEXT · THE RIDICULOUS PROGRAMME</span><div class="challenge-sequence">${chips.map((name,i)=>`<span class="challenge-chip">${i+1}. ${name}</span>`).join('')}</div></div><p class="sub">${esc(s.config.rating.toUpperCase())} HUMOUR · ${esc(s.config.pace.toUpperCase())} PACE · ${s.totalRounds||chips.length} ROUNDS</p></div>
-      <div class="your-avatar"><span class="eyebrow">YOUR ON-SCREEN ALTER EGO</span><div>${avatar(s.you.avatar)} <strong>${esc(AVATARS.find(a=>a.id===s.you.avatar)?.name||'Choose your character')}</strong> ${btn('change-avatar','SWAP CHARACTER','small dark')}</div><div id="lobby-avatar-picker" class="hidden"></div></div>
-      ${s.you.isHost?`${btn('start',waiting?'NEED 3+ PLAYERS':'⚡ START THE SHOW ⚡','wide showtime-start poster-action poster-action-host',waiting?'disabled':'')}<div class="status-note">You are the host. Open a separate TV screen for this house, or copy a private TV link for another home.</div>`:`<div class="notice">✓ You’re on the cast list! The host will start the show when everyone is ready.</div>`}
-      <div class="lobby-friends"><span class="eyebrow">GUEST LIST</span>${s.players.map(p=>`<div class="lobby-friend"><span>${avatar(p.avatar)} <span class="${p.online?'online-dot':'online-dot offline-dot'}"></span> ${esc(p.name)} ${p.id===s.you.id?'· you':''}</span>${s.you.isHost&&p.id!==s.you.id?btn('remove-player','Remove','ghost small',`data-id="${esc(p.id)}"`):''}</div>`).join('')}</div></section>`;
+    return `<section class="panel stage-panel v14-lobby"><div class="v14-lobby-head"><div><span class="v14-section-label">THE GREEN ROOM / YOUR NIGHT STARTS HERE</span><h1>GET THE MATES IN!</h1><p>${waiting?`Just ${waiting} more ${waiting===1?'mate':'mates'} before the show can start.`:'The gang is here. Ready when you are!'}</p></div><div class="show-audio-controls">${soundControl()}${sfxControl()}</div></div>
+      <div class="v14-lobby-join"><div class="v14-big-room"><span>YOUR GAME CODE</span><strong>${esc(s.code)}</strong><div class="utility-actions">${btn('copy-code','COPY CODE','dark small')}${btn('copy-link','COPY INVITE','small')}</div></div><div class="v14-big-qr"><img src="/api/rooms/${esc(s.code)}/join-qr.svg" alt="Scan to join ECKEY THUMP room ${esc(s.code)}"><span>SCAN TO JOIN</span></div></div>
+      <div class="v14-lobby-columns"><div class="v14-players-panel"><div class="v14-panel-heading"><h2>PLAYERS <small>${s.players.length} / 12</small></h2><span>${s.players.length>=3?'✓ ENOUGH TO START':'3 TO START'}</span></div>
+        <div class="lobby-stage-cast" aria-label="Players in the lobby">${s.players.map((p,i)=>`<div class="stage-contestant" style="--i:${i%5}">${avatar(p.avatar)}<strong>${esc(p.name)}</strong><span>${p.online?'● READY':'◌ OFFLINE'}</span></div>`).join('')}${Array.from({length:Math.min(4,Math.max(0,3-s.players.length))},()=>'<div class="v14-empty-seat"><span aria-hidden="true">+</span><small>WAITING…</small></div>').join('')}</div></div>
+      <aside class="v14-settings-panel"><h2>GAME SETTINGS</h2><div class="v14-setting-line"><span>♥ CONTENT</span><strong>${esc(s.config.rating==='adult'?'AFTER DARK':s.config.rating==='cheeky'?'CHEEKY':'FAMILY')}</strong></div><div class="v14-setting-line"><span>▤ GAME LENGTH</span><strong>${chips.length} ROUNDS</strong></div><div class="v14-setting-line"><span>⏱ PLAY SPEED</span><strong>${esc(s.config.pace==='lively'?'CHAOTIC':'CHILLED')}</strong></div>
+        ${ratingSwitch(s)}${consentCallout(s)}<p class="v14-side-note">${s.adultConsents} / ${s.adultConsentNeeded} adults confirmed · only the host can change the pack.</p></aside></div>
+      <div class="v14-lobby-bottom"><div class="your-avatar"><span class="eyebrow">YOUR ALTER EGO</span><div>${avatar(s.you.avatar)} <strong>${esc(AVATARS.find(a=>a.id===s.you.avatar)?.name||'Choose your character')}</strong> ${btn('change-avatar','CHANGE','small dark')}</div><div id="lobby-avatar-picker" class="hidden"></div></div>
+      ${s.you.isHost?`${btn('start',waiting?'WAITING FOR 3+ PLAYERS':'▶ START GAME','wide showtime-start v14-start',waiting?'disabled':'')}<div class="utility-actions v14-tv-actions">${btn('tv','↗ OPEN TV SCREEN','dark small')}${btn('copy-tv','COPY TV LINK','dark small')}</div>`:`<div class="v14-waiting-note">✓ YOU'RE IN! THE HOST WILL START WHEN THE GANG IS READY.</div>`}</div>
+      <details class="v14-more-details"><summary>VIEW ROUND LINEUP &amp; GUEST CONTROLS</summary><div class="challenge-sequence">${chips.map((name,i)=>`<span class="challenge-chip">${i+1}. ${name}</span>`).join('')}</div>${s.you.isHost?`<div class="lobby-friends">${s.players.map(p=>`<div class="lobby-friend"><span>${avatar(p.avatar)} ${esc(p.name)}</span>${p.id!==s.you.id?btn('remove-player','Remove','ghost small',`data-id="${esc(p.id)}"`):''}</div>`).join('')}</div>`:''}</details>
+    </section>`;
   }
   const directions={
     CARD:['PICK ONE CARD','Choose your funniest response from the seven cards in your hand.','Choose a different card only if you have not submitted yet.'],
@@ -293,7 +295,7 @@
     let ss=0,se=0;if(active){ss=previousInput.selectionStart;se=previousInput.selectionEnd;}
     if(s.you?.role==='audience'){app.innerHTML=renderAudience(s);S.scenePulse=false;updateConnection();syncScene();return;}
     const main=s.phase==='LOBBY'?renderLobby(s):s.phase==='SEED'?contextSeed(s):s.phase==='SUBMIT'?renderSubmit(s):s.phase==='VOTE'?renderVote(s):s.phase==='RESULTS'?renderResults(s):renderComplete(s);
-    app.innerHTML=nav()+(s.phase==='LOBBY'?'':roomTop(s))+`<main class="room-layout ${s.phase==='LOBBY'?'showtime-room':''} ${S.scenePulse?'scene-enter':''}">${main}${s.phase==='LOBBY'?`<aside class="panel side-panel showtime-side"><span class="eyebrow">CONTROL ROOM</span><h2>TONIGHT'S SHOW</h2><p>${s.players.length} / 12 PLAYERS · ${esc(s.config.rating.toUpperCase())} · ${esc(s.config.pace.toUpperCase())}</p><div class="lobby-side-control">${shareControls(s)}</div><div class="divider"></div><span class="eyebrow">THE RULES (SORT OF)</span><div class="side-rules"><p><strong>01.</strong> Pick a card or write your finest nonsense.</p><p><strong>02.</strong> Vote for your friends. No self-voting.</p><p><strong>03.</strong> Crown the most ridiculous person in the room.</p></div><div class="disclaimer">Private games night only. Don't share room links publicly. You can hide offensive entries and keep the party moving.</div></aside>`:sidePanel(s)}</main><div class="footer-note">PRIVATE GAME NIGHT · v1.3 POSTCARD · FIVE CHALLENGES</div>`;
+    app.innerHTML=nav()+(s.phase==='LOBBY'?'':roomTop(s))+`<main class="room-layout ${s.phase==='LOBBY'?'showtime-room':''} ${S.scenePulse?'scene-enter':''}">${main}${s.phase==='LOBBY'?'':sidePanel(s)}</main><div class="footer-note">ECKEY THUMP v1.4 · GAMES, MATES, MAYHEM</div>`;
     const input=document.getElementById('answer-input');if(input){input.value=S.draft;updateCounter();if(active){input.focus();input.setSelectionRange(ss,se);}}
     S.renderedStage=s.phase;S.renderedRound=s.round?.id;
     S.scenePulse=false;updateTimer();updateConnection();syncScene();
@@ -313,6 +315,11 @@
     if(actionName.startsWith('chaos-vote-'))return action('chaos-vote',{modifier:actionName.slice(11)});
     if(actionName.startsWith('chaos-'))return action('chaos',{kind:actionName.slice(6),targetId:document.getElementById('chaos-target')?.value||null});
     switch(actionName){
+      case 'go-host':
+      case 'go-join': {const which=actionName==='go-host'?'create-form':'join-form';for(const id of ['create-form','join-form'])document.getElementById(id)?.toggleAttribute('hidden',id!==which);document.getElementById('game-setup')?.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById(which==='create-form'?'host-name':'join-code')?.focus({preventScroll:true});return;}
+      case 'close-setup':for(const id of ['create-form','join-form'])document.getElementById(id)?.setAttribute('hidden','');window.scrollTo({top:0,behavior:'smooth'});return;
+      case 'home-family':
+      case 'home-adult': {const value=actionName==='home-adult'?'adult':'clean';const input=document.querySelector(`input[name="humour"][value="${value}"]`);if(input){input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}));}return;}
       case 'toggle-sfx':{const on=window.ECKEY_SFX?.toggle();document.querySelectorAll('[data-action="toggle-sfx"]').forEach(b=>{b.setAttribute('aria-pressed',String(!!on));b.setAttribute('aria-label',on?'Turn off show sound effects':'Enable show sound effects');b.querySelector('span').textContent=on?'🔊':'🔇';b.querySelector('strong').textContent=on?'SHOW SFX ON':'ENABLE SHOW SFX';});return;}
       case 'toggle-sound':{await window.ECKEY_AUDIO?.toggle();document.querySelectorAll('[data-action="toggle-sound"]').forEach(b=>{const on=!!window.ECKEY_AUDIO?.enabled;b.setAttribute('aria-pressed',String(on));b.setAttribute('aria-label',on?'Mute lobby music':'Play lobby music');b.querySelector('strong').textContent=on?'MUSIC ON':'PLAY LOBBY MUSIC';b.querySelector('span').textContent=on?'♫':'♪';});return;}
       case 'rejoin':{const code=localStorage.getItem('eckey-last-room');const secret=code&&localStorage.getItem(storageKey(code));if(secret)startSession(code,secret);return;}

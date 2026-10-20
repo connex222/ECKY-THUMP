@@ -1,8 +1,8 @@
 {
   "name": "eckey-thump-game-night",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
-  "description": "ECKEY THUMP v1.3 seaside poster UI refresh, audience balcony, reconnect and content controls",
+  "description": "ECKEY THUMP v1.4 complete UI rebuild, audience balcony, reconnect and content controls",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",

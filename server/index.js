@@ -54,7 +54,7 @@ function requireOrigin(req) {
 function route(req,res) {
   const url=new URL(req.url,`http://${req.headers.host||'localhost'}`);
   const pathname=url.pathname;
-  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKEY THUMP',version:'1.3.0',uptime:process.uptime()});
+  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKEY THUMP',version:'1.4.0',uptime:process.uptime()});
   if(pathname==='/api/rooms'&&req.method==='POST')return (async()=>{
     requireOrigin(req);const body=await readBodyOrEmpty(req);
     const created=game.newRoom(body);let c;do{c=code();}while(rooms.has(c));created.room.code=c;
