@@ -97,3 +97,90 @@ body.seaside-postcard.tv-body .tv-footer{background:var(--postcard-navy);color:#
 body.seaside-postcard .scene-enter .stage-show-heading,body.seaside-postcard .scene-enter .prompt-box{animation-duration:.32s}
 @media(max-width:700px){body.seaside-postcard .app-shell,body.seaside-postcard .tv-shell{margin:7px auto;padding:12px;width:calc(100% - 14px);border-width:7px;outline-width:2px;box-shadow:0 5px #9d5426}body.seaside-postcard .panel{padding:17px 12px;border-width:3px;outline-width:2px}body.seaside-postcard .lobby-stage{padding:10px 6px}body.seaside-postcard .showtime-hero{padding:5px 3px 14px}.postcard-tv-pack,.postcard-pack-switch{padding:10px 7px}.postcard-pack-buttons{gap:6px}.postcard-tv-pack button,.postcard-pack-buttons .btn{flex:1 1 135px;padding:8px;font-size:.8rem}.postcard-audience{margin:10px auto}body.seaside-postcard .room-code{font-size:clamp(1.9rem,7vw,3.4rem)}}
 @media(prefers-reduced-motion:reduce){.tv-scene.postcard-thumped{animation:none}.postcard-heckle-live{transform:none}}
+
+/* v1.3 front-page and lobby upgrade driven by the approved seaside poster reference.
+   Avatar selectors and asset bindings remain untouched. */
+body.seaside-postcard .poster-logo{display:inline-flex;flex-direction:column;align-items:flex-start;gap:.04em;font-family:Impact,'Arial Black','Trebuchet MS',sans-serif;font-weight:900;line-height:.84;letter-spacing:.02em;text-transform:uppercase;filter:drop-shadow(0 6px 0 #fff5d9) drop-shadow(0 10px 0 #14284b)}
+body.seaside-postcard .poster-logo span{display:block;padding:.03em .12em .08em;border:.12em solid #14284b;border-radius:.12em;background:linear-gradient(180deg,#ff6859,#db222b 55%,#bb1a26);color:#fff3eb;box-shadow:0 .08em 0 #fff8e8 inset,0 -.08em 0 #8c1722 inset}
+body.seaside-postcard .poster-logo span:last-child{background:linear-gradient(180deg,#ffe47d,#ffcf22 60%,#e5ab00);color:#14284b}
+body.seaside-postcard .poster-logo--hero{font-size:clamp(2.8rem,6vw,6rem)}
+body.seaside-postcard .poster-logo--lobby{font-size:clamp(2.3rem,4vw,4.6rem)}
+body.seaside-postcard .poster-logo--tv{font-size:clamp(4rem,7vw,7.5rem)}
+body.seaside-postcard .postcard-poster-art{display:block;width:100%;height:auto;border-radius:12px;border:4px solid #fff8ea;box-shadow:0 0 0 4px #14284b,0 18px 35px #2a273166}
+body.seaside-postcard .postcard-splash{padding:28px;background:radial-gradient(circle at 12% 18%,#ffe16c 0 8%,transparent 9%),repeating-linear-gradient(115deg,#d6283417 0 11px,#fff5d9 11px 24px,#1245771f 24px 34px),#efd3a5;border-radius:8px}
+body.seaside-postcard .postcard-splash-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:24px;align-items:center}
+body.seaside-postcard .postcard-splash-copy{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+body.seaside-postcard .poster-lede{font-size:1.12rem;max-width:56ch}
+body.seaside-postcard .poster-kicker-strip{display:flex;flex-wrap:wrap;gap:10px}
+body.seaside-postcard .poster-kicker-strip span{padding:8px 14px;background:#fff7df;border:3px solid #14284b;color:#14284b;font-weight:900;border-radius:999px;box-shadow:3px 4px 0 #dc222b}
+body.seaside-postcard .poster-statbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;max-width:780px;border:4px solid #14284b;border-radius:10px;overflow:hidden;box-shadow:6px 8px 0 #dc222b}
+body.seaside-postcard .poster-statbar span{padding:12px 10px;background:#fff9e8;font-weight:900;text-align:center;color:#14284b;border-right:2px solid #14284b}
+body.seaside-postcard .poster-statbar span:nth-child(odd){background:#fff0c1}
+body.seaside-postcard .poster-statbar span:last-child{border-right:none}
+body.seaside-postcard .postcard-splash-art{position:relative}
+body.seaside-postcard .poster-art-frame{transform:rotate(1.2deg)}
+body.seaside-postcard .poster-sticker{position:absolute;z-index:2;padding:10px 14px;background:#ffef73;color:#14284b;border:3px solid #14284b;font-family:Impact,'Arial Black',sans-serif;line-height:1.05;text-transform:uppercase;box-shadow:4px 6px 0 #dc222b;border-radius:8px}
+body.seaside-postcard .poster-sticker-left{left:-8px;bottom:18px;transform:rotate(-8deg)}
+body.seaside-postcard .poster-sticker-right{right:-10px;top:18px;transform:rotate(7deg);background:#fff6db}
+body.seaside-postcard .postcard-front-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+body.seaside-postcard .postcard-entry-panel{position:relative;overflow:hidden}
+body.seaside-postcard .postcard-entry-panel::after{content:"";position:absolute;inset:auto -30px -40px auto;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,#ffda5180,transparent 70%);pointer-events:none}
+body.seaside-postcard .host-join-banner{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:12px;border:4px solid #14284b;box-shadow:6px 7px 0 #14284b;margin-bottom:14px;color:#fff;font-family:Impact,'Arial Black',sans-serif;letter-spacing:.03em;text-transform:uppercase}
+body.seaside-postcard .host-join-banner strong{display:block;font-size:1.8rem;line-height:1}
+body.seaside-postcard .host-join-banner small{display:block;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:.88rem;letter-spacing:.02em;color:#fff6e6}
+body.seaside-postcard .host-join-icon{font-size:2rem;line-height:1}
+body.seaside-postcard .host-banner-red{background:linear-gradient(180deg,#ff544f,#dc222b)}
+body.seaside-postcard .host-banner-blue{background:linear-gradient(180deg,#2272dd,#1846a8)}
+body.seaside-postcard .entry-copy{margin:0 0 14px;color:#173254;font-weight:700}
+body.seaside-postcard .poster-action{font-size:1.28rem;display:flex;justify-content:center;align-items:center;gap:10px;padding:16px 18px}
+body.seaside-postcard .poster-action-host{background:linear-gradient(180deg,#ff544f,#dc222b)!important}
+body.seaside-postcard .poster-action-join{background:linear-gradient(180deg,#2c81ef,#1c51be)!important}
+body.seaside-postcard .rejoin-card{margin-top:16px;padding:14px 16px;background:#fff6db;border:3px solid #14284b;border-radius:10px;box-shadow:4px 6px 0 #d39c62;display:grid;gap:8px}
+body.seaside-postcard .postcard-mini-note{margin-top:14px;font-size:.9rem;color:#27415b}
+body.seaside-postcard .postcard-lobby-shell{overflow:hidden}
+body.seaside-postcard .postcard-lobby-stage{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(180deg,rgba(255,239,203,.88),rgba(245,214,160,.92)),url('/assets/ui/ecky-seaside-poster-reference.webp') center/cover no-repeat;border:5px solid #fffdf5;outline:3px solid var(--postcard-navy);box-shadow:0 12px 25px #55311e46}
+body.seaside-postcard .postcard-lobby-stage::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,247,225,.12),rgba(255,247,225,.45) 34%,rgba(255,247,225,.82));z-index:-1}
+body.seaside-postcard .lobby-stage-hero{display:grid;gap:12px;justify-items:start;padding-right:min(42vw,430px)}
+body.seaside-postcard .lobby-strip span{background:#ffef83}
+body.seaside-postcard .postcard-join-card{background:linear-gradient(160deg,#fff7e2,#f4dfbb)}
+body.seaside-postcard .postcard-programme{background:linear-gradient(165deg,#fff0bf,#fee9d0)}
+body.seaside-postcard .postcard-pack-switch,.postcard-consent{background:linear-gradient(180deg,#fff8e7,#f0ddb7);border:4px solid #14284b;border-radius:10px;box-shadow:5px 6px 0 #d09a61;padding:14px 16px;color:#14284b}
+body.seaside-postcard .postcard-pack-switch>span{display:block;margin-bottom:8px;font-family:Impact,'Arial Black',sans-serif;font-size:1.2rem;color:#dc222b}
+body.seaside-postcard .postcard-pack-buttons{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+body.seaside-postcard .postcard-pack-buttons .btn{flex:1 1 220px}
+body.seaside-postcard .postcard-pack-buttons .selected-pack{background:linear-gradient(180deg,#ff544f,#dc222b)!important}
+body.seaside-postcard .postcard-consent{margin-top:14px}
+body.seaside-postcard .postcard-tv-lobby{justify-content:flex-start;gap:18px}
+body.seaside-postcard .tv-poster-hero{display:grid;grid-template-columns:minmax(0,.92fr) minmax(380px,1.08fr);gap:18px;align-items:center;width:100%}
+body.seaside-postcard .tv-poster-copy{display:flex;flex-direction:column;gap:14px;align-items:flex-start;text-align:left;padding:10px 0}
+body.seaside-postcard .tv-poster-card{transform:rotate(1deg)}
+body.seaside-postcard .tv-poster-art{max-height:540px;object-fit:cover;object-position:center top}
+body.seaside-postcard .tv-kicker-strip span{font-size:1.1rem}
+body.seaside-postcard .postcard-tv-scan{background:linear-gradient(160deg,#fff7e2,#f4dfbb);border:4px solid #14284b;border-radius:12px;box-shadow:6px 8px 0 #dc222b;padding:18px 20px}
+body.seaside-postcard .postcard-tv-scan strong{color:#dc222b;font-family:Impact,'Arial Black',sans-serif;font-size:1.4rem}
+body.seaside-postcard .room-head{background:linear-gradient(135deg,#fff7df,#f0d3a5);border:5px solid #fffef6;outline:3px solid #14284b;box-shadow:0 12px 0 #9d5426,0 20px 40px #20253745;border-radius:6px;padding:18px 20px;margin-bottom:18px}
+body.seaside-postcard .room-head .room-code{font-size:clamp(2rem,4vw,3.4rem)}
+body.seaside-postcard .stage-show-heading{background:linear-gradient(160deg,#fff0c4,#ffd35b 48%,#f6e3bb);border-width:5px;box-shadow:7px 8px 0 #14284b}
+body.seaside-postcard .ready-zone,.round-guide,.side-panel .notice,.side-panel .status-note{background:#fff7de;color:#14284b;border-color:#dc222b}
+body.seaside-postcard .round-guide{box-shadow:5px 6px 0 #d39c62}
+@media (max-width: 1100px){
+  body.seaside-postcard .postcard-splash-grid,
+  body.seaside-postcard .tv-poster-hero{grid-template-columns:1fr}
+  body.seaside-postcard .postcard-front-grid{grid-template-columns:1fr}
+  body.seaside-postcard .lobby-stage-hero{padding-right:0}
+}
+@media (max-width: 780px){
+  body.seaside-postcard .poster-logo--hero{font-size:clamp(2.4rem,12vw,4rem)}
+  body.seaside-postcard .poster-statbar{grid-template-columns:repeat(2,minmax(0,1fr))}
+  body.seaside-postcard .poster-sticker{font-size:.85rem}
+  body.seaside-postcard .postcard-splash{padding:18px}
+  body.seaside-postcard .host-join-banner strong{font-size:1.5rem}
+  body.seaside-postcard .poster-action{font-size:1.12rem}
+}
+@media (max-width: 520px){
+  body.seaside-postcard .poster-kicker-strip span,
+  body.seaside-postcard .poster-statbar span{font-size:.84rem}
+  body.seaside-postcard .poster-statbar{grid-template-columns:1fr 1fr}
+  body.seaside-postcard .poster-sticker-left{left:0;bottom:8px}
+  body.seaside-postcard .poster-sticker-right{right:0;top:8px}
+}

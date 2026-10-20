@@ -30,7 +30,7 @@ test('private TV links and repeat-match host permission work over HTTP',async()=
     const hostSnap=await req(`/api/rooms/${room}/snapshot`,'GET',undefined,created.data.secret);
     assert.equal(hostSnap.data.config.pace,'relaxed');
     assert.equal(hostSnap.data.config.length,'party');
-    assert.equal((await req('/api/health')).data.version,'1.2.0');
+    assert.equal((await req('/api/health')).data.version,'1.3.0');
   }finally{await new Promise(resolve=>server.close(resolve));}
 });
 test('host-only removal makes a departed friend token unusable',async()=>{

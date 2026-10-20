@@ -18,7 +18,7 @@ test('all 42 avatar library files, metadata and bindings are byte-for-byte uncha
 });
 test('new postcard style is modular, on both screens, and maintains existing avatar include',()=>{
  for(const page of ['public/index.html','public/tv/index.html']){
-  const html=read(page);assert.match(html,/seaside-postcard/);assert.match(html,/seaside-postcard\.css\?v=1\.2\.0/);
+  const html=read(page);assert.match(html,/seaside-postcard/);assert.match(html,/seaside-postcard\.css\?v=1\.[23]\.0/);
   assert.match(html,/avatars\.js\?v=1\.1\.0/);
  }
  assert.match(read('public/assets/seaside-postcard.css'),/prefers-reduced-motion:reduce/);

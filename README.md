@@ -1,3 +1,13 @@
+# ECKEY THUMP — v1.3 Seaside Poster UI
+
+The front page, phone waiting room and TV lobby now follow the chosen chaotic British seaside postcard reference. The new poster illustration is served locally as optimised WebP, with responsive postcard colours, readable host/join controls and a bold text wordmark. Existing avatars and game engine logic are preserved.
+
+The original `avatarPicker()` initialization, selected Clean/Cheeky/Adult humour rating, game length and pace settings, QR joining, optional audio, session rejoin and spectator Chaos Mode remain operational.
+
+See [`docs/POSTER-UI-v1.3.md`](docs/POSTER-UI-v1.3.md) for details. Run `npm test` before deployment. This repository is designed for one running Node.js service and 3–12 active players.
+
+---
+
 # ECKEY THUMP v1.2 — Saucy Seaside Postcard Edition
 
 A private browser-based comedy game for 3–12 active contestants, with an overflow audience of up to 30 spectators. Players use their phones; a TV can display the shared stage.
