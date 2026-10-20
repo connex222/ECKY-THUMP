@@ -73,7 +73,8 @@ function newRoom({name, rating='clean', length='party', pace='relaxed', adultCon
   const secret=SECRET(); const id=randomId();
   const room={
     code:'', created:Date.now(), lastActivity:Date.now(), config:{rating,length,pace}, phase:'LOBBY',
-    ownerId:id, displayHashes:[], players:[{id,name:hostName,avatar:validateAvatar(avatar),tokenHash:hash(secret),ready:true,online:false,joined:0,score:0,firsts:0,golds:0,silvers:0}],
+    ownerId:id, displayHashes:[], players:[{id,name:hostName,avatar:validateAvatar(avatar),tokenHash:hash(secret),adultConfirmed:!!adultConfirmed,ready:true,online:false,joined:0,score:0,firsts:0,golds:0,silvers:0}],
+    audience:[], chaosEvents:[], chaosVotes:new Map(), chaosSerial:0,
     playlist:[], roundIndex:-1, round:null, deadline:null, paused:false, pauseRemaining:null, pauses:0,
     revision:1, promptHistory:new Set(), responseDeck:null, responseDealt:0, results:[], events:new Set(), reports:[], finishedAt:null,
   };
@@ -84,12 +85,72 @@ function addPlayer(room, name, adultConfirmed=false,avatar) {
   if (room.players.length>=12) throw Error('This room is full.');
   if (room.config.rating==='adult' && !adultConfirmed) throw Error('Confirm that you are an adult to join this room.');
   const safe=validateName(name);
-  if (room.players.some(p=>p.name.toLowerCase()===safe.toLowerCase())) throw Error('This nickname is already taken.');
+  if ([...room.players,...room.audience].some(p=>p.name.toLowerCase()===safe.toLowerCase())) throw Error('This nickname is already taken.');
   const id=randomId(),secret=SECRET();
   const nextJoined=Math.max(-1,...room.players.map(p=>p.joined))+1;
-  room.players.push({id,name:safe,avatar:validateAvatar(avatar),tokenHash:hash(secret),ready:true,online:false,joined:nextJoined,score:0,firsts:0,golds:0,silvers:0});
+  room.players.push({id,name:safe,avatar:validateAvatar(avatar),tokenHash:hash(secret),adultConfirmed:!!adultConfirmed,ready:true,online:false,joined:nextJoined,score:0,firsts:0,golds:0,silvers:0});
   room.revision++;
   return {id,secret};
+}
+// Audience participants have their own authenticated sessions, never an avatar key,
+// private hand, answer, vote, or right to host controls.
+function addAudience(room,name,adultConfirmed=false) {
+  if(room.audience.length>=30)throw Error('The audience balcony is full (30 people).');
+  if(room.config.rating==='adult'&&!adultConfirmed)throw Error('Confirm you are 18 or older to watch After Dark.');
+  const safe=validateName(name);
+  if([...room.players,...room.audience].some(p=>p.name.toLowerCase()===safe.toLowerCase()))throw Error('This nickname is already taken.');
+  const id=randomId(),secret=SECRET();
+  room.audience.push({id,name:safe,tokenHash:hash(secret),adultConfirmed:!!adultConfirmed,online:false,lastChaosAt:0});
+  room.revision++;
+  return {id,secret,role:'audience'};
+}
+function findAudience(room,secret) {
+  if(typeof secret!=='string'||secret.length>100)return null;
+  const digest=Buffer.from(hash(secret));
+  return room.audience.find(p=>crypto.timingSafeEqual(digest,Buffer.from(p.tokenHash)))||null;
+}
+function consentAfterDark(room,person) {
+  if(room.phase!=='LOBBY')throw Error('Rating consent is available only in the lobby.');
+  person.adultConfirmed=true;room.revision++;
+}
+function setLobbyRating(room,rating) {
+  if(room.phase!=='LOBBY')throw Error('Rating cannot change after the game has started.');
+  if(!['clean','adult'].includes(rating))throw Error('Choose Family Friendly or After Dark.');
+  if(rating==='adult'&&[...room.players,...room.audience].some(p=>!p.adultConfirmed))
+    throw Error('Everyone must tap “I am 18+” on their own controller before After Dark can be enabled.');
+  if(room.config.rating===rating)return;
+  room.config.rating=rating;
+  room.promptHistory=new Set();room.responseDeck=null;
+  room.revision++;
+}
+const CHAOS_MODIFIERS=Object.freeze(['pudding-rain','pier-panic','crowd-roar']);
+const CHAOS_ACTIONS=Object.freeze(['pudding','wrench','shake']);
+// Cosmetic-only chaos: no score, phase, deadline, RNG or submission mutation.
+function audienceChaos(room,person,kind,targetId) {
+  if(!['SEED','SUBMIT','VOTE','RESULTS'].includes(room.phase))throw Error('Wait for the show to begin.');
+  if(!CHAOS_ACTIONS.includes(kind))throw Error('Unknown chaos trick.');
+  if(targetId!==undefined&&targetId!==null&&!room.players.some(p=>p.id===targetId))throw Error('Choose a current contestant.');
+  const now=Date.now();
+  if(now-person.lastChaosAt<8000)throw Error('Give the black pudding a rest for eight seconds!');
+  person.lastChaosAt=now;
+  const event={id:++room.chaosSerial,kind,targetId:targetId||null,by:person.name,at:now};
+  room.chaosEvents.push(event);
+  room.chaosEvents=room.chaosEvents.filter(e=>now-e.at<11000).slice(-8);
+  room.revision++;
+}
+function audienceVote(room,person,modifier) {
+  if(!['SEED','SUBMIT','VOTE'].includes(room.phase))throw Error('Audience votes open during active rounds.');
+  if(!CHAOS_MODIFIERS.includes(modifier))throw Error('Unknown chaos modifier.');
+  const now=Date.now();
+  if(person.lastVoteAt&&now-person.lastVoteAt<1800)throw Error('The audience poll needs a moment.');
+  if(room.chaosVotes.get(person.id)===modifier)return;
+  person.lastVoteAt=now;room.chaosVotes.set(person.id,modifier);room.revision++;
+}
+function chaosSummary(room) {
+  const tally=Object.fromEntries(CHAOS_MODIFIERS.map(k=>[k,0]));
+  for(const vote of room.chaosVotes.values())if(vote in tally)tally[vote]++;
+  const result=CHAOS_MODIFIERS.reduce((best,key)=>tally[key]>tally[best]?key:best,CHAOS_MODIFIERS[0]);
+  return {options:CHAOS_MODIFIERS,tally,leader:room.chaosVotes.size?result:null,events:room.chaosEvents.filter(e=>Date.now()-e.at<11000).slice(-6)};
 }
 function setAvatar(room, player,avatar){if(room.phase!=='LOBBY')throw Error('Avatars can only be changed between matches.');player.avatar=validateAvatar(avatar);room.revision++;}
 function removePlayer(room, id) {
@@ -168,6 +229,7 @@ function startRound(room) {
   const requiredWord=type==='FINAL'?promptFrom(room,getPool(finalWords,rating)):null;
   const contractText=requiredWord?`Your answer MUST contain: ${requiredWord.toUpperCase()}`:
     type==='WIT'?promptFrom(room,getPool(contracts,rating)):null;
+  room.chaosVotes.clear();room.chaosEvents=[];
   room.round={id:randomId(),type,prompt,contract:contractText,requiredWord,
     hands,swaps:new Set(),seeds:new Map(),assignments:new Map(),entries:[],ballots:new Map(),readyForNext:new Set(),awards:[],startedAt:Date.now(),scored:false,skipReason:null,
     multiplier:type==='FINAL'?2:1};
@@ -279,7 +341,7 @@ function finishRound(room,skipReason) {
       avatar:room.players.find(p=>p.id===e.authorId)?.avatar||'adult-01'
     }))});
   // Relaxed games wait for the host: no automatic countdown during chatting/laughter.
-  room.phase='RESULTS';room.deadline=room.config.pace==='relaxed'?null:Date.now()+25000;room.revision++;
+  room.phase='RESULTS';room.deadline=room.config.pace==='relaxed'?null:Date.now()+4500;room.revision++;
 }
 function markReady(room, player) {
   if(room.phase!=='RESULTS')throw Error('Wait until the results are shown.');
@@ -302,7 +364,7 @@ function playAgain(room) {
   room.phase='LOBBY';room.playlist=[];room.roundIndex=-1;room.round=null;
   room.deadline=null;room.paused=false;room.pauseRemaining=null;room.pauses=0;
   // Retain prompt history and undrawn response cards between matches in this room.
-  room.results=[];room.reports=[];room.finishedAt=null;
+  room.results=[];room.reports=[];room.finishedAt=null;room.chaosVotes.clear();room.chaosEvents=[];
   room.revision++;
 }
 function tick(room) {
@@ -330,12 +392,17 @@ function sortedPlayers(room) {
 }
 function snapshot(room, viewerId, isTV=false) {
   const viewer=room.players.find(p=>p.id===viewerId);
+  const spectator=room.audience.find(p=>p.id===viewerId);
   const round=room.round;
   const base={code:room.code,revision:room.revision,serverNow:Date.now(),phase:room.phase,paused:room.paused,
     deadline:room.deadline,config:room.config,playerCount:room.players.length,maxPlayers:12,
+    audienceCount:room.audience.length,chaos:chaosSummary(room),
+    adultConsents:[...room.players,...room.audience].filter(p=>p.adultConfirmed).length,
+    adultConsentNeeded:room.players.length+room.audience.length,
     roundNumber:room.roundIndex+1,totalRounds:room.playlist.length,
     players:sortedPlayers(room).map(p=>({id:p.id,name:p.name,avatar:p.avatar,score:p.score,online:p.online,ready:p.ready,firsts:p.firsts,golds:p.golds,silvers:p.silvers})),
-    you:isTV?null:{id:viewer?.id,name:viewer?.name,avatar:viewer?.avatar,isHost:room.ownerId===viewerId,score:viewer?.score},
+    you:isTV?null: spectator?{id:spectator.id,name:spectator.name,role:'audience',adultConfirmed:spectator.adultConfirmed}:
+      {id:viewer?.id,name:viewer?.name,avatar:viewer?.avatar,isHost:room.ownerId===viewerId,score:viewer?.score,adultConfirmed:viewer?.adultConfirmed},
     tv:isTV,
   };
   if(round) {
@@ -346,7 +413,7 @@ function snapshot(room, viewerId, isTV=false) {
       youReady:!isTV&&!!round.readyForNext?.has(viewerId),
       nextChallenge:room.playlist[room.roundIndex+1]?LABELS[room.playlist[room.roundIndex+1]]:'CHAMPION REVEAL'};
     if(room.phase==='SUBMIT' && !isTV) {
-      if(round.type==='CARD'||round.type==='DOUBLE') common.hand=round.hands[viewerId]||[];
+      if(round.type==='CARD'||round.type==='DOUBLE') common.hand=viewer?round.hands[viewerId]||[]:[];
       if(round.type==='CONTEXT') common.assignedSeed=round.assignments.get(viewerId)?.seed||null;
     }
     if(room.phase==='VOTE') {
@@ -379,4 +446,5 @@ function snapshot(room, viewerId, isTV=false) {
   return base;
 }
 module.exports={ swapCard,acceptSeed, newRoom,addPlayer,setAvatar,removePlayer,findPlayer,mintDisplay,verifyDisplay,startGame,playAgain,acceptAnswer,acceptVote,finishRound,nextRound,tick,snapshot,
-  scoreEntries,validateName,validateAnswer,hash,randomId,sortedPlayers,markReady };
+  scoreEntries,validateName,validateAnswer,hash,randomId,sortedPlayers,markReady,
+  addAudience,findAudience,consentAfterDark,setLobbyRating,audienceChaos,audienceVote,chaosSummary };

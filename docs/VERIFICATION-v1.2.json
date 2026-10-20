@@ -1,0 +1,28 @@
+{
+  "source": "ECKEY-THUMP-v1.zip",
+  "build": "ECKEY THUMP v1.2 Saucy Seaside Postcard",
+  "changed_files": [
+    "README.md",
+    "START-GAME-WINDOWS.bat",
+    "UPLOAD-TO-GITHUB.ps1",
+    "package.json",
+    "public/assets/app.js",
+    "public/assets/tv.js",
+    "public/index.html",
+    "public/tv/index.html",
+    "server/game.js",
+    "server/index.js",
+    "test/game-night-api.test.js"
+  ],
+  "added_files": [
+    "START-HERE-v1.2.md",
+    "docs/SEASIDE-CHANGELOG-v1.2.md",
+    "public/assets/seaside-postcard.css",
+    "test/avatar-baseline-v11.json",
+    "test/seaside-v12.test.js"
+  ],
+  "unchanged_files_count": 114,
+  "avatar_immutable_file_count": 42,
+  "automated_tests": "63 passed",
+  "visual_browser_test": "Headless Chromium screenshot failed to complete; real browser QA still needed"
+}

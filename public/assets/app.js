@@ -18,7 +18,13 @@
   const tag=(text,extra='')=>`<span class="badge ${extra}">${esc(text)}</span>`;
   const btn=(action,label,cls='',attrs='')=>`<button type="button" class="btn ${cls}" data-action="${esc(action)}" ${attrs}>${label}</button>`;
   const storageKey=code=>`eckey-session-${code}`;
-  function saveSession(code,secret){localStorage.setItem(storageKey(code),secret);}
+  function saveSession(code,secret){localStorage.setItem(storageKey(code),secret);localStorage.setItem('eckey-last-room',code);}
+  // Browsers may ignore vibration (desktop/iOS/reduced accessibility settings).
+  const thump=(pattern=15)=>{try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)navigator.vibrate?.(pattern);}catch(_){}};
+  const draftKey=(room,round,stage)=>`eckey-draft-${room}-${round}-${stage}`;
+  function restoreDraft(snap){const key=draftKey(S.code,snap.round?.id,snap.phase);S.draft=localStorage.getItem(key)||'';}
+  function rememberDraft(){if(S.code&&S.roundId&&S.stage)localStorage.setItem(draftKey(S.code,S.roundId,S.stage),S.draft);}
+  function discardDraft(){if(S.code&&S.roundId&&S.stage)localStorage.removeItem(draftKey(S.code,S.roundId,S.stage));}
   function headers(){return {'Authorization':`Bearer ${S.secret}`,'Content-Type':'application/json'};}
   async function api(path,method='GET',body,auth=true){
     const res=await fetch(path,{method,headers:auth?headers():{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});
@@ -26,7 +32,7 @@
     if(!res.ok)throw Error(data.error||'Could not complete this request.');return data;
   }
   async function action(type,data={}) {
-    try{await api(`/api/rooms/${S.code}/action`,'POST',{type,...data});if(['submit','seed','vote','swap-card'].includes(type))window.ECKEY_SFX?.play('submit');}
+    try{await api(`/api/rooms/${S.code}/action`,'POST',{type,...data});if(['submit','seed','vote','swap-card'].includes(type)){window.ECKEY_SFX?.play('submit');thump([20,30,30]);if(['submit','seed'].includes(type))discardDraft();}}
     catch(err){toastShow(err.message);}
   }
   function startSession(code,secret){
@@ -41,11 +47,12 @@
     const code=S.code,secret=S.secret;
     if(S.stream)S.stream.abort();
     const ctrl=new AbortController();S.stream=ctrl;
+    let retryMs=500;
     while(S.code===code && S.secret===secret && !ctrl.signal.aborted){
       try{
         const res=await fetch(`/api/rooms/${code}/events`,{headers:{'Authorization':`Bearer ${secret}`},cache:'no-store',signal:ctrl.signal});
         if(!res.ok){const d=await res.json().catch(()=>({error:'Session unavailable.'}));throw Error(d.error);}
-        S.connected=true;
+        S.connected=true;retryMs=500;
         const reader=res.body.getReader(),decoder=new TextDecoder();let buffer='';
         for(;;){const {done,value}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true}).replace(/\r/g,'');
           let pos;while((pos=buffer.indexOf('\n\n'))!==-1){const block=buffer.slice(0,pos);buffer=buffer.slice(pos+2);const match=block.match(/^data: (.+)$/m);
@@ -55,35 +62,42 @@
       }catch(err){if(ctrl.signal.aborted)return;S.connected=false;document.body.classList.add('net-offline');if(S.snap)updateConnection();
         if(/invalid|expired/i.test(err.message)){toastShow('Your room session expired. Join again.');localStorage.removeItem(storageKey(code));endSession();return;}
       }
-      if(S.code===code && !ctrl.signal.aborted)await new Promise(r=>setTimeout(r,1800));
+      S.connected=false;if(S.snap){document.body.classList.add('net-offline');updateConnection();}
+      if(S.code===code && !ctrl.signal.aborted)await new Promise(r=>setTimeout(r,retryMs));
+      retryMs=Math.min(8000,retryMs*2);
     }
   }
   function onSnapshot(snap){
     if(typeof snap.serverNow==='number') S.clockOffset=snap.serverNow-Date.now();
-    if(!S.snap || S.roundId!==snap.round?.id || (S.stage==='SEED'&&snap.phase==='SUBMIT')){S.roundId=snap.round?.id||null;S.selected=null;S.gold=null;S.silver=null;S.draft='';}
+    if(!S.snap || S.roundId!==snap.round?.id || S.stage!==snap.phase){S.roundId=snap.round?.id||null;S.selected=null;S.gold=null;S.silver=null;restoreDraft(snap);}
     const prev=S.snap;
     const oldKey=prev?`${prev.round?.id||'none'}:${prev.phase}`:null;
     const newKey=`${snap.round?.id||'none'}:${snap.phase}`;
     if(oldKey && oldKey!==newKey){
+      if(snap.phase==='RESULTS'&&snap.round?.entries?.some(e=>e.authorName===snap.you?.name&&e.award?.rank===1))thump([40,40,80,50,140]);
       window.ECKEY_SFX?.play(snap.phase==='RESULTS'?(snap.round?.skipReason?'skip':'reveal'):snap.phase==='COMPLETE'?'champion':snap.phase==='VOTE'?'vote':snap.phase==='SEED'||snap.phase==='SUBMIT'?'round':'tap');
       S.scenePulse=true;
     }
     S.stage=snap.phase;
     if(snap.phase==='VOTE'&&snap.round?.myVote){if(!S.gold)S.gold=snap.round.myVote.gold;if(!S.silver)S.silver=snap.round.myVote.silver;}
-    S.snap=snap;choice=snap.you?.avatar||choice;S.connected=true;render();
+    const oldChaos=prev?.chaos?.events?.at(-1)?.id||0;
+    const hits=(snap.chaos?.events||[]).filter(ev=>ev.id>oldChaos&&(ev.targetId===snap.you?.id));
+    if(hits.length){thump([35,40,65]);toastShow('THUMP! A heckler has lobbed something at you!');}
+    S.snap=snap;choice=snap.you?.avatar||choice;S.connected=true;document.body.classList.remove('net-offline');render();
   }
   function updateConnection(){const el=document.getElementById('connection-status');if(el){el.textContent=S.connected?'● Connected':'◌ Reconnecting…';el.style.color=S.connected?'#b3f1c8':'#ffbbaf';}}
   const wordmark=(mode='big')=>`<img class="eckey-wordmark eckey-wordmark--${mode}" src="/assets/eckey-logo.svg" alt="ECKEY THUMP" width="1280" height="550">`;
   const soundControl=()=>`<button type="button" class="sound-switch" data-action="toggle-sound" aria-pressed="${window.ECKEY_AUDIO?.enabled?'true':'false'}" aria-label="${window.ECKEY_AUDIO?.enabled?'Mute lobby music':'Play lobby music'}"><span aria-hidden="true">${window.ECKEY_AUDIO?.enabled?'♫':'♪'}</span><strong>${window.ECKEY_AUDIO?.enabled?'MUSIC ON':'PLAY LOBBY MUSIC'}</strong></button>`;
   const sfxControl=()=>`<button type="button" class="sound-switch show-sfx-switch" data-action="toggle-sfx" aria-pressed="${!!window.ECKEY_SFX?.enabled}" aria-label="${window.ECKEY_SFX?.enabled?'Turn off show sound effects':'Enable show sound effects'}"><span aria-hidden="true">${window.ECKEY_SFX?.enabled?'🔊':'🔇'}</span><strong>${window.ECKEY_SFX?.enabled?'SHOW SFX ON':'ENABLE SHOW SFX'}</strong></button>`;
-  const sceneCopy={CARD:['CARD CLASH','PICK THE MOST UNREASONABLE ANSWER'],WIT:['QUICK WIT','MAKE THEM LAUGH. MAKE THEM REGRET IT.'],CONTEXT:['CONTEXT COLLAPSE','TAKE AN INNOCENT LINE AND RUIN IT'],DOUBLE:['DOUBLE TROUBLE','SELL SOMETHING NOBODY SHOULD BUY'],FINAL:['THE LAST LAUGH','THIS JOKE CAN CHANGE EVERYTHING']};
-  const phaseCopy={SEED:['INNOCENT BEGINNINGS','WRITE A NORMAL LINE — SOMEBODY ELSE WILL DESTROY IT'],VOTE:['JUDGEMENT DAY','GOLD AND SILVER. NO VOTING FOR YOURSELF.'],RESULTS:['THE BIG REVEAL','LET THE POINTS FALL WHERE THEY MAY'],FINISHED:['CROWN THE CHAOS','ONE LEGEND. SEVERAL QUESTIONABLE DECISIONS.']};
+  const sceneCopy={CARD:['CARD CLASH','PICK A CARD, LOVE — KEEP YOUR TROUSERS ON'],WIT:['QUICK WIT','FANCY A QUICK ONE? THE JOKE, OBVIOUSLY'],CONTEXT:['CONTEXT COLLAPSE','FROM PERFECTLY INNOCENT TO FRONT-PAGE SCANDAL'],DOUBLE:['DOUBLE TROUBLE','BUY ONE DISASTER, GET ANOTHER FREE'],FINAL:['THE LAST LAUGH','ONE LAST BANG BEFORE THE PIER CLOSES']};
+  const phaseCopy={SEED:['KEEP IT INNOCENT, DUCK','WRITE A NORMAL LINE — SOMEONE ELSE WILL RUIN IT'],VOTE:['THE PIER JURY','GOLD AND SILVER. NO VOTING FOR YOURSELF.'],RESULTS:['OHH, MATRON! THE VERDICT','THE POINTS ARE OUT AND SO ARE THE EXCUSES'],FINISHED:['THE LAST SAUSAGE STANDING','ONE LEGEND. SEVERAL QUESTIONABLE DECISIONS.']};
   function stageHeader(s,phase){const label=phaseCopy[phase]||sceneCopy[s.round?.type]||['ROUND TIME','GET READY FOR NONSENSE'];return `<div class="stage-show-heading ${phase==='VOTE'?'is-vote':phase==='RESULTS'?'is-result':s.round?.type==='FINAL'?'is-final':s.round?.type==='CONTEXT'?'is-context':''}"><div class="stage-kicker"><span class="stage-counter">${String(s.roundNumber).padStart(2,'0')}</span><span>ROUND ${s.roundNumber} OF ${s.totalRounds} · ${esc(s.round?.label||'THE SHOW')}</span></div><div class="stage-name">${label[0]}</div><div class="stage-tagline">${label[1]}</div></div>`;}
   function confetti(){const colors=['#ffe76a','#ff60c9','#5ce8ff','#a8ff79'];return `<div class="fx-confetti" aria-hidden="true">${Array.from({length:22},(_,i)=>`<i style="--x:${(i*43)%96+2}%;--d:${(i*17)%15/10}s;--r:${i*37}deg;--drift:${((i%5)-2)*28}px;--c:${colors[i%4]}"></i>`).join('')}</div>`;}
   function nav(){return '';}
   function syncScene(){window.ECKEY_AUDIO?.setScene(!S.snap||S.snap.phase==='LOBBY'?'LOBBY':'GAME');}
   function renderLanding(){
     const entry=esc(q.get('room')||'');
+    const lastCode=localStorage.getItem('eckey-last-room');
     app.innerHTML=nav()+`<section class="hero showtime-hero"><div class="hero-tools"><div class="show-audio-controls">${soundControl()}${sfxControl()}</div><span class="hero-private">★ INVITE-ONLY PARTY GAME ★</span></div><div class="showtime-eyebrow">WELCOME TO THE MOST RIDICULOUS GAMES NIGHT ON EARTH</div>
       <h1 class="visually-hidden">ECKEY THUMP</h1><div class="showtime-logo-wrap">${wordmark()}<span class="logo-orbit orbit-left">★</span><span class="logo-orbit orbit-right">!</span></div><div class="show-subline">THE BIG RIDICULOUS SHOW · LIVE FROM YOUR LIVING ROOM</div><div class="chaos-cast" aria-label="ECKEY THUMP adult avatar preview"><div class="cast-seat"><img src="/assets/avatars/adult-06.webp" alt="The Geezer"><span>THE GEEZER</span></div><div class="cast-seat"><img src="/assets/avatars/adult-13.webp" alt="Drama Queen"><span>DRAMA QUEEN</span></div><div class="cast-seat"><img src="/assets/avatars/adult-18.webp" alt="The Socialite"><span>SOCIALITE</span></div><div class="cast-seat"><img src="/assets/avatars/adult-23.webp" alt="The Glam Gran"><span>GLAM GRAN</span></div></div><div class="cast-badge">32 QUESTIONABLE ALTER EGOS · FIVE ABSURD CHALLENGES</div><p>Cue the lights. Roll the imaginary cameras. Bring your favourite idiots together for the tackiest comedy contest on television — now starring your living room. No downloads. All drama.</p>
       <div class="hero-ribbon"><span class="ribbon-chip">✦ 3–12 players</span><span class="ribbon-chip">◈ Invite-only games</span><span class="ribbon-chip">◉ Phones + TV</span><span class="ribbon-chip">♢ Same room, multiple homes</span></div></section>
@@ -116,8 +130,9 @@
        <section class="panel"><span class="eyebrow">02 / CHAOS CREW</span><h2 style="margin-top:8px">JOIN THE MADNESS</h2><p>Already have a room code? Jump straight in.</p>
         <form id="join-form"><div id="join-avatar-picker"></div><label class="label" for="join-code">Six-character room code</label><input class="field" id="join-code" maxlength="6" placeholder="ABC123" value="${entry}" required autocapitalize="characters" style="text-transform:uppercase;letter-spacing:.19em;font-weight:800">
         <label class="label" for="join-name">Your nickname</label><input class="field" id="join-name" maxlength="22" required placeholder="e.g. Biscuit Bandit" autocomplete="nickname">
-        <div id="join-adult-wrap" class="checkline hidden"><input id="join-adult" type="checkbox">I am 18 or older and consent to entering an adult-humour room.</div>
+        <label id="join-adult-wrap" class="checkline"><input id="join-adult" type="checkbox">I confirm I am 18 or older (optional for Family Friendly; required for After Dark).</label>
         <button type="submit" class="btn pink wide">JOIN THE THUMP <span aria-hidden="true">→</span></button></form>
+        ${lastCode&&/^[A-Z2-9]{6}$/.test(lastCode)&&localStorage.getItem(storageKey(lastCode))?`<div class="return-ticket">🎟️ LOST YOUR PLACE? ${btn('rejoin','REJOIN ROOM '+esc(lastCode),'dark wide')}</div>`:''}
         <div class="divider"></div><div class="disclaimer"><strong>At one home:</strong> Connect your devices to the same network and use the host’s local address.<br><strong>At two or three homes:</strong> Use the same publicly hosted HTTPS game link at every house. A localhost address only works on the host computer. Share a TV link for each house from the host’s controls.</div></section></main>
        <section class="highlights"><div class="mini"><strong>01 · PLAY</strong><span>Pick the funniest card or write your own terrible masterpiece.</span></div><div class="mini"><strong>02 · VOTE</strong><span>Rank your two favourites anonymously. No voting for yourself.</span></div><div class="mini"><strong>03 · WIN</strong><span>Watch the scoreboard reveal who is actually funny.</span></div></section><div class="footer-note">ECKEY THUMP · PRIVATE GAMES NIGHT · v1.0 · SHOWTIME</div>`;
     document.getElementById('host-avatar-picker').innerHTML=avatarPicker();document.getElementById('join-avatar-picker').innerHTML=avatarPicker();
@@ -147,14 +162,23 @@
   function scoreRows(players){return `<div class="player-list">${players.map((p,i)=>`<div class="player-row"><span class="identity">${avatar(p.avatar)}<strong>${i===0&&p.score?'♛ ':''}${esc(p.name)}</strong></span><span class="right"><span class="${p.online?'online-dot':'online-dot offline-dot'}"></span><strong class="stat">${num(p.score)} pts</strong></span></div>`).join('')}</div>`;}
   function roomTop(s){return `<div class="room-head"><div><span class="eyebrow">TONIGHT'S CHAOS / ${s.phase==='LOBBY'?'GREEN ROOM':'MAIN EVENT'}</span>
     <div class="room-code">ROOM ${esc(s.code)}</div><div class="sub"><span id="connection-status" style="color:#b3f1c8">● Connected</span> · ${esc(s.config.rating.toUpperCase())} HUMOUR · ${s.players.length} PLAYERS</div></div><div class="show-audio-controls">${sfxControl()}${shareControls(s)}</div></div>`;}
+  const ratingSwitch=s=>`<section class="postcard-pack-switch" aria-label="Lobby humour pack"><span>CHOOSE YOUR POSTCARD</span><div class="postcard-pack-buttons">${btn('rating-family','☺ FAMILY FRIENDLY',s.config.rating==='clean'?'selected-pack':'dark small',s.you?.isHost?'':'disabled')}${btn('rating-adult','♥ AFTER DARK 18+',s.config.rating==='adult'?'selected-pack':'dark small',s.you?.isHost?'':'disabled')}</div><small>After Dark requires everyone's 18+ confirmation · ${s.adultConsents} / ${s.adultConsentNeeded} confirmed</small></section>`;
+  const consentCallout=s=>s.you?.adultConfirmed?'':`<div class="postcard-consent">Fancy the saucier deck? ${btn('adult-consent','I AM 18+ · CONFIRM','dark small')}<small>Only adults should opt in. Family Friendly works without this.</small></div>`;
+  function renderAudience(s){const opts=[['pudding','🥮 LOB A BLACK PUDDING'],['wrench','🔧 THROW A WRENCH'],['shake','💥 RATTLE THE STAGE']];
+    return `<main class="audience-layout"><section class="panel postcard-audience"><span class="eyebrow">THE PIER BALCONY · CHAOS MODE</span><h1>HEAR THAT? IT'S THE HECKLERS!</h1><div class="room-code">ROOM ${esc(s.code)}</div><p>Welcome, ${esc(s.you?.name)}. You are watching, not competing. Your tricks are cosmetic; no scores or timers are changed.</p>
+    ${s.phase==='LOBBY'?`<p>Polishing the flatcaps, hang on a tick… ${s.players.length}/12 contestants ready.</p>${consentCallout(s)}`:`<div class="chaos-console"><h2>LET 'EM HAVE IT!</h2><div class="chaos-options">${opts.map(([kind,label])=>btn('chaos-'+kind,label,'small')).join('')}</div><span class="eyebrow">TARGET (OPTIONAL)</span><select id="chaos-target" class="field"><option value="">The whole stage</option>${s.players.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('')}</select><small>One trick every eight seconds. Effects won't interrupt player inputs.</small></div>
+    <div class="postcard-poll"><h2>VOTE ON THE STAGE NONSENSE</h2><p>Audience-only atmosphere poll — purely visual, no scores affected.</p>${[['pudding-rain','BLACK PUDDING RAIN'],['pier-panic','PIER PANIC'],['crowd-roar','CROWD ROAR']].map(([key,label])=>btn('chaos-vote-'+key,`${label} (${s.chaos?.tally?.[key]||0})`,'dark small')).join('')}</div>`}
+    <div class="utility-actions">${btn('copy-link','COPY INVITE','dark small')}${btn('leave','LEAVE','ghost small')}</div></section></main>`;
+  }
   function renderLobby(s){const waiting=Math.max(0,3-s.players.length);const chips=(s.config.length==='quick'?['CARD CLASH','QUICK WIT']:s.config.length==='standard'?['CARD CLASH','QUICK WIT','CONTEXT COLLAPSE','THE LAST LAUGH']:['CARD CLASH','QUICK WIT','CONTEXT COLLAPSE','DOUBLE TROUBLE','CARD CLASH','THE LAST LAUGH']);
     return `<section class="panel stage-panel showtime-lobby"><div class="lobby-ticker">★ YOU ARE ON THE SHOW ★ IT'S ABOUT TO GET STUPID ★ ${s.players.length} CONTESTANTS IN THE GREEN ROOM ★</div>
       <div class="lobby-stage"><div class="lobby-stage-top"><div class="show-audio-controls">${soundControl()}${sfxControl()}</div><span class="showtime-status">${waiting?'AWAITING THE TROUBLEMAKERS':'CAST ASSEMBLED'}</span></div>
-      <div class="lobby-logo">${wordmark('lobby')}</div><h1 class="lobby-heading">${waiting?'THE CAST IS GATHERING…':'LET THE NONSENSE BEGIN!'}</h1>
+      <div class="lobby-logo">${wordmark('lobby')}</div><h1 class="lobby-heading">${waiting?'POLISHING THE FLATCAPS…':'LET THE NONSENSE BEGIN!'}</h1>
       <p class="lobby-lede">${waiting?`Just ${waiting} more ${waiting===1?'person':'people'} to unlock the madness.`:'The gang is here. The host can unleash the chaos.'} Turn up the TV, turn down the dignity.</p>
       <div class="lobby-stage-cast" aria-label="Players in the lobby">${s.players.map((p,i)=>`<div class="stage-contestant" style="--i:${i%5}">${avatar(p.avatar)}<strong>${esc(p.name)}</strong><span>${p.online?'● READY':'◌ OFFLINE'}</span></div>`).join('')}</div>
       </div>
-      <div class="lobby-join-panel"><div class="lobby-qr-frame"><img src="/api/rooms/${esc(s.code)}/join-qr.svg" alt="Scan this QR code to join ECKEY THUMP room ${esc(s.code)}"></div><div class="lobby-join-details"><span class="eyebrow">BRING IN THE NEXT VICTIM</span><div class="lobby-invite-code">${esc(s.code)}</div><p>Scan the code with your phone camera or enter this room code on the game website.</p><div class="lobby-invite-actions">${btn('copy-link','↗ COPY INVITE LINK','small')}${btn('copy-code','COPY CODE','dark small')}</div><small>For another house, share the hosted HTTPS link. Localhost only works on the host computer.</small></div></div>
+      <div class="lobby-join-panel"><div class="lobby-qr-frame"><img src="/api/rooms/${esc(s.code)}/join-qr.svg" alt="Scan this QR code to join ECKEY THUMP room ${esc(s.code)}"></div><div class="lobby-join-details"><span class="eyebrow">SQUEEZE ANOTHER ONE ON THE PIER</span><div class="lobby-invite-code">${esc(s.code)}</div><p>Scan the code with your phone camera or enter this room code on the game website.</p><div class="lobby-invite-actions">${btn('copy-link','↗ COPY INVITE LINK','small')}${btn('copy-code','COPY CODE','dark small')}</div><small>For another house, share the hosted HTTPS link. Localhost only works on the host computer.</small></div></div>
+      ${ratingSwitch(s)}${consentCallout(s)}
       <div class="lobby-agenda"><div><span class="eyebrow">UP NEXT · THE RIDICULOUS PROGRAMME</span><div class="challenge-sequence">${chips.map((name,i)=>`<span class="challenge-chip">${i+1}. ${name}</span>`).join('')}</div></div><p class="sub">${esc(s.config.rating.toUpperCase())} HUMOUR · ${esc(s.config.pace.toUpperCase())} PACE · ${s.totalRounds||chips.length} ROUNDS</p></div>
       <div class="your-avatar"><span class="eyebrow">YOUR ON-SCREEN ALTER EGO</span><div>${avatar(s.you.avatar)} <strong>${esc(AVATARS.find(a=>a.id===s.you.avatar)?.name||'Choose your character')}</strong> ${btn('change-avatar','SWAP CHARACTER','small dark')}</div><div id="lobby-avatar-picker" class="hidden"></div></div>
       ${s.you.isHost?`${btn('start',waiting?'NEED 3+ PLAYERS':'⚡ START THE SHOW ⚡','wide showtime-start',waiting?'disabled':'')}<div class="status-note">You are the host. Open a separate TV screen for this house, or copy a private TV link for another home.</div>`:`<div class="notice">✓ You’re on the cast list! The host will start the show when everyone is ready.</div>`}
@@ -246,7 +270,7 @@
     ${s.you.isHost?btn('play-again','PLAY AGAIN WITH THIS GROUP ↻','wide'):''}
     ${btn('leave','BACK TO THE TITLE SCREEN','dark wide')}</section>`;
   }
-  function sidePanel(s){return `<aside class="panel side-panel"><span class="eyebrow">THE THUMP TABLE</span><h2 style="margin-top:7px">Tonight's carnage</h2>
+  function sidePanel(s){return `<aside class="panel side-panel"><span class="eyebrow">THE THUMP TABLE</span><h2 style="margin-top:7px">The Pier Scoreboard</h2>
     ${scoreRows(s.players)}
     <div class="divider"></div><div class="eyebrow">YOUR GAME</div><div class="pill-grid"><span class="pill">${s.roundNumber>0?'ROUND '+s.roundNumber+'/'+s.totalRounds:'WAITING ROOM'}</span><span class="pill">${esc(s.config.rating.toUpperCase())}</span></div>
     ${['SEED','SUBMIT','VOTE'].includes(s.phase)?`<div class="status-note">${s.round.type==='CARD'?'Pick from your seven private cards.':s.round.type==='CONTEXT'?'Write a harmless line, then rewrite somebody else’s.':s.round.type==='DOUBLE'?'Pick a card, then add your own absurd sales pitch.':s.round.type==='FINAL'?'This is the double-points finale.':'Invent a fresh punchline.'} Then vote for the other players’ best answers.</div>`:''}
@@ -254,12 +278,16 @@
     <div class="divider"></div><div class="disclaimer">Private games night: only invite friends you trust. Rooms disappear on server restart. Avoid private information in answers. The host can hide inappropriate entries. At another home, everyone needs the same public HTTPS URL.</div></aside>`;}
   function renderGame(){const s=S.snap;if(!s){app.innerHTML=nav()+`<div class="loading-center">Joining room ${esc(S.code)}…</div>`;return;}
     const previousInput=document.getElementById('answer-input');
-    if(previousInput)S.draft=previousInput.value;
-    const active=document.activeElement?.id==='answer-input';
+    // Do not overwrite a restored draft with a textarea from the previous phase.
+    const sameStage=S.renderedStage===s.phase&&S.renderedRound===s.round?.id;
+    if(previousInput&&sameStage)S.draft=previousInput.value;
+    const active=sameStage&&document.activeElement?.id==='answer-input';
     let ss=0,se=0;if(active){ss=previousInput.selectionStart;se=previousInput.selectionEnd;}
+    if(s.you?.role==='audience'){app.innerHTML=renderAudience(s);S.scenePulse=false;updateConnection();syncScene();return;}
     const main=s.phase==='LOBBY'?renderLobby(s):s.phase==='SEED'?contextSeed(s):s.phase==='SUBMIT'?renderSubmit(s):s.phase==='VOTE'?renderVote(s):s.phase==='RESULTS'?renderResults(s):renderComplete(s);
-    app.innerHTML=nav()+(s.phase==='LOBBY'?'':roomTop(s))+`<main class="room-layout ${s.phase==='LOBBY'?'showtime-room':''} ${S.scenePulse?'scene-enter':''}">${main}${s.phase==='LOBBY'?`<aside class="panel side-panel showtime-side"><span class="eyebrow">CONTROL ROOM</span><h2>TONIGHT'S SHOW</h2><p>${s.players.length} / 12 PLAYERS · ${esc(s.config.rating.toUpperCase())} · ${esc(s.config.pace.toUpperCase())}</p><div class="lobby-side-control">${shareControls(s)}</div><div class="divider"></div><span class="eyebrow">THE RULES (SORT OF)</span><div class="side-rules"><p><strong>01.</strong> Pick a card or write your finest nonsense.</p><p><strong>02.</strong> Vote for your friends. No self-voting.</p><p><strong>03.</strong> Crown the most ridiculous person in the room.</p></div><div class="disclaimer">Private games night only. Don't share room links publicly. You can hide offensive entries and keep the party moving.</div></aside>`:sidePanel(s)}</main><div class="footer-note">PRIVATE GAME NIGHT · v1.1 · FIVE CHALLENGES</div>`;
+    app.innerHTML=nav()+(s.phase==='LOBBY'?'':roomTop(s))+`<main class="room-layout ${s.phase==='LOBBY'?'showtime-room':''} ${S.scenePulse?'scene-enter':''}">${main}${s.phase==='LOBBY'?`<aside class="panel side-panel showtime-side"><span class="eyebrow">CONTROL ROOM</span><h2>TONIGHT'S SHOW</h2><p>${s.players.length} / 12 PLAYERS · ${esc(s.config.rating.toUpperCase())} · ${esc(s.config.pace.toUpperCase())}</p><div class="lobby-side-control">${shareControls(s)}</div><div class="divider"></div><span class="eyebrow">THE RULES (SORT OF)</span><div class="side-rules"><p><strong>01.</strong> Pick a card or write your finest nonsense.</p><p><strong>02.</strong> Vote for your friends. No self-voting.</p><p><strong>03.</strong> Crown the most ridiculous person in the room.</p></div><div class="disclaimer">Private games night only. Don't share room links publicly. You can hide offensive entries and keep the party moving.</div></aside>`:sidePanel(s)}</main><div class="footer-note">PRIVATE GAME NIGHT · v1.2 SEASIDE · FIVE CHALLENGES</div>`;
     const input=document.getElementById('answer-input');if(input){input.value=S.draft;updateCounter();if(active){input.focus();input.setSelectionRange(ss,se);}}
+    S.renderedStage=s.phase;S.renderedRound=s.round?.id;
     S.scenePulse=false;updateTimer();updateConnection();syncScene();
   }
   function render(){if(S.code)renderGame();else renderLanding();syncScene();}
@@ -273,9 +301,16 @@
   }
   setInterval(updateTimer,250);
   async function click(actionName,id){const s=S.snap;
+    thump(12);
+    if(actionName.startsWith('chaos-vote-'))return action('chaos-vote',{modifier:actionName.slice(11)});
+    if(actionName.startsWith('chaos-'))return action('chaos',{kind:actionName.slice(6),targetId:document.getElementById('chaos-target')?.value||null});
     switch(actionName){
       case 'toggle-sfx':{const on=window.ECKEY_SFX?.toggle();document.querySelectorAll('[data-action="toggle-sfx"]').forEach(b=>{b.setAttribute('aria-pressed',String(!!on));b.setAttribute('aria-label',on?'Turn off show sound effects':'Enable show sound effects');b.querySelector('span').textContent=on?'🔊':'🔇';b.querySelector('strong').textContent=on?'SHOW SFX ON':'ENABLE SHOW SFX';});return;}
       case 'toggle-sound':{await window.ECKEY_AUDIO?.toggle();document.querySelectorAll('[data-action="toggle-sound"]').forEach(b=>{const on=!!window.ECKEY_AUDIO?.enabled;b.setAttribute('aria-pressed',String(on));b.setAttribute('aria-label',on?'Mute lobby music':'Play lobby music');b.querySelector('strong').textContent=on?'MUSIC ON':'PLAY LOBBY MUSIC';b.querySelector('span').textContent=on?'♫':'♪';});return;}
+      case 'rejoin':{const code=localStorage.getItem('eckey-last-room');const secret=code&&localStorage.getItem(storageKey(code));if(secret)startSession(code,secret);return;}
+      case 'adult-consent':return action('adult-consent');
+      case 'rating-family':return action('set-lobby-rating',{rating:'clean'});
+      case 'rating-adult':return action('set-lobby-rating',{rating:'adult'});
       case 'change-avatar':{const wrap=document.getElementById('lobby-avatar-picker');if(wrap){wrap.innerHTML=avatarPicker();wrap.classList.toggle('hidden');}return;}
       case 'start':return action('start');
       case 'play-again':return action('play-again');
@@ -315,7 +350,7 @@
     }
   }
   app.addEventListener('click',ev=>{const picked=ev.target.closest('[data-pick-avatar]');if(picked){choice=picked.dataset.pickAvatar;if(S.snap&&S.snap.phase==='LOBBY')return action('avatar',{avatar:choice});document.querySelectorAll('[data-pick-avatar]').forEach(b=>{b.classList.toggle('picked',b.dataset.pickAvatar===choice);b.setAttribute('aria-pressed',String(b.dataset.pickAvatar===choice));});return;}const button=ev.target.closest('[data-action]');if(!button||button.disabled)return;click(button.dataset.action,button.dataset.id);});
-  app.addEventListener('input',ev=>{if(ev.target.id==='answer-input'){S.draft=ev.target.value;updateCounter();}});
+  app.addEventListener('input',ev=>{if(ev.target.id==='answer-input'){S.draft=ev.target.value;rememberDraft();updateCounter();}});
   const code=(q.get('room')||'').trim().toUpperCase();
   if(/^[A-Z2-9]{6}$/.test(code) && localStorage.getItem(storageKey(code)))startSession(code,localStorage.getItem(storageKey(code)));
   else renderLanding();

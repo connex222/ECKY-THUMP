@@ -1,0 +1,99 @@
+/* ECKEY THUMP v1.2 — original saucy British seaside postcard treatment.
+   Loaded last; avatar component selectors and assets are deliberately untouched. */
+:root{--postcard-red:#dc222b;--postcard-navy:#14284b;--postcard-yellow:#ffda51;--postcard-paper:#f5e4bf;--postcard-ink:#172949}
+html{background:#15284a}
+body.seaside-postcard,
+body.seaside-postcard[data-ui="Chaos-Arena"]{color:var(--postcard-ink);background:radial-gradient(circle at 20% 16%,#f1bc54 0 4%,transparent 5%),repeating-linear-gradient(115deg,#d628341b 0 10px,#fff5d9 10px 22px,#12457725 22px 32px),#efd3a5}
+body.seaside-postcard .ambient{display:none}
+body.seaside-postcard .app-shell,
+body.seaside-postcard .tv-shell{position:relative;width:min(1400px,calc(100% - 30px));margin:18px auto;padding:26px;background:linear-gradient(116deg,#fff6dfef,#efd7adeb),var(--postcard-paper);border:13px solid #fffdf5;outline:4px solid var(--postcard-navy);box-shadow:0 15px 0 #9d5426,0 20px 40px #20253775;isolation:isolate;min-height:calc(100dvh - 60px)}
+body.seaside-postcard .tv-shell{width:min(1780px,calc(100% - 32px));}
+body.seaside-postcard .app-shell::before,
+body.seaside-postcard .tv-shell::before{content:"";pointer-events:none;position:absolute;inset:0;z-index:-1;opacity:.19;background-image:radial-gradient(#ba6b2b 0.8px,transparent 1px);background-size:7px 7px;}
+body.seaside-postcard .hero,body.seaside-postcard .showtime-hero{background:radial-gradient(ellipse at 50% 5%,#ffd64d91,transparent 66%);color:var(--postcard-ink)}
+body.seaside-postcard .hero p,body.seaside-postcard .panel p,
+body.seaside-postcard .tv-subtitle,body.seaside-postcard .sub{color:var(--postcard-ink);text-shadow:none}
+body.seaside-postcard .showtime-eyebrow,body.seaside-postcard .eyebrow{color:#ae272a;font-weight:950;text-shadow:none;letter-spacing:.105em}
+body.seaside-postcard .hero-private,body.seaside-postcard .showtime-status{background:#dc252b;color:#fff6dc;border:3px solid #fff;border-radius:2px;padding:6px 12px;box-shadow:3px 4px var(--postcard-navy);transform:rotate(1deg);font-weight:950}
+body.seaside-postcard .showtime-logo-wrap,body.seaside-postcard .lobby-logo{filter:drop-shadow(4px 7px 0 #a4302c)}
+body.seaside-postcard .eckey-wordmark{filter:sepia(.06) saturate(1.25) drop-shadow(3px 4px #902730)}
+body.seaside-postcard .cast-badge,body.seaside-postcard .show-subline,body.seaside-postcard .showtime-hero .show-subline{border:4px solid #fffbe5;background:var(--postcard-red);color:#fff;box-shadow:5px 5px var(--postcard-navy);border-radius:3px;transform:rotate(-2deg)}
+body.seaside-postcard .panel{background:linear-gradient(155deg,#fff7e0,#f5e0b9);border:5px solid #fffef5;border-radius:6px;outline:3px solid var(--postcard-navy);box-shadow:7px 9px 0 #a66b4f,0 18px 30px #523d3442;color:var(--postcard-ink)}
+body.seaside-postcard .panel:nth-child(2){background:linear-gradient(165deg,#fff2c9,#eacdac)}
+body.seaside-postcard .panel:before{height:4px;background:repeating-linear-gradient(90deg,#e02630 0 12px,#ffdf51 12px 24px,#15284a 24px 36px)}
+body.seaside-postcard h1,body.seaside-postcard h2,body.seaside-postcard .section-title,
+body.seaside-postcard .panel h2{font-family:Impact,'Arial Black','Trebuchet MS',sans-serif;color:var(--postcard-red);text-shadow:2px 2px 0 #fff6dc,4px 5px 0 var(--postcard-navy);letter-spacing:.025em;line-height:1.08}
+body.seaside-postcard .lobby-heading{color:var(--postcard-red);font-size:clamp(2rem,4vw,4.5rem)}
+body.seaside-postcard .lobby-lede,body.seaside-postcard .tv-subtitle{color:#14284b!important}
+body.seaside-postcard .label{color:var(--postcard-navy)}
+body.seaside-postcard .field,body.seaside-postcard .select,body.seaside-postcard .textarea{background:#fffaf0;color:var(--postcard-navy);border:2px solid var(--postcard-navy);border-radius:3px;box-shadow:3px 3px 0 #d69c64;font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+body.seaside-postcard .field::placeholder,body.seaside-postcard .textarea::placeholder{color:#586473}
+body.seaside-postcard .field:focus,body.seaside-postcard .textarea:focus{outline:3px solid #bd3030;outline-offset:1px;box-shadow:3px 3px #ac6e4f}
+body.seaside-postcard .btn,body.seaside-postcard .btn.pink{color:#fffdf4;background:var(--postcard-red);border:3px solid var(--postcard-navy);border-radius:3px;box-shadow:4px 5px 0 #122c50;text-shadow:1px 1px 0 #811b1f;font-family:Impact,'Arial Black',sans-serif}
+body.seaside-postcard .btn.dark,body.seaside-postcard .btn.ghost{background:var(--postcard-navy);color:#fff9da;border:3px solid var(--postcard-red);box-shadow:4px 5px 0 #cfad83;text-shadow:none}
+body.seaside-postcard .btn:focus-visible,body.seaside-postcard button:focus-visible{outline:4px solid var(--postcard-yellow);outline-offset:4px}
+body.seaside-postcard .setup-choice-face,body.seaside-postcard .challenge-chip,body.seaside-postcard .ribbon-chip{background:#fff6da;color:#163457;border:2px solid var(--postcard-red);border-radius:2px;box-shadow:3px 3px #bf9b6a}
+body.seaside-postcard .setup-choice:has(input:checked) .setup-choice-face{background:var(--postcard-yellow);color:var(--postcard-navy);border-color:var(--postcard-navy);box-shadow:5px 5px 0 var(--postcard-red)}
+body.seaside-postcard .setup-choice-face strong,body.seaside-postcard .setup-choice-face small{color:inherit}
+body.seaside-postcard .room-code,body.seaside-postcard .lobby-invite-code{color:var(--postcard-red);text-shadow:3px 3px #ffdd65,4px 5px #14284b}
+body.seaside-postcard .lobby-ticker{background:var(--postcard-red);color:#fff3d0;border:2px solid #fff6d9;border-radius:0;font-weight:1000}
+body.seaside-postcard .lobby-stage{background:radial-gradient(circle at 50% 5%,#ffe7a8,transparent 65%),linear-gradient(#ffe7ad,#f0d0a9);border:4px dashed var(--postcard-red);border-radius:4px}
+body.seaside-postcard .stage-contestant,body.seaside-postcard .lobby-join-panel,
+body.seaside-postcard .lobby-agenda,body.seaside-postcard .lobby-friend{color:var(--postcard-navy);background:#fff5d9;border-color:var(--postcard-red)}
+body.seaside-postcard .stage-contestant strong,body.seaside-postcard .stage-contestant span{color:var(--postcard-navy)}
+body.seaside-postcard .stage-show-heading{background:radial-gradient(circle at 8% 10%,#ffdb5c,transparent 50%),linear-gradient(125deg,#fff4cc,#f8d5a1);border:4px double var(--postcard-red);box-shadow:5px 6px 0 var(--postcard-navy);border-radius:4px}
+body.seaside-postcard .stage-show-heading .stage-name{color:var(--postcard-red);text-shadow:3px 4px #ffe677,5px 6px var(--postcard-navy)}
+body.seaside-postcard .stage-show-heading .stage-kicker,
+body.seaside-postcard .stage-show-heading .stage-tagline{color:var(--postcard-navy)}
+body.seaside-postcard .prompt-box{background:var(--postcard-yellow)!important;border:3px solid var(--postcard-navy)!important;color:var(--postcard-navy);box-shadow:6px 6px var(--postcard-red)!important;border-radius:5px!important}
+body.seaside-postcard .prompt-box p{color:var(--postcard-navy)}
+body.seaside-postcard .pick-card,body.seaside-postcard .candidate{background:#fff9ec!important;color:var(--postcard-navy);border:3px solid var(--postcard-red)!important;border-radius:4px!important;box-shadow:3px 4px #a47753!important}
+body.seaside-postcard .pick-card.selected,body.seaside-postcard .candidate.gold-selected{background:var(--postcard-yellow)!important;border-color:var(--postcard-navy)!important;box-shadow:4px 5px var(--postcard-red)!important}
+body.seaside-postcard .candidate.silver-selected{background:#dcecf6!important;border-color:#18487e!important}
+body.seaside-postcard .pick-card *,body.seaside-postcard .candidate *{color:var(--postcard-navy)}
+body.seaside-postcard .status-note,body.seaside-postcard .notice,body.seaside-postcard .contract{background:#fff4d8;color:var(--postcard-navy);border:2px dashed var(--postcard-red);border-radius:3px}
+body.seaside-postcard .timer{background:var(--postcard-red);color:#fff;padding:6px 14px;border:3px solid #ffda51;border-radius:3px;font-variant-numeric:tabular-nums}
+body.seaside-postcard .badge,body.seaside-postcard .pill{border-radius:3px;background:var(--postcard-yellow);color:var(--postcard-navy);border:2px solid var(--postcard-red)}
+body.seaside-postcard .sound-switch{background:var(--postcard-navy);color:#fff;border-color:var(--postcard-red);border-radius:3px;box-shadow:3px 4px #bd8c64}
+body.seaside-postcard .footer-note{color:var(--postcard-navy);text-shadow:none}
+/* The TV screen itself is a giant postcard. Player avatar images and all asset bindings stay unchanged. */
+body.seaside-postcard.tv-body{background:repeating-linear-gradient(135deg,#153455 0 36px,#b51f2b 36px 45px,#f8e0ab 45px 82px)}
+body.seaside-postcard.tv-body .tv-scene{border:5px double var(--postcard-red);background:radial-gradient(circle at 50% 0,#ffdc5c90,transparent 45%),#f5e2bb;color:var(--postcard-navy);padding:18px}
+body.seaside-postcard.tv-body .tv-minimal-head{background:var(--postcard-red);color:#fff;border-radius:2px}
+body.seaside-postcard.tv-body .tv-show-mode,body.seaside-postcard.tv-body .tv-prompt{color:var(--postcard-red)!important;text-shadow:3px 3px #fff8d9,5px 6px var(--postcard-navy)}
+body.seaside-postcard.tv-body .tv-center:before{display:none}
+body.seaside-postcard.tv-body .tv-cast-tile{background:#fff4db;border:4px solid var(--postcard-red);border-radius:4px;box-shadow:6px 7px var(--postcard-navy)}
+body.seaside-postcard.tv-body .tv-cast-tile span{color:var(--postcard-navy)}
+body.seaside-postcard.tv-body .tv-player{background:#fff6d9;color:var(--postcard-navy);border:2px solid var(--postcard-red);border-radius:3px;box-shadow:3px 4px #bb7c56}
+body.seaside-postcard.tv-body .tv-status{background:var(--postcard-navy);color:#fff5cf;border:2px solid var(--postcard-yellow);border-radius:4px;box-shadow:3px 4px var(--postcard-red)}
+body.seaside-postcard.tv-body .tv-card,body.seaside-postcard.tv-body .tv-card.win{background:#fff6da;border:3px solid var(--postcard-red);box-shadow:5px 6px var(--postcard-navy);color:var(--postcard-navy);border-radius:4px}
+body.seaside-postcard.tv-body .tv-card *{color:var(--postcard-navy)}
+body.seaside-postcard.tv-body .tv-board-item{background:#ffefc8;border:2px solid var(--postcard-red);border-radius:4px;color:var(--postcard-navy)}
+body.seaside-postcard.tv-body .tv-board-item strong{color:#a21e28}
+body.seaside-postcard.tv-body .tv-footer{background:var(--postcard-navy);color:#fff5ce;border:2px solid var(--postcard-red);border-radius:2px}
+.postcard-pack-switch,.postcard-tv-pack{position:relative;margin:15px 0;background:#ffefbe;border:4px double #ce2632;border-radius:4px;padding:15px 18px;box-shadow:5px 6px #143253;color:#142c4a;text-align:center}
+.postcard-pack-switch>span,.postcard-tv-pack>strong{display:block;font:1000 clamp(1.05rem,2vw,1.5rem) Impact,'Arial Black',sans-serif;letter-spacing:.07em;color:#be222e}
+.postcard-pack-buttons{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;margin:10px auto}
+.postcard-tv-pack button,.postcard-pack-buttons .btn{min-height:48px;padding:10px 20px;border:3px solid #192b4b;background:#fff7dc;color:#182944;box-shadow:3px 4px #ac7c5c;cursor:pointer;font:900 clamp(.8rem,1.4vw,1rem) 'Trebuchet MS',system-ui,sans-serif;border-radius:3px}
+.postcard-tv-pack button[aria-pressed="true"],.postcard-pack-buttons .btn.selected-pack{background:#da2931!important;color:#fff!important;border-color:#ffd84d;box-shadow:4px 5px #13284c;text-shadow:none}
+.postcard-tv-pack small,.postcard-pack-switch small{display:block;color:#503838;font-weight:700}
+#tv-rating-msg{margin:4px 0!important;color:#942025!important;font-weight:900}
+.postcard-consent,.return-ticket{background:#f8d886;border:2px dashed #dc222b;border-radius:4px;padding:14px;margin:15px auto;color:#14284b;font-weight:800;text-align:center}
+.postcard-consent small{display:block;margin-top:10px}
+.postcard-audience{max-width:760px;margin:30px auto;text-align:center}
+.postcard-audience .room-code{font-size:clamp(2rem,6vw,4rem)}
+.chaos-console,.postcard-poll{margin:20px auto;padding:18px;border:3px dotted #e02028;background:#fff6d8}
+.chaos-options,.postcard-poll{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.postcard-poll h2,.postcard-poll p{width:100%}
+.chaos-console select{max-width:400px;display:block;margin:12px auto}
+.chaos-console small{display:block;margin-top:12px}
+.postcard-heckle{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;color:var(--postcard-navy);text-align:center;min-height:0}
+.postcard-heckle:empty{display:none}
+.postcard-heckle-live{padding:9px 18px;background:var(--postcard-yellow);border:3px solid var(--postcard-red);box-shadow:3px 4px var(--postcard-navy);transform:rotate(-.6deg)}
+.postcard-heckle strong{color:#b51826;font:1000 clamp(.9rem,1.6vw,1.45rem) Impact,system-ui,sans-serif}
+.postcard-heckle small{color:#153458;font-weight:850}
+@keyframes postcard-rattle{0%,100%{transform:translate(0)}20%{transform:translate(-4px,1px)}40%{transform:translate(4px,-2px)}60%{transform:translate(-2px,2px)}80%{transform:translate(2px,0)}}
+.tv-scene.postcard-thumped{animation:postcard-rattle .31s ease both}
+body.seaside-postcard .scene-enter .stage-show-heading,body.seaside-postcard .scene-enter .prompt-box{animation-duration:.32s}
+@media(max-width:700px){body.seaside-postcard .app-shell,body.seaside-postcard .tv-shell{margin:7px auto;padding:12px;width:calc(100% - 14px);border-width:7px;outline-width:2px;box-shadow:0 5px #9d5426}body.seaside-postcard .panel{padding:17px 12px;border-width:3px;outline-width:2px}body.seaside-postcard .lobby-stage{padding:10px 6px}body.seaside-postcard .showtime-hero{padding:5px 3px 14px}.postcard-tv-pack,.postcard-pack-switch{padding:10px 7px}.postcard-pack-buttons{gap:6px}.postcard-tv-pack button,.postcard-pack-buttons .btn{flex:1 1 135px;padding:8px;font-size:.8rem}.postcard-audience{margin:10px auto}body.seaside-postcard .room-code{font-size:clamp(1.9rem,7vw,3.4rem)}}
+@media(prefers-reduced-motion:reduce){.tv-scene.postcard-thumped{animation:none}.postcard-heckle-live{transform:none}}

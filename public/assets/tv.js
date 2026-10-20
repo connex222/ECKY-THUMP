@@ -17,19 +17,20 @@
   const tvHead=s=>`<div class="tv-show-top"><span class="tv-show-round">ROUND ${s.roundNumber}/${s.totalRounds}</span><span class="tv-show-mode">${esc(s.phase==='SEED'?'CONTEXT COLLAPSE':s.phase==='VOTE'?'CAST YOUR VOTES':s.phase==='RESULTS'?'THE VERDICT':s.round?.label||'SHOWTIME')}</span></div>`;
   const tvConfetti=()=>`<div class="fx-confetti" aria-hidden="true">${Array.from({length:22},(_,i)=>`<i style="--x:${i*43%95+3}%;--d:${(i*11)%18/10}s;--r:${i*47}deg;--drift:${(i%5-2)*38}px;--c:${['#ffd970','#ff48c8','#37eaff','#a6fe7c'][i%4]}"></i>`).join('')}</div>`;
   function header(s){return s.phase==='LOBBY'?'':`<header class="tv-minimal-head"><strong>ECKEY THUMP</strong><span>ROOM ${esc(s.code)}</span>${showFx()}</header>`;}
+  const tvPackSwitch=s=>`<div class="postcard-tv-pack" role="group" aria-label="Content pack"><strong>WHAT KIND OF POSTCARD, THEN?</strong><div class="postcard-pack-buttons"><button type="button" data-tv-rating="clean" aria-pressed="${s.config.rating==='clean'}">☺ FAMILY FRIENDLY</button><button type="button" data-tv-rating="adult" aria-pressed="${s.config.rating==='adult'}">♥ AFTER DARK · 18+</button></div><small>${s.adultConsents}/${s.adultConsentNeeded} guests confirmed 18+ · the game pauses rating changes once play starts</small><p id="tv-rating-msg" aria-live="polite"></p></div>`;
   const soundControl=()=>`<button type="button" class="sound-switch tv-sound-switch" data-sound-toggle aria-pressed="${window.ECKEY_AUDIO?.enabled?'true':'false'}"><span aria-hidden="true">♫</span><strong>${window.ECKEY_AUDIO?.enabled?'MUSIC ON':'PLAY LOBBY MUSIC'}</strong></button>`;
   function footer(s){return `<footer class="tv-footer"><span>${esc(s.config.rating.toUpperCase())} HUMOUR · ${s.players.length} CONTESTANTS</span><span>JOIN ON YOUR PHONE · ${esc(location.host)}/join/ · CODE ${esc(s.code)}</span></footer>`;}
   function leaderboard(s,amount=6){return `<div class="tv-board">${s.players.slice(0,amount).map((p,i)=>`<div class="tv-board-item"><span class="tv-with-avatar">${avatar(p.avatar)}${i+1}. ${esc(p.name)}</span><strong>${p.score} POINTS</strong></div>`).join('')}</div>`;}
-  function intro(s){return `<section class="tv-center showtime-tv-lobby"><div class="tv-sound-toolbar">${soundControl()}${showFx()}<span class="eyebrow">THE GAME NIGHT CHAOS SHOW</span></div><h1 class="visually-hidden">ECKEY THUMP</h1><img class="eckey-wordmark tv-showtime-logo" src="/assets/eckey-logo.svg" alt="ECKEY THUMP" width="1280" height="550"><div class="tv-chaos-slogan">GOOD FRIENDS. TERRIBLE JUDGEMENT. BRILLIANT NIGHT.</div>
+  function intro(s){return `<section class="tv-center showtime-tv-lobby">${tvPackSwitch(s)}<div class="tv-sound-toolbar">${soundControl()}${showFx()}<span class="eyebrow">THE GAME NIGHT CHAOS SHOW</span></div><h1 class="visually-hidden">ECKEY THUMP</h1><img class="eckey-wordmark tv-showtime-logo" src="/assets/eckey-logo.svg" alt="ECKEY THUMP" width="1280" height="550"><div class="tv-chaos-slogan">WISH YOU WERE HERE. GLAD YOU'RE NOT IN CHARGE.</div>
     <div class="tv-subtitle">Join on your phone. Make terrible jokes. Crown an unlikely legend.</div>
     <div class="tv-cast" aria-hidden="true">${['adult-06','adult-13','adult-18','adult-23'].map(id=>{const a=AVATARS.find(x=>x.id===id);return a?`<div class="tv-cast-tile"><img src="${a.image}" alt=""><span>${esc(a.name.toUpperCase())}</span></div>`:'';}).join('')}</div>
-    <div style="margin:30px 0 8px">${s.players.length>=3?'<span class="badge gold">READY FOR THE SHOW</span>':'<span class="badge">WAITING FOR THREE PLAYERS</span>'}</div>
+    <div style="margin:30px 0 8px">${s.players.length>=3?'<span class="badge gold">READY FOR THE SHOW</span>':'<span class="badge">POLISHING THE FLATCAPS, HANG ON A TICK…</span>'}</div>
     <div class="tv-names">${s.players.map(p=>`<span class="tv-player">${avatar(p.avatar)}${esc(p.name)}${p.online?' ●':''}</span>`).join('')}</div>
-    <div class="tv-status">${s.players.length} / 12 PLAYERS · ROOM ${esc(s.code)}</div>
+    <div class="tv-status">${s.players.length} / 12 PLAYERS · ${s.audienceCount||0} HECKLERS ON THE PIER · ROOM ${esc(s.code)}</div>
     <div class="tv-scan-to-join"><img class="tv-qr" src="/api/rooms/${esc(s.code)}/join-qr.svg" alt="Scan to join room ${esc(s.code)} with your phone"><div><strong>SCAN TO JOIN</strong><span>Or visit ${esc(location.host)} and enter ${esc(s.code)}</span></div></div></section>`;}
   function submission(s){const r=s.round;return `<section class="tv-center">${tvHead(s)}<div class="eyebrow">ROUND ${s.roundNumber} OF ${s.totalRounds} · ${esc(r.label)}</div>
     <h1 class="tv-prompt tv-active-prompt">${esc(r.prompt)}</h1>${r.multiplier>1?'<div class="finale-multiplier">⚡ DOUBLE POINTS FINALE ⚡</div>':''}${r.contract?`<div class="contract">✦ ${esc(r.contract)}</div>`:''}
-    <div class="tv-status">${r.type==='CARD'?'PICK YOUR FUNNIEST CARD':r.type==='CONTEXT'?'REWRITE THE INNOCENT LINE':r.type==='DOUBLE'?'COMBINE A CARD WITH A RIDICULOUS PUNCHLINE':r.type==='FINAL'?'ONE FINAL JOKE. DOUBLE POINTS.':'TYPE YOUR FUNNIEST MASTERPIECE'}</div>
+    <div class="tv-status">${r.type==='CARD'?'PICK A CARD — NO PULLED MUSCLES':r.type==='CONTEXT'?'REWRITE THE INNOCENT LINE':r.type==='DOUBLE'?'COMBINE A CARD WITH A RIDICULOUS PUNCHLINE':r.type==='FINAL'?'ONE FINAL JOKE. DOUBLE POINTS.':'WRITE A CRACKER FOR THE CROWD'}</div>
     <div class="tv-names">${s.players.map(p=>`<span class="tv-player">${avatar(p.avatar)}${esc(p.name)} ${r.submissionCount===s.players.length?'✓':'•'}</span>`).join('')}</div>
     <div class="tv-status"><span id="tv-timer" class="timer">--</span> &nbsp; · &nbsp; ${r.submissionCount} / ${s.players.length} ANSWERS RECEIVED</div>
     ${s.paused?`<div class="notice alert">HOST HAS PAUSED THE GAME</div>`:''}</section>`;}
@@ -39,11 +40,11 @@
     ${s.paused?'<div class="notice alert">HOST HAS PAUSED THE GAME</div>':''}</section>`;}
   function voting(s){const r=s.round;return `<section class="tv-center" style="justify-content:flex-start;padding-top:25px">${tvHead(s)}<div class="eyebrow">ROUND ${s.roundNumber} OF ${s.totalRounds} · TIME TO VOTE</div>
     <h1 class="tv-prompt tv-active-prompt tv-vote-prompt" style="font-size:clamp(2rem,3vw,3.4rem);margin:14px auto">${esc(r.prompt)}</h1>${r.multiplier>1?'<div class="finale-multiplier">⚡ DOUBLE POINTS FINALE ⚡</div>':''}
-    <div class="tv-status">CHOOSE GOLD & SILVER ON YOUR PHONE · CHEER, ARGUE, ACCUSE YOUR FRIENDS · <span id="tv-timer">--</span></div>
+    <div class="tv-status">CAST GOLD & SILVER ON YOUR PHONE · CHEER, ARGUE, ACCUSE YOUR FRIENDS · <span id="tv-timer">--</span></div>
     <div class="tv-cards tv-show-cards">${(r.candidates||[]).map((c,i)=>`<div class="tv-card"><span><span class="eyebrow">ENTRY ${i+1}</span><br>${esc(c.text)}</span></div>`).join('')}</div>
     <div class="tv-status">${r.voteCount} / ${r.eligibleVotes} BALLOTS RECEIVED</div></section>`;}
   function results(s){const r=s.round;return `<section class="tv-center fx-fanfare" style="justify-content:flex-start;padding-top:14px">${tvHead(s)}${r.skipReason?"":scenePulse?tvConfetti():""}<div class="eyebrow">ROUND ${s.roundNumber} OF ${s.totalRounds} · THE VERDICT</div>
-    <h1 class="tv-prompt tv-active-prompt tv-results-prompt" style="font-size:clamp(2rem,3vw,3.3rem);margin:15px auto">${r.skipReason?'ROUND SKIPPED':'WHO CAUSED THE MOST CHAOS?'}</h1>
+    <h1 class="tv-prompt tv-active-prompt tv-results-prompt" style="font-size:clamp(2rem,3vw,3.3rem);margin:15px auto">${r.skipReason?'ROUND SKIPPED':'OHH, MATRON! WHO WON?'}</h1>
     ${r.skipReason?`<div class="notice alert">${esc(r.skipReason)}</div>`:''}
     <div class="tv-cards tv-show-cards">${(r.entries||[]).slice(0,12).map((e,i)=>`<div class="tv-card ${e.award?.rank===1?'win':''}"><span><span class="eyebrow">${e.award?`#${e.award.rank} · +${e.award.points} POINTS`:'NO SCORE'}</span><br>${esc(e.text)}<small>BY ${esc(e.authorName)}</small></span></div>`).join('')}</div>
     ${tvWinners(s)}${leaderboard(s)}<div class="tv-status">${r.readyCount||0} / ${s.players.length} FRIENDS READY · NEXT: ${esc(r.nextChallenge||'CHAMPION REVEAL')} · ${s.config.pace==='relaxed'?'HOST CONTROLS NEXT ROUND':'NEXT ROUND STARTS AUTOMATICALLY'}</div></section>`;}
@@ -51,6 +52,8 @@
     <div class="eyebrow">THE CHAMPIONSHIP IS OVER</div><span style="font-size:7rem;margin:5px 0">♛</span><h1 class="tv-finale-title">ECKEY THUMP!</h1><h2 class="tv-prompt">${esc(names)}</h2>
     <div class="tv-subtitle">${s.champions.length>1?'JOINT AGENTS OF CHAOS':'YOUR ECKEY THUMP CHAMPION'}</div><div class="tv-finale-cast">${s.champions.slice(0,3).map(p=>`<div class="tv-finale-player">${celebration(p.avatar)}<strong>${esc(p.name)}</strong></div>`).join('')}</div>
     ${leaderboard(s,12)}${s.nightRecap?.topMoments?.length?`<div class="tv-recap"><strong>⭐ MOST-VOTED MOMENT OF THE NIGHT</strong><blockquote>${esc(s.nightRecap.topMoments[0].text)}</blockquote><small>BY ${esc(s.nightRecap.topMoments[0].authorName)}</small></div>`:''}<div class="tv-status">${s.nightRecap?.roundsPlayed||s.totalRounds} ROUNDS · ${s.nightRecap?.totalBallots||0} BALLOTS · PLAY AGAIN WITH THIS GROUP!</div></section>`;}
+  function chaosStage(s){const chaos=s.chaos||{},events=chaos.events||[];const last=events.at(-1);const labels={'pudding':'BLACK PUDDING INCOMING!','wrench':'SOMEONE THREW A WRENCH!','shake':'THE PIER IS SHAKING!'};const modifiers={'pudding-rain':'BLACK PUDDING RAIN','pier-panic':'PIER PANIC','crowd-roar':'CROWD ROAR'};
+    return `<div class="postcard-heckle ${last?'postcard-heckle-live':''}" aria-live="polite">${last?`<strong>${esc(labels[last.kind]||'HECKLED!')}</strong><span>Courtesy of ${esc(last.by)}${last.targetId?' · '+esc(s.players.find(p=>p.id===last.targetId)?.name||'the contestants'):''}</span>`:''}${chaos.leader?`<small>THE BALCONY VOTES: ${esc(modifiers[chaos.leader]||'CHAOS')}</small>`:''}</div>`;}
   function render(s){
     const key=`${s.round?.id||'none'}:${s.phase}`;
     if(lastSoundKey!==null&&key!==lastSoundKey)window.ECKEY_SFX?.play(s.phase==='RESULTS'?(s.round?.skipReason?'skip':'reveal'):s.phase==='COMPLETE'?'champion':s.phase==='VOTE'?'vote':['SEED','SUBMIT'].includes(s.phase)?'round':'tap');
@@ -58,7 +61,12 @@
     if(typeof s.serverNow==='number')clockOffset=s.serverNow-Date.now();
     lastSoundKey=key;lastSceneKey=key;scenePulse=sceneChanged;current=s;
     const body=s.phase==='LOBBY'?intro(s):s.phase==='SEED'?contextOpening(s):s.phase==='SUBMIT'?submission(s):s.phase==='VOTE'?voting(s):s.phase==='RESULTS'?results(s):finished(s);
-    el.innerHTML=`<div class="tv-scene ${sceneChanged?'scene-enter':''}">${header(s)+body+footer(s)}</div>`;updateTimer();window.ECKEY_AUDIO?.setScene(s.phase==='LOBBY'?'LOBBY':'GAME');
+    const lastChaos=(s.chaos?.events||[]).at(-1);
+    const seen=Number(el.dataset.lastHeckle||0);
+    const incoming=lastChaos&&lastChaos.id>seen;
+    if(incoming)window.ECKEY_SFX?.play('tap');
+    if(lastChaos)el.dataset.lastHeckle=String(lastChaos.id);
+    el.innerHTML=`<div class="tv-scene ${sceneChanged?'scene-enter':''} ${incoming?'postcard-thumped':''}">${header(s)+chaosStage(s)+body+footer(s)}</div>`;updateTimer();window.ECKEY_AUDIO?.setScene(s.phase==='LOBBY'?'LOBBY':'GAME');
   }
   function updateTimer(){const t=document.getElementById('tv-timer');if(!current||!t)return;
     const seconds=Math.max(0,Math.ceil(((current.deadline||Date.now()+clockOffset)-(Date.now()+clockOffset))/1000));
@@ -67,6 +75,13 @@
     if(!current.paused&&seconds>0&&seconds<=5&&['SEED','SUBMIT','VOTE'].includes(current.phase)&&key!==lastTick){lastTick=key;window.ECKEY_SFX?.play('countdown');}
 
   }
+  el.addEventListener('click',async e=>{const control=e.target.closest('[data-tv-rating]');if(!control)return;
+    const message=el.querySelector('#tv-rating-msg');
+    try {const res=await fetch(`/api/rooms/${code}/action`,{method:'POST',headers:{Authorization:`Bearer ${secret}`,'Content-Type':'application/json'},body:JSON.stringify({type:'set-lobby-rating',rating:control.dataset.tvRating})});
+      const data=await res.json();if(!res.ok)throw Error(data.error||'Could not change the rating.');
+      if(message)message.textContent='Postcard pack changed!';
+    } catch(error){if(message)message.textContent=error.message;}
+  });
   el.addEventListener('click',e=>{if(!e.target.closest('[data-fx-toggle]'))return;const on=window.ECKEY_SFX?.toggle();el.querySelectorAll('[data-fx-toggle]').forEach(b=>{b.setAttribute('aria-pressed',String(!!on));b.querySelector('span').textContent=on?'🔊':'🔇';b.querySelector('strong').textContent=on?'SHOW SFX ON':'ENABLE SHOW SFX';});});
   el.addEventListener('click',async e=>{if(!e.target.closest('[data-sound-toggle]'))return;await window.ECKEY_AUDIO?.toggle();const control=el.querySelector('[data-sound-toggle]');if(control){control.setAttribute('aria-pressed',String(!!window.ECKEY_AUDIO?.enabled));control.querySelector('strong').textContent=window.ECKEY_AUDIO?.enabled?'MUSIC ON':'PLAY LOBBY MUSIC';}});
   setInterval(updateTimer,250);

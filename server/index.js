@@ -29,8 +29,10 @@ function credentials(req,room) {
   if (!auth.startsWith('Bearer '))return null;
   const secret=auth.slice(7);
   const player=game.findPlayer(room,secret);
-  if(player)return {player,tv:false};
-  if(game.verifyDisplay(room,secret))return {player:null,tv:true};
+  if(player)return {player,tv:false,audience:null};
+  const audience=game.findAudience(room,secret);
+  if(audience)return {player:null,tv:false,audience};
+  if(game.verifyDisplay(room,secret))return {player:null,tv:true,audience:null};
   return null;
 }
 function authorize(req,room){const who=credentials(req,room);if(!who)throw Error('This room session has expired or is invalid. Please join again.');return who;}
@@ -52,7 +54,7 @@ function requireOrigin(req) {
 function route(req,res) {
   const url=new URL(req.url,`http://${req.headers.host||'localhost'}`);
   const pathname=url.pathname;
-  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKEY THUMP',version:'1.1.0',uptime:process.uptime()});
+  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKEY THUMP',version:'1.2.0',uptime:process.uptime()});
   if(pathname==='/api/rooms'&&req.method==='POST')return (async()=>{
     requireOrigin(req);const body=await readBodyOrEmpty(req);
     const created=game.newRoom(body);let c;do{c=code();}while(rooms.has(c));created.room.code=c;
@@ -63,8 +65,11 @@ function route(req,res) {
   if(match){const room=getRoom(match[1]),endpoint=match[2];
     if(endpoint==='join'&&req.method==='POST')return (async()=>{
       requireOrigin(req);const body=await readBodyOrEmpty(req);
-      const participant=game.addPlayer(room,body.name,body.adultConfirmed,body.avatar);
-      touch(room);send(res,201,{code:room.code,seatId:participant.id,secret:participant.secret});broadcast(room);
+      // Full lobbies and matches accept viewers as audience, without stealing a player's seat.
+      const participant=(room.phase==='LOBBY'&&room.players.length<12)
+        ?game.addPlayer(room,body.name,body.adultConfirmed,body.avatar)
+        :game.addAudience(room,body.name,body.adultConfirmed);
+      touch(room);send(res,201,{code:room.code,seatId:participant.id,secret:participant.secret,role:participant.role||'player'});broadcast(room);
     })();
     if(endpoint==='join-qr.svg'&&req.method==='GET'){
       const protocol=req.headers['x-forwarded-proto']==='https'?'https':'http';
@@ -72,24 +77,26 @@ function route(req,res) {
       const svg=qrSVG(link);res.writeHead(200,{'Content-Type':'image/svg+xml; charset=utf-8','Cache-Control':'no-store'});res.end(svg);return;
     }
     if(endpoint==='snapshot'&&req.method==='GET') {
-      const who=authorize(req,room);return send(res,200,game.snapshot(room,who.player?.id,who.tv));
+      const who=authorize(req,room);return send(res,200,game.snapshot(room,who.player?.id||who.audience?.id,who.tv));
     }
     if(endpoint==='events'&&req.method==='GET'){
       const who=authorize(req,room);
       res.writeHead(200,{'Content-Type':'text/event-stream; charset=utf-8','Cache-Control':'no-cache, no-transform','Connection':'keep-alive','X-Accel-Buffering':'no'});
       res.write(': connected\n\n');
-      const channel={res,viewerId:who.player?.id,tv:who.tv};
+      const channel={res,viewerId:who.player?.id||who.audience?.id,tv:who.tv};
       if(!connections.has(room.code))connections.set(room.code,new Set());
       connections.get(room.code).add(channel);
       if(who.player)who.player.online=true;
+      if(who.audience)who.audience.online=true;
       res.write(`event: snapshot\ndata: ${JSON.stringify(game.snapshot(room,channel.viewerId,channel.tv))}\n\n`);
       broadcast(room);
       const timer=setInterval(()=>{try{res.write(': heartbeat\n\n');}catch(_){res.end();}},18000);
       req.on('close',()=>{
         clearInterval(timer);const channels=connections.get(room.code);channels?.delete(channel);
-        if(who.player) {
-          const still=channels&&[...channels].some(ch=>ch.viewerId===who.player.id);
-          who.player.online=!!still;broadcast(room);
+        const participant=who.player||who.audience;
+        if(participant) {
+          const still=channels&&[...channels].some(ch=>ch.viewerId===participant.id);
+          participant.online=!!still;broadcast(room);
         }
       });
       return;
@@ -99,11 +106,24 @@ function route(req,res) {
       const secret=game.mintDisplay(room);touch(room);return send(res,200,{secret});
     }
     if(endpoint==='action'&&req.method==='POST')return (async()=>{
-      requireOrigin(req);const who=authorize(req,room);if(who.tv)throw Error('Television displays cannot control the game.');
+      requireOrigin(req);const who=authorize(req,room);
       const p=who.player,body=await readBodyOrEmpty(req);
       if(typeof body.type!=='string')throw Error('Missing action type.');
+      // The host-minted TV link may only change the lobby content switch.
+      // All participants must have consented individually before Adult mode is permitted.
+      if(who.tv){if(body.type!=='set-lobby-rating')throw Error('Television controls cannot play the game.');
+        game.setLobbyRating(room,body.rating);touch(room);send(res,200,{ok:true,revision:room.revision});broadcast(room);return;}
+      if(who.audience){
+        if(body.type==='adult-consent')game.consentAfterDark(room,who.audience);
+        else if(body.type==='chaos')game.audienceChaos(room,who.audience,body.kind,body.targetId);
+        else if(body.type==='chaos-vote')game.audienceVote(room,who.audience,body.modifier);
+        else throw Error('Audience members can only heckle, vote on chaos, and confirm age.');
+        touch(room);send(res,200,{ok:true,revision:room.revision});broadcast(room);return;
+      }
       switch(body.type) {
         case 'avatar':game.setAvatar(room,p,body.avatar);break;
+        case 'adult-consent':game.consentAfterDark(room,p);break;
+        case 'set-lobby-rating':host(who,room);game.setLobbyRating(room,body.rating);break;
         case 'start':host(who,room);game.startGame(room);break;
         case 'play-again':host(who,room);game.playAgain(room);break;
         case 'remove-player': {
@@ -176,5 +196,5 @@ const timer=setInterval(()=>{
   for(const [key,value] of perIp)if(now-value.start>2*RATE_WINDOW)perIp.delete(key);
 },300);
 server.on('close',()=>clearInterval(timer));
-if(require.main===module)server.listen(port,'0.0.0.0',()=>console.log(`ECKEY THUMP Game Night v1.1 running at http://localhost:${port}`));
+if(require.main===module)server.listen(port,'0.0.0.0',()=>console.log(`ECKEY THUMP Game Night v1.2 running at http://localhost:${port}`));
 module.exports={server,rooms};

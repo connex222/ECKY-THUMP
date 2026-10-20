@@ -1,8 +1,8 @@
 {
   "name": "eckey-thump-game-night",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
-  "description": "ECKEY THUMP v1.1 Games Night Flow, ready signals, highlights, timing and guide panels",
+  "description": "ECKEY THUMP v1.2 Saucy Seaside theme, audience balcony, reconnect and content controls",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
