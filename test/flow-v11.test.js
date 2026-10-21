@@ -68,7 +68,8 @@ test('full match publishes end-of-night highlights only after the championship',
 });
 test('player and TV UI include stage instructions, progress, and readable finish sequence',()=>{
  const html=read('public/index.html'),tvHtml=read('public/tv/index.html');
- for(const page of [html,tvHtml])assert.match(page,/flow-v1\.1\.css\?v=1\.1\.0/);
+ for(const page of [html,tvHtml])assert.match(page,/modern-v1\.5\.css\?v=1\.5\.0/);
+ assert.match(read('public/assets/modern-v1.5.css'),/flow-v1\.1\.css\?v=1\.1\.0/);
  const app=read('public/assets/app.js'),tv=read('public/assets/tv.js');
  for(const token of ['function roundGuide','function readyPanel','ready-next','nightRecap','ballot-tracker','clockOffset'])assert.ok(app.includes(token),token);
  for(const token of ['readyCount','nextChallenge','tv-recap','clockOffset'])assert.ok(tv.includes(token),token);

@@ -16,12 +16,11 @@ test('all 42 avatar library files, metadata and bindings are byte-for-byte uncha
   assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(baseDir,filename))).digest('hex'),hash,filename);
  }
 });
-test('new postcard style is modular, on both screens, and maintains existing avatar include',()=>{
+test('the v1.5 visual reset is modular, keeps avatar scripts and preserves accessibility behaviour',()=>{
  for(const page of ['public/index.html','public/tv/index.html']){
-  const html=read(page);assert.match(html,/seaside-postcard/);assert.match(html,/seaside-postcard\.css\?v=1\.[23]\.0/);
-  assert.match(html,/avatars\.js\?v=1\.1\.0/);
+  const html=read(page);assert.match(html,/e15-modern/);assert.match(html,/modern-v1\.5\.css\?v=1\.5\.0/);assert.match(html,/avatars\.js\?v=1\.1\.0/);
  }
- assert.match(read('public/assets/seaside-postcard.css'),/prefers-reduced-motion:reduce/);
+ assert.match(read('public/assets/modern-v1.5.css'),/prefers-reduced-motion:reduce/);
  assert.match(read('public/assets/app.js'),/navigator\.vibrate/);
  assert.match(read('public/assets/app.js'),/draftKey/);
  assert.match(read('public/assets/tv.js'),/data-tv-rating/);

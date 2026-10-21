@@ -16,7 +16,7 @@ test('landing and lobby use the new original ECKEY THUMP vector logo instead of 
  assert.match(js,/function nav\(\)\{return '';\}/);
  assert.doesNotMatch(tv,/themed-marquee/);
  assert.match(js,/lobby-stage-cast/);
- assert.match(js,/lobby-qr-frame/);
+ assert.match(js,/v14-big-qr/);
  assert.match(tv,/tv-scan-to-join/);
 });
 test('lobby music ships locally, can be toggled by player or TV, and will not auto-start',()=>{
@@ -26,7 +26,8 @@ test('lobby music ships locally, can be toggled by player or TV, and will not au
  for(const page of ['public/index.html','public/tv/index.html']){
    const html=read(page);
    assert.match(html,/lobby-audio\.js\?v=1\.1\.0/);
-   assert.match(html,/showtime\.css\?v=1\.1\.0/);
+   assert.match(html,/modern-v1\.5\.css\?v=1\.5\.0/);
+   assert.match(read('public/assets/modern-v1.5.css'),/showtime\.css\?v=1\.1\.0/);
  }
  assert.match(audio,/enabled:false/);
  assert.match(audio,/new Audio\('\/assets\/audio\/lobby-theme\.ogg'\)/);

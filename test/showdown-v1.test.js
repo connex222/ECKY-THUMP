@@ -13,7 +13,8 @@ test('both play surfaces load new game FX and Showdown styles in safe script ord
   const sfx=html.indexOf('/assets/show-sfx.js');
   const runtime=html.indexOf(page.includes('/tv/')?'/assets/tv.js':'/assets/app.js');
   assert.ok(sfx>0&&sfx<runtime,'sound script must load before runtime');
-  assert.match(html,/showdown\.css\?v=1\.1\.0/);
+  assert.match(html,/modern-v1\.5\.css\?v=1\.5\.0/);
+  assert.match(read('public/assets/modern-v1.5.css'),/showdown\.css\?v=1\.1\.0/);
   assert.match(html,/lobby-audio\.js\?v=1\.1\.0/);
  }
 });
