@@ -2,6 +2,17 @@
 
 Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.
 
+## [1.8.3] — 2026-10-21 · Pre-November reliability and editorial readiness
+
+- Restricted all TV bearer tokens to read-only use, including lobby content settings.
+- Distinguished simultaneous TV SSE streams by bearer token rather than an undefined viewer ID; reconnect replaces only the same participant's previous stream.
+- Cleaned up streams when the **response** closes rather than when the incoming GET request finishes; added HTTP regression coverage.
+- Added seeded synthetic scoring runs for repeatable Game Card comparisons. Gameplay card balance and effects are unchanged until human evidence is available.
+- Added an editorial review queue with non-blocking flags for formulaic openings, unusually long or short responses, and placeholders. No draft joke is automatically approved.
+- Added structural content lint, editorial triage, and simulation smoke runs to GitHub CI.
+- Updated the example Render blueprint to run tests and content lint, with a /api/health health check. Existing dashboard settings require independent verification.
+- Real-device multiplayer tests remain scheduled for November 2026; cross-deployment room persistence remains unimplemented.
+
 ## [1.8.2] — 2026-10-21 · Game Night reliability and accessibility
 
 ### Fixed
