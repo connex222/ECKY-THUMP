@@ -18,7 +18,7 @@ test('host setup submits real rating, length and pace and uses existing avatar c
 test('server reports v1.6 and serves its neon theme and the modern base',async()=>{
  const {server}=require('../server/index');await new Promise(r=>server.listen(0,'127.0.0.1',r));
  try{const origin=`http://127.0.0.1:${server.address().port}`;
-  const health=await fetch(origin+'/api/health');assert.equal(health.status,200);assert.equal((await health.json()).version,'1.6.0');
+  const health=await fetch(origin+'/api/health');assert.equal(health.status,200);assert.equal((await health.json()).version,require('../package.json').version);
   const css=await fetch(origin+'/assets/neon-arena-v1.6.css');assert.equal(css.status,200);assert.match(await css.text(),/NEON ARENA/);
  }finally{await new Promise(r=>server.close(r));}
 });

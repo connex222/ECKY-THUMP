@@ -1,6 +1,8 @@
 'use strict';
 const crypto = require('node:crypto');
 const {validateAvatar}=require('./avatars');
+const powers=require('./game-cards');
+const telemetry=require('./telemetry');
 const { cardPrompts, witPrompts, contextPrompts, doublePrompts, finalPrompts, seedFallbacks, responses, finalWords, contracts, getPool } = require('./content');
 
 const ROLES = ['clean', 'cheeky', 'adult'];
@@ -64,20 +66,22 @@ function validateAnswer(input, rating='clean') {
     throw Error('That wording is beyond the Cheeky rating.');
   return text;
 }
-function newRoom({name, rating='clean', length='party', pace='relaxed', adultConfirmed=false,avatar}) {
+function newRoom({name, rating='clean', length='party', pace='relaxed', gameCards=false, adultConfirmed=false,avatar}) {
   if (!ROLES.includes(rating)) throw Error('Invalid humour setting.');
   if (!['quick','standard','party'].includes(length)) throw Error('Invalid game length.');
   if (!['relaxed','lively'].includes(pace)) throw Error('Invalid party pace.');
+  if (typeof gameCards!=='boolean') throw Error('Game Cards setting must be on or off.');
   if (rating === 'adult' && !adultConfirmed) throw Error('The host must confirm all players are adults.');
   const hostName=validateName(name);
   const secret=SECRET(); const id=randomId();
   const room={
-    code:'', created:Date.now(), lastActivity:Date.now(), config:{rating,length,pace}, phase:'LOBBY',
+    code:'', created:Date.now(), lastActivity:Date.now(), config:{rating,length,pace,gameCards}, phase:'LOBBY',
     ownerId:id, displayHashes:[], players:[{id,name:hostName,avatar:validateAvatar(avatar),tokenHash:hash(secret),adultConfirmed:!!adultConfirmed,ready:true,online:false,joined:0,score:0,firsts:0,golds:0,silvers:0}],
     audience:[], chaosEvents:[], chaosVotes:new Map(), chaosSerial:0,
     playlist:[], roundIndex:-1, round:null, deadline:null, paused:false, pauseRemaining:null, pauses:0,
     revision:1, promptHistory:new Set(), responseDeck:null, responseDealt:0, results:[], events:new Set(), reports:[], finishedAt:null,
   };
+  powers.init(room);
   return {room,id,secret};
 }
 function addPlayer(room, name, adultConfirmed=false,avatar) {
@@ -233,7 +237,9 @@ function startRound(room) {
   room.round={id:randomId(),type,prompt,contract:contractText,requiredWord,
     hands,swaps:new Set(),seeds:new Map(),assignments:new Map(),entries:[],ballots:new Map(),readyForNext:new Set(),awards:[],startedAt:Date.now(),scored:false,skipReason:null,
     multiplier:type==='FINAL'?2:1};
-  room.paused=false;room.pauseRemaining=null;room.phase=stage;room.deadline=Date.now()+roundClock(room,type,stage)*1000;room.revision++;
+  room.paused=false;room.pauseRemaining=null;room.phase=stage;room.deadline=Date.now()+roundClock(room,type,stage)*1000;
+  powers.atRoundStart(room,drawResponses,(r,id,text,key)=>hash(`${r.code}:${r.roundIndex}:${id}:${key}:${text}`).slice(0,18));
+  telemetry.record(room,'round_started');room.revision++;
 }
 function startGame(room) {
   if(room.phase!=='LOBBY')throw Error('The game has already started.');
@@ -241,7 +247,7 @@ function startGame(room) {
   room.playlist=room.config.length==='quick'?['CARD','WIT']:
     room.config.length==='standard'?['CARD','WIT','CONTEXT','FINAL']:
     ['CARD','WIT','CONTEXT','DOUBLE','CARD','FINAL'];
-  room.roundIndex=0;startRound(room);
+  powers.onMatchStart(room);room.roundIndex=0;startRound(room);
 }
 function swapCard(room,player,cardId) {
   if (room.phase!=='SUBMIT'||room.paused||!['CARD','DOUBLE'].includes(room.round.type)) throw Error('Card swap unavailable now.');
@@ -273,34 +279,35 @@ function beginContextRewrite(room) {
     const seed=room.round.seeds.get(owner.id)||randomPick(seedFallbacks);
     room.round.assignments.set(players[i].id,{seed,authorId:owner.id});
   }
-  room.phase='SUBMIT';room.deadline=Date.now()+roundClock(room,'CONTEXT')*1000;room.revision++;
+  room.phase='SUBMIT';room.deadline=Date.now()+roundClock(room,'CONTEXT')*1000;powers.atRewriteStart(room);room.revision++;
 }
 function acceptAnswer(room,player,value) {
   if(room.phase!=='SUBMIT'||room.paused)throw Error('It is not time to submit an answer.');
   const round=room.round;
   if(round.entries.some(e=>e.authorId===player.id))throw Error('Your answer is already locked in.');
-  let text,seedAuthorId=null;
+  let text,seedAuthorId=null,authoredText=null;
   if(round.type==='CARD') {
     const found=round.hands[player.id]?.find(c=>c.id===value);
     if(!found)throw Error('That card is not in your hand.');
-    text=found.text;
+    text=found.text;authoredText=found.text;
   } else if(round.type==='DOUBLE') {
     if(!value||typeof value!=='object'||Array.isArray(value))throw Error('Choose a card and write your punchline.');
     const found=round.hands[player.id]?.find(c=>c.id===value.cardId);
     if(!found)throw Error('That card is not in your hand.');
     const line=validateAnswer(value.line,room.config.rating);
-    text=`${found.text} — ${line}`;
+    text=`${found.text} — ${line}`;authoredText=line;
   } else if(round.type==='CONTEXT') {
     const given=round.assignments.get(player.id);
     if(!given)throw Error('No starter line assigned.');
     const line=validateAnswer(value,room.config.rating);
-    text=`“${given.seed}” — ${line}`;
+    text=`“${given.seed}” — ${line}`;authoredText=line;
     seedAuthorId=given.authorId;
   } else {
-    text=validateAnswer(value,room.config.rating);
+    text=validateAnswer(value,room.config.rating);authoredText=text;
     if(round.type==='FINAL'&&!text.toLowerCase().includes(round.requiredWord))throw Error(`Your finale answer must include: ${round.requiredWord.toUpperCase()}`);
   }
-  round.entries.push({id:randomId(),authorId:player.id,seedAuthorId,text,hidden:false,auto:false});
+  round.entries.push({id:randomId(),authorId:player.id,seedAuthorId,text,authoredText,hidden:false,auto:false});
+  powers.atSubmit(room,player);
   if(allSubmitted(room))enterVoting(room);
   else room.revision++;
 }
@@ -317,7 +324,7 @@ function acceptVote(room, player, gold,silver) {
   if(candidates.some(e=>e.authorId===player.id && (e.id===gold||e.id===silver))) throw Error('You cannot vote for your own answer.');
   if(!candidates.some(e=>e.authorId===player.id)) throw Error('Only entrants can vote this round.');
   room.round.ballots.set(player.id,{voterId:player.id,gold,silver});
-  room.revision++;
+  telemetry.record(room,'vote_cast');room.revision++;
   if(room.players.filter(p=>candidates.some(e=>e.authorId===p.id)).every(p=>room.round.ballots.has(p.id))) finishRound(room,null);
 }
 function finishRound(room,skipReason) {
@@ -333,6 +340,8 @@ function finishRound(room,skipReason) {
       if(award.rank===1 && !award.isJoint)p.firsts++;
     }
   }
+  powers.onResults(room);
+  telemetry.record(room,'round_finished',{durationMs:Date.now()-round.startedAt-(round.pausedMs||0)-(round.pausedAt?Date.now()-round.pausedAt:0),challenge:round.type});
   room.results.push({index:room.roundIndex,type:round.type,prompt:round.prompt,awards:round.awards,skipped:!!skipReason,
     highlights:round.entries.filter(e=>!e.hidden).filter(e=>round.awards.some(a=>a.entryId===e.id&&a.rank===1)).map(e=>({
       text:e.text, authorName:room.players.find(p=>p.id===e.authorId)?.name||'Player',
@@ -365,6 +374,8 @@ function playAgain(room) {
   room.deadline=null;room.paused=false;room.pauseRemaining=null;room.pauses=0;
   // Retain prompt history and undrawn response cards between matches in this room.
   room.results=[];room.reports=[];room.finishedAt=null;room.chaosVotes.clear();room.chaosEvents=[];
+  powers.init(room);
+  for(const player of room.players)player.lastFeedback=new Set();
   room.revision++;
 }
 function tick(room) {
@@ -374,6 +385,7 @@ function tick(room) {
     beginContextRewrite(room);return true;
   }
   if(room.phase==='SUBMIT') {
+    for(const p of room.players)if(!room.round.entries.some(e=>e.authorId===p.id))telemetry.record(room,'submission_timed_out');
     if(room.round.type==='CARD') for(const p of room.players) {
       if(room.round.entries.some(e=>e.authorId===p.id)) continue;
       if(p.online) {
@@ -396,7 +408,7 @@ function snapshot(room, viewerId, isTV=false) {
   const round=room.round;
   const base={code:room.code,revision:room.revision,serverNow:Date.now(),phase:room.phase,paused:room.paused,
     deadline:room.deadline,config:room.config,playerCount:room.players.length,maxPlayers:12,
-    audienceCount:room.audience.length,chaos:chaosSummary(room),
+    audienceCount:room.audience.length,chaos:chaosSummary(room),gameCards:powers.publicView(room,viewerId,isTV),
     adultConsents:[...room.players,...room.audience].filter(p=>p.adultConfirmed).length,
     adultConsentNeeded:room.players.length+room.audience.length,
     roundNumber:room.roundIndex+1,totalRounds:room.playlist.length,
@@ -445,6 +457,21 @@ function snapshot(room, viewerId, isTV=false) {
   }
   return base;
 }
-module.exports={ swapCard,acceptSeed, newRoom,addPlayer,setAvatar,removePlayer,findPlayer,mintDisplay,verifyDisplay,startGame,playAgain,acceptAnswer,acceptVote,finishRound,nextRound,tick,snapshot,
+
+// These wrappers keep response-card RNG, prompt rotation and IDs controlled by the engine.
+function playGameCard(room,player,cardId,options={}) {
+  try{return powers.play(room,player,cardId,options,{
+    shuffle:mix,roundMs:(r,type)=>roundClock(r,type)*1000,
+    cardId:(r,id,text,key)=>hash(`${r.code}:${r.roundIndex}:${id}:${key}:${text}`).slice(0,18),
+    freshWit:r=>promptFrom(r,getPool(witPrompts,r.config.rating)),drawResponses
+  });}catch(error){telemetry.record(room,'card_invalid',{cardId});throw error;}
+}
+function chooseGameExtra(room,player,drawId,replaceId) {
+  return powers.chooseExtra(room,player,drawId,replaceId,(r,id,text,key)=>hash(`${r.code}:${r.roundIndex}:${id}:${key}:${text}`).slice(0,18));
+}
+function setGameCards(room,enabled){return powers.setEnabled(room,enabled);}
+function resumeCardTimers(room,pausedMs){return powers.onResume(room,pausedMs);}
+function rerollGameCard(room,player,cardId){return powers.reroll(room,player,cardId);}
+module.exports={playGameCard,chooseGameExtra,setGameCards,rerollGameCard,resumeCardTimers, swapCard,acceptSeed, newRoom,addPlayer,setAvatar,removePlayer,findPlayer,mintDisplay,verifyDisplay,startGame,playAgain,acceptAnswer,acceptVote,finishRound,nextRound,tick,snapshot,
   scoreEntries,validateName,validateAnswer,hash,randomId,sortedPlayers,markReady,
   addAudience,findAudience,consentAfterDark,setLobbyRating,audienceChaos,audienceVote,chaosSummary };

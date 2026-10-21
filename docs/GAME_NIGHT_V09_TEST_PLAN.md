@@ -1,4 +1,4 @@
-# ECKEY THUMP v0.9 — At-home playtest plan
+# ECKY THUMP v0.9 — At-home playtest plan
 
 ## Equipment
 

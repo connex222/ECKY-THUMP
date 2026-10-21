@@ -1,4 +1,4 @@
-# ECKEY THUMP — Party-Comedy Competitive Research (19 October 2026)
+# ECKY THUMP — Party-Comedy Competitive Research (19 October 2026)
 
 These are comparisons of **general mechanics**, not source text to reproduce.
 

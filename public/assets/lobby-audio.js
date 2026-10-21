@@ -1,5 +1,5 @@
 'use strict';
-/* ECKEY THUMP original game-night lobby theme. Audio never auto-plays.
+/* ECKY THUMP original game-night lobby theme. Audio never auto-plays.
  * Opt in with a real click; sound pauses on active challenges and on page hide.
  * Each TV / phone is independent: play sound on one display to avoid echo. */
 (() => {

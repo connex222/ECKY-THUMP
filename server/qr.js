@@ -14,6 +14,6 @@ function qrSVG(text){
       if(!dark&&start>=0){shapes.push(`<rect x="${start+4}" y="${r+4}" width="${c-start}" height="1"/>`);start=-1;}
     }
   }
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="384" height="384" shape-rendering="crispEdges" role="img" aria-label="Scan the code to join ECKEY THUMP"><path fill="#fff" d="M0 0h${size}v${size}H0z"/><g fill="#141022">${shapes.join('')}</g></svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="384" height="384" shape-rendering="crispEdges" role="img" aria-label="Scan the code to join ECKY THUMP"><path fill="#fff" d="M0 0h${size}v${size}H0z"/><g fill="#141022">${shapes.join('')}</g></svg>`;
 }
 module.exports={qrSVG};

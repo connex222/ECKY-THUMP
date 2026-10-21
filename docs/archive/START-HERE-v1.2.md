@@ -1,4 +1,4 @@
-# START HERE — ECKEY THUMP v1.2
+# START HERE — ECKY THUMP v1.2
 
 1. Install Node.js 20.11 or newer if needed.
 2. On Windows, double-click `START-GAME-WINDOWS.bat`; otherwise run `node server/index.js`.

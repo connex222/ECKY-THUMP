@@ -1,6 +1,6 @@
-# ECKEY THUMP v1.6 — Neon Arena
+# ECKY THUMP v1.6 — Neon Arena
 
-This is the playable private-party game with the **approved white/lime/magenta ECKEY THUMP logo** and a neon-stage interface. The previous seaside artwork has been removed from the active screens.
+This is the playable private-party game with the **approved white/lime/magenta ECKY THUMP logo** and a neon-stage interface. The previous seaside artwork has been removed from the active screens.
 
 ## Run it locally
 
@@ -14,7 +14,7 @@ Phones and TVs in a different home need the public HTTPS deployment URL; `localh
 
 ## UI implementation
 
-- The **chosen logo** is stored as a transparent WebP at `public/assets/branding/eckey-thump-logo.webp`.
+- The **chosen logo** is stored as a transparent WebP at `public/assets/branding/ecky-thump-logo.webp`.
 - `public/assets/neon-arena-v1.6.css` is the new presentation stylesheet, loaded after the v1.5 compatibility style. CSS alone increases avatar sizes; the existing avatar registry, artwork, IDs and rendering helpers were not changed.
 - `public/assets/app.js` retains the existing authenticated flows, but presents the new home screen, contestant stage, lobby, compact mobile room header, host/join settings, submissions, voting and scoring.
 - `public/assets/tv.js` now has a dedicated code/QR/large-avatar waiting layout and neon TV gameplay presentation.

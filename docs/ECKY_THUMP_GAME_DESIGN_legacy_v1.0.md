@@ -1,8 +1,8 @@
-# Legacy Design Specification — Adapted to ECKEY THUMP
+# Legacy Design Specification — Adapted to ECKY THUMP
 
 > This planning document predates the v0.6 playable prototype; its future-feature targets are not necessarily implemented.
 
-# ECKEY THUMP
+# ECKY THUMP
 ## Professional Game Design Document & Technical Development Specification
 
 **Version:** 1.0 — Proposed baseline  
@@ -19,7 +19,7 @@
 
 ## 1.1 Product proposition
 
-ECKEY THUMP (TNL) is a synchronous multiplayer comedy party game. Players use their own phones, tablets or browsers to submit and vote. It works either with a shared television/laptop stage (**TV Party Show**) or entirely on participants' devices (**Phone-Only Party**). Both formats have complete, first-class experiences driven by the same authoritative game state. A host purchases the game once and can host eligible private matches; guests do not need accounts or purchases.
+ECKY THUMP (TNL) is a synchronous multiplayer comedy party game. Players use their own phones, tablets or browsers to submit and vote. It works either with a shared television/laptop stage (**TV Party Show**) or entirely on participants' devices (**Phone-Only Party**). Both formats have complete, first-class experiences driven by the same authoritative game state. A host purchases the game once and can host eligible private matches; guests do not need accounts or purchases.
 
 The game comprises five originalised challenge types: **Card Clash**, **Quick Wit**, **Context Collapse**, **Double Trouble** and **The Last Laugh**. It adds a proprietary-feeling system of **Chaos Contracts**: short, explicitly displayed creative restrictions applied to selected writing rounds. It uses an integrated season-of-one-match structure with meaningful scoring, progression, results, and an end-of-match ceremony.
 
@@ -288,7 +288,7 @@ TV: `Pair TV -> Waiting / Lobby -> Intro -> Challenge Prompt -> Anonymous Cards 
 | ID | Screen | Primary audience | Critical behaviours |
 |---|---|---|---|
 | W01 | Landing / product | Buyer | Demo, buy, game explainer, accessibility and content warnings |
-| W02 | Pricing and checkout | Buyer | One-off license terms, pack pricing, clear taxes, secure checkout redirect |
+| W02 | Pricing and checkout | Buyer | One-off licence terms, pack pricing, clear taxes, secure checkout redirect |
 | W03 | Purchase success / recovery | Buyer | Verify server-entitlement, sign in, resend receipt; never rely on success URL alone |
 | W04 | Host dashboard | Buyer | Create room, see owned packs, account and purchases, last rooms |
 | W05 | Create room | Host | Mode, length, content rating, pack selection, accessibility, contracts, privacy |
@@ -320,7 +320,7 @@ TV: `Pair TV -> Waiting / Lobby -> Intro -> Challenge Prompt -> Anonymous Cards 
 
 ## 8.4 Sample wireframe copy
 
-**Lobby TV:** “ECKEY THUMP / ROOM: K7M4Q9 / Scan to join / 5 of 12 players ready / Clean Comedy / 7 rounds / Starting when the host is ready.”
+**Lobby TV:** “ECKY THUMP / ROOM: K7M4Q9 / Scan to join / 5 of 12 players ready / Clean Comedy / 7 rounds / Starting when the host is ready.”
 
 **Player submission:** “ROUND 2: QUICK WIT / Invent a terrible name for a luxury ferry / CHAOS CONTRACT: Sounds reassuringly official / 00:43 left / [Your answer...] / Submit answer.”
 
@@ -556,7 +556,7 @@ Do not transmit authorization in query URLs where it leaks to browser histories/
 
 ## 11.2 Licensing semantics to decide before launch
 
-Define in plain English: one-off account license, simultaneous room policy (recommended maximum **two concurrent live rooms per owner** at release; validate commercially), family/venue use, streaming/public performances, transferability, region/locale, service discontinuation, pack availability and account recovery. Do not make “lifetime” or “forever” claims for an online server-backed game.
+Define in plain English: one-off account licence, simultaneous room policy (recommended maximum **two concurrent live rooms per owner** at release; validate commercially), family/venue use, streaming/public performances, transferability, region/locale, service discontinuation, pack availability and account recovery. Do not make “lifetime” or “forever” claims for an online server-backed game.
 
 ## 11.3 Expansion content selection
 
@@ -586,7 +586,7 @@ Core match must always work without packs. A room may activate several owned pac
 - **ICO Children's Code:** assess if UK under-18s are likely to access the product, even if it is not marketed to them. If yes, privacy-by-design and child-access protection requirements materially affect accounts, profiling, discoverability, personal data, settings and adult content. No assumption that marking an app '18+' makes it legally inaccessible to minors.
 - **Age assurance:** if adult material crosses regulated categories or service rules require it, implement a regulator-appropriate solution. Profanity and adult humour do not by themselves determine the same age-assurance requirements as pornography; classify accurately with legal counsel. Exclude pornography from authored content.
 - **Data protection:** UK GDPR/PECR lawful bases, transparency, deletion, access requests, cookies, retention, processor contracts, breach procedures and international transfers.
-- **Consumer rules:** accurate one-off license terms, price including or clearly describing taxes, cancellation/refund information applicable to digital content, accessible support and purchase records.
+- **Consumer rules:** accurate one-off licence terms, price including or clearly describing taxes, cancellation/refund information applicable to digital content, accessible support and purchase records.
 - **IP:** original code/art/cards/fonts/audio; original written jokes; contributor rights assignments; trademark/name clearance; no third-party proprietary decks without explicit relevant commercial licences.
 
 Useful official references are provided at the end. Regulatory posture may evolve, so verify at launch.
@@ -649,7 +649,7 @@ Development (local), staging (separate Stripe test account/DB and fake content),
 - Manual client mutation of price, entitlement, deck, timer, phase, points or author ID rejected server-side.
 - Guest joining without purchase permitted only with a valid room invitation/authorization.
 - Forbidden content, HTML/script strings and malicious inputs are safely rejected or rendered inert on TV/phone.
-- Revoked owner license cannot create new paid rooms; define behavior for in-progress room in terms.
+- Revoked owner licence cannot create new paid rooms; define behavior for in-progress room in terms.
 - User can submit a report, moderator can review with audited access, and content can be hidden.
 
 ## 14.3 Browser and network matrix
@@ -769,11 +769,11 @@ Choose from customer evidence: additional content packs, custom private packs, 1
 
 ## Decisions requiring signoff
 
-1. **Final name:** pending clearance. “ECKEY THUMP” is not yet a cleared mark.
+1. **Final name:** pending clearance. “ECKY THUMP” is not yet a cleared mark.
 2. **Age eligibility:** choose intended audience, child-access controls and adult-content gates following legal advice.
 3. **Adult boundaries:** exclude pornography/graphic content; validate exact permitted authored tier.
 4. **Guest content moderation:** define service response expectations and retention of report evidence.
-5. **One-time license rights:** establish concurrent rooms, venue/streaming use and availability terms.
+5. **one-time licence rights:** establish concurrent rooms, venue/streaming use and availability terms.
 6. **Fairness:** keep Gold/Silver rank ballot only if 3-player and 12-player simulations and tests support it.
 7. **Pricing:** A/B test/consumer interviews on £12.99 and pack values; do not treat as proven.
 8. **Hosting service level:** load test before choosing final Render plan or adding Redis/multiple instances.
@@ -847,7 +847,7 @@ Verified public documents consulted for the **technical and regulatory design co
 # Appendix B. Standard Demo Scope
 
 - **Free demo:** 5 rounds (one per challenge) or one shorter tutorial match if demo completion is too long; 3–8 guests initially for controlled cost; Clean only; fixed small content pool; no permanent custom room history; free guests always accepted; prominent “Unlock full game” only at lobby and final results, never interrupt submission or voting.
-- **Full license:** 3–12 guests/players, rating selection, Standard/Extended durations and all core content, personal host account and owned packs.
+- **full licence:** 3–12 guests/players, rating selection, Standard/Extended durations and all core content, personal host account and owned packs.
 - **Purchased pack:** adds content to selection library; no change to odds, voting power, score multipliers, number of turns or eligibility.
 
 # Appendix C. Implementation Glossary

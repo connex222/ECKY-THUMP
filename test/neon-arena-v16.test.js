@@ -9,7 +9,7 @@ const crypto=require('node:crypto');
 const root=path.resolve(__dirname,'..');
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
 test('the chosen neon logo ships with real transparency and is loaded in both pages',()=>{
- const img=fs.readFileSync(path.join(root,'public/assets/branding/eckey-thump-logo.webp'));
+ const img=fs.readFileSync(path.join(root,'public/assets/branding/ecky-thump-logo.webp'));
  assert.ok(img.length>20000&&img.subarray(0,4).toString()==='RIFF');
  for(const page of ['public/index.html','public/tv/index.html']){
   const html=read(page);
@@ -19,7 +19,7 @@ test('the chosen neon logo ships with real transparency and is loaded in both pa
   assert.match(html,/avatars\.js\?v=1\.1\.0/);
  }
  assert.match(read('public/assets/app.js'),/v16-logo--/);
- assert.match(read('public/assets/tv.js'),/branding\/eckey-thump-logo\.webp/);
+ assert.match(read('public/assets/tv.js'),/branding\/ecky-thump-logo\.webp/);
 });
 test('avatars, IDs and assets are byte-for-byte identical to the original baseline',()=>{
  const expected=require('./avatar-baseline-v11.json');
@@ -56,8 +56,8 @@ test('server sends the new logo and stylesheet and reports v1.6',async()=>{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const base=`http://127.0.0.1:${server.address().port}`;
  try{
-  const health=await fetch(base+'/api/health');assert.equal(health.status,200);assert.equal((await health.json()).version,'1.6.0');
-  const logo=await fetch(base+'/assets/branding/eckey-thump-logo.webp');assert.equal(logo.status,200);assert.match(logo.headers.get('content-type'),/image\/webp/);assert.ok((await logo.arrayBuffer()).byteLength>20000);
+  const health=await fetch(base+'/api/health');assert.equal(health.status,200);assert.equal((await health.json()).version,require('../package.json').version);
+  const logo=await fetch(base+'/assets/branding/ecky-thump-logo.webp');assert.equal(logo.status,200);assert.match(logo.headers.get('content-type'),/image\/webp/);assert.ok((await logo.arrayBuffer()).byteLength>20000);
   const css=await fetch(base+'/assets/neon-arena-v1.6.css');assert.equal(css.status,200);assert.match(await css.text(),/NEON ARENA/);
  }finally{await new Promise(resolve=>server.close(resolve));}
 });

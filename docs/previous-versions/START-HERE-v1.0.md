@@ -1,4 +1,4 @@
-# Start ECKEY THUMP v1.0 — Showtime Showdown
+# Start ECKY THUMP v1.0 — Showtime Showdown
 
 1. Extract the ZIP; open the `ECKEY-THUMP-Game-Night-v1.0-Showdown` folder.
 2. Double-click `START-GAME-WINDOWS.bat` (Node.js 20+ required).

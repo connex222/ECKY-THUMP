@@ -1,4 +1,4 @@
-# ECKEY THUMP — v0.7 artwork integration guide
+# ECKY THUMP — v0.7 artwork integration guide
 
 ## What is inside the playable game
 

@@ -1,4 +1,4 @@
-# ECKEY THUMP v1.1 — The Games Night Flow Update
+# ECKY THUMP v1.1 — The Games Night Flow Update
 
 ## How to start
 

@@ -1,4 +1,4 @@
-# ECKEY THUMP v0.9.2 — Start Here
+# ECKY THUMP v0.9.2 — Start Here
 
 1. Extract this ZIP file.
 2. Double-click `START-GAME-WINDOWS.bat` (Node.js must be installed).

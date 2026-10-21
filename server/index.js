@@ -4,6 +4,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const crypto=require('node:crypto');
 const game=require('./game');
+const telemetry=require('./telemetry');
 const {qrSVG}=require('./qr');
 const ROOT=path.resolve(__dirname,'../public');
 const rooms=new Map();
@@ -54,14 +55,14 @@ function requireOrigin(req) {
 function route(req,res) {
   const url=new URL(req.url,`http://${req.headers.host||'localhost'}`);
   const pathname=url.pathname;
-  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKEY THUMP',version:'1.6.0',uptime:process.uptime()});
+  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKY THUMP',version:require('../package.json').version,uptime:process.uptime()});
   if(pathname==='/api/rooms'&&req.method==='POST')return (async()=>{
     requireOrigin(req);const body=await readBodyOrEmpty(req);
     const created=game.newRoom(body);let c;do{c=code();}while(rooms.has(c));created.room.code=c;
     rooms.set(c,created.room);touch(created.room);
     send(res,201,{code:c,seatId:created.id,secret:created.secret});
   })();
-  const match=pathname.match(/^\/api\/rooms\/([A-Z2-9]{6})(?:\/(join|snapshot|events|display-token|action|join-qr.svg))?$/);
+  const match=pathname.match(/^\/api\/rooms\/([A-Z2-9]{6})(?:\/(join|snapshot|events|display-token|action|join-qr.svg|telemetry))?$/);
   if(match){const room=getRoom(match[1]),endpoint=match[2];
     if(endpoint==='join'&&req.method==='POST')return (async()=>{
       requireOrigin(req);const body=await readBodyOrEmpty(req);
@@ -76,6 +77,9 @@ function route(req,res) {
       const link=`${protocol}://${req.headers.host}/join/?room=${encodeURIComponent(room.code)}`;
       const svg=qrSVG(link);res.writeHead(200,{'Content-Type':'image/svg+xml; charset=utf-8','Cache-Control':'no-store'});res.end(svg);return;
     }
+    if(endpoint==='telemetry'&&req.method==='GET') {
+      const who=authorize(req,room);host(who,room);return send(res,200,telemetry.report(room));
+    }
     if(endpoint==='snapshot'&&req.method==='GET') {
       const who=authorize(req,room);return send(res,200,game.snapshot(room,who.player?.id||who.audience?.id,who.tv));
     }
@@ -86,7 +90,8 @@ function route(req,res) {
       const channel={res,viewerId:who.player?.id||who.audience?.id,tv:who.tv};
       if(!connections.has(room.code))connections.set(room.code,new Set());
       connections.get(room.code).add(channel);
-      if(who.player)who.player.online=true;
+      if(who.player&&!who.player.online&&who.player.hasConnected)telemetry.record(room,'sse_rejoined');
+      if(who.player){who.player.online=true;who.player.hasConnected=true;}
       if(who.audience)who.audience.online=true;
       res.write(`event: snapshot\ndata: ${JSON.stringify(game.snapshot(room,channel.viewerId,channel.tv))}\n\n`);
       broadcast(room);
@@ -96,7 +101,7 @@ function route(req,res) {
         const participant=who.player||who.audience;
         if(participant) {
           const still=channels&&[...channels].some(ch=>ch.viewerId===participant.id);
-          participant.online=!!still;broadcast(room);
+          participant.online=!!still;if(!still)telemetry.record(room,'sse_disconnected');broadcast(room);
         }
       });
       return;
@@ -124,6 +129,27 @@ function route(req,res) {
         case 'avatar':game.setAvatar(room,p,body.avatar);break;
         case 'adult-consent':game.consentAfterDark(room,p);break;
         case 'set-lobby-rating':host(who,room);game.setLobbyRating(room,body.rating);break;
+        case 'set-game-cards':host(who,room);game.setGameCards(room,body.enabled);break;
+        case 'play-game-card':game.playGameCard(room,p,body.cardId,{prediction:body.prediction});break;
+        case 'reroll-game-card':game.rerollGameCard(room,p,body.cardId);break;
+        case 'choose-game-extra':game.chooseGameExtra(room,p,body.drawId,body.replaceId);break;
+        case 'card-feedback': {
+          if(room.gameCards?.enabled&&room.gameCards?.lastEffect?.id===body.cardId&&['fun','frustrating'].includes(body.rating)
+            &&Date.now()-room.gameCards.lastEffect.at<=30000) {
+            p.lastFeedback??=new Set();
+            const key=String(room.gameCards.lastEffect.serial);
+            // Exactly one feedback response per effect per player, independent of rating.
+            if(!p.lastFeedback.has(key)){
+              p.lastFeedback.add(key);
+              telemetry.record(room,'feedback_'+body.rating,{cardId:body.cardId});
+            }
+          }break;
+        }
+        case 'client-diagnostic': {
+          if(['render','network','action','uncaught'].includes(body.errorType)) {
+            p.lastDiagnosticAt??=0;if(Date.now()-p.lastDiagnosticAt>15000){p.lastDiagnosticAt=Date.now();telemetry.record(room,'client_error',{errorType:body.errorType,cardId:room.gameCards?.lastEffect&&Date.now()-room.gameCards.lastEffect.at<=10000?room.gameCards.lastEffect.id:undefined});}
+          }break;
+        }
         case 'start':host(who,room);game.startGame(room);break;
         case 'play-again':host(who,room);game.playAgain(room);break;
         case 'remove-player': {
@@ -158,10 +184,13 @@ function route(req,res) {
         }
         case 'pause': {
           host(who,room);if(room.paused || !['SEED','SUBMIT','VOTE'].includes(room.phase) || room.pauses>=3)throw Error('Pause unavailable (maximum three per match).');
-          room.pauseRemaining=Math.max(1000,room.deadline-Date.now());room.paused=true;room.deadline=null;room.pauses++;room.revision++;break;
+          room.pauseRemaining=Math.max(1000,room.deadline-Date.now());room.paused=true;room.deadline=null;room.pauses++;room.round.pausedAt=Date.now();room.revision++;break;
         }
         case 'resume':{
           host(who,room);if(!room.paused)throw Error('The game is not paused.');
+          const pausedFor=room.round?.pausedAt?Date.now()-room.round.pausedAt:0;
+          if(room.round?.pausedAt){room.round.pausedMs=(room.round.pausedMs||0)+pausedFor;room.round.pausedAt=null;}
+          game.resumeCardTimers(room,pausedFor);
           room.deadline=Date.now()+room.pauseRemaining;room.paused=false;room.pauseRemaining=null;room.revision++;break;
         }
         default:throw Error('Unknown action.');
@@ -196,5 +225,5 @@ const timer=setInterval(()=>{
   for(const [key,value] of perIp)if(now-value.start>2*RATE_WINDOW)perIp.delete(key);
 },300);
 server.on('close',()=>clearInterval(timer));
-if(require.main===module)server.listen(port,'0.0.0.0',()=>console.log(`ECKEY THUMP Game Night v1.6 running at http://localhost:${port}`));
+if(require.main===module)server.listen(port,'0.0.0.0',()=>console.log(`ECKY THUMP Game Night v${require('../package.json').version} running at http://localhost:${port}`));
 module.exports={server,rooms};

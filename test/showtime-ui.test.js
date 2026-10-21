@@ -8,10 +8,10 @@ const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 
 test('landing and TV use the chosen transparent neon logo, with the avatar helpers retained',()=>{
  const js=read('public/assets/app.js'),tv=read('public/assets/tv.js');
- const logo=path.join(root,'public/assets/branding/eckey-thump-logo.webp');
+ const logo=path.join(root,'public/assets/branding/ecky-thump-logo.webp');
  assert.ok(fs.statSync(logo).size>20000);
- assert.match(js,/branding\/eckey-thump-logo\.webp/);
- assert.match(tv,/branding\/eckey-thump-logo\.webp/);
+ assert.match(js,/branding\/ecky-thump-logo\.webp/);
+ assert.match(tv,/branding\/ecky-thump-logo\.webp/);
  assert.match(js,/function nav\(\)\{return '';\}/);
  assert.match(js,/lobby-stage-cast/);
  assert.match(js,/v14-big-qr/);
@@ -43,7 +43,7 @@ test('web server serves local lobby theme with browser-compatible audio MIME typ
    assert.equal(sound.status,200);
    assert.match(sound.headers.get('content-type'),/^audio\/ogg/);
    assert.ok((await sound.arrayBuffer()).byteLength>15000);
-   const logo=await fetch(origin+'/assets/eckey-logo.svg');
+   const logo=await fetch(origin+'/assets/ecky-logo.svg');
    assert.equal(logo.status,200);
    assert.match(logo.headers.get('content-type'),/^image\/svg\+xml/);
  }finally{await new Promise(resolve=>server.close(resolve));}

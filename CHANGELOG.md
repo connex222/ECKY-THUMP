@@ -1,0 +1,100 @@
+# Changelog
+
+Current project history, consolidated from the previous per-version guides. For detailed historical design material see `docs/archive/`.
+
+## [1.8.1] — 2026-10-21
+
+### Fixed
+- Corrected the player-facing product name to **ECKY THUMP** across the mobile controller, TV stage, browser titles, content review, accessible labels, server health metadata, launcher messages, current and archived documentation.
+- Corrected the drawn lettering and accessible title of the legacy SVG logo. Preserved the chosen Neon Arena WebP logo pixel-for-pixel, and gave both logos correctly spelt asset filenames.
+- Standardised HTML document language to `en-GB` and corrected remaining US-language wording in Game Card descriptions and historical narrative.
+
+### Compatibility
+- Preserved all 42 avatar-related source files and assets exactly, including historic artwork credit metadata.
+- Retained existing `window.ECKEY_*` interfaces, local storage keys and the `eckey-after-dark-09` content-pack ID to avoid breaking existing clients, settings and game-data references. These are internal compatibility identifiers, never product-name copy.
+- CSS `color`, `center` and DOM `behavior` retain their standard technical spellings.
+
+## [1.8.0] — 2026-10-21
+
+### Fixed
+- Short activation windows are now visible through a quick-play bar above the collapsed Game Card tray, without compromising the answer controls.
+- Server-authoritative card availability and expiration prevent attempting known-ineligible cards; actual card plays are revalidated by the server.
+- Cannot activate or reroll a power after the shared submission deadline, even before the periodic tick fires.
+- Host pauses freeze early activation windows, pending Extra Helping selections, temporary effects and Fast Fingers reward timing.
+- A swapped/replaced response card no longer leaves an obsolete selection on the player's phone; Wrong Envelope prompts notify the player when changed.
+- TV power-up announcements expire automatically after a brief reveal, without another state update.
+
+### Changed
+- Fast Fingers displays a private countdown and times from activation (12 seconds Lively; 20 Relaxed), while activation must still be within the first 10 seconds of the round.
+- Deckchair Shuffle is playable in the first 12 seconds and Wrong Envelope in the first 10 seconds.
+- Host telemetry now shows offered/played ratios and opted-in feedback, with sanitised error association near recent power effects.
+- Existing five game challenges and the 42 avatar-related files are preserved; power-ups remain host opt-in and disabled by default.
+
+## [1.7.1] — 2026-10-21
+
+### Fixed
+- Mobile answer screens now expose an initially collapsed Game Card tray, so players can actually use card powers while answering.
+- One controlled power-up reroll per round prevents players from getting stuck with an incompatible two-card hand.
+- Card ratings are now limited to one opinion per effect per player, and reset between matches.
+
+### Changed
+- Added per-challenge round-duration summaries and Game Card reroll counts to the host's existing private telemetry report.
+- Preserved the Neon Arena layout and all existing avatar artwork, IDs, metadata and rendering.
+
+## [1.7.0] — 2026-10-21
+
+### Added
+- Opt-in, server-authoritative Game Card system: five Chaos, five Tactical and five Equaliser effects, separated from the comedy-response cards.
+- Private inventories, validated activation windows, bounded scoring bonuses, anti-spam limits, host lobby toggle and player controls.
+- Lightweight in-memory telemetry of card activations, pacing and reconnections, with host-only export endpoint.
+- Central documentation and improved Windows launch script.
+
+### Changed
+- Neon Arena visual language retained with an optional Game Card tray and TV effect banner.
+- Old start guides and notes preserved under `docs/archive/`.
+
+## [1.6.0] — 2026-10-21
+
+### Changed
+- Neon Arena home/lobby/TV/phone visual rebuild and selected lime/magenta ECKY THUMP logo.
+- Original avatars made more prominent without modifying avatar keys or mappings.
+
+## [1.5.0] — 2026-10-21
+
+### Changed
+- Modern Night Shift layout replacing the seaside-postcard treatment.
+
+## [1.4.0] — 2026-10-20
+
+### Changed
+- Clean Chaos redesign of home, lobby, TV and controller layouts.
+
+## [1.3.0] — 2026-10-20
+
+### Changed
+- Poster-inspired visuals and homepage/lobby composition.
+
+## [1.2.0] — 2026-10-20
+
+### Added
+- Cosmetic audience heckles and voting, reconnection improvements, mobile haptics and shorter lively transitions.
+
+## [1.1.0] — 2026-10-20
+
+### Added
+- Round guidance, ready-up mechanism and end-of-night recap.
+
+## [1.0.0] — 2026-10-20
+
+### Added
+- Showdown sound effects and TV gameplay/result presentation.
+
+## [0.9.0–0.9.2] — 2026-10
+
+### Added
+- After Dark comedy pack, expanded card/prompt library, visible lobby settings, avatar spotlight and lobby audio.
+
+## [0.6.0–0.8.0] — Earlier prototypes
+
+### Added
+- Private game rooms, avatar selection, QR joins, the five-challenge game engine and scoring rules.

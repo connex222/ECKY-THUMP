@@ -1,0 +1,264 @@
+{
+  "matches": 1080,
+  "rounds": 4320,
+  "activations": 4230,
+  "rerolls": 2347,
+  "failedActivations": 0,
+  "equalisers": 980,
+  "negativeScores": 0,
+  "completed": 1080,
+  "byGroup": {
+    "3p / quick / lively / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 80,
+      "averageFinalSpread": 124,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "3p / quick / lively / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 86.7,
+      "averageFinalSpread": 109,
+      "gameCardActivations": 64,
+      "equalisers": 0
+    },
+    "3p / quick / relaxed / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 73.3,
+      "averageFinalSpread": 111,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "3p / quick / relaxed / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 73.3,
+      "averageFinalSpread": 123,
+      "gameCardActivations": 79,
+      "equalisers": 0
+    },
+    "3p / standard / lively / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 60,
+      "averageFinalSpread": 272,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "3p / standard / lively / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 70,
+      "averageFinalSpread": 273,
+      "gameCardActivations": 103,
+      "equalisers": 30
+    },
+    "3p / standard / relaxed / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 73.3,
+      "averageFinalSpread": 262,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "3p / standard / relaxed / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 76.7,
+      "averageFinalSpread": 280,
+      "gameCardActivations": 97,
+      "equalisers": 23
+    },
+    "3p / party / lively / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 73.3,
+      "averageFinalSpread": 342,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "3p / party / lively / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 90,
+      "averageFinalSpread": 402,
+      "gameCardActivations": 162,
+      "equalisers": 52
+    },
+    "3p / party / relaxed / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 83.3,
+      "averageFinalSpread": 354,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "3p / party / relaxed / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 86.7,
+      "averageFinalSpread": 355,
+      "gameCardActivations": 136,
+      "equalisers": 49
+    },
+    "6p / quick / lively / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 86.7,
+      "averageFinalSpread": 130,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "6p / quick / lively / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 70,
+      "averageFinalSpread": 139,
+      "gameCardActivations": 130,
+      "equalisers": 0
+    },
+    "6p / quick / relaxed / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 86.7,
+      "averageFinalSpread": 129,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "6p / quick / relaxed / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 76.7,
+      "averageFinalSpread": 143,
+      "gameCardActivations": 132,
+      "equalisers": 0
+    },
+    "6p / standard / lively / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 83.3,
+      "averageFinalSpread": 321,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "6p / standard / lively / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 80,
+      "averageFinalSpread": 330,
+      "gameCardActivations": 206,
+      "equalisers": 53
+    },
+    "6p / standard / relaxed / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 70,
+      "averageFinalSpread": 313,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "6p / standard / relaxed / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 83.3,
+      "averageFinalSpread": 339,
+      "gameCardActivations": 217,
+      "equalisers": 56
+    },
+    "6p / party / lively / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 83.3,
+      "averageFinalSpread": 442,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "6p / party / lively / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 90,
+      "averageFinalSpread": 462,
+      "gameCardActivations": 286,
+      "equalisers": 136
+    },
+    "6p / party / relaxed / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 90,
+      "averageFinalSpread": 411,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "6p / party / relaxed / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 63.3,
+      "averageFinalSpread": 407,
+      "gameCardActivations": 270,
+      "equalisers": 120
+    },
+    "12p / quick / lively / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 76.7,
+      "averageFinalSpread": 125,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "12p / quick / lively / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 83.3,
+      "averageFinalSpread": 159,
+      "gameCardActivations": 238,
+      "equalisers": 0
+    },
+    "12p / quick / relaxed / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 66.7,
+      "averageFinalSpread": 124,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "12p / quick / relaxed / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 63.3,
+      "averageFinalSpread": 145,
+      "gameCardActivations": 251,
+      "equalisers": 0
+    },
+    "12p / standard / lively / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 73.3,
+      "averageFinalSpread": 305,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "12p / standard / lively / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 63.3,
+      "averageFinalSpread": 316,
+      "gameCardActivations": 391,
+      "equalisers": 53
+    },
+    "12p / standard / relaxed / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 50,
+      "averageFinalSpread": 296,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "12p / standard / relaxed / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 73.3,
+      "averageFinalSpread": 317,
+      "gameCardActivations": 375,
+      "equalisers": 56
+    },
+    "12p / party / lively / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 70,
+      "averageFinalSpread": 394,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "12p / party / lively / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 93.3,
+      "averageFinalSpread": 468,
+      "gameCardActivations": 549,
+      "equalisers": 176
+    },
+    "12p / party / relaxed / normal": {
+      "matches": 30,
+      "leaderAtHalfWon": 73.3,
+      "averageFinalSpread": 395,
+      "gameCardActivations": 0,
+      "equalisers": 0
+    },
+    "12p / party / relaxed / cards": {
+      "matches": 30,
+      "leaderAtHalfWon": 90,
+      "averageFinalSpread": 443,
+      "gameCardActivations": 544,
+      "equalisers": 176
+    }
+  }
+}

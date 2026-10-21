@@ -1,4 +1,4 @@
-# Start Here — ECKEY THUMP v1.4
+# Start Here — ECKY THUMP v1.4
 
 1. Download and extract the ZIP. Open the `ECKEY-THUMP-v1.4` folder.
 2. Double-click `START-GAME-WINDOWS.bat` on Windows (Node.js 20.11+), or run `npm start`.

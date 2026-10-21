@@ -1,4 +1,4 @@
-/* ECKEY THUMP 1.1: readable game-night flow, designed for real phones and TVs. */
+/* ECKY THUMP 1.1: readable game-night flow, designed for real phones and TVs. */
 .round-guide{display:flex;align-items:flex-start;gap:14px;padding:16px 17px;margin:18px 0;border:2px solid #6fdefa;border-radius:16px;background:linear-gradient(135deg,#1c235d,#2a164a);box-shadow:4px 5px 0 #13163a,0 0 19px #25d8ff2b}
 .round-guide-icon{flex:0 0 41px;height:41px;display:grid;place-items:center;border-radius:10px;background:#fbea6f;color:#2d1258;font-size:1.55rem;transform:rotate(-8deg);box-shadow:3px 3px #e94eb7}
 .round-guide strong{display:block;font:1000 clamp(1.12rem,2.1vw,1.4rem) Impact,'Arial Black',system-ui,sans-serif;letter-spacing:.025em;color:#ffea86;margin:0 0 6px}

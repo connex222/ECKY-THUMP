@@ -1,0 +1,17 @@
+/* v1.8: optional rapid-power bar. Existing avatar DOM and mappings are untouched. */
+.e18-quickbar{margin:13px 0 9px;padding:12px 14px;background:linear-gradient(115deg,#222d19,#131422);border:1px solid #bbf820;border-radius:12px;box-shadow:0 8px 22px #0005;color:#fff}
+.e18-quickhead{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:9px}
+.e18-quickhead strong{color:#d7ff59;font:900 .86rem Inter,system-ui,sans-serif;letter-spacing:.06em}
+.e18-quickhead small{font-size:.68rem;color:#e7f0d7}
+.e18-quickcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:8px}
+.e18-quickcards .btn.e18-quick-action{min-height:50px;padding:11px 12px;background:#c5fb2b!important;color:#100e1b!important;border:2px solid #ffffff30;border-radius:8px;box-shadow:0 4px 0 #476018;font:850 .86rem Inter,system-ui,sans-serif;display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left}
+.e18-quickcards .btn.e18-bet{background:#f9b0ff!important;box-shadow:0 4px 0 #6b3370}
+.e18-quickcards .btn.e18-quick-action:disabled{opacity:.6;cursor:not-allowed}
+.e18-countdown{font:.74rem Inter,system-ui,sans-serif;font-weight:950;white-space:nowrap;border-radius:5px;background:#152119;color:#eaffbe;padding:4px 6px}
+.e18-power-reason{color:#e6beff;font-size:.71rem;line-height:1.3}
+.e17-fx-feedback{min-height:44px}
+@media(max-width:650px){.e18-quickbar{padding:11px}.e18-quickhead strong{font-size:.81rem}.e18-quickcards{grid-template-columns:1fr}.e18-quickcards .btn.e18-quick-action{min-height:47px}}
+@media(prefers-reduced-motion:reduce){.e18-quickbar,.e18-quickcards .btn{animation:none!important;transition:none!important}}
+
+.e18-speed-warning{margin:12px 0;padding:12px 14px;background:#3c184b;border:2px solid #f348ed;border-radius:10px;color:#fff;font:900 .78rem Inter,system-ui,sans-serif;letter-spacing:.01em;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.e18-speed-warning strong{color:#d7ff59;font-size:1.1rem;white-space:nowrap}

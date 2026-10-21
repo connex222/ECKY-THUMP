@@ -84,4 +84,4 @@ game.write_text(g)
 for rel in ['README.md','READ-ME-FIRST.md','docs/CHANGES_v0.8.md','public/assets/app.js','public/assets/tv.js']:
  p=root/rel
  if p.exists():p.write_text(p.read_text().replace('v0.8','v0.9'))
-p=root/'package.json';pkg=json.loads(p.read_text());pkg['version']='0.9.0';pkg['description']='ECKEY THUMP private games night with 1,200 original Cheeky/Adult-heavy comedy entries and no-repeat shuffle decks';p.write_text(json.dumps(pkg,indent=2)+'\n')
+p=root/'package.json';pkg=json.loads(p.read_text());pkg['version']='0.9.0';pkg['description']='ECKY THUMP private games night with 1,200 original Cheeky/Adult-heavy comedy entries and no-repeat shuffle decks';p.write_text(json.dumps(pkg,indent=2)+'\n')

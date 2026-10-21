@@ -2,7 +2,7 @@
 
 See **START-HERE-v0.9.md** first. 1,200 original entries have been added as editorial drafts. Open **CONTENT-REVIEW.html** separately to inspect or flag jokes.
 
-# ECKEY THUMP — GAMES NIGHT v0.9
+# ECKY THUMP — GAMES NIGHT v0.9
 
 This is the **gameplay expansion** of the previous Chaos Arena build, with all the existing artwork, characters, TV display and per-room QR codes retained.
 

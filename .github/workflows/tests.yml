@@ -14,6 +14,8 @@ jobs:
         run: |
           node --check server/index.js
           node --check server/game.js
+          node --check server/game-cards.js
+          node --check server/telemetry.js
           node --check server/content.js
           node --check public/assets/app.js
           node --check public/assets/tv.js

@@ -1,4 +1,4 @@
-/* ECKEY THUMP v0.6 — NOGGIN-inspired original Chaos Arena, not reused NOGGIN artwork */
+/* ECKY THUMP v0.6 — NOGGIN-inspired original Chaos Arena, not reused NOGGIN artwork */
 :root{--bg:#020724;--panel:#061448;--panel2:#102362;--line:#ffce64;--muted:#d0dfff;--gold:#ffde63;--lime:#caff69;--pink:#ff63b9;--violet:#a46dff;--white:#fff;--cyan:#35edff}
 html{background:#020726}body{color:#fff;background:linear-gradient(180deg,#020724,#061750 53%,#04082a 100%);min-height:100vh}
 .ambient{opacity:1;background:
@@ -69,7 +69,7 @@ animation:none}
 
 .show-subline{display:inline-block;position:relative;z-index:2;margin:0 auto 10px;padding:9px 19px;border:3px solid #ffec8b;border-radius:999px;background:linear-gradient(90deg,#ff63b9,#6e3abc);box-shadow:0 5px 0 #17164e,0 0 19px #fd7cff77;color:#fff;font:1000 clamp(.75rem,1.4vw,1.16rem)/1.25 system-ui,sans-serif;letter-spacing:.085em;transform:rotate(-2deg);text-shadow:0 2px #62266c}.hero h1{font-size:clamp(3.3rem,8.2vw,7.6rem);margin-bottom:10px}@media(max-width:800px){.show-subline{font-size:clamp(.60rem,2.5vw,.8rem);letter-spacing:.04em;margin-bottom:10px}.hero h1{font-size:clamp(2.9rem,11.3vw,5.3rem)}}
 
-/* ECKEY THUMP v0.6: a game-show title with selectable adult avatars */
+/* ECKY THUMP v0.6: a game-show title with selectable adult avatars */
 .brand{gap:12px}.brand .brand-words{font-size:clamp(1.12rem,2.4vw,1.65rem);letter-spacing:-.04em;font-weight:1000;line-height:1.03;color:#ffe9a0;text-shadow:0 0 24px #fbbd5299}.brand .brand-words small{letter-spacing:.13em;margin-top:5px;font-size:.52rem;color:#fbd7ff}
 .hero h1{font-size:clamp(4.1rem,11vw,8.6rem);line-height:.82;max-width:100%;letter-spacing:-.075em;text-shadow:0 10px 30px #0009,0 0 60px #e591ff88}
 .hero h1 span{filter:drop-shadow(0 8px 0 #3c145b)}
@@ -90,10 +90,10 @@ animation:none}
 @media(max-width:600px){.topbar{flex-wrap:wrap}.qr-lobby{flex-direction:column;text-align:center}.hero h1{font-size:clamp(3.7rem,13vw,6.5rem)}.tv-qr{width:155px;height:155px}.tv-player .player-avatar{width:38px;height:38px}}
 @media(prefers-reduced-motion:reduce){.avatar-tile:hover{transform:none}}
 
-.pick-card:before{content:"✦  ECKEY THUMP" !important;}
+.pick-card:before{content:"✦  ECKY THUMP" !important;}
 
 /* -------------------------------------------------------------
-   ECKEY THUMP v0.7 • Adult cast, winning moments & TV QR
+   ECKY THUMP v0.7 • Adult cast, winning moments & TV QR
    ------------------------------------------------------------- */
 .avatar-help{margin:8px 0 3px!important;font-size:.78rem;line-height:1.35;color:#f0d7ff!important}
 .avatar-tile{position:relative;isolation:isolate}

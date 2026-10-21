@@ -1,7 +1,7 @@
-# ECKEY THUMP v0.9 — After Dark Content Guide
+# ECKY THUMP v0.9 — After Dark Content Guide
 
 ## What this pack is
-An **editorial draft** of exactly **1,200 newly authored entries** on top of the prior v0.8 content. It was written specifically for ECKEY THUMP; no game cards or text were imported from other companies. Several batches were produced using our own authored phrase families, which helps reach the quantity target but also makes human selection important.
+An **editorial draft** of exactly **1,200 newly authored entries** on top of the prior v0.8 content. It was written specifically for ECKY THUMP; no game cards or text were imported from other companies. Several batches were produced using our own authored phrase families, which helps reach the quantity target but also makes human selection important.
 
 It is not a guarantee of 1,200 equally strong jokes. Playtests, editorial trimming, and a final appropriateness/legal review are recommended before selling the game.
 

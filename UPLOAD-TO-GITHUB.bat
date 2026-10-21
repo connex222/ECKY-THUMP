@@ -3,7 +3,7 @@ setlocal
 cd /d "%~dp0"
 echo.
 echo ================================================================
-echo   ECKEY THUMP v1.1 - Upload to your existing GitHub repository
+echo   ECKY THUMP v1.1 - Upload to your existing GitHub repository
 echo   https://github.com/connex222/ECKY-THUMP
 echo ================================================================
 echo.

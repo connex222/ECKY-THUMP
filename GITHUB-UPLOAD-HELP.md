@@ -1,22 +1,20 @@
-# Upload ECKEY THUMP v1.1 to GitHub
+# ECKY THUMP — GitHub upload guide
 
-Existing destination: **https://github.com/connex222/ECKY-THUMP** (the repo name is spelled ECKY, but the game is ECKEY THUMP).
+The game's repository is **https://github.com/connex222/ECKY-THUMP**. The official product name is **ECKY THUMP**. Repository names are external identifiers and should not be silently renamed.
 
-## Easy upload on Windows
+## Windows upload (current v1.8.1)
 
-1. Download the `ECKEY-THUMP-v1.1-GitHub-Upload-Ready.zip` file and extract it.
-2. Open the `ECKEY-THUMP-Game-Night-v1.1-Flow` folder.
-3. Double-click `UPLOAD-TO-GITHUB.bat`.
-4. If Git is not installed, visit https://git-scm.com/download/win, install Git for Windows and run the `.bat` again.
-5. A browser sign-in may appear; use your GitHub account.
-6. After the message **SUCCESS**, check https://github.com/connex222/ECKY-THUMP.
+1. Extract the complete `ECKY-THUMP-v1.8.1-UK-English-Playable.zip` archive to a folder.
+2. Install Git for Windows and sign in to GitHub (if not already configured).
+3. Open the extracted project folder and double-click **`UPLOAD-TO-GITHUB.bat`**.
+4. The script clones `main`, copies in the current project files, creates a versioned commit, and pushes **without force**. It reports any authentication or branch-protection problems.
+5. Verify the commit at https://github.com/connex222/ECKY-THUMP and check Render's deploy status separately.
 
-If the upload fails, read the error on screen. The script will not use a force push, delete files from the existing repository or change its name. It does overwrite same-path project files with v1.1 content. It requires permission to push to the main branch.
+**Alternative:** Clone the private repository in GitHub Desktop, copy the project contents into the clone, review the changes, then commit and push. Keep the original avatars unchanged.
 
-## Using GitHub Desktop instead
+## Notes
 
-If you prefer, clone the `connex222/ECKY-THUMP` repository using GitHub Desktop. Copy the extracted *contents* of this project folder into that clone (not the outer folder). Return to GitHub Desktop, review changes, enter `Update ECKEY THUMP to v1.1`, commit to main, and click **Push origin**.
-
-## Important
-
-GitHub stores source code. It does **not** automatically make this Node.js game playable on the public internet. For multi-house gameplay, deploy the repository to Render separately (the included `render.yaml` is provided for that purpose). The destination repository was public when checked on 20 October 2026: the game source and adult draft prompts will be visible to everyone after upload.
+- This workflow overwrites matching source files but intentionally does **not** delete remote-only files. Old unused assets may therefore remain in GitHub until reviewed and removed separately.
+- GitHub is source control, not the Node.js web host. Render deploys separately when configured for automatic deployment of `main`.
+- Preserve the historic session, event, avatar and content-pack identifiers described in `docs/UK-ENGLISH-STYLE.md`.
+- No deployment occurs merely by downloading this ZIP. This local spelling sweep does not modify the connected GitHub repository or Render service.

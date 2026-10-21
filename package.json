@@ -1,8 +1,8 @@
 {
-  "name": "eckey-thump-game-night",
-  "version": "1.6.0",
+  "name": "ecky-thump-game-night",
+  "version": "1.8.1",
   "private": true,
-  "description": "ECKEY THUMP v1.5 Night Shift \u2014 complete modern UI redesign, private party game",
+  "description": "ECKY THUMP v1.8.1 — Neon Arena party game with optional Game Cards, UK English and consistent branding",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",

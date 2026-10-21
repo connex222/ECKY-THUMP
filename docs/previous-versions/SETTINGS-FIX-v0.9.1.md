@@ -1,4 +1,4 @@
-# ECKEY THUMP v0.9.1 — Game setup display fix
+# ECKY THUMP v0.9.1 — Game setup display fix
 
 Three dropdowns on the Host screen were replaced with always-visible, accessible single-choice options:
 

@@ -1,4 +1,4 @@
-# ECKEY THUMP v1.1 — Developer Notes
+# ECKY THUMP v1.1 — Developer Notes
 
 ## Scope
 

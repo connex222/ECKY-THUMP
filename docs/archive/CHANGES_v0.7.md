@@ -1,4 +1,4 @@
-# ECKEY THUMP — v0.7 Artwork Integration
+# ECKY THUMP — v0.7 Artwork Integration
 
 ## Included
 - Seven newly illustrated adult characters matched to existing roster IDs (no extra duplicate seats).

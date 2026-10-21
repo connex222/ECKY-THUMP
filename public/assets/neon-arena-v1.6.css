@@ -1,4 +1,4 @@
-/* ECKEY THUMP 1.6 — NEON ARENA. A presentation-only layer on top of Night Shift.
+/* ECKY THUMP 1.6 — NEON ARENA. A presentation-only layer on top of Night Shift.
    Existing avatar registries, images, mappings and render functions are untouched. */
 :root{--e-bg:#07060f;--e-surface:#11101f;--e-surface2:#1a172e;--e-muted:#bac1d0;--e-ink:#fbfbff;--e-line:#413154;--e-lime:#ddff19;--e-purple:#d721ee;--e-aqua:#6aeeec;--e-alert:#ff628e}
 body.e16-arena,body.e16-arena[data-ui="Chaos-Arena"]{background:linear-gradient(120deg,#05050b,#0e0920 58%,#070912);color:#fbfbff}

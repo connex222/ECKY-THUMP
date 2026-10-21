@@ -1,0 +1,367 @@
+{
+  "format": "eckey-game-card-design-1",
+  "based_on": "ECKY THUMP v1.7",
+  "status": "INTEGRATED v1.7 — optional host-controlled playtest feature",
+  "baseline_tests": "76/76 passed",
+  "avatar_policy": "No existing avatar files, IDs, mappings or rendering functions changed",
+  "eligibility": {
+    "equaliser_offer": "at least two completed rounds and next round is not finale; leader.score - player.score >= max(100, ceil(0.25 * leader.score))",
+    "equaliser_per_player_per_match": 1,
+    "equaliser_grants_per_round": 2,
+    "score_bonus_cap_per_player_per_match": 40,
+    "playable_cards_per_player_per_round": 1,
+    "active_global_chaos_per_round": 1,
+    "no_finale_scoring_cards": true
+  },
+  "cards": [
+    {
+      "id": "CHAOS_DECKCHAIR",
+      "name": "Deckchair Shuffle",
+      "tier": "Chaos",
+      "visual": "Two lime-and-magenta deckchairs collide; wooden scrape and card-flip sound.",
+      "effect": "Server selects two different unsubmitted players in CARD or DOUBLE and exchanges exactly one randomly chosen private response-card option from each hand. Hand sizes remain 7 or 5; unique card IDs are re-issued, and both players receive a refreshed private snapshot. Existing submissions are never changed.",
+      "trigger": "First 8 seconds of CARD/DOUBLE submission; before either target has submitted; instant; once globally per round.",
+      "risk_reward": "Can improve or damage either player’s options, including the activator’s. No points are directly awarded.",
+      "phase": [
+        "SUBMIT"
+      ],
+      "challenges": [
+        "CARD",
+        "DOUBLE"
+      ],
+      "params": {
+        "activation_window_ms": 8000,
+        "swaps_per_round": 1
+      },
+      "sfx": "chair-scrape"
+    },
+    {
+      "id": "CHAOS_MIRROR",
+      "name": "Mirror Mayhem",
+      "tier": "Chaos",
+      "visual": "Neon arrows flip across the edge of each controller; short stereo whoosh.",
+      "effect": "For 10 seconds, reverse only the visible ordering of each player’s selectable response cards. Selection continues to use unchanged card IDs, accessible labels and focus; text fields and Gold/Silver voting are not inverted. Reduced-motion setting removes the animated flip.",
+      "trigger": "First half of CARD/DOUBLE SUBMIT; lasts 10 seconds, ending at stage transition.",
+      "risk_reward": "Disorients fast pickers without changing the underlying choices. Caster is affected too.",
+      "phase": [
+        "SUBMIT"
+      ],
+      "challenges": [
+        "CARD",
+        "DOUBLE"
+      ],
+      "params": {
+        "duration_ms": 10000
+      },
+      "sfx": "whoosh"
+    },
+    {
+      "id": "CHAOS_ENVELOPE",
+      "name": "The Wrong Envelope",
+      "tier": "Chaos",
+      "visual": "A hot-pink envelope tears open over the question panel; sharp stamp-thunk.",
+      "effect": "Server replaces the global Quick Wit prompt with one fresh prompt from the current content rating, broadcasts its new ID/text, and restarts the normal Quick Wit submission timer. No author has submitted yet; no answer or ballot is discarded.",
+      "trigger": "Quick Wit SUBMIT only, within first 5 seconds and only while submission count is zero; instant; once per match.",
+      "risk_reward": "Re-rolls an awkward or predictable setup but might replace an excellent prompt. All contestants must respond to the same new prompt.",
+      "phase": [
+        "SUBMIT"
+      ],
+      "challenges": [
+        "WIT"
+      ],
+      "params": {
+        "activation_window_ms": 5000,
+        "uses_per_match": 1
+      },
+      "sfx": "stamp-thunk"
+    },
+    {
+      "id": "CHAOS_HOTSEAT",
+      "name": "The Hot Seat",
+      "tier": "Chaos",
+      "visual": "Two avatar-stage spotlights cross in magenta; theatrical camera-shutter click.",
+      "effect": "Swap two randomly chosen players’ display slots on the TV stage for this round. Player IDs, avatar bindings, leaderboard rank, ballot IDs, private hands and scores do not change.",
+      "trigger": "Can activate during SUBMIT or RESULTS; TV swap persists for the current round only.",
+      "risk_reward": "Creates on-screen banter and attention, but offers no scoring benefit.",
+      "phase": [
+        "SUBMIT",
+        "RESULTS"
+      ],
+      "challenges": [
+        "CARD",
+        "WIT",
+        "CONTEXT",
+        "DOUBLE",
+        "FINAL"
+      ],
+      "params": {
+        "expires": "round_end"
+      },
+      "sfx": "shutter"
+    },
+    {
+      "id": "CHAOS_EARLYBELL",
+      "name": "The Early Bell",
+      "tier": "Chaos",
+      "visual": "Hazard stripes wrap the shared timer; two-tone arcade klaxon.",
+      "effect": "Subtract exactly 10 seconds from the shared SUBMIT deadline, provided that at least 35 seconds remain when triggered; never leave less than 25 seconds. All clients are notified with a visible countdown adjustment. Never applies to context SEED or the finale.",
+      "trigger": "First 10 seconds of non-finale CARD/WIT/DOUBLE submission, once per match; instantaneous deadline change.",
+      "risk_reward": "Rattles slower friends but also shortens the caster’s remaining time. It must be announced before the timer changes.",
+      "phase": [
+        "SUBMIT"
+      ],
+      "challenges": [
+        "CARD",
+        "WIT",
+        "DOUBLE"
+      ],
+      "params": {
+        "activation_window_ms": 10000,
+        "removed_ms": 10000,
+        "minimum_before_ms": 35000,
+        "minimum_after_ms": 25000,
+        "uses_per_match": 1
+      },
+      "sfx": "klaxon"
+    },
+    {
+      "id": "TACT_DOUBLE_DUFF",
+      "name": "Double or Duff",
+      "tier": "Tactical",
+      "visual": "Split gold/red roulette chip with a bouncing +30/−15; low drum roll.",
+      "effect": "After normal vote scoring, award +30 bonus points if the activating player has unique rank 1 this round; otherwise apply −15. Total score cannot drop below zero. Joint first does not qualify. Never alters ballot weights or the base 100/60/25 scoring.",
+      "trigger": "Activate in first 10 seconds of non-finale SUBMIT; resolves when RESULTS are scored.",
+      "risk_reward": "High ceiling for confident jokers, with a tangible downside.",
+      "phase": [
+        "SUBMIT"
+      ],
+      "challenges": [
+        "CARD",
+        "WIT",
+        "CONTEXT",
+        "DOUBLE"
+      ],
+      "params": {
+        "activate_window_ms": 10000,
+        "win_bonus": 30,
+        "loss_penalty": -15
+      },
+      "sfx": "drum-roll"
+    },
+    {
+      "id": "TACT_GOLD_RUSH",
+      "name": "Gold Rush",
+      "tier": "Tactical",
+      "visual": "Gold lightning ticks against a lime meter; coin-count sound.",
+      "effect": "After ballots close, add +10 bonus points per valid Gold vote received, capped at +30. If the entry receives zero Gold votes, apply −10. Ignore hidden entries and unscored rounds.",
+      "trigger": "Activate before submitting any non-finale answer; resolves at RESULTS.",
+      "risk_reward": "Excellent for a potential crowd favourite; frustrating if nobody gives Gold.",
+      "phase": [
+        "SUBMIT"
+      ],
+      "challenges": [
+        "CARD",
+        "WIT",
+        "CONTEXT",
+        "DOUBLE"
+      ],
+      "params": {
+        "per_gold": 10,
+        "max_bonus": 30,
+        "zero_gold_penalty": -10
+      },
+      "sfx": "coin-count"
+    },
+    {
+      "id": "TACT_FAST_FINGERS",
+      "name": "Fast Fingers",
+      "tier": "Tactical",
+      "visual": "Lime stopwatch ignites with speed lines; short rising tick.",
+      "effect": "Award +20 bonus points if the player manually submits a valid entry within 12 seconds of SUBMIT beginning on Lively pace or 20 seconds on Relaxed pace, and receives at least one valid Gold vote. Otherwise award zero. Automatic timeout picks never qualify.",
+      "trigger": "Activate within first 5 seconds of SUBMIT; resolves at RESULTS.",
+      "risk_reward": "Rewards rapid jokes but encourages rushing a weak answer.",
+      "phase": [
+        "SUBMIT"
+      ],
+      "challenges": [
+        "CARD",
+        "WIT",
+        "CONTEXT",
+        "DOUBLE"
+      ],
+      "params": {
+        "activation_ms": 5000,
+        "lively_submit_ms": 12000,
+        "relaxed_submit_ms": 20000,
+        "gold_required": 1,
+        "bonus": 20
+      },
+      "sfx": "speed-tick"
+    },
+    {
+      "id": "TACT_EXTRA_HELPING",
+      "name": "Extra Helping",
+      "tier": "Tactical",
+      "visual": "Three cards fan across a dark panel; crisp double card-flick.",
+      "effect": "Draw two unique unseen response cards for the activating player, privately present them, and let the player choose one to replace one current unsubmitted option. The other draw is discarded. Existing one-per-round standard swap may still be used only if this effect is explicitly configured not to consume it; default is to consume that swap.",
+      "trigger": "CARD/DOUBLE SUBMIT before submitting; selection window is 10 seconds; current round only.",
+      "risk_reward": "More options for an awkward hand, but the clock keeps running and the new cards may be worse.",
+      "phase": [
+        "SUBMIT"
+      ],
+      "challenges": [
+        "CARD",
+        "DOUBLE"
+      ],
+      "params": {
+        "draw_count": 2,
+        "choose_count": 1,
+        "choose_within_ms": 10000,
+        "consumes_standard_swap": true
+      },
+      "sfx": "card-flick"
+    },
+    {
+      "id": "TACT_BULLSEYE",
+      "name": "Bullseye Bet",
+      "tier": "Tactical",
+      "visual": "Magenta crosshair surrounding one or two gold pips; laser ping.",
+      "effect": "Player privately predicts whether their entry will receive exactly one or exactly two Gold votes. On exact match award +30 points; otherwise apply −10. Prediction is locked before answer submission and is revealed in RESULTS only.",
+      "trigger": "Activate and choose 1 or 2 Gold votes before submitting a non-finale entry; resolves after voting.",
+      "risk_reward": "Big bonus from an accurate read of the room, versus a manageable wager.",
+      "phase": [
+        "SUBMIT"
+      ],
+      "challenges": [
+        "CARD",
+        "WIT",
+        "CONTEXT",
+        "DOUBLE"
+      ],
+      "params": {
+        "legal_predictions": [
+          1,
+          2
+        ],
+        "win_bonus": 30,
+        "loss_penalty": -10
+      },
+      "sfx": "laser-ping"
+    },
+    {
+      "id": "EQUAL_LIFEBUOY",
+      "name": "The Lifebuoy",
+      "tier": "Equaliser",
+      "visual": "Lime rescue-ring splashes under the trailing contestant; buoyant plop.",
+      "effect": "After the next valid non-finale round, grant +25 points if the eligible player manually submitted and finished in the bottom half of the scored entrants, including tied cutoff rank. A hidden, auto-submitted or skipped answer earns no bonus.",
+      "trigger": "Offered only after qualifying as trailing after at least two completed rounds; locks to next eligible scored round.",
+      "risk_reward": "Provides a soft landing during a bad run without guaranteeing a win.",
+      "phase": [
+        "RESULTS"
+      ],
+      "challenges": [
+        "CARD",
+        "WIT",
+        "CONTEXT",
+        "DOUBLE"
+      ],
+      "params": {
+        "bonus": 25,
+        "must_manual_submit": true
+      },
+      "sfx": "splash"
+    },
+    {
+      "id": "EQUAL_LUCKYDIP",
+      "name": "Lucky Dip Lifeline",
+      "tier": "Equaliser",
+      "visual": "Three extra cards pop up behind an existing hand; hopeful rising shuffle.",
+      "effect": "At the next eligible CARD/DOUBLE start, the recipient gets three additional unique private response-card choices for that round (10 total in CARD, 8 in DOUBLE). They still submit one normal answer; all other players retain normal hand sizes.",
+      "trigger": "Triggered on first CARD/DOUBLE round within the next two non-finale rounds; expires if no suitable round occurs.",
+      "risk_reward": "Improves selection quality, not guaranteed points, and can increase decision time.",
+      "phase": [
+        "SUBMIT"
+      ],
+      "challenges": [
+        "CARD",
+        "DOUBLE"
+      ],
+      "params": {
+        "extra_choices": 3,
+        "expires_after_nonfinal_rounds": 2
+      },
+      "sfx": "rising-shuffle"
+    },
+    {
+      "id": "EQUAL_CROWN",
+      "name": "Underdog’s Crown",
+      "tier": "Equaliser",
+      "visual": "A jagged lime crown descends through purple sparks; triumphant two-note sting.",
+      "effect": "Award +40 bonus points if the underdog wins unique first place in their next valid non-finale round. A tied first, unscored round or other rank gives zero bonus.",
+      "trigger": "Server grants when trailing threshold is met; resolves at next eligible non-finale RESULTS.",
+      "risk_reward": "The highest comeback payout still requires winning the round outright.",
+      "phase": [
+        "RESULTS"
+      ],
+      "challenges": [
+        "CARD",
+        "WIT",
+        "CONTEXT",
+        "DOUBLE"
+      ],
+      "params": {
+        "bonus": 40,
+        "unique_first_required": true
+      },
+      "sfx": "triumph"
+    },
+    {
+      "id": "EQUAL_RUBBERBAND",
+      "name": "Rubber-Band Rally",
+      "tier": "Equaliser",
+      "visual": "A glowing elastic meter stretches towards the leader; springy boing.",
+      "effect": "After normal scoring of the recipient’s next valid non-finale round, award an additional min(40, floor(baseAward*0.5+0.5)) points. E.g., 100→+40, 60→+30, 25→+13. Bonus does not receive a finale multiplier.",
+      "trigger": "Server grants to a qualifying trailer; applies once at next valid non-finale RESULTS.",
+      "risk_reward": "Reliable proportional catch-up; less spectacular than a large all-or-nothing wager.",
+      "phase": [
+        "RESULTS"
+      ],
+      "challenges": [
+        "CARD",
+        "WIT",
+        "CONTEXT",
+        "DOUBLE"
+      ],
+      "params": {
+        "fraction": 0.5,
+        "max_bonus": 40,
+        "rounding": "half_up"
+      },
+      "sfx": "spring-boing"
+    },
+    {
+      "id": "EQUAL_CONTRACT",
+      "name": "Comeback Contract",
+      "tier": "Equaliser",
+      "visual": "A neon ticket flashes a cheeky compulsory word; three rising sparks.",
+      "effect": "Offer one optional, content-rated keyword to a lagging player for their next WIT/CONTEXT/DOUBLE authored line. If their valid manual answer contains the whole keyword and wins at least one valid Gold vote, grant +30 bonus points. Otherwise zero; omission never invalidates the base submission.",
+      "trigger": "Activation at start of first qualifying writing round within next two non-finale rounds; resolves at RESULTS.",
+      "risk_reward": "A skill-based comeback possibility that can make a joke harder to write naturally.",
+      "phase": [
+        "SUBMIT",
+        "RESULTS"
+      ],
+      "challenges": [
+        "WIT",
+        "CONTEXT",
+        "DOUBLE"
+      ],
+      "params": {
+        "bonus": 30,
+        "gold_required": 1,
+        "expires_after_nonfinal_rounds": 2
+      },
+      "sfx": "spark-chime"
+    }
+  ]
+}

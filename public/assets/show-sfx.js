@@ -1,5 +1,5 @@
 'use strict';
-/* ECKEY THUMP Show FX 1.0 — consent-based original WebAudio cue generator.
+/* ECKY THUMP Show FX 1.0 — consent-based original WebAudio cue generator.
    No sounds play before the device owner clicks ENABLE SHOW SFX. */
 (() => {
   let enabled=false, ctx=null;

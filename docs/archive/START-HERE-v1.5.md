@@ -1,4 +1,4 @@
-# ECKEY THUMP v1.5 — Night Shift
+# ECKY THUMP v1.5 — Night Shift
 
 A completely new **modern, dark** visual identity. No seaside/postcard styling is active.
 

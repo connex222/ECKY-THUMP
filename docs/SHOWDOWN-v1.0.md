@@ -1,4 +1,4 @@
-# ECKEY THUMP — Showtime Showdown v1.0
+# ECKY THUMP — Showtime Showdown v1.0
 
 ## What's new
 

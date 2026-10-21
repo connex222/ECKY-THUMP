@@ -1,4 +1,4 @@
-# ECKEY THUMP v0.9 — Start Here
+# ECKY THUMP v0.9 — Start Here
 
 This release adds **1,200 original editorial-draft entries** to the five-challenge private games-night game. Of those, **995 are Cheeky or Adult**.
 

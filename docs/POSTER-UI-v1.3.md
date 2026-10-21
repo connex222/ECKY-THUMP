@@ -1,4 +1,4 @@
-# ECKEY THUMP — v1.3 Poster UI Refresh
+# ECKY THUMP — v1.3 Poster UI Refresh
 
 The supplied user-selected British seaside postcard illustration drives the new home, player waiting room, and TV lobby presentation. The runtime uses a compressed, locally served WebP version of that exact image for faster loading.
 

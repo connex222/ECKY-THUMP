@@ -1,4 +1,4 @@
-/* ECKEY THUMP v0.9.2 — original Showtime identity (not NOGGIN artwork). */
+/* ECKY THUMP v0.9.2 — original Showtime identity (not NOGGIN artwork). */
 :root{--show-yellow:#ffe600;--show-pink:#ff2fac;--show-blue:#00dfff;--show-ink:#070914}
 .visually-hidden{position:absolute!important;width:1px;height:1px;clip:rect(0,0,0,0);overflow:hidden;white-space:nowrap}
 body[data-ui="Chaos-Arena"]{background:radial-gradient(ellipse at 50% -9%,#3d2082 0,transparent 34%),radial-gradient(circle at 2% 25%,#063875,transparent 27%),linear-gradient(180deg,#070513 0,#080d2c 36%,#08081b 100%)}

@@ -1,4 +1,4 @@
-# ECKEY THUMP v0.8 — Gameplay Rules and Implementation Notes
+# ECKY THUMP v0.8 — Gameplay Rules and Implementation Notes
 
 ## Objective
 

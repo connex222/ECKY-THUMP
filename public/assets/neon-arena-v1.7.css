@@ -1,0 +1,45 @@
+/* v1.7 optional Game Cards. Additive styles only; avatar selectors untouched. */
+.e17-lobby-cards,.e17-card-tray{background:#0b1121;border:2px solid #c4ff1d;border-radius:16px;padding:16px;margin:16px 0;color:#fff;box-shadow:0 8px 25px #0007}
+.e17-lobby-cards{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.e17-lobby-cards strong,.e17-card-head strong{font-weight:950;color:#c4ff1d;letter-spacing:.05em}
+.e17-lobby-cards small{display:block;color:#c0c7d2;max-width:45ch;margin-top:4px}
+.e17-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.e17-card-head span{color:#adb6cc;font-size:.76rem}
+.e17-card-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:10px;margin-top:12px}
+.e17-power{display:flex;flex-direction:column;align-items:flex-start;gap:9px;background:linear-gradient(140deg,#15152b,#0b111d);border:1px solid #ab2ccd;border-radius:12px;padding:15px}
+.e17-power>strong{font-size:1.1rem;color:#fff}
+.e17-power p,.e17-extra-options p,.e17-equaliser p{font-size:.84rem;color:#cbd0e2;line-height:1.5;margin:0}
+.e17-power .btn{margin-top:auto}
+.e17-tier{font-size:.65rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#0d1020;background:#ed2eea;padding:4px 9px;border-radius:5px}
+.e17-tier.e17-tactical{background:#c4ff1d}
+.e17-equaliser{padding:12px;background:#283315;border:1px solid #c4ff1d;border-radius:10px;margin-top:10px}
+.e17-equaliser strong{display:block;color:#c4ff1d;margin-bottom:8px}
+.e17-extra-options{padding:12px;margin-top:12px;background:#311640;border:1px solid #e92be8;border-radius:10px}
+.e17-option-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.e17-option-grid .btn{white-space:normal;min-height:70px;overflow-wrap:anywhere}
+.e17-prediction{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.e17-prediction span{font-size:.76rem;color:#cbd0e2}
+.e17-fx-feedback{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:8px}
+.e17-fx-feedback span{color:#d9d9e8;font-size:.82rem}
+.e17-stage-effect{margin:10px auto;padding:10px 20px;width:max-content;max-width:96%;border:2px solid #f42cf2;background:#140d27;color:#c4ff1d;font-weight:900;border-radius:8px;text-align:center;box-shadow:0 0 25px #a82be27d}
+.e17-mirror-active .card-grid{direction:rtl}
+.e17-mirror-active .card-grid>*{direction:ltr}
+@media(max-width:580px){.e17-option-grid{grid-template-columns:1fr}.e17-card-tray{padding:12px}.e17-power{padding:12px}}
+
+.e17-bonus{display:block;color:#dd61ff;font-size:.7rem;font-weight:950;margin-top:3px}
+
+.e17-stage-roster{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px}.e17-stage-roster span{display:flex;align-items:center;gap:5px;padding:7px 11px;border:1px solid #eb2be8;border-radius:10px;color:#fff;background:#160b25;font-weight:800}.e17-stage-roster .player-avatar{width:38px;height:38px;object-fit:cover}
+
+/* v1.7.1: compact, accessible, initially collapsed mobile power-up drawer. */
+.e171-powers{margin:12px 0;border:1px solid #c4ff1d80;border-radius:12px;background:#0c1222;overflow:hidden}
+.e171-powers>summary{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:54px;padding:12px 16px;color:#c4ff1d;font-weight:950;list-style:none}
+.e171-powers>summary::-webkit-details-marker{display:none}
+.e171-powers>summary::after{content:'⌄';font-size:1.3rem;color:#f12df0}
+.e171-powers[open]>summary::after{content:'⌃'}
+.e171-powers>summary b{display:inline-block;color:#15101e;background:#c4ff1d;border-radius:5px;padding:3px 6px;margin-left:6px;font-size:.7rem;vertical-align:middle}
+.e171-powers>summary small{font-size:.68rem;color:#e9e9f0;text-align:right;max-width:12ch}
+.e171-powers .e17-card-tray{margin:0;border:0;border-top:1px solid #bf32ff77;box-shadow:none;border-radius:0}
+.e171-powers .e17-card-list{grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
+.e171-powers .e17-power p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+.e171-powers .e17-power .btn{min-height:42px}
+@media (max-width:580px){.e171-powers>summary{padding:10px 12px}}

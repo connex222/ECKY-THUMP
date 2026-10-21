@@ -1,11 +1,11 @@
-/* ECKEY THUMP v1.0 — SHOWDOWN, following the Showtime identity. */
+/* ECKY THUMP v1.0 — SHOWDOWN, following the Showtime identity. */
 body[data-ui="Chaos-Arena"] .room-layout:not(.showtime-room){grid-template-columns:minmax(0,1.5fr) minmax(245px,.65fr);gap:20px;align-items:start}
 .show-audio-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .show-sfx-switch{border-color:#ff69cd;background:linear-gradient(140deg,#4b115f,#1a1148)}
 .show-sfx-switch[aria-pressed="true"]{background:linear-gradient(180deg,#ffe970,#ffc758);border-color:#fff6a2;color:#2a1245}
 .show-sfx-switch[aria-pressed="true"] span{color:#44205e}
 .stage-show-heading{border:2px solid #ffe979;border-radius:19px;box-shadow:0 7px 0 #3c1955,0 0 25px #f839db58;background:radial-gradient(circle at 25% 0,rgba(239,55,186,.30),transparent 37%),repeating-conic-gradient(from -11deg at 50% -65%,#5f6de525 0 6deg,transparent 6deg 14deg),linear-gradient(140deg,#24115c,#0a205e);margin:0 0 18px;padding:17px 17px 16px;position:relative;overflow:hidden;text-align:left}
-.stage-show-heading::after{content:'★  ECKEY THUMP  ★';position:absolute;right:10px;bottom:-4px;font:1000 1.28rem Impact,sans-serif;letter-spacing:.04em;color:#ffffff18;transform:rotate(-5deg);pointer-events:none}
+.stage-show-heading::after{content:'★  ECKY THUMP  ★';position:absolute;right:10px;bottom:-4px;font:1000 1.28rem Impact,sans-serif;letter-spacing:.04em;color:#ffffff18;transform:rotate(-5deg);pointer-events:none}
 .stage-show-heading .stage-kicker{display:flex;align-items:center;flex-wrap:wrap;gap:9px;font-size:.75rem;font-weight:1000;letter-spacing:.09em;color:#fff0a8}
 .stage-show-heading .stage-name{margin:9px 0 3px;font:1000 clamp(2.35rem,5vw,4.4rem)/.98 Impact,'Arial Black',system-ui,sans-serif;letter-spacing:.012em;color:#fff;transform:rotate(-.35deg);text-shadow:3px 4px 0 #af2f8d,5px 7px 0 #2c104d,0 0 21px #6fa2ff8c}
 .stage-show-heading .stage-tagline{margin:8px 0 0;font-size:.93rem;font-weight:800;color:#d9edff;line-height:1.45}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build ECKEY THUMP's original 1,200-entry v0.9 editorial draft.
+"""Build ECKY THUMP's original 1,200-entry v0.9 editorial draft.
 
 Every word and phrase bank in this script was authored for this project. The
 combinations are curated patterns, not copied competitor decks. Final editorial

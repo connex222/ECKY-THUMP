@@ -6,7 +6,7 @@
 @import url('/assets/showtime.css?v=1.1.0') layer(legacy);
 @import url('/assets/showdown.css?v=1.1.0') layer(legacy);
 @import url('/assets/flow-v1.1.css?v=1.1.0') layer(legacy);
-/* ECKEY THUMP v1.5 — NIGHT SHIFT. An original, modern game-night interface.
+/* ECKY THUMP v1.5 — NIGHT SHIFT. An original, modern game-night interface.
    This sheet replaces every previous visual theme. No avatar sources, bindings,
    data mappings or rendering helpers are modified. */
 :root{color-scheme:dark;--e-bg:#090b13;--e-surface:#141725;--e-surface2:#1b2031;--e-muted:#a6adbf;--e-ink:#f6f8ff;--e-line:#34384a;--e-lime:#d5fb68;--e-purple:#b7a0ff;--e-aqua:#67ded6;--e-alert:#ff738f;--e-font:Inter,'Segoe UI',system-ui,-apple-system,sans-serif}
