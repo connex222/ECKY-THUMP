@@ -68,7 +68,7 @@ test('live game serves the corrected brand and both local logo assets', async ()
   try {
     const health = await (await fetch(origin + '/api/health')).json();
     assert.equal(health.service, 'ECKY THUMP');
-    assert.equal(health.version, '1.8.2');
+    assert.equal(health.version, require('../package.json').version);
     for (const asset of ['/assets/ecky-logo.svg','/assets/branding/ecky-thump-logo.webp']) {
       const response = await fetch(origin + asset);
       assert.equal(response.status, 200, `${asset} must load`);
