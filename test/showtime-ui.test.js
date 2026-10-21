@@ -6,18 +6,16 @@ const path=require('node:path');
 const root=path.resolve(__dirname,'..');
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 
-test('landing and lobby use the new original ECKEY THUMP vector logo instead of a duplicate top banner',()=>{
- const js=read('public/assets/app.js');
- const tv=read('public/assets/tv.js');
- const logo=read('public/assets/eckey-logo.svg');
- assert.match(js,/eckey-logo\.svg/);
- assert.match(tv,/eckey-logo\.svg/);
- assert.match(logo,/<title id="title">ECKEY THUMP<\/title>/);
+test('landing and TV use the chosen transparent neon logo, with the avatar helpers retained',()=>{
+ const js=read('public/assets/app.js'),tv=read('public/assets/tv.js');
+ const logo=path.join(root,'public/assets/branding/eckey-thump-logo.webp');
+ assert.ok(fs.statSync(logo).size>20000);
+ assert.match(js,/branding\/eckey-thump-logo\.webp/);
+ assert.match(tv,/branding\/eckey-thump-logo\.webp/);
  assert.match(js,/function nav\(\)\{return '';\}/);
- assert.doesNotMatch(tv,/themed-marquee/);
  assert.match(js,/lobby-stage-cast/);
  assert.match(js,/v14-big-qr/);
- assert.match(tv,/tv-scan-to-join/);
+ assert.match(tv,/v16-tv-qr-panel/);
 });
 test('lobby music ships locally, can be toggled by player or TV, and will not auto-start',()=>{
  const audio=read('public/assets/lobby-audio.js');
@@ -26,7 +24,7 @@ test('lobby music ships locally, can be toggled by player or TV, and will not au
  for(const page of ['public/index.html','public/tv/index.html']){
    const html=read(page);
    assert.match(html,/lobby-audio\.js\?v=1\.1\.0/);
-   assert.match(html,/modern-v1\.5\.css\?v=1\.5\.0/);
+   assert.match(html,/modern-v1\.5\.css\?v=1\.6\.0/);assert.match(html,/neon-arena-v1\.6\.css\?v=1\.6\.0/);
    assert.match(read('public/assets/modern-v1.5.css'),/showtime\.css\?v=1\.1\.0/);
  }
  assert.match(audio,/enabled:false/);

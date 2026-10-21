@@ -5,10 +5,10 @@ const fs=require('node:fs');
 const path=require('node:path');
 const root=path.resolve(__dirname,'..');
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
-test('v1.5 modern CSS is the only active custom design layer and avatars load before the game',()=>{
+test('v1.6 neon arena extends the low-priority modern layer and avatars load first',()=>{
  for(const file of ['public/index.html','public/tv/index.html']){
   const html=read(file);
-  assert.match(html,/modern-v1\.5\.css\?v=1\.5\.0/);
+  assert.match(html,/modern-v1\.5\.css\?v=1\.6\.0/);assert.match(html,/neon-arena-v1\.6\.css\?v=1\.6\.0/);
   assert.match(html,/e15-modern/);
   assert.doesNotMatch(html,/interface-v1\.4\.css|seaside-postcard\.css|postcard-reset/);
   assert.ok(html.indexOf('avatars.js')<html.indexOf(file.includes('tv/')?'tv.js':'app.js'));
@@ -24,7 +24,7 @@ test('real Host and Join actions, all three ratings, rounds and pacing remain wi
 });
 test('TV code and QR still render and offset is initialized for accurate countdown',()=>{
  const tv=read('public/assets/tv.js');
- for(const key of ['clockOffset=0','typeof s.serverNow', 'join-qr.svg','e15-tv-code','e15-tv-cast'])assert.ok(tv.includes(key));
+ for(const key of ['clockOffset=0','typeof s.serverNow', 'join-qr.svg','v16-tv-room-code','v16-tv-cast'])assert.ok(tv.includes(key));
 });
 test('modern UI supports narrow screens and reduced motion without postcard references',()=>{
  const css=read('public/assets/modern-v1.5.css');

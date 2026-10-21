@@ -1,6 +1,6 @@
 {
   "name": "eckey-thump-game-night",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "private": true,
   "description": "ECKEY THUMP v1.5 Night Shift \u2014 complete modern UI redesign, private party game",
   "main": "server/index.js",

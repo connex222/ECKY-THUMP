@@ -54,7 +54,7 @@ function requireOrigin(req) {
 function route(req,res) {
   const url=new URL(req.url,`http://${req.headers.host||'localhost'}`);
   const pathname=url.pathname;
-  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKEY THUMP',version:'1.5.0',uptime:process.uptime()});
+  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKEY THUMP',version:'1.6.0',uptime:process.uptime()});
   if(pathname==='/api/rooms'&&req.method==='POST')return (async()=>{
     requireOrigin(req);const body=await readBodyOrEmpty(req);
     const created=game.newRoom(body);let c;do{c=code();}while(rooms.has(c));created.room.code=c;
@@ -196,5 +196,5 @@ const timer=setInterval(()=>{
   for(const [key,value] of perIp)if(now-value.start>2*RATE_WINDOW)perIp.delete(key);
 },300);
 server.on('close',()=>clearInterval(timer));
-if(require.main===module)server.listen(port,'0.0.0.0',()=>console.log(`ECKEY THUMP Game Night v1.5 running at http://localhost:${port}`));
+if(require.main===module)server.listen(port,'0.0.0.0',()=>console.log(`ECKEY THUMP Game Night v1.6 running at http://localhost:${port}`));
 module.exports={server,rooms};

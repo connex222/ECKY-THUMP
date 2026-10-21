@@ -48,7 +48,7 @@ test('results reveal avatar with attribution only after voting',()=>{
 test('TV lobby and final reveal contain QR and winner spotlight markup',()=>{
  const tv=fs.readFileSync(path.join(root,'public/assets/tv.js'),'utf8');
  const app=fs.readFileSync(path.join(root,'public/assets/app.js'),'utf8');
- assert.match(tv,/tv-scan-to-join/);
+ assert.match(tv,/v16-tv-qr-panel/);
  assert.match(tv,/join-qr\.svg/);
  assert.match(tv,/tvWinners\(s\)/);
  assert.match(tv,/tv-finale-cast/);
