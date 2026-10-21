@@ -1,13 +1,14 @@
 {
   "name": "ecky-thump-game-night",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "private": true,
-  "description": "ECKY THUMP v1.8.1 — Neon Arena party game with optional Game Cards, UK English and consistent branding",
+  "description": "ECKY THUMP v1.8.2 \u2014 Game Night Quality and Fairness Polish, UK English",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
     "dev": "node --watch server/index.js",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "audit:content": "node scripts/audit-content.js"
   },
   "engines": {
     "node": ">=20.11"

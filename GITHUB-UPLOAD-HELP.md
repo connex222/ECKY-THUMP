@@ -2,9 +2,9 @@
 
 The game's repository is **https://github.com/connex222/ECKY-THUMP**. The official product name is **ECKY THUMP**. Repository names are external identifiers and should not be silently renamed.
 
-## Windows upload (current v1.8.1)
+## Windows upload (current v1.8.2)
 
-1. Extract the complete `ECKY-THUMP-v1.8.1-UK-English-Playable.zip` archive to a folder.
+1. Extract the complete `ECKY-THUMP-v1.8.2-Game-Night-Quality-Playable.zip` archive to a folder.
 2. Install Git for Windows and sign in to GitHub (if not already configured).
 3. Open the extracted project folder and double-click **`UPLOAD-TO-GITHUB.bat`**.
 4. The script clones `main`, copies in the current project files, creates a versioned commit, and pushes **without force**. It reports any authentication or branch-protection problems.
@@ -17,4 +17,4 @@ The game's repository is **https://github.com/connex222/ECKY-THUMP**. The offici
 - This workflow overwrites matching source files but intentionally does **not** delete remote-only files. Old unused assets may therefore remain in GitHub until reviewed and removed separately.
 - GitHub is source control, not the Node.js web host. Render deploys separately when configured for automatic deployment of `main`.
 - Preserve the historic session, event, avatar and content-pack identifiers described in `docs/UK-ENGLISH-STYLE.md`.
-- No deployment occurs merely by downloading this ZIP. This local spelling sweep does not modify the connected GitHub repository or Render service.
+- No deployment occurs merely by downloading this ZIP. This local quality release does not modify the connected GitHub repository or Render service.

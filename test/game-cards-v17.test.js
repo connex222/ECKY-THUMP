@@ -188,7 +188,7 @@ test('Lifebuoy only rewards manual bottom-half finishes',()=>{
   const p=r.players[0];r.gameCards.roundEqualisers.set(p.id,'EQUAL_LIFEBUOY');
   enterFullRound(r);
   const a=r.round.awards.find(x=>x.authorId===p.id);
-  assert.equal(a.gameCardBonus,a.rank>Math.floor(r.round.awards.length/2)?25:undefined);
+  assert.equal(a.gameCardBonus,a.rank>Math.ceil(r.round.awards.length/2)?25:undefined);
 });
 test('Equaliser is offered once to a genuine trailing contestant after two rounds',()=>{
   const r=setup();enterFullRound(r);game.nextRound(r);

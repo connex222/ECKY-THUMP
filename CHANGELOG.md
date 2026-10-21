@@ -1,6 +1,23 @@
 # Changelog
 
-Current project history, consolidated from the previous per-version guides. For detailed historical design material see `docs/archive/`.
+Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.
+
+## [1.8.2] — 2026-10-21 · Game Night reliability and accessibility
+
+### Fixed
+- Malformed or oversized JSON requests now return controlled errors (413 for oversized payloads) instead of abruptly destroying the socket. Static asset streams handle read errors.
+- Answer, starter, card-swap and ballot actions reject submissions received after the server's phase deadline, even before the timer tick advances the phase.
+- Voting is final: exact retry requests are idempotent; attempts to replace a ballot are rejected without changing scores or counting duplicate votes.
+- Redundant SSE streams from the same controller are bounded; each room has a hard connection cap. An active SSE-connected room is not swept for 6-hour inactivity, with a 24-hour absolute room lifetime.
+- Active Game Card effect and Extra Helping visibility no longer silently disappears during a host pause.
+- Corrected Lifebuoy bottom-half eligibility in odd-sized games (e.g. only third place in a three-entry round).
+- Clarified on-screen voting language (Gold/Silver are vote weights), disabled edits after submitting a ballot, and corrected the locked-ballot status message.
+
+### Improved
+- Clear keyboard focus indicators, larger mobile Game Card hit targets, reduced-motion fallbacks, high-contrast styling and text wrapping.
+- Added regression tests for deadline boundaries, repeat ballots, paused-card snapshots and static delivery.
+- Added a repeatable content quality audit with exact-duplicate and editorial-status measurements; no unreviewed joke content was silently rewritten.
+- Multiplayer tests on real devices and a human Game Card balance study remain deferred.
 
 ## [1.8.1] — 2026-10-21
 

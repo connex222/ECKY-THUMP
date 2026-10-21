@@ -116,7 +116,7 @@ function onResults(room){
       if(equal){
         const entry=r.entries.find(e=>e.authorId===player.id&&!e.hidden&&!e.auto);
         switch(equal){
-          case 'EQUAL_LIFEBUOY':adjustment+=entry&&award.rank>Math.floor(r.awards.length/2)?25:0;break;
+          case 'EQUAL_LIFEBUOY':adjustment+=entry&&award.rank>Math.ceil(r.awards.length/2)?25:0;break;
           case 'EQUAL_CROWN':adjustment+=award.rank===1&&!award.isJoint?40:0;break;
           case 'EQUAL_RUBBERBAND':adjustment+=Math.min(40,Math.floor(award.points*.5+.5));break;
           case 'EQUAL_CONTRACT':{
@@ -251,7 +251,10 @@ function chooseExtra(room,player,drawId,replaceId,makeId){
 }
 function publicView(room,viewerId,isTV){
   const s=state(room);if(!s?.enabled)return {enabled:false};
-  const result={enabled:true,latest:s.lastEffect,activeEffects:s.effects.filter(x=>x.until>Date.now()).map(x=>({...x})),stageOrder:s.stageOrder||null,chaosUsed:s.lastChaosRound===room.roundIndex,spentOnce:[...s.once]};
+  // A paused match freezes server effect clocks. The client receives a stable
+  // view rather than hiding an active effect while the host is paused.
+  const effectiveNow=room.paused&&room.round?.pausedAt?room.round.pausedAt:Date.now();
+  const result={enabled:true,latest:s.lastEffect,activeEffects:s.effects.filter(x=>x.until>effectiveNow).map(x=>({...x})),stageOrder:s.stageOrder||null,chaosUsed:s.lastChaosRound===room.roundIndex,spentOnce:[...s.once]};
   if(!isTV&&room.players.some(p=>p.id===viewerId)){
     result.inventory=(s.inventory.get(viewerId)||[]).map(id=>({...baseCard(cards[id]),...inspectPlay(room,room.players.find(p=>p.id===viewerId),cards[id])}));
     result.playedThisRound=s.playedRound.has(viewerId);
@@ -261,7 +264,7 @@ function publicView(room,viewerId,isTV){
     const speed=s.roundTactics.get(viewerId);
     result.speedBonusUntil=speed?.id==='TACT_FAST_FINGERS'&&room.phase==='SUBMIT'&&!room.round.entries.some(e=>e.authorId===viewerId)?
       speed.activatedAt+(room.config.pace==='lively'?12000:20000):null;
-    const extra=s.pendingExtra?.get(viewerId);result.extra=extra&&extra.until>Date.now()?{until:extra.until,choices:extra.choices}:null;
+    const extra=s.pendingExtra?.get(viewerId);result.extra=extra&&extra.until>effectiveNow?{until:extra.until,choices:extra.choices}:null;
     const equal=s.roundEqualisers.get(viewerId)||s.pendingEqualisers.get(viewerId)?.cardId;
     result.equaliser=equal?baseCard(cards[equal]):null;
     result.contractWord=s.roundEqualisers.get(viewerId)==='EQUAL_CONTRACT'?s.contractWords?.get(viewerId)||null:null;

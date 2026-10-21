@@ -52,3 +52,11 @@ The host-only telemetry report now includes `byChallenge` (count, totalMs, avgMs
 - When a hand swap invalidates a card previously selected on a controller, the interface clears the selection and asks the player to choose again rather than submitting an obsolete ID.
 - Telemetry reports offers, activations, a simple activation/offer percentage, and frustration as a percentage of explicitly submitted feedback. These are descriptive signals only; spontaneous opinions and correlation are not proof of causation.
 - No changes to avatar identifiers, artwork, bindings or rendering. Game Cards remain disabled by default.
+
+## v1.8.2 fairness safeguards
+
+- Late answer, seed, response swap and vote requests are rejected at the action boundary, even if the 300 ms server tick has not advanced the game phase.
+- Vote submissions are immutable; retrying the same ballot returns without duplicating the vote or incrementing telemetry. The controller explains that a submitted ballot is locked.
+- The Lifebuoy treats the bottom half as ranks strictly greater than `ceil(contestant count / 2)`, preventing second place in a three-person match from qualifying.
+- Game Card effects and extra-draw options stay visible during a host pause; resuming shifts their deadlines by the paused duration.
+- Game Cards remain an optional host setting pending in-person checks of fairness, interruptions and enjoyment.

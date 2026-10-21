@@ -249,8 +249,13 @@ function startGame(room) {
     ['CARD','WIT','CONTEXT','DOUBLE','CARD','FINAL'];
   powers.onMatchStart(room);room.roundIndex=0;startRound(room);
 }
+function assertPhaseTime(room) {
+  if(room.deadline!==null && room.deadline!==undefined && Date.now()>=room.deadline)
+    throw Error('This round has timed out. Please wait for the next phase.');
+}
 function swapCard(room,player,cardId) {
   if (room.phase!=='SUBMIT'||room.paused||!['CARD','DOUBLE'].includes(room.round.type)) throw Error('Card swap unavailable now.');
+  assertPhaseTime(room);
   if (room.round.entries.some(e=>e.authorId===player.id))throw Error('Your answer has already been submitted.');
   if (room.round.swaps.has(player.id))throw Error('You have used your one swap this round.');
   const hand=room.round.hands[player.id];
@@ -264,6 +269,7 @@ function swapCard(room,player,cardId) {
 }
 function acceptSeed(room,player,value) {
   if(room.phase!=='SEED'||room.paused)throw Error('It is not time to write a starter line.');
+  assertPhaseTime(room);
   if(room.round.type!=='CONTEXT')throw Error('This is not a context round.');
   if(room.round.seeds.has(player.id))throw Error('Your innocent line is already locked in.');
   const text=validateAnswer(value,room.config.rating);
@@ -283,6 +289,7 @@ function beginContextRewrite(room) {
 }
 function acceptAnswer(room,player,value) {
   if(room.phase!=='SUBMIT'||room.paused)throw Error('It is not time to submit an answer.');
+  assertPhaseTime(room);
   const round=room.round;
   if(round.entries.some(e=>e.authorId===player.id))throw Error('Your answer is already locked in.');
   let text,seedAuthorId=null,authoredText=null;
@@ -318,11 +325,19 @@ function enterVoting(room) {
 }
 function acceptVote(room, player, gold,silver) {
   if(room.phase!=='VOTE' || room.paused) throw Error('Voting is not open.');
+  assertPhaseTime(room);
   if(typeof gold!=='string' || typeof silver!=='string'||gold===silver) throw Error('Choose two different answers.');
   const candidates=liveCandidates(room);
   if(candidates.length<3 || !candidates.some(e=>e.id===gold) || !candidates.some(e=>e.id===silver)) throw Error('One of those entries is not available.');
   if(candidates.some(e=>e.authorId===player.id && (e.id===gold||e.id===silver))) throw Error('You cannot vote for your own answer.');
   if(!candidates.some(e=>e.authorId===player.id)) throw Error('Only entrants can vote this round.');
+  const prior=room.round.ballots.get(player.id);
+  // Network retries of identical ballots are idempotent. Changed ballots are not
+  // accepted: one vote per entrant and no late tactical ballot-switching.
+  if(prior){
+    if(prior.gold===gold&&prior.silver===silver)return;
+    throw Error('Your ballot is already locked in for this round.');
+  }
   room.round.ballots.set(player.id,{voterId:player.id,gold,silver});
   telemetry.record(room,'vote_cast');room.revision++;
   if(room.players.filter(p=>candidates.some(e=>e.authorId===p.id)).every(p=>room.round.ballots.has(p.id))) finishRound(room,null);

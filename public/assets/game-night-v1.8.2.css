@@ -1,0 +1,23 @@
+/* ECKY THUMP v1.8.2 — readability, touch and motion polish. No avatar asset changes. */
+:root{color-scheme:dark}
+:where(button,[role="button"],a,select,input,textarea,summary):focus-visible{
+  outline:3px solid #e2ff67!important;outline-offset:3px!important;
+  box-shadow:0 0 0 6px rgba(226,255,103,.2)!important;
+}
+:where(.e18-quick-action,.e17-power button,.e171-powers summary,.candidate-action){touch-action:manipulation}
+.e17-card-tray,.e18-quickbar{overflow-wrap:anywhere}
+.e17-power p,.e17-equaliser p{line-height:1.5}
+.e18-quickhead small,.e18-power-reason{font-size:clamp(.74rem,2.4vw,.88rem)}
+.e17-fx-feedback button{min-height:44px}
+@media(max-width:680px){
+  .e17-power button,.e18-quick-action{min-height:48px!important}
+  .e17-option-grid button{min-height:48px}
+  .e18-quickbar{margin-block:10px 14px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+@media(prefers-contrast:more){
+  .e18-quickbar,.e17-card-tray,.stage-panel{border-width:2px!important}
+  .e18-power-reason{color:#fff}
+}

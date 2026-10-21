@@ -1,4 +1,4 @@
-# ECKY THUMP v1.8.1 — Windows launcher with dependency checks, health polling and an available port.
+# ECKY THUMP v1.8.2 — Windows launcher with dependency checks, health polling and an available port.
 $ErrorActionPreference='Stop'
 Set-Location (Split-Path -Parent $PSScriptRoot)
 try {
@@ -21,7 +21,7 @@ try {
         }
     }
     $env:PORT="$port"
-    Write-Host "Starting ECKY THUMP v1.8.1 on port $port..." -ForegroundColor Green
+    Write-Host "Starting ECKY THUMP v1.8.2 on port $port..." -ForegroundColor Green
     $server=Start-Process -FilePath $node -ArgumentList 'server/index.js' -WorkingDirectory (Get-Location).Path -PassThru -NoNewWindow
     $ready=$false
     for($attempt=0;$attempt -lt 40;$attempt++){

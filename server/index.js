@@ -39,9 +39,23 @@ function credentials(req,room) {
 function authorize(req,room){const who=credentials(req,room);if(!who)throw Error('This room session has expired or is invalid. Please join again.');return who;}
 function host(who,room){if(!who.player || who.player.id!==room.ownerId)throw Error('Only the host can do that.');}
 function readJSON(req) {return new Promise((resolve,reject)=>{
-  let body=''; req.on('data',data=>{body+=data;if(Buffer.byteLength(body)>12000){reject(Error('The request is too large.'));req.destroy();}});
-  req.on('end',()=>{try{resolve(body?JSON.parse(body):{});}catch(_){reject(Error('Invalid JSON.'));}});
-  req.on('error',reject);
+  let size=0,done=false;const chunks=[];
+  const fail=err=>{if(done)return;done=true;req.resume();reject(err);};
+  // Do not tear down the socket when a payload is too large: return HTTP 413,
+  // drain further data without allocating it, and keep the client responsive.
+  req.on('data',chunk=>{
+    if(done)return;
+    size+=chunk.length;
+    if(size>12000){const err=Error('The request is too large.');err.statusCode=413;return fail(err);}
+    chunks.push(chunk);
+  });
+  req.on('end',()=>{
+    if(done)return;done=true;
+    try{const body=Buffer.concat(chunks).toString('utf8');resolve(body?JSON.parse(body):{});}
+    catch(_){reject(Error('Invalid JSON.'));}
+  });
+  req.on('aborted',()=>fail(Error('Request interrupted.')));
+  req.on('error',fail);
 });}
 function readBodyOrEmpty(req){return readJSON(req).catch(err=>{throw err;});}
 function cleanRate(ip){const now=Date.now();const it=perIp.get(ip)||{start:now,count:0};if(now-it.start>RATE_WINDOW){it.start=now;it.count=0;}it.count++;perIp.set(ip,it);return it.count<=180;}
@@ -89,7 +103,13 @@ function route(req,res) {
       res.write(': connected\n\n');
       const channel={res,viewerId:who.player?.id||who.audience?.id,tv:who.tv};
       if(!connections.has(room.code))connections.set(room.code,new Set());
-      connections.get(room.code).add(channel);
+      const streams=connections.get(room.code);
+      // An old hanging EventSource must not consume an unbounded number of
+      // sockets for the same controller. Close only the oldest duplicate.
+      const duplicate=[...streams].filter(ch=>ch.viewerId===channel.viewerId&&ch.tv===channel.tv);
+      for(const stale of duplicate.slice(0,Math.max(0,duplicate.length-1))){streams.delete(stale);stale.res.end();}
+      if(streams.size>=100){res.end();return;}
+      streams.add(channel);
       if(who.player&&!who.player.online&&who.player.hasConnected)telemetry.record(room,'sse_rejoined');
       if(who.player){who.player.online=true;who.player.hasConnected=true;}
       if(who.audience)who.audience.online=true;
@@ -205,7 +225,9 @@ function route(req,res) {
   try{if(!fs.statSync(file).isFile())throw Error();}catch(_){return send(res,404,{error:'File not found.'});}
   res.writeHead(200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream','Cache-Control':requestPath.endsWith('.html')?'no-cache':'public,max-age=1800'});
   if(req.method==='HEAD'){res.end();return;}
-  fs.createReadStream(file).pipe(res);
+  const stream=fs.createReadStream(file);
+  stream.on('error',()=>res.destroy());
+  stream.pipe(res);
 }
 const server=http.createServer((req,res)=>{
   res.setHeader('X-Content-Type-Options','nosniff');
@@ -214,13 +236,15 @@ const server=http.createServer((req,res)=>{
   res.setHeader('Permissions-Policy','camera=(), microphone=(), geolocation=()');
   res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'");
   if(!cleanRate(req.socket.remoteAddress||'unknown'))return send(res,429,{error:'Too many requests. Try again shortly.'});
-  Promise.resolve().then(()=>route(req,res)).catch(err=>{if(!res.headersSent)bad(res,err,err.message.startsWith('This room session')?401:400);else res.end();});
+  Promise.resolve().then(()=>route(req,res)).catch(err=>{if(!res.headersSent)bad(res,err,err.statusCode||(err.message.startsWith('This room session')?401:400));else res.end();});
 });
 const timer=setInterval(()=>{
   const now=Date.now();
   for(const [c,room] of rooms){
     if(game.tick(room))broadcast(room);
-    if(now-room.lastActivity>6*60*60*1000){for(const ch of connections.get(c)||[])ch.res.end();connections.delete(c);rooms.delete(c);}
+    // Preserve an active games night with at least one live SSE controller.
+    // Hard-cap room lifetime to 24 hours to avoid indefinite retention of ghosts.
+    if((now-room.lastActivity>6*60*60*1000 && !(connections.get(c)?.size)) || now-room.created>24*60*60*1000){for(const ch of connections.get(c)||[])ch.res.end();connections.delete(c);rooms.delete(c);}
   }
   for(const [key,value] of perIp)if(now-value.start>2*RATE_WINDOW)perIp.delete(key);
 },300);

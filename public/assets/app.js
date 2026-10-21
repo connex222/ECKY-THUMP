@@ -298,17 +298,17 @@
   function ballotCard(s,c,i){const r=s.round,own=c.isOwn,selectedGold=S.gold===c.id,selectedSilver=S.silver===c.id;
     return `<article class="candidate ${own?'mine':''} ${selectedGold?'gold-selected':''} ${selectedSilver?'silver-selected':''}">
       <div><div class="eyebrow">ENTRY ${String(i+1).padStart(2,'0')} ${own?'· YOURS':''}${c.reportCount?' · ⚑ '+c.reportCount+' REPORT(S)':''}</div><div class="candidate-text" style="margin-top:10px">${esc(c.text)}</div></div>
-      <div class="candidate-actions">${own?tag('NO SELF-VOTING'):`<button class="candidate-action gold-pick ${selectedGold?'on':''}" data-action="gold" data-id="${esc(c.id)}">★ GOLD</button>
-      <button class="candidate-action silver-pick ${selectedSilver?'on':''}" data-action="silver" data-id="${esc(c.id)}">◇ SILVER</button>`}
+      <div class="candidate-actions">${own?tag('NO SELF-VOTING'):`<button class="candidate-action gold-pick ${selectedGold?'on':''}" data-action="gold" data-id="${esc(c.id)}" ${s.round.voted?'disabled':''}>★ GOLD</button>
+      <button class="candidate-action silver-pick ${selectedSilver?'on':''}" data-action="silver" data-id="${esc(c.id)}" ${s.round.voted?'disabled':''}>◇ SILVER</button>`}
       ${!own?`<button class="candidate-action" data-action="report" data-id="${esc(c.id)}" title="Report inappropriate answer">⚑ Report</button>`:''}
       ${s.you?.isHost?`<button class="candidate-action" data-action="hide" data-id="${esc(c.id)}" title="Hide inappropriate answer and reset votes">Hide</button>`:''}</div></article>`;
   }
   function renderVote(s){const r=s.round;
     return `<section class="panel stage-panel">${stageHeader(s,"VOTE")}<div class="room-head"><div><div class="eyebrow">ROUND ${s.roundNumber} / ${s.totalRounds} · VOTING</div><h2 class="section-title">NO MERCY. ONLY LAUGHS!</h2></div><span class="timer" id="timer">--</span></div>
-       <div class="prompt-box"><p>${esc(r.prompt)}</p></div>${r.multiplier>1?`<div class="finale-multiplier">⚡ DOUBLE POINTS FINALE ⚡</div>`:""}<div class="stage-vote-tag">★ GOLD = 2 VOTES &nbsp; ◇ SILVER = 1 VOTE</div>${roundGuide(s)}<p class="sub">Choose two <strong>different</strong> other players. You cannot vote for yourself. Your ballot is anonymous.</p>
+       <div class="prompt-box"><p>${esc(r.prompt)}</p></div>${r.multiplier>1?`<div class="finale-multiplier">⚡ DOUBLE POINTS FINALE ⚡</div>`:""}<div class="stage-vote-tag">★ GOLD = 2× VOTE WEIGHT &nbsp; ◇ SILVER = 1× VOTE WEIGHT</div>${roundGuide(s)}<p class="sub">Choose two <strong>different</strong> other players. You cannot vote for yourself. Your ballot is anonymous.</p>
        <div class="ballot-tracker" aria-live="polite"><span>★ GOLD <strong>${S.gold?'SELECTED':'PICK ONE'}</strong></span><span>◇ SILVER <strong>${S.silver?'SELECTED':'PICK ONE'}</strong></span></div><div class="candidate-grid">${(r.candidates||[]).map((c,i)=>ballotCard(s,c,i)).join('')}</div>
-       <div class="notice">${r.voted?'✓ Ballot recorded. You may change your choices until voting ends.':'Make your selections then submit your ballot.'} &nbsp; ${r.voteCount} / ${r.eligibleVotes} ballots received.</div>
-       ${btn('vote',r.voted?'UPDATE MY BALLOT':'LOCK IN MY VOTES →','wide',!(S.gold&&S.silver)?'disabled':'')}
+       <div class="notice">${r.voted?'✓ Ballot locked in. One vote per player, per round.':'Make your selections then submit your ballot.'} &nbsp; ${r.voteCount} / ${r.eligibleVotes} ballots received.</div>
+       ${btn('vote',r.voted?'✓ BALLOT LOCKED':'LOCK IN MY VOTES →','wide',r.voted||!(S.gold&&S.silver)?'disabled':'')}
      </section>`;
   }
   function renderResults(s){const r=s.round, entries=r.entries||[];
@@ -339,7 +339,7 @@
     let ss=0,se=0;if(active){ss=previousInput.selectionStart;se=previousInput.selectionEnd;}
     if(s.you?.role==='audience'){app.innerHTML=renderAudience(s);S.scenePulse=false;updateConnection();syncScene();return;}
     const main=s.phase==='LOBBY'?renderLobby(s):s.phase==='SEED'?contextSeed(s):s.phase==='SUBMIT'?renderSubmit(s):s.phase==='VOTE'?renderVote(s):s.phase==='RESULTS'?renderResults(s):renderComplete(s);
-    app.innerHTML=nav()+(s.phase==='LOBBY'?'':roomTop(s))+`<main class="room-layout ${s.phase==='LOBBY'?'showtime-room':''} ${S.scenePulse?'scene-enter':''}">${main}${s.phase==='LOBBY'?'':sidePanel(s)}</main><div class="footer-note">ECKY THUMP v1.8 · PRIVATE GAME NIGHT</div>`;
+    app.innerHTML=nav()+(s.phase==='LOBBY'?'':roomTop(s))+`<main class="room-layout ${s.phase==='LOBBY'?'showtime-room':''} ${S.scenePulse?'scene-enter':''}">${main}${s.phase==='LOBBY'?'':sidePanel(s)}</main><div class="footer-note">ECKY THUMP v1.8.2 · PRIVATE GAME NIGHT</div>`;
     const input=document.getElementById('answer-input');if(input){input.value=S.draft;updateCounter();if(active){input.focus();input.setSelectionRange(ss,se);}}
     S.renderedStage=s.phase;S.renderedRound=s.round?.id;
     S.scenePulse=false;updateTimer();updateConnection();syncScene();
@@ -347,7 +347,7 @@
   function render(){if(S.code)renderGame();else renderLanding();syncScene();}
   function updateCounter(){const text=document.getElementById('answer-input');const counter=document.getElementById('answer-counter');if(text&&counter)counter.textContent=`${[...new Intl.Segmenter('en',{granularity:'grapheme'}).segment(text.value)].length} / 160`;}
   function updateTimer(){const el=document.getElementById('timer'),s=S.snap;
-    const mirror=s?.gameCards?.activeEffects?.some(e=>e.id==='CHAOS_MIRROR'&&e.until>Date.now()+S.clockOffset);
+    const mirror=s?.gameCards?.activeEffects?.some(e=>e.id==='CHAOS_MIRROR'&&(s.paused||e.until>Date.now()+S.clockOffset));
     document.querySelector('.stage-panel')?.classList.toggle('e17-mirror-active',!!mirror);
     if(!el||!s)return;
     if(s.paused){el.textContent='PAUSED';el.classList.add('expiring');return;}
