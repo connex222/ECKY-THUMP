@@ -127,7 +127,7 @@ test('live health and polish assets are served correctly from HTTP',async()=>{
   const base=`http://127.0.0.1:${server.address().port}`;
   try{
     const status=await (await fetch(base+'/api/health')).json();
-    assert.equal(status.version,'1.8.2');
+    assert.equal(status.version,require('../package.json').version);
     const css=await fetch(base+'/assets/game-night-v1.8.2.css');
     assert.equal(css.status,200);assert.match(await css.text(),/:focus-visible/);
     const missing=await fetch(base+'/assets/missing.css');assert.equal(missing.status,404);

@@ -2,11 +2,29 @@
 /** Synthetic game-night simulator. Human jokes and genuine reaction quality cannot be simulated. */
 const game=require('../server/game');
 const rng=require('node:crypto');
-const choose=a=>a[rng.randomInt(a.length)];
 const args=process.argv.slice(2);
 const matchesPerCell=Math.max(1,Math.min(1000,Number(args[0])||30));
+const seedArg=args[1];
+let seed=null;
+if(seedArg!==undefined){
+  seed=Number(seedArg);
+  if(!Number.isSafeInteger(seed)||seed<1||seed>0xffffffff)throw Error('Seed must be a positive 32-bit integer.');
+  // The replacement PRNG is simulation-only; never for real room security.
+  let value=seed>>>0;
+  const next=()=>{
+    value^=value<<13;value^=value>>>17;value^=value<<5;
+    return (value>>>0)/4294967296;
+  };
+  Math.random=next;
+  rng.randomInt=(min,max)=>{
+    if(max===undefined){max=min;min=0;}
+    if(!Number.isSafeInteger(min)||!Number.isSafeInteger(max)||max<=min)throw Error('Invalid simulated random range.');
+    return min+Math.floor(next()*(max-min));
+  };
+}
+const choose=a=>a[rng.randomInt(a.length)];
 const sizes=[3,6,12],lengths=['quick','standard','party'],paces=['lively','relaxed'];
-const report={matches:0,rounds:0,activations:0,rerolls:0,failedActivations:0,equalisers:0,negativeScores:0,completed:0,byGroup:{}};
+const report={seed,matches:0,rounds:0,activations:0,rerolls:0,failedActivations:0,equalisers:0,negativeScores:0,completed:0,byGroup:{}};
 for(const size of sizes)for(const length of lengths)for(const pace of paces)for(const enabled of [false,true]){
  const key=`${size}p / ${length} / ${pace} / ${enabled?'cards':'normal'}`;
  const tally=report.byGroup[key]={matches:0,leaderAtHalfWon:0,averageFinalSpread:0,gameCardActivations:0,equalisers:0};
