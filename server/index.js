@@ -99,29 +99,42 @@ function route(req,res) {
     }
     if(endpoint==='events'&&req.method==='GET'){
       const who=authorize(req,room);
-      res.writeHead(200,{'Content-Type':'text/event-stream; charset=utf-8','Cache-Control':'no-cache, no-transform','Connection':'keep-alive','X-Accel-Buffering':'no'});
-      res.write(': connected\n\n');
-      const channel={res,viewerId:who.player?.id||who.audience?.id,tv:who.tv};
+      // Multiple TVs have separate bearer tokens; viewerId is undefined for
+      // them all and must never be used to deduplicate TV streams.
+      const streamKey=who.tv
+        ? 'tv:'+crypto.createHash('sha256').update(req.headers.authorization||'').digest('hex')
+        : 'seat:'+(who.player?.id||who.audience?.id);
       if(!connections.has(room.code))connections.set(room.code,new Set());
       const streams=connections.get(room.code);
-      // An old hanging EventSource must not consume an unbounded number of
-      // sockets for the same controller. Close only the oldest duplicate.
-      const duplicate=[...streams].filter(ch=>ch.viewerId===channel.viewerId&&ch.tv===channel.tv);
-      for(const stale of duplicate.slice(0,Math.max(0,duplicate.length-1))){streams.delete(stale);stale.res.end();}
-      if(streams.size>=100){res.end();return;}
+      for(const stale of [...streams])if(stale.streamKey===streamKey){
+        streams.delete(stale);stale.res.end();
+      }
+      if(streams.size>=100)return send(res,429,{error:'Too many live viewers in this room.'});
+      res.writeHead(200,{'Content-Type':'text/event-stream; charset=utf-8','Cache-Control':'no-cache, no-transform','Connection':'keep-alive','X-Accel-Buffering':'no'});
+      res.write(': connected\n\n');
+      const channel={res,streamKey,viewerId:who.player?.id||who.audience?.id,tv:who.tv};
       streams.add(channel);
       if(who.player&&!who.player.online&&who.player.hasConnected)telemetry.record(room,'sse_rejoined');
       if(who.player){who.player.online=true;who.player.hasConnected=true;}
       if(who.audience)who.audience.online=true;
-      res.write(`event: snapshot\ndata: ${JSON.stringify(game.snapshot(room,channel.viewerId,channel.tv))}\n\n`);
+      res.write('event: snapshot\ndata: '+JSON.stringify(game.snapshot(room,channel.viewerId,channel.tv))+'\n\n');
       broadcast(room);
-      const timer=setInterval(()=>{try{res.write(': heartbeat\n\n');}catch(_){res.end();}},18000);
-      req.on('close',()=>{
-        clearInterval(timer);const channels=connections.get(room.code);channels?.delete(channel);
+      const timer=setInterval(()=>{
+        if(res.destroyed||res.writableEnded)return;
+        try{res.write(': heartbeat\n\n');}catch(_){res.end();}
+      },18000);
+      // Request.close can indicate a completed GET before SSE disconnects.
+      res.once('close',()=>{
+        clearInterval(timer);
+        const channels=connections.get(room.code);
+        channels?.delete(channel);
+        if(channels?.size===0)connections.delete(room.code);
         const participant=who.player||who.audience;
-        if(participant) {
-          const still=channels&&[...channels].some(ch=>ch.viewerId===participant.id);
-          participant.online=!!still;if(!still)telemetry.record(room,'sse_disconnected');broadcast(room);
+        if(participant){
+          const still=channels&&[...channels].some(ch=>!ch.tv&&ch.viewerId===participant.id);
+          participant.online=!!still;
+          if(!still)telemetry.record(room,'sse_disconnected');
+          broadcast(room);
         }
       });
       return;
@@ -134,10 +147,8 @@ function route(req,res) {
       requireOrigin(req);const who=authorize(req,room);
       const p=who.player,body=await readBodyOrEmpty(req);
       if(typeof body.type!=='string')throw Error('Missing action type.');
-      // The host-minted TV link may only change the lobby content switch.
-      // All participants must have consented individually before Adult mode is permitted.
-      if(who.tv){if(body.type!=='set-lobby-rating')throw Error('Television controls cannot play the game.');
-        game.setLobbyRating(room,body.rating);touch(room);send(res,200,{ok:true,revision:room.revision});broadcast(room);return;}
+      // A television link may view content but must not mutate the lobby.
+      if(who.tv)throw Error('Television links are read-only.');
       if(who.audience){
         if(body.type==='adult-consent')game.consentAfterDark(room,who.audience);
         else if(body.type==='chaos')game.audienceChaos(room,who.audience,body.kind,body.targetId);
@@ -250,4 +261,4 @@ const timer=setInterval(()=>{
 },300);
 server.on('close',()=>clearInterval(timer));
 if(require.main===module)server.listen(port,'0.0.0.0',()=>console.log(`ECKY THUMP Game Night v${require('../package.json').version} running at http://localhost:${port}`));
-module.exports={server,rooms};
+module.exports={server,rooms,connections};

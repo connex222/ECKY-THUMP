@@ -18,7 +18,7 @@
   const tvHead=s=>`<div class="tv-show-top"><span class="tv-show-round">ROUND ${s.roundNumber}/${s.totalRounds}</span><span class="tv-show-mode">${esc(s.phase==='SEED'?'CONTEXT COLLAPSE':s.phase==='VOTE'?'CAST YOUR VOTES':s.phase==='RESULTS'?'THE VERDICT':s.round?.label||'SHOWTIME')}</span></div>`;
   const tvConfetti=()=>`<div class="fx-confetti" aria-hidden="true">${Array.from({length:22},(_,i)=>`<i style="--x:${i*43%95+3}%;--d:${(i*11)%18/10}s;--r:${i*47}deg;--drift:${(i%5-2)*38}px;--c:${['#ffd970','#ff48c8','#37eaff','#a6fe7c'][i%4]}"></i>`).join('')}</div>`;
   function header(s){return s.phase==='LOBBY'?'':`<header class="tv-minimal-head"><img class="v16-logo v16-logo--tv-small" src="/assets/branding/ecky-thump-logo.webp" alt="ECKY THUMP"><span>ROOM ${esc(s.code)}</span>${showFx()}</header>`;}
-  const tvPackSwitch=s=>`<div class="postcard-tv-pack e15-tv-rating" role="group" aria-label="Content pack"><strong>CONTENT RATING</strong><div class="postcard-pack-buttons"><button type="button" data-tv-rating="clean" aria-pressed="${s.config.rating==='clean'}">EVERYONE</button><button type="button" data-tv-rating="adult" aria-pressed="${s.config.rating==='adult'}">AFTER DARK · 18+</button></div><small>${s.adultConsents}/${s.adultConsentNeeded} guests confirmed 18+ · rating locked when play begins</small><p id="tv-rating-msg" aria-live="polite"></p></div>`;
+  const tvPackSwitch=s=>`<div class="postcard-tv-pack e15-tv-rating" role="status" aria-label="Content rating"><strong>CONTENT RATING · ${esc(s.config.rating.toUpperCase())}</strong><small>${s.adultConsents}/${s.adultConsentNeeded} guests confirmed 18+ · Change rating on the host phone before starting</small></div>`;
   const soundControl=()=>`<button type="button" class="sound-switch tv-sound-switch" data-sound-toggle aria-pressed="${window.ECKEY_AUDIO?.enabled?'true':'false'}"><span aria-hidden="true">♫</span><strong>${window.ECKEY_AUDIO?.enabled?'MUSIC ON':'PLAY LOBBY MUSIC'}</strong></button>`;
   function footer(s){return `<footer class="tv-footer"><span>${esc(s.config.rating.toUpperCase())} HUMOUR · ${s.players.length} CONTESTANTS</span><span>JOIN ON YOUR PHONE · ${esc(location.host)}/join/ · CODE ${esc(s.code)}</span></footer>`;}
   function leaderboard(s,amount=6){return `<div class="tv-board">${s.players.slice(0,amount).map((p,i)=>`<div class="tv-board-item"><span class="tv-with-avatar">${avatar(p.avatar)}${i+1}. ${esc(p.name)}</span><strong>${p.score} POINTS</strong></div>`).join('')}</div>`;}
@@ -89,13 +89,6 @@
     if(!current.paused&&seconds>0&&seconds<=5&&['SEED','SUBMIT','VOTE'].includes(current.phase)&&key!==lastTick){lastTick=key;window.ECKEY_SFX?.play('countdown');}
 
   }
-  el.addEventListener('click',async e=>{const control=e.target.closest('[data-tv-rating]');if(!control)return;
-    const message=el.querySelector('#tv-rating-msg');
-    try {const res=await fetch(`/api/rooms/${code}/action`,{method:'POST',headers:{Authorization:`Bearer ${secret}`,'Content-Type':'application/json'},body:JSON.stringify({type:'set-lobby-rating',rating:control.dataset.tvRating})});
-      const data=await res.json();if(!res.ok)throw Error(data.error||'Could not change the rating.');
-      if(message)message.textContent='Content rating changed!';
-    } catch(error){if(message)message.textContent=error.message;}
-  });
   el.addEventListener('click',e=>{if(!e.target.closest('[data-fx-toggle]'))return;const on=window.ECKEY_SFX?.toggle();el.querySelectorAll('[data-fx-toggle]').forEach(b=>{b.setAttribute('aria-pressed',String(!!on));b.querySelector('span').textContent=on?'🔊':'🔇';b.querySelector('strong').textContent=on?'SHOW SFX ON':'ENABLE SHOW SFX';});});
   el.addEventListener('click',async e=>{if(!e.target.closest('[data-sound-toggle]'))return;await window.ECKEY_AUDIO?.toggle();const control=el.querySelector('[data-sound-toggle]');if(control){control.setAttribute('aria-pressed',String(!!window.ECKEY_AUDIO?.enabled));control.querySelector('strong').textContent=window.ECKEY_AUDIO?.enabled?'MUSIC ON':'PLAY LOBBY MUSIC';}});
   setInterval(updateTimer,250);

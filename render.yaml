@@ -1,8 +1,8 @@
 services:
   - type: web
-    name: eckey-thump-game-night
+    name: ECKY-THUMP
     runtime: node
-    buildCommand: npm run test
+    buildCommand: npm test && npm run audit:content
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:

@@ -15,6 +15,6 @@ test('HTTP rejects oversized, malformed and cross-origin game requests without l
   const crossOrigin=await fetch(base+'/api/rooms',{method:'POST',headers:{Origin:'https://untrusted.example','Content-Type':'application/json'},body:JSON.stringify({name:'Host'})});
   assert.equal(crossOrigin.status,400);
   const health=await fetch(base+'/api/health');
-  assert.equal(health.status,200);assert.equal((await health.json()).version,'1.8.2');
+  assert.equal(health.status,200);assert.equal((await health.json()).version, require('../package.json').version);
  }finally{rooms.clear();await new Promise(resolve=>server.close(resolve));}
 });

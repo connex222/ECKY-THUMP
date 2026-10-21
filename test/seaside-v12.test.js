@@ -23,7 +23,7 @@ test('the v1.5 visual reset is modular, keeps avatar scripts and preserves acces
  assert.match(read('public/assets/modern-v1.5.css'),/prefers-reduced-motion:reduce/);
  assert.match(read('public/assets/app.js'),/navigator\.vibrate/);
  assert.match(read('public/assets/app.js'),/draftKey/);
- assert.match(read('public/assets/tv.js'),/data-tv-rating/);
+ assert.match(read('public/assets/tv.js'),/Change rating on the host phone/);
 });
 test('overflow audience can join past 12 players; audience has no avatar, private hand, score or voting power',()=>{
  const {room}=lobby();
@@ -126,7 +126,7 @@ test('HTTP: spectators get independent tokens, cannot play or host, and rejoin a
   assert.equal(resumed.body.chaos.events.at(-1).kind,'wrench');
  }finally{await new Promise(r=>server.close(r));}
 });
-test('HTTP: TV can change only a consented lobby rating, not player actions',async()=>{
+test('HTTP: TV access is read-only, and host retains rating control',async()=>{
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const origin=`http://127.0.0.1:${server.address().port}`;
  const request=async(path,method='GET',body,token)=>{const res=await fetch(origin+path,{method,headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},body:body===undefined?undefined:JSON.stringify(body)});return {status:res.status,body:await res.json()};};
@@ -134,7 +134,9 @@ test('HTTP: TV can change only a consented lobby rating, not player actions',asy
   const host=(await request('/api/rooms','POST',{name:'Host',adultConfirmed:true})).body;
   const room=host.code;
   const tv=(await request(`/api/rooms/${room}/display-token`,'POST',{},host.secret)).body;
-  assert.equal((await request(`/api/rooms/${room}/action`,'POST',{type:'set-lobby-rating',rating:'adult'},tv.secret)).status,200);
+  assert.equal((await request(`/api/rooms/${room}/action`,'POST',{type:'set-lobby-rating',rating:'adult'},tv.secret)).status,400);
+  assert.equal((await request(`/api/rooms/${room}/snapshot`,'GET',undefined,host.secret)).body.config.rating,'clean');
+  assert.equal((await request(`/api/rooms/${room}/action`,'POST',{type:'set-lobby-rating',rating:'adult'},host.secret)).status,200);
   assert.equal((await request(`/api/rooms/${room}/snapshot`,'GET',undefined,host.secret)).body.config.rating,'adult');
   assert.equal((await request(`/api/rooms/${room}/action`,'POST',{type:'start'},tv.secret)).status,400);
   assert.equal((await request(`/api/rooms/${room}/action`,'POST',{type:'chaos',kind:'pudding'},tv.secret)).status,400);

@@ -20,3 +20,9 @@ jobs:
           node --check public/assets/app.js
           node --check public/assets/tv.js
       - run: npm test
+      - name: Content catalogue structural audit
+        run: npm run audit:content
+      - name: Editorial review queue (non-approving)
+        run: npm run review:content
+      - name: Repeatable Game Card simulation smoke test
+        run: npm run simulate:smoke

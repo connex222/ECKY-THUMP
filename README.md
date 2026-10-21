@@ -1,6 +1,6 @@
 # ECKY THUMP
 
-**Version 1.8.2 — Neon Arena + optional Game Cards, gameplay safeguards and accessibility polish.** A private browser-based comedy party game for 3–12 players and up to 30 audience members. Players use their phones; a separate browser tab or TV can show the shared stage. No paid services or accounts are required for local play.
+**Version 1.8.3 — Neon Arena + optional Game Cards, read-only TV links, SSE reconnect fixes and editorial review tooling.** A private browser-based comedy party game for 3–12 players and up to 30 audience members. Players use their phones; a separate browser tab or TV can show the shared stage. No paid services or accounts are required for local play.
 
 **Language and branding:** All player-facing text uses UK English and the official name **ECKY THUMP**. Legacy API identifiers (such as `ECKEY_AVATARS`) remain stable to protect compatibility. See `docs/UK-ENGLISH-STYLE.md`.
 
@@ -87,3 +87,11 @@ If another device cannot join, check that all local devices are on the same LAN,
 ## v1.8.2 testing limits
 
 The game has automated engine, route and content-lint checks. Real-phone multiplayer, living-room TV readability and human-perceived Game Card fairness still need physical playtesting. Do not interpret passing simulated tests as proof of a good games-night experience. Ballots are locked on submission; users can retry the *same* ballot but cannot change it. Game Cards remain opt-in for hosts.
+
+## v1.8.3 pre-November readiness
+
+- TV access tokens cannot mutate the lobby. Each distinct TV token has an independent SSE stream (up to the existing display-token limit); a reconnect replaces only a stream for the same TV token or participant seat.
+- Run npm run audit:content for structural failures and npm run review:content for an editorial triage summary (node scripts/review-content.js --all prints the full queue). **All 1,200 draft entries still require human approval.** This tool never publishes or rewrites jokes.
+- Run npm run simulate:smoke for a repeatable synthetic Game Card run, or node scripts/simulate-game-cards.js 12 20261021 for a larger sample. Synthetic results do not establish enjoyment or fairness.
+- The current Render deploy remains in-memory and cannot recover active matches from a restart. Durable storage requires a privacy and hosting decision, not an unreviewed file dump of adult game answers.
+- See docs/NOVEMBER-PLAYTEST-HANDOFF.md for deferred physical-device tests and launch gates.
