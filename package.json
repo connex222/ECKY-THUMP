@@ -10,7 +10,8 @@
     "test": "node --test test/*.test.js",
     "audit:content": "node scripts/audit-content.js",
     "review:content": "node scripts/review-content.js",
-    "simulate:smoke": "node scripts/simulate-game-cards.js 2 20261021"
+    "simulate:smoke": "node scripts/simulate-game-cards.js 2 20261021",
+    "stage:party-csv": "node scripts/stage-party-csv.js"
   },
   "engines": {
     "node": ">=20.11"
