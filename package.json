@@ -2,7 +2,7 @@
   "name": "ecky-thump-game-night",
   "version": "1.8.3",
   "private": true,
-  "description": "ECKY THUMP v1.8.3 \u2014 pre-November reliability and editorial readiness",
+  "description": "ECKY THUMP v1.8.3 — pre-November reliability and editorial readiness",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
@@ -11,7 +11,8 @@
     "audit:content": "node scripts/audit-content.js",
     "review:content": "node scripts/review-content.js",
     "simulate:smoke": "node scripts/simulate-game-cards.js 2 20261021",
-    "audit:premium-batch": "node scripts/validate-editorial-batch.js"
+    "audit:premium-batch": "node scripts/validate-editorial-batch.js",
+    "audit:premium-batch02": "node scripts/validate-editorial-batch02.js"
   },
   "engines": {
     "node": ">=20.11"
