@@ -201,12 +201,36 @@ function getPool(source, rating) {
 // Curated editorial draft: 1,200 ORIGINAL additions, grouped by challenge and rating.
 // All text is stored locally. No scraped or third-party licensed card decks.
 const expansion=require('./packs/after-dark-v09.json');
+// User-approved replacements and additions; the old pack remains immutable for audit.
+const approvedPack=require('./packs/social-club-approved-v1.json');
+const premiumOnly=/^(?:1|true)$/i.test(process.env.PREMIUM_CONTENT_ONLY||'');
 const finalWords={clean:['custard','pigeon','marmalade','banjo','wombat','toaster','rubber duck','traffic cone'],cheeky:[],adult:[]};
 const contracts={clean:[contract],cheeky:[],adult:[]};
 const buckets={cardPrompts,witPrompts,contextPrompts,doublePrompts,finalPrompts,responses,finalWords,contracts};
+const approvedIds=new Set();
+const approvedText=new Set();
+for (const item of approvedPack.entries) {
+  const pool=buckets[item.kind];
+  if (!pool || !pool[item.rating] || !item.id || item.editorialStatus!=='approved')
+    throw Error('Approved card has invalid schema/status: '+item.id);
+  if (approvedIds.has(item.id)) throw Error('Repeated approved ID '+item.id);
+  approvedIds.add(item.id);
+  const text=item.text;
+  if (typeof text!=='string' || !text.trim() || text!==text.trim()) throw Error('Empty/invalid approved text '+item.id);
+  if (item.kind==='responses' && (text.length>45 || text.includes(':'))) throw Error('Overlong response/colon '+item.id);
+  if (item.kind==='cardPrompts' && (text.length>90 || (text.match(/_____/g)||[]).length!==1))
+    throw Error('Prompt must have exactly one blank '+item.id);
+  const normal=text.toLocaleLowerCase('en-GB').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+  if (approvedText.has(normal)) throw Error('Duplicate approved card text '+item.id);
+  approvedText.add(normal);
+}
 for (const item of expansion.entries) {
   const pool=buckets[item.kind];
   if (!pool || !pool[item.rating] || !item.text || !item.id) throw Error('Invalid expansion content '+item.id);
+  // Preserve the existing v1 pack, but never deal a superseded or unapproved
+  // expansion entry when the approved-only content switch is enabled.
+  if (premiumOnly || approvedIds.has(item.id)) continue;
   pool[item.rating].push(item.text);
 }
-module.exports = { cardPrompts, witPrompts, contextPrompts, doublePrompts, finalPrompts, seedFallbacks, responses, finalWords, contracts, expansion, contract, getPool };
+for (const item of approvedPack.entries) buckets[item.kind][item.rating].push(item.text);
+module.exports = { cardPrompts, witPrompts, contextPrompts, doublePrompts, finalPrompts, seedFallbacks, responses, finalWords, contracts, expansion, approvedPack, contract, getPool };

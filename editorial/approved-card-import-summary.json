@@ -1,0 +1,15 @@
+{
+  "totalApproved": 650,
+  "sourceCSV": 450,
+  "priorFamilyBatches": 200,
+  "rewrites": 37,
+  "counts": {
+    "clean/responses": 270,
+    "clean/cardPrompts": 30,
+    "cheeky/cardPrompts": 30,
+    "cheeky/responses": 70,
+    "adult/cardPrompts": 70,
+    "adult/responses": 180
+  },
+  "legacyDraftNotInOverlay": 1060
+}
