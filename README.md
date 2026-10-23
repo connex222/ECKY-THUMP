@@ -95,3 +95,12 @@ The game has automated engine, route and content-lint checks. Real-phone multipl
 - Run npm run simulate:smoke for a repeatable synthetic Game Card run, or node scripts/simulate-game-cards.js 12 20261021 for a larger sample. Synthetic results do not establish enjoyment or fairness.
 - The current Render deploy remains in-memory and cannot recover active matches from a restart. Durable storage requires a privacy and hosting decision, not an unreviewed file dump of adult game answers.
 - See docs/NOVEMBER-PLAYTEST-HANDOFF.md for deferred physical-device tests and launch gates.
+
+
+## Social Club v2 engine preview — work in progress
+
+The premium rewrite is being developed in stages. **This is not the finished v2 game**, and the default v1.8.3 experience is unchanged. The Stage 2 engine adds serial TV-answer-reveal states, head-to-head assignments, server-locked A/B ballots, moderated entries, capped audience voting, and private JSON room recovery. It is gated behind an explicit environment setting and has **no public phone/TV controls yet**.
+
+For technical testing only, set `SOCIAL_CLUB_PREVIEW=1` and `ROOM_DATA_DIR` to a private writable directory, run `npm start`, and create an API room with `socialClub: true`. Complete instructions, scoring and caveats are in `DESIGN.md`. **Never commit files from `data/rooms/`**: they contain names and player-written answers, although session secrets remain hashed.
+
+Run `npm test` for both current-game and Social Club tests. Real-phone multiplayer sign-off remains deferred until November 2026. The existing Render service does not automatically acquire durable room storage just because this source includes persistence.

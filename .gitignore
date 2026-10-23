@@ -7,3 +7,6 @@ Thumbs.db
 *.log
 coverage/
 playwright-report/
+
+# Private Social Club preview room snapshots
+/data/

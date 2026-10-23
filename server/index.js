@@ -5,19 +5,23 @@ const path=require('node:path');
 const crypto=require('node:crypto');
 const game=require('./game');
 const telemetry=require('./telemetry');
+const persistence=require('./persistence');
 const {qrSVG}=require('./qr');
 const ROOT=path.resolve(__dirname,'../public');
-const rooms=new Map();
+const rooms=process.env.SOCIAL_CLUB_PREVIEW==='1'?persistence.restore():new Map();
 const connections=new Map();
 const allowed='ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 const port=Number(process.env.PORT||3000);
 const mime={'.ogg':'audio/ogg','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'application/javascript; charset=utf-8','.svg':'image/svg+xml','.ico':'image/x-icon','.json':'application/json; charset=utf-8'};
 const RATE_WINDOW=60000, perIp=new Map();
+const creationRates=new Map(),joinRates=new Map();
+function budget(map,ip,limit){const now=Date.now();const prior=map.get(ip);const entry=prior&&now-prior.start<RATE_WINDOW?prior:{start:now,count:0};entry.count++;map.set(ip,entry);if(entry.count>limit){const e=Error('Too many requests. Try again shortly.');e.statusCode=429;throw e;}}
 function code() {let str='';for(let i=0;i<6;i++)str+=allowed[crypto.randomInt(allowed.length)];return str;}
 function send(res,status,data){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));}
 function bad(res,error,status=400){send(res,status,{error:error.message||String(error)});}
 function touch(room){room.lastActivity=Date.now();}
 function broadcast(room) {
+  if(room.config.socialClub)persistence.store(room);
   const channels=connections.get(room.code);
   if(!channels)return;
   for(const channel of channels) {
@@ -72,14 +76,20 @@ function route(req,res) {
   if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKY THUMP',version:require('../package.json').version,uptime:process.uptime()});
   if(pathname==='/api/rooms'&&req.method==='POST')return (async()=>{
     requireOrigin(req);const body=await readBodyOrEmpty(req);
+    if(body.socialClub){
+      if(process.env.SOCIAL_CLUB_PREVIEW!=='1')throw Error('Social Club preview is not enabled on this server.');
+      budget(creationRates,req.socket.remoteAddress||'unknown',5);
+    }
     const created=game.newRoom(body);let c;do{c=code();}while(rooms.has(c));created.room.code=c;
     rooms.set(c,created.room);touch(created.room);
+    if(created.room.config.socialClub)persistence.store(created.room);
     send(res,201,{code:c,seatId:created.id,secret:created.secret});
   })();
   const match=pathname.match(/^\/api\/rooms\/([A-Z2-9]{6})(?:\/(join|snapshot|events|display-token|action|join-qr.svg|telemetry))?$/);
   if(match){const room=getRoom(match[1]),endpoint=match[2];
     if(endpoint==='join'&&req.method==='POST')return (async()=>{
       requireOrigin(req);const body=await readBodyOrEmpty(req);
+      if(room.config.socialClub)budget(joinRates,req.socket.remoteAddress||'unknown',40);
       // Full lobbies and matches accept viewers as audience, without stealing a player's seat.
       const participant=(room.phase==='LOBBY'&&room.players.length<12)
         ?game.addPlayer(room,body.name,body.adultConfirmed,body.avatar)
@@ -150,12 +160,33 @@ function route(req,res) {
       // A television link may view content but must not mutate the lobby.
       if(who.tv)throw Error('Television links are read-only.');
       if(who.audience){
+        if(room.config.socialClub&&body.type==='social-audience-vote'){
+          game.social.vote(room,who.audience,body.entryId,{audience:true});touch(room);
+          send(res,200,{ok:true,revision:room.revision});broadcast(room);return;
+        }
         if(body.type==='adult-consent')game.consentAfterDark(room,who.audience);
         else if(body.type==='chaos')game.audienceChaos(room,who.audience,body.kind,body.targetId);
         else if(body.type==='chaos-vote')game.audienceVote(room,who.audience,body.modifier);
         else throw Error('Audience members can only heckle, vote on chaos, and confirm age.');
         touch(room);send(res,200,{ok:true,revision:room.revision});broadcast(room);return;
       }
+      if(room.config.socialClub&&['social-seed','social-submit','social-vote','social-next'].includes(body.type)){
+        switch(body.type){
+          case 'social-seed':game.social.submitSeed(room,p,body.value,game.validateAnswer);break;
+          case 'social-submit':game.social.submit(room,p,body.taskId,body.value,game.validateAnswer);break;
+          case 'social-vote':game.social.vote(room,p,body.entryId);break;
+          case 'social-next':host(who,room);game.social.nextRound(room);break;
+        }
+        touch(room);send(res,200,{ok:true,revision:room.revision});broadcast(room);return;
+      }
+      if(room.config.socialClub&&['report','hide','skip'].includes(body.type)){
+        if(body.type==='report')game.social.report(room,p,body.entryId);
+        if(body.type==='hide'){host(who,room);game.social.hide(room,body.entryId);}
+        if(body.type==='skip'){host(who,room);game.social.skip(room);}
+        touch(room);send(res,200,{ok:true,revision:room.revision});broadcast(room);return;
+      }
+      if(room.config.socialClub&&!['avatar','adult-consent','set-lobby-rating','start','play-again','remove-player','pause','resume','next','client-diagnostic'].includes(body.type))
+        throw Error('This action is unavailable in the Social Club preview.');
       switch(body.type) {
         case 'avatar':game.setAvatar(room,p,body.avatar);break;
         case 'adult-consent':game.consentAfterDark(room,p);break;
@@ -195,7 +226,7 @@ function route(req,res) {
         case 'submit':game.acceptAnswer(room,p,body.value);break;
         case 'vote':game.acceptVote(room,p,body.gold,body.silver);break;
         case 'ready-next':game.markReady(room,p);break;
-        case 'next':host(who,room);game.nextRound(room);break;
+        case 'next':host(who,room);if(room.config.socialClub)game.social.nextRound(room);else game.nextRound(room);break;
         case 'skip':host(who,room);if(!['SEED','SUBMIT','VOTE'].includes(room.phase))throw Error('Nothing to skip.');game.finishRound(room,'Round skipped by host.');break;
         case 'report': {
           if(room.phase!=='VOTE')throw Error('Reports are available while submissions are being voted on.');
@@ -214,10 +245,12 @@ function route(req,res) {
           break;
         }
         case 'pause': {
+          if(room.config.socialClub){host(who,room);game.social.pause(room);break;}
           host(who,room);if(room.paused || !['SEED','SUBMIT','VOTE'].includes(room.phase) || room.pauses>=3)throw Error('Pause unavailable (maximum three per match).');
           room.pauseRemaining=Math.max(1000,room.deadline-Date.now());room.paused=true;room.deadline=null;room.pauses++;room.round.pausedAt=Date.now();room.revision++;break;
         }
         case 'resume':{
+          if(room.config.socialClub){host(who,room);game.social.resume(room);break;}
           host(who,room);if(!room.paused)throw Error('The game is not paused.');
           const pausedFor=room.round?.pausedAt?Date.now()-room.round.pausedAt:0;
           if(room.round?.pausedAt){room.round.pausedMs=(room.round.pausedMs||0)+pausedFor;room.round.pausedAt=null;}
@@ -255,10 +288,14 @@ const timer=setInterval(()=>{
     if(game.tick(room))broadcast(room);
     // Preserve an active games night with at least one live SSE controller.
     // Hard-cap room lifetime to 24 hours to avoid indefinite retention of ghosts.
-    if((now-room.lastActivity>6*60*60*1000 && !(connections.get(c)?.size)) || now-room.created>24*60*60*1000){for(const ch of connections.get(c)||[])ch.res.end();connections.delete(c);rooms.delete(c);}
+    if((now-room.lastActivity>6*60*60*1000 && !(connections.get(c)?.size)) || now-room.created>(room.config.socialClub?6:24)*60*60*1000){for(const ch of connections.get(c)||[])ch.res.end();connections.delete(c);rooms.delete(c);if(room.config.socialClub)persistence.remove(c);}
   }
   for(const [key,value] of perIp)if(now-value.start>2*RATE_WINDOW)perIp.delete(key);
 },300);
-server.on('close',()=>clearInterval(timer));
+const snapshotTimer=setInterval(()=>{
+  for(const room of rooms.values())if(room.config.socialClub)persistence.store(room);
+  for(const map of [creationRates,joinRates])for(const [ip,item] of map)if(Date.now()-item.start>2*RATE_WINDOW)map.delete(ip);
+},5000);
+server.on('close',()=>{clearInterval(timer);clearInterval(snapshotTimer);});
 if(require.main===module)server.listen(port,'0.0.0.0',()=>console.log(`ECKY THUMP Game Night v${require('../package.json').version} running at http://localhost:${port}`));
 module.exports={server,rooms,connections};

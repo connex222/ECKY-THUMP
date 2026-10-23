@@ -3,6 +3,7 @@ const crypto = require('node:crypto');
 const {validateAvatar}=require('./avatars');
 const powers=require('./game-cards');
 const telemetry=require('./telemetry');
+const social=require('./social-club');
 const { cardPrompts, witPrompts, contextPrompts, doublePrompts, finalPrompts, seedFallbacks, responses, finalWords, contracts, getPool } = require('./content');
 
 const ROLES = ['clean', 'cheeky', 'adult'];
@@ -66,16 +67,18 @@ function validateAnswer(input, rating='clean') {
     throw Error('That wording is beyond the Cheeky rating.');
   return text;
 }
-function newRoom({name, rating='clean', length='party', pace='relaxed', gameCards=false, adultConfirmed=false,avatar}) {
+function newRoom({name, rating='clean', length='party', pace='relaxed', gameCards=false, socialClub=false, adultConfirmed=false,avatar}) {
   if (!ROLES.includes(rating)) throw Error('Invalid humour setting.');
   if (!['quick','standard','party'].includes(length)) throw Error('Invalid game length.');
   if (!['relaxed','lively'].includes(pace)) throw Error('Invalid party pace.');
   if (typeof gameCards!=='boolean') throw Error('Game Cards setting must be on or off.');
+  if (typeof socialClub!=='boolean') throw Error('Social Club preview must be on or off.');
+  if (socialClub && gameCards) throw Error('Social Club preview does not use Game Cards yet.');
   if (rating === 'adult' && !adultConfirmed) throw Error('The host must confirm all players are adults.');
   const hostName=validateName(name);
   const secret=SECRET(); const id=randomId();
   const room={
-    code:'', created:Date.now(), lastActivity:Date.now(), config:{rating,length,pace,gameCards}, phase:'LOBBY',
+    code:'', created:Date.now(), lastActivity:Date.now(), config:{rating,length,pace,gameCards,socialClub}, phase:'LOBBY',
     ownerId:id, displayHashes:[], players:[{id,name:hostName,avatar:validateAvatar(avatar),tokenHash:hash(secret),adultConfirmed:!!adultConfirmed,ready:true,online:false,joined:0,score:0,firsts:0,golds:0,silvers:0}],
     audience:[], chaosEvents:[], chaosVotes:new Map(), chaosSerial:0,
     playlist:[], roundIndex:-1, round:null, deadline:null, paused:false, pauseRemaining:null, pauses:0,
@@ -119,7 +122,7 @@ function consentAfterDark(room,person) {
 }
 function setLobbyRating(room,rating) {
   if(room.phase!=='LOBBY')throw Error('Rating cannot change after the game has started.');
-  if(!['clean','adult'].includes(rating))throw Error('Choose Family Friendly or After Dark.');
+  if(!(room.config.socialClub?['clean','cheeky','adult']:['clean','adult']).includes(rating))throw Error('Choose Family, Cheeky or After Dark.');
   if(rating==='adult'&&[...room.players,...room.audience].some(p=>!p.adultConfirmed))
     throw Error('Everyone must tap “I am 18+” on their own controller before After Dark can be enabled.');
   if(room.config.rating===rating)return;
@@ -242,6 +245,7 @@ function startRound(room) {
   telemetry.record(room,'round_started');room.revision++;
 }
 function startGame(room) {
+  if(room.config.socialClub)return social.start(room);
   if(room.phase!=='LOBBY')throw Error('The game has already started.');
   if(room.players.length<3)throw Error('You need at least three players to start.');
   room.playlist=room.config.length==='quick'?['CARD','WIT']:
@@ -383,6 +387,7 @@ function nextRound(room) {
   room.roundIndex++; startRound(room);
 }
 function playAgain(room) {
+  if(room.config.socialClub)return social.playAgain(room);
   if(room.phase!=='COMPLETE') throw Error('Finish the current game before playing again.');
   room.players.forEach(p=>{p.score=0;p.firsts=0;p.golds=0;p.silvers=0;});
   room.phase='LOBBY';room.playlist=[];room.roundIndex=-1;room.round=null;
@@ -394,6 +399,7 @@ function playAgain(room) {
   room.revision++;
 }
 function tick(room) {
+  if(room.config.socialClub)return social.tick(room);
   if(room.paused || !room.deadline || Date.now()<room.deadline) return false;
   if(room.phase==='SEED') {
     for(const p of room.players)if(!room.round.seeds.has(p.id))room.round.seeds.set(p.id,randomPick(seedFallbacks));
@@ -418,6 +424,7 @@ function sortedPlayers(room) {
   return [...room.players].sort((a,b)=>b.score-a.score || b.firsts-a.firsts || b.golds-a.golds || b.silvers-a.silvers || a.joined-b.joined);
 }
 function snapshot(room, viewerId, isTV=false) {
+  if(room.config.socialClub)return social.snapshot(room,viewerId,isTV);
   const viewer=room.players.find(p=>p.id===viewerId);
   const spectator=room.audience.find(p=>p.id===viewerId);
   const round=room.round;
@@ -489,4 +496,4 @@ function resumeCardTimers(room,pausedMs){return powers.onResume(room,pausedMs);}
 function rerollGameCard(room,player,cardId){return powers.reroll(room,player,cardId);}
 module.exports={playGameCard,chooseGameExtra,setGameCards,rerollGameCard,resumeCardTimers, swapCard,acceptSeed, newRoom,addPlayer,setAvatar,removePlayer,findPlayer,mintDisplay,verifyDisplay,startGame,playAgain,acceptAnswer,acceptVote,finishRound,nextRound,tick,snapshot,
   scoreEntries,validateName,validateAnswer,hash,randomId,sortedPlayers,markReady,
-  addAudience,findAudience,consentAfterDark,setLobbyRating,audienceChaos,audienceVote,chaosSummary };
+  addAudience,findAudience,consentAfterDark,setLobbyRating,audienceChaos,audienceVote,chaosSummary, social };
