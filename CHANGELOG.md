@@ -2,6 +2,13 @@
 
 Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.
 
+## [Unreleased] — Social Club Stage 6, Family editorial batch 01 (DRAFT)
+
+- Prepared 100 proposed rewrites of existing Family-rated response cards, preserving stable content IDs, source ratings, and original texts in an auditable CSV ledger.
+- Added a self-contained searchable HTML review sheet and machine-readable JSON; **all proposed cards remain editorial drafts and are NOT loaded into gameplay** pending explicit approval.
+- Added a new content validator and regression tests for 45-character limits, colon-free noun phrases, existing-deck collisions, repetitive openings, UK wording, stable IDs and draft-only status.
+- The original 1,200-entry game pack is unchanged. No live humour content or rules have been altered. No approval is implied by passing automated checks.
+
 ## [Unreleased] — Social Club v2 Stage 5 compère and sound desk
 
 - Wrote 60 original UK English Our Maureen recording lines across 12 event groups, with a single configurable compère name, local audio filenames and a `recorded` flag per line.

@@ -1,0 +1,811 @@
+{
+  "id": "social-club-family-responses-batch-01",
+  "version": "2.0.0-stage6-review",
+  "rating": "FAMILY",
+  "sourcePack": "eckey-after-dark-09",
+  "kind": "responses",
+  "editorialStatus": "draft",
+  "note": "PROPOSED REPLACEMENTS ONLY. No game content is modified or approved by this file.",
+  "entries": [
+    {
+      "id": "et09-responses-clean-001",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a vending machine that only sells disappointing hugs",
+      "newText": "my dad's best shorts",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-002",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an emergency umbrella for dramatic exits",
+      "newText": "nan's emergency biscuit tin",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-003",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a pigeon with a law degree and an attitude",
+      "newText": "the chippy queue on a Friday",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-004",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the council's secret underground trampoline",
+      "newText": "a lukewarm brew at the bus stop",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-005",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a teabag promoted above its competence",
+      "newText": "the school-gate gossip committee",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-006",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a very small parade with a very large invoice",
+      "newText": "a meat raffle ticket from 1998",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-007",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an angry squirrel in ceremonial robes",
+      "newText": "half a black pudding wrapped in foil",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-008",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the country's most disappointing magic trick",
+      "newText": "the landlord's mystery raffle prize",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-009",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a fully licensed emotional-support wheelie bin",
+      "newText": "a seven-hour family goodbye",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-010",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a goose who runs payroll",
+      "newText": "a folding chair with a wobble",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-011",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a suspiciously attractive garden shed",
+      "newText": "the last sausage roll at the wake",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-012",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an elderly wizard's parking appeal",
+      "newText": "a birthday card signed by the dog",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-013",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an envelope containing absolutely no answers",
+      "newText": "the spare key nobody can find",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-014",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a football mascot with serious trust issues",
+      "newText": "a flask of suspiciously weak tea",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-015",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the last functioning toaster in Parliament",
+      "newText": "the Christmas tin full of sewing kits",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-016",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a family-sized portion of awkward silence",
+      "newText": "an unclaimed prize at the village gala",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-017",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a tiny violin with a union representative",
+      "newText": "a pair of slippers for special occasions",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-018",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a pensioner demanding a rematch at bingo",
+      "newText": "the neighbour's borrowed stepladder",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-019",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the world's most passive-aggressive biscuit",
+      "newText": "a pub quiz answer written in panic",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-020",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a ferret dressed for a job interview",
+      "newText": "one very soggy newspaper",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-021",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a corporate retreat inside a skip",
+      "newText": "a homemade sign saying NO PARKING",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-022",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an official apology from the moon",
+      "newText": "the best plate from the bottom cupboard",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-023",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a glittery tax investigation",
+      "newText": "a half-price wedding buffet",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-024",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the mayor's emergency kazoo solo",
+      "newText": "the caravan's emergency toilet roll",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-025",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an inflatable throne for the deputy manager",
+      "newText": "a gravy boat with a chip in it",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-026",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a collection of extremely nervous spoons",
+      "newText": "the church-hall raffle drum",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-027",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a llama with an expired library card",
+      "newText": "a wonky gazebo from the car boot",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-028",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an unexplained shortage of left shoes",
+      "newText": "a packet of biscuits for the builder",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-029",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a mysterious moustache in lost property",
+      "newText": "the council's missing traffic cones",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-030",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a motivational speech from a parking ticket",
+      "newText": "a pensioner's secret bingo dabber",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-031",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a bread roll with a mortgage",
+      "newText": "a sausage sandwich with no sauce",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-032",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a haunted vending-machine loyalty card",
+      "newText": "the remote control under the settee",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-033",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a very polite riot of garden gnomes",
+      "newText": "a plastic trophy for punctuality",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-034",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a banjo player with diplomatic immunity",
+      "newText": "an apology written on kitchen roll",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-035",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a lifeguard for a paddling pool of custard",
+      "newText": "the works-do seating plan",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-036",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a pirate's strongly worded customer complaint",
+      "newText": "a plate of sandwiches with curled edges",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-037",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the local chip shop's space programme",
+      "newText": "a garden fence held up by hope",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-038",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an ominous casserole at the village fête",
+      "newText": "the last clean mug in the staff kitchen",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-039",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a hedgehog who believes in himself",
+      "newText": "a cash-only sign in the chippy",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-040",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a bus driver operating a submarine",
+      "newText": "a mystery casserole from next door",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-041",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a public inquiry into missing sausage rolls",
+      "newText": "the spare room's exercise bike",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-042",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the ceremonial sock of honour",
+      "newText": "a wedding disco with one working speaker",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-043",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the new Archbishop of Toast",
+      "newText": "a raincoat borrowed from your grandad",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-044",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a detachable sense of responsibility",
+      "newText": "the village noticeboard feud",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-045",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a caravan powered entirely by gossip",
+      "newText": "a Sunday roast without enough gravy",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-046",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the world's least convincing spy pigeon",
+      "newText": "a cracked teapot from the good set",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-047",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a pension plan for imaginary friends",
+      "newText": "the local paper's correction column",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-048",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an office chair demanding annual leave",
+      "newText": "a bingo hall's missing microphone",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-049",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a live-streamed argument with a traffic cone",
+      "newText": "a biscuit hidden behind the cornflakes",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-050",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the great national cheese emergency",
+      "newText": "an emergency tenner in a birthday card",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-051",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a forklift registered as a household pet",
+      "newText": "the school photograph with closed eyes",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-052",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a motivational goose with a foghorn",
+      "newText": "a shopping list written on an envelope",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-053",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a beautiful disaster involving folding chairs",
+      "newText": "one enormous bag of loose change",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-054",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a shed full of expired ambitions",
+      "newText": "a forgotten Christmas cracker joke",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-055",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a commemorative mug for doing the bare minimum",
+      "newText": "the bus timetable from three years ago",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-056",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a queue so long it becomes a tourist attraction",
+      "newText": "an old chocolate tin full of buttons",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-057",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a dubious award for looking busy",
+      "newText": "a wheelie bin with the wrong number",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-058",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the unpaid intern of destiny",
+      "newText": "the auntie who knows everybody's business",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-059",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a moustache with a criminal record",
+      "newText": "a charity-shop suit for the interview",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-060",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a royal family of rubber ducks",
+      "newText": "a muddy footprint on the new carpet",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-061",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an avalanche of novelty coasters",
+      "newText": "the ceremonial opening of a new pothole",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-062",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a holiday resort inside a filing cabinet",
+      "newText": "a neighbour's extension lead",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-063",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an apology note from an angry kettle",
+      "newText": "the final slice of Battenberg",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-064",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a trophy made entirely of disappointment",
+      "newText": "an overstuffed biscuit barrel",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-065",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a formal inspection by three otters",
+      "newText": "a cake tin nobody owns up to",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-066",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a terrifyingly confident Morris dancer",
+      "newText": "a bowl of trifle with no jelly",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-067",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the last sober idea at the village committee",
+      "newText": "one suspiciously expensive raffle ticket",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-068",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a surprise conga line through the library",
+      "newText": "a polite note stuck to the fridge",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-069",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an aggressively mediocre magic wand",
+      "newText": "the caravan awning in a gale",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-070",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a tiny helicopter made from biscuits",
+      "newText": "a borrowed lawnmower with no petrol",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-071",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a supermarket trolley seeking legal advice",
+      "newText": "the tiny spoon from the posh cutlery",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-072",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a very serious man selling decorative foghorns",
+      "newText": "an ironing board in the spare bedroom",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-073",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a karaoke machine that thinks it's the prime minister",
+      "newText": "the pub's broken dartboard light",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-074",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the official mascot of poor decisions",
+      "newText": "a takeaway menu stuck to the fridge",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-075",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a high-vis jacket for a houseplant",
+      "newText": "a brass-band rehearsal next door",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-076",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the world's first competitive nap championship",
+      "newText": "a secret stash of chocolate digestives",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-077",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an invisible but highly qualified doorman",
+      "newText": "the pensioner's discount on Tuesday",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-078",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a suspiciously organised cheese board",
+      "newText": "a poorly timed wedding speech",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-079",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a ceremonial traffic-light disco",
+      "newText": "the village fête's last coconut",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-080",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a committee investigating the concept of Monday",
+      "newText": "a shopping trolley with one bad wheel",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-081",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a travelling salesman of emergency glitter",
+      "newText": "a sandwich wrapped in last week's news",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-082",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a tiny prison for misbehaving teaspoons",
+      "newText": "a half-eaten pie in a paper bag",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-083",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a secret handshake invented by accountants",
+      "newText": "the mystery parcel at reception",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-084",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a 24-hour hotline for lost garden gnomes",
+      "newText": "a Christmas jumper in the loft",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-085",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an apologetic ghost in a retail uniform",
+      "newText": "the dance-floor uncle with two left feet",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-086",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a luxury coach trip to the wrong car park",
+      "newText": "a travel mug full of cold tea",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-087",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a stack of invoices addressed to a goose",
+      "newText": "the chip shop's laminated opening hours",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-088",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the local radio station's emergency trombone",
+      "newText": "an unpaid tab at the social club",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-089",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a retired dragon running a cake stall",
+      "newText": "a raffle hamper full of pickled onions",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-090",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a giant foam finger for mundane achievements",
+      "newText": "the school-run shortcut through a puddle",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-091",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a lost-and-found full of identical hats",
+      "newText": "a biscuit dunked for too long",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-092",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a badly behaved inflatable castle",
+      "newText": "an envelope marked IMPORTANT in red",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-093",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "an urgent letter from the sausage-roll inspector",
+      "newText": "a tiny pot of emergency mustard",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-094",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a gardener with a degree in dramatic entrances",
+      "newText": "the wedding photographer's spare battery",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-095",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a self-help podcast hosted by a potato",
+      "newText": "a lost library book from primary school",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-096",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a bored knight polishing a plastic sword",
+      "newText": "the spare tyre from a garden wheelbarrow",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-097",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the assistant deputy vice-president of puddings",
+      "newText": "a last-minute speech on a beer mat",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-098",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a very stern warning about decorative cushions",
+      "newText": "the Saturday-night bingo jackpot",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-099",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "a turnip nominated for a BAFTA",
+      "newText": "an apology from the village committee",
+      "editorialStatus": "draft"
+    },
+    {
+      "id": "et09-responses-clean-100",
+      "kind": "responses",
+      "rating": "clean",
+      "oldText": "the world's first certified indoor breeze",
+      "newText": "a foil tray of leftover roast potatoes",
+      "editorialStatus": "draft"
+    }
+  ]
+}
