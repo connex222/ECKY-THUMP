@@ -2,6 +2,13 @@
 
 Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.
 
+## [Unreleased] — Social Club v2 Stage 2 engine preview
+
+- Added explicit, disabled-by-default Social Club v2 preview with the new phase, matchup, reveal, ballot and scoring engine; the default game remains v1.8.3.
+- Added independent, room-private JSON persistence with typed Map/Set restoration and hashed-token reconnects across Node process restarts when preview mode and a suitable directory are configured.
+- Added capped audience vote influence, host hide/report/skip controls, six-hour room retention and per-IP preview creation/join limits.
+- Added child-process restart integration coverage and six-round synthetic 3- and 12-player match tests. The user-facing Social Club TV/phone interfaces are for Steps 3–4; real-device multiplayer testing remains scheduled for November 2026.
+
 ## [1.8.3] — 2026-10-21 · Pre-November reliability and editorial readiness
 
 - Restricted all TV bearer tokens to read-only use, including lobby content settings.
