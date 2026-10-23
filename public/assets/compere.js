@@ -72,6 +72,7 @@
   function onScene(s,key){
     if(scene===key)return;
     scene=key;lastSnapshot=s;
+    setVolume(config.volume);
     if(s.phase==='ROUND_INTRO')leaderAtStart=currentLeader(s);
     if(s.phase==='LOBBY'){lastLobbyPlayers=s.players?.length||0;lobbyUpdatedAt=Date.now();}
     chosen=select(trigger(s),key);
