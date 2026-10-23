@@ -24,6 +24,8 @@ jobs:
         run: npm run audit:content
       - name: Validate unapproved Social Club editorial Batch 01
         run: npm run audit:premium-batch
+      - name: Validate unapproved Family Batch 02 against both draft batches
+        run: npm run audit:premium-batch02
       - name: Editorial review queue (non-approving)
         run: npm run review:content
       - name: Repeatable Game Card simulation smoke test

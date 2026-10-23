@@ -2,6 +2,11 @@
 
 Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.
 
+## Stage 6 — Family Batch 02 (draft editorial review, not released)
+
+- Propose 40 stable-ID Family response rewrites (IDs 101–140) and 60 new Family cards. All 100 remain draft; no production content or playable decks change.
+- Add searchable offline review, CSV review ledger, validation against Batch 01, and regression tests for no accidental publication.
+
 ## [Unreleased] — Social Club Stage 6, Family editorial batch 01 (DRAFT)
 
 - Prepared 100 proposed rewrites of existing Family-rated response cards, preserving stable content IDs, source ratings, and original texts in an auditable CSV ledger.
