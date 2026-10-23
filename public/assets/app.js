@@ -339,7 +339,7 @@
     let ss=0,se=0;if(active){ss=previousInput.selectionStart;se=previousInput.selectionEnd;}
     if(s.you?.role==='audience'){app.innerHTML=renderAudience(s);S.scenePulse=false;updateConnection();syncScene();return;}
     const main=s.phase==='LOBBY'?renderLobby(s):s.phase==='SEED'?contextSeed(s):s.phase==='SUBMIT'?renderSubmit(s):s.phase==='VOTE'?renderVote(s):s.phase==='RESULTS'?renderResults(s):renderComplete(s);
-    app.innerHTML=nav()+(s.phase==='LOBBY'?'':roomTop(s))+`<main class="room-layout ${s.phase==='LOBBY'?'showtime-room':''} ${S.scenePulse?'scene-enter':''}">${main}${s.phase==='LOBBY'?'':sidePanel(s)}</main><div class="footer-note">ECKY THUMP v1.8.2 · PRIVATE GAME NIGHT</div>`;
+    app.innerHTML=nav()+(s.phase==='LOBBY'?'':roomTop(s))+`<main class="room-layout ${s.phase==='LOBBY'?'showtime-room':''} ${S.scenePulse?'scene-enter':''}">${main}${s.phase==='LOBBY'?'':sidePanel(s)}</main><div class="footer-note">ECKY THUMP v1.8.3 · PRIVATE GAME NIGHT</div>`;
     const input=document.getElementById('answer-input');if(input){input.value=S.draft;updateCounter();if(active){input.focus();input.setSelectionRange(ss,se);}}
     S.renderedStage=s.phase;S.renderedRound=s.round?.id;
     S.scenePulse=false;updateTimer();updateConnection();syncScene();
