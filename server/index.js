@@ -73,7 +73,7 @@ function requireOrigin(req) {
 function route(req,res) {
   const url=new URL(req.url,`http://${req.headers.host||'localhost'}`);
   const pathname=url.pathname;
-  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKY THUMP',version:require('../package.json').version,uptime:process.uptime()});
+  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKY THUMP',version:require('../package.json').version,uptime:process.uptime(),socialClubPreviewAvailable:process.env.SOCIAL_CLUB_PREVIEW==='1'});
   if(pathname==='/api/rooms'&&req.method==='POST')return (async()=>{
     requireOrigin(req);const body=await readBodyOrEmpty(req);
     if(body.socialClub){

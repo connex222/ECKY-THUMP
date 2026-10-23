@@ -184,3 +184,12 @@ A normal host creation through the original UI still starts a v1 game. The new A
 - The uploaded premium review's content problems are **not fixed by a new scoring engine**. All 1,200 draft expansion entries still require Step 6 editorial rewrites and user approval.
 - One server instance and a genuinely persistent, private disk are required for restart recovery in hosting. The present free Render service does not meet this production acceptance gate. `render.yaml` remains unchanged pending Stage 8 deployment decisions.
 - Pacing (20–25 minutes), visible head-to-head UI, captions, phone contrast, TV 3-metre readability and human scoring enjoyment are **not yet verified**. They are addressed in Steps 3–6 and the November 2026 physical-device test.
+
+## Stage 4 — phone controller (implemented, preview-only)
+
+- `public/assets/social-club-phone.js` is a separate, no-build, dependency-free renderer used only when the server snapshot's `mode` equals `social-club-v2`.
+- `public/assets/social-club-phone.css` isolates Social Club accessibility and layout rules from the original phone game. The v1.8.3 app remains intact.
+- Lobby host creation is **opt-in** and enables only when `/api/health` reports `socialClubPreviewAvailable=true`. The mode is disabled by default in production.
+- Each writing contestant sees **only their current pending task**, with server-owned ID, chosen response card and draft; a head-to-head writing round needs two submissions. Context seeds are a separate stage.
+- On the server-owned VOTE phase phones display eligible A/B or raffle tiles; ineligible contestants get an explicit non-voting screen. Scores and names appear only in result phases.
+- Social Club still needs Stage 5 audio, Stage 6 editorially approved content, Stage 7 six-card powers and Stage 8 code/document consolidation. Real-device tests remain November 2026.

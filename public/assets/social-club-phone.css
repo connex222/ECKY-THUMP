@@ -1,0 +1,94 @@
+/* ECKY THUMP Social Club — isolated one-task-per-screen phone UI. */
+:root { --club-p-gold:#ffe2a2; --club-p-paper:#fff8eb; --club-p-night:#190d20; --club-p-plum:#392139; --club-p-action:#ffdd87; --club-p-muted:#e7d2dc; }
+#app.app-shell:has(.club-phone){width:100%;max-width:none;margin:0;padding:0;min-height:100vh;min-height:100dvh;}
+.club-phone,.club-phone *{box-sizing:border-box;}
+.club-phone{position:relative;min-height:100vh;min-height:100dvh;width:100%;padding:12px max(15px,env(safe-area-inset-right)) max(30px,env(safe-area-inset-bottom)) max(15px,env(safe-area-inset-left));
+ background:radial-gradient(circle at 50% -15%,#703e61 0,#30182f 35%,#190d20 82%);color:var(--club-p-paper);font:500 18px/1.45 system-ui,-apple-system,'Segoe UI',sans-serif;overflow-x:hidden;}
+.club-phone::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.08;background:repeating-linear-gradient(55deg,transparent 0 16px,#ffd592 18px 20px,transparent 22px 35px);}
+.club-phone :is(button,input,textarea,summary){font-family:inherit;font-size:inherit;}
+.club-phone :is(button,textarea,summary):focus-visible{outline:4px solid #fff;outline-offset:3px;}
+.club-phone-top,.club-phone-header,.club-phone-main,.club-phone-tools,.club-phone-footer{position:relative;z-index:1;max-width:720px;margin-left:auto;margin-right:auto;}
+.club-phone-top{display:flex;align-items:center;gap:12px;min-height:68px;border-bottom:2px solid #c597777a;}
+.club-phone-logo{width:94px;height:60px;object-fit:contain;flex-shrink:0;}
+.club-phone-top>div{display:flex;flex-direction:column;gap:0;line-height:1.2;letter-spacing:.09em;}
+.club-phone-top strong{color:var(--club-p-gold);font-size:17px;}
+.club-phone-top span{color:#fff;font-size:24px;font-weight:900;letter-spacing:.20em;}
+.club-phone-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0 15px;font-size:14px;font-weight:850;text-transform:uppercase;letter-spacing:.04em;color:#ffdfb0;}
+.club-phone-header span:first-child{min-width:0;}
+.club-phone-header #connection-status{color:#b7ffd7!important;white-space:nowrap;font-size:14px;}
+body.net-offline .club-phone-header #connection-status{color:#ffc2b8!important;}
+.club-phone-main{padding:0 0 18px;}
+.club-phone-panel{padding:clamp(19px,4vw,34px);background:#26152adf;border:2px solid #c59678;border-radius:24px;box-shadow:0 16px 45px #0007;}
+.club-phone-eyebrow{color:var(--club-p-gold);font-size:14px;letter-spacing:.13em;font-weight:900;text-transform:uppercase;margin-bottom:9px;}
+.club-phone h1{font-size:clamp(32px,8vw,54px);line-height:1.08;margin:8px 0 16px;color:#fff9eb;letter-spacing:-.04em;font-weight:950;}
+.club-phone h2{font-size:23px;line-height:1.2;margin:18px 0 11px;color:#fff4db;}
+.club-phone-lead{font-size:clamp(20px,4.9vw,27px);line-height:1.35;color:#fff4e5;margin:12px 0 22px;font-weight:650;overflow-wrap:anywhere;}
+.club-phone-timer{font-variant-numeric:tabular-nums;text-align:center;font-size:25px;color:#ffeba5;font-weight:900;letter-spacing:.13em;margin-top:20px;}
+.club-phone .club-phone-tag{display:inline-flex;border-radius:999px;background:#4f3351;border:1px solid #ffc47f;padding:7px 12px;font-size:13px;color:#fff1ce;font-weight:850;}
+.club-phone-tally{display:flex;gap:7px;flex-wrap:wrap;margin:21px 0;}
+.club-phone-room{font-size:clamp(53px,13vw,98px);font-variant-numeric:tabular-nums;letter-spacing:.13em;line-height:1.1;font-weight:1000;color:#ffeaac;text-align:center;padding:19px 0;border:2px dashed #ffc87e;border-radius:16px;background:#170d21;overflow-wrap:anywhere;}
+.club-phone-button{display:flex;align-items:center;justify-content:center;gap:12px;min-height:58px;padding:12px 15px;max-width:100%;width:100%;border:2px solid #ffdfa3;border-radius:14px;background:var(--club-p-action);color:#20111a;font-weight:950;line-height:1.2;text-align:center;cursor:pointer;overflow-wrap:anywhere;box-shadow:0 5px 0 #8b553c;font-size:17px;}
+.club-phone-button.secondary{color:#fff9ef;background:#4a2b45;border-color:#ecc99d;box-shadow:none;}
+.club-phone-button.is-current{background:#ffe2a2;color:#231221;border:3px solid #fff;box-shadow:none;}
+.club-phone-button.minor{width:auto;min-height:48px;padding:9px 13px;font-size:14px;background:transparent;color:#fff1ce;border:1px solid #cda58e;box-shadow:none;}
+.club-phone-button:disabled{opacity:.55;cursor:not-allowed;box-shadow:none;}
+.club-phone-button:not(:disabled):active{transform:translateY(2px);box-shadow:none;}
+.club-phone-tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0;}
+.club-phone-tool-grid>.club-phone-button:only-child{grid-column:1/-1;}
+.club-phone-players{display:grid;gap:7px;}
+.club-phone-person{display:flex;align-items:center;gap:11px;padding:8px;background:#41283a;border:1px solid #876782;border-radius:10px;min-height:58px;}
+.club-phone-person span{flex:1;min-width:0;overflow-wrap:anywhere;color:#fff;font-weight:800;}
+.club-phone-person small{color:#f3d9b6;font-size:13px;font-weight:850;}
+.club-phone-avatar{width:48px;height:48px;object-fit:contain;flex-shrink:0;}
+.club-phone-lobby-options{margin-top:21px;border-top:1px solid #bc928a;padding-top:6px;}
+.club-phone-lobby-options>p,.club-phone-note{font-size:16px;line-height:1.45;color:#f4dce6;margin:14px 0;}
+.club-phone-avatar-picker{margin-top:22px;}
+.club-phone-avatar-picker summary{padding:14px;border:1px solid #c59d94;border-radius:12px;cursor:pointer;}
+.club-phone-avatar-picker .avatar-picker{margin:15px 0;}
+.club-phone-watch{text-align:center;padding-top:40px;padding-bottom:48px;}
+.club-phone-tv{margin:28px 0;padding:21px 10px;border:3px solid #ffdda0;border-radius:18px;background:#512f4b;color:#fff2ce;font-size:clamp(22px,6vw,32px);font-weight:950;letter-spacing:.04em;}
+.club-phone-warning{border:2px solid #ffd27b;background:#684131;padding:14px;border-radius:12px;margin:0 0 14px;color:#fff;font-size:17px;font-weight:800;}
+.club-phone-must{padding:15px;border:2px solid #ffe7a5;border-radius:14px;color:#fff0c9;margin:18px 0;font-size:17px;font-weight:750;}
+.club-phone-must strong{display:block;font-size:27px;color:#fff;}
+.club-phone-hand{border:0;padding:0;margin:18px 0;min-width:0;}
+.club-phone-hand legend{color:#ffe4ad;font-size:18px;font-weight:800;margin-bottom:8px;}
+.club-phone-cards{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));}
+.club-phone-card{width:100%;min-height:105px;display:flex;align-items:center;justify-content:center;border:2px solid #d9a789;background:#503549;color:#fff;border-radius:15px;padding:15px;font-size:20px;line-height:1.28;font-weight:850;overflow-wrap:anywhere;text-align:center;cursor:pointer;}
+.club-phone-card.is-picked{background:#ffe4aa;color:#281623;border:4px solid #fff;}
+.club-phone-submit label{display:block;margin:18px 0 9px;color:#fff0c9;font-size:17px;font-weight:850;}
+.club-phone-input{width:100%;display:block;resize:vertical;min-height:135px;padding:17px;color:#201522;background:#fff9f0;border:3px solid #e7bd90;border-radius:16px;font-size:21px!important;line-height:1.35;}
+.club-phone-input-meta{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;color:#ffe7db;font-size:14px;margin:7px 0 18px;}
+.club-phone-input-meta #club-count{white-space:nowrap;font-weight:850;}
+.club-phone-vote .club-phone-choices{display:grid;gap:13px;margin:22px 0;}
+.club-phone-vote .club-phone-choice{display:flex;flex-wrap:wrap;gap:9px;}
+.club-phone-vote .club-phone-choice>.club-phone-button.vote{background:#41213d;color:#fff;padding:14px;min-height:95px;border:3px solid #e4a888;display:flex;align-items:center;gap:15px;box-shadow:none;}
+.club-phone-vote .club-phone-choice>.club-phone-button.vote strong{display:grid;place-items:center;flex-shrink:0;width:62px;height:62px;border-radius:14px;background:#fce3a8;color:#251125;font-size:35px;}
+.club-phone-vote .club-phone-choice>.club-phone-button.vote span{flex:1;text-align:left;font-size:22px;line-height:1.25;}
+.club-phone-vote .club-phone-choice>.club-phone-button.vote:focus-visible{border-color:#fff;outline-offset:5px;}
+.club-phone-results{display:grid;gap:12px;}
+.club-phone-result-row{display:flex;gap:10px;align-items:center;background:#4b2d4a;border:1px solid #c99b7d;border-radius:16px;padding:12px;}
+.club-phone-result-row div{flex:1;min-width:0;overflow-wrap:anywhere;}
+.club-phone-result-row p{margin:5px 0 0;font-size:17px;color:#fff2e5;}
+.club-phone-result-row>span{flex-shrink:0;color:#ffe4a0;font-weight:900;}
+.club-phone-standings{display:grid;gap:8px;margin:18px 0;}
+.club-phone-standing{display:flex;align-items:center;gap:8px;background:#4e3147;border-radius:12px;padding:10px;min-height:62px;}
+.club-phone-standing>span{font-size:24px;color:#ffe1a0;font-weight:900;}
+.club-phone-standing strong{flex:1;overflow-wrap:anywhere;}
+.club-phone-standing b{font-size:15px;color:#ffe4ae;white-space:nowrap;}
+.club-phone-finale{text-align:center;}
+.club-phone-winner{margin:20px 0;border:3px solid #f6ce8e;border-radius:22px;padding:23px;background:#43223a;}
+.club-phone-winner .club-phone-avatar{height:130px;width:130px;}
+.club-phone-winner h2{font-size:33px;margin:8px 0;}
+.club-phone-winner p{color:#ffebb2;font-size:21px;font-weight:900;}
+.club-phone-tools{margin-top:16px;background:#281b30;border:1px solid #ad8884;border-radius:12px;padding:10px 13px;}
+.club-phone-tools summary{cursor:pointer;color:#fff0cc;font-weight:850;min-height:48px;display:flex;align-items:center;}
+.club-phone-tools .club-phone-tool-grid{margin:8px 0;}
+.club-phone-footer{margin-top:25px;color:#e0c7d3;font-size:12px;text-align:center;letter-spacing:.04em;font-weight:750;}
+.club-phone-sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+/* The Social Club panel has one clear target without the legacy stacked sidebars. */
+body.net-offline .club-phone-button[data-club-action="submit"],body.net-offline .club-phone-button[data-club-action="vote"]{opacity:.45;pointer-events:none;}
+@media (max-width:440px){.club-phone{padding-left:12px;padding-right:12px;}.club-phone-panel{padding:18px;}.club-phone-tool-grid{grid-template-columns:1fr;}.club-phone-header{font-size:12px;}.club-phone-top span{font-size:21px;}.club-phone-room{font-size:52px;}}
+@media (prefers-reduced-motion:reduce){.club-phone *, .club-phone *::before,.club-phone *::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}}
+@media (prefers-contrast:more){.club-phone-panel,.club-phone-person,.club-phone-card,.club-phone-result-row{border-color:#fff;border-width:3px;}.club-phone-header,.club-phone-note,.club-phone-footer{color:#fff;}}
+
+#club-live-announce{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important;border:0!important;}

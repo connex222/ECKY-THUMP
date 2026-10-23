@@ -41,7 +41,8 @@
   }
   async function action(type,data={}) {
     try{await api(`/api/rooms/${S.code}/action`,'POST',{type,...data});if(['submit','seed','vote','swap-card'].includes(type)){window.ECKEY_SFX?.play('submit');thump([20,30,30]);if(['submit','seed'].includes(type))discardDraft();}}
-    catch(err){toastShow(err.message);}
+    catch(err){toastShow(err.message);return false;}
+    return true;
   }
   function startSession(code,secret){
     if(S.stream)S.stream.abort();
@@ -79,6 +80,7 @@
     if(typeof snap.serverNow==='number') S.clockOffset=snap.serverNow-Date.now();
     if(!S.snap || S.roundId!==snap.round?.id || S.stage!==snap.phase){S.roundId=snap.round?.id||null;S.selected=null;S.gold=null;S.silver=null;S.powerDrawerOpen=false;restoreDraft(snap);}
     const prev=S.snap;
+    if(snap.mode==='social-club-v2')window.ECKY_SOCIAL_PHONE?.onSnapshot(snap,prev);
     const oldKey=prev?`${prev.round?.id||'none'}:${prev.phase}`:null;
     const newKey=`${snap.round?.id||'none'}:${snap.phase}`;
     if(oldKey && oldKey!==newKey){
@@ -125,7 +127,7 @@
           <span class="e15-overline">● THE BROWSER PARTY GAME FOR CHAOTIC MINDS</span>
           <h1 class="visually-hidden">ECKY THUMP — The browser party game</h1>
           ${wordmark('hero')}
-          <p class="v16-hero-tag">SAME FRIENDS. <strong>WORSE ANSWERS.</strong></p>
+          <p class="v16-hero-tag">GOOD FRIENDS. <strong>TERRIBLE ANSWERS.</strong></p>
           <p class="v16-hero-description">Ridiculous challenges, ruthless voting, and the sort of answers that get brought up at Christmas.</p>
           <div class="e15-hero-buttons v16-hero-actions"><button class="e15-main-button e15-primary" type="button" data-action="go-host"><span aria-hidden="true">▶</span><span>PLAY NOW<small>HOST A NEW GAME</small></span><b aria-hidden="true">↗</b></button>
           <button class="e15-main-button e15-secondary" type="button" data-action="go-join"><span aria-hidden="true">↗</span><span>JOIN GAME<small>ENTER A ROOM CODE</small></span><b aria-hidden="true">↗</b></button></div>
@@ -159,6 +161,7 @@
               <label class="setup-choice"><input type="radio" name="pace" value="relaxed" checked><span class="setup-choice-face"><strong>🍻 CHILLED</strong><small>Host controls breaks</small></span></label>
               <label class="setup-choice"><input type="radio" name="pace" value="lively"><span class="setup-choice-face"><strong>⚡ CHAOTIC</strong><small>Quick automatic rounds</small></span></label>
             </div></fieldset>
+          <div class="club-preview-choice"><label class="checkline" for="social-club-choice"><input id="social-club-choice" type="checkbox" disabled> SOCIAL CLUB · NEW TV SHOW PREVIEW</label><p id="social-club-availability" role="status">The new Social Club show is unavailable on this server. The classic game still works.</p></div>
           <label class="checkline hidden" id="host-adult-wrap"><input id="host-adult" type="checkbox">I confirm I am 18+ and understand every player must confirm individually.</label>
           <button type="submit" class="btn wide v14-submit v14-submit-host">CREATE MY ROOM →</button>
         </form>
@@ -181,7 +184,7 @@
     }));
     document.getElementById('create-form').addEventListener('submit',async ev=>{
       ev.preventDefault();const button=ev.submitter;button.disabled=true;
-      try{const data=await api('/api/rooms','POST',{name:document.getElementById('host-name').value,rating:chosen('humour'),length:chosen('length'),pace:chosen('pace'),avatar:choice,adultConfirmed:document.getElementById('host-adult').checked},false);startSession(data.code,data.secret);}
+      try{const data=await api('/api/rooms','POST',{name:document.getElementById('host-name').value,rating:chosen('humour'),length:chosen('length'),pace:chosen('pace'),avatar:choice,adultConfirmed:document.getElementById('host-adult').checked,socialClub:!!document.getElementById('social-club-choice').checked},false);startSession(data.code,data.secret);}
       catch(err){toastShow(err.message);}finally{button.disabled=false;}
     });
     document.getElementById('join-form').addEventListener('submit',async ev=>{
@@ -190,7 +193,24 @@
       try{const data=await api(`/api/rooms/${code}/join`,'POST',{name:document.getElementById('join-name').value,avatar:choice,adultConfirmed:document.getElementById('join-adult').checked},false);startSession(data.code,data.secret);}
       catch(err){toastShow(err.message);}finally{button.disabled=false;}
     });
+    const updateLengthLabels=()=>{
+      const premium=!!document.getElementById('social-club-choice')?.checked;
+      const sizes={quick:premium?'3 rounds':'2 rounds',standard:premium?'5 rounds':'4 rounds',party:'6 rounds'};
+      for(const [mode,label] of Object.entries(sizes)){
+        const text=document.querySelector(`input[name="length"][value="${mode}"]`)?.parentElement?.querySelector('small');
+        if(text)text.textContent=label;
+      }
+    };
+    document.getElementById('social-club-choice')?.addEventListener('change',updateLengthLabels);
     if(entry){document.querySelector('[data-action="go-join"]')?.click();}
+    fetch('/api/health',{cache:'no-store'}).then(res=>res.ok?res.json():{}).then(data=>{
+      const control=document.getElementById('social-club-choice');
+      if(!control)return;
+      const available=data.socialClubPreviewAvailable===true && !!window.ECKY_SOCIAL_PHONE;
+      control.disabled=!available;
+      const note=document.getElementById('social-club-availability');
+      if(note)note.textContent=available?'Optional new Social Club show · 3–12 players · preview rules and temporary rooms.':'The new Social Club show is unavailable on this server. The classic game still works.';
+    }).catch(()=>{});
   }
   function shareControls(s){return `<div class="utility-actions">${btn('copy-code','Copy code','dark small')}${btn('copy-link','Copy invite','dark small')}${s.you?.isHost?btn('tv','↗ OPEN TV','small')+btn('copy-tv','Copy TV link','dark small'):''}</div>`;}
   function scoreRows(players){return `<div class="player-list">${players.map((p,i)=>`<div class="player-row"><span class="identity">${avatar(p.avatar)}<strong>${i===0&&p.score?'♛ ':''}${esc(p.name)}</strong></span><span class="right"><span class="${p.online?'online-dot':'online-dot offline-dot'}"></span><strong class="stat">${num(p.score)} pts</strong></span></div>`).join('')}</div>`;}
@@ -331,6 +351,15 @@
     ${s.you.isHost&&['SEED','SUBMIT','VOTE'].includes(s.phase)?`<div class="divider"></div><div class="eyebrow">HOST TOOLS</div><div class="utility-actions" style="margin-top:11px">${btn(s.paused?'resume':'pause',s.paused?'Resume':'Pause','dark small')}${btn('skip','Skip round','ghost small')}</div>`:''}
     <div class="divider"></div><div class="disclaimer">Private games night: only invite friends you trust. Rooms disappear on server restart. Avoid private information in answers. The host can hide inappropriate entries. At another home, everyone needs the same public HTTPS URL.</div></div></details></aside>`;}
   function renderGame(){const oldPowers=document.getElementById('e171-powers');if(oldPowers)S.powerDrawerOpen=oldPowers.open;const s=S.snap;if(!s){app.innerHTML=nav()+`<div class="loading-center">Joining room ${esc(S.code)}…</div>`;return;}
+    if(s.mode==='social-club-v2'){
+      const club=window.ECKY_SOCIAL_PHONE;
+      if(!club){app.textContent='The Social Club phone controller could not load. Reload this page.';return;}
+      const saved=club.capture(app);
+      app.innerHTML=club.render(s);
+      const picker=app.querySelector('#lobby-avatar-picker');if(picker)picker.innerHTML=avatarPicker();
+      club.restore(app,saved);
+      updateConnection();updateTimer();syncScene();return;
+    }
     const previousInput=document.getElementById('answer-input');
     // Do not overwrite a restored draft with a textarea from the previous phase.
     const sameStage=S.renderedStage===s.phase&&S.renderedRound===s.round?.id;
@@ -435,8 +464,17 @@
       case 'leave':endSession();return;
     }
   }
-  app.addEventListener('click',ev=>{const picked=ev.target.closest('[data-pick-avatar]');if(picked){choice=picked.dataset.pickAvatar;if(S.snap&&S.snap.phase==='LOBBY')return action('avatar',{avatar:choice});document.querySelectorAll('[data-pick-avatar]').forEach(b=>{b.classList.toggle('picked',b.dataset.pickAvatar===choice);b.setAttribute('aria-pressed',String(b.dataset.pickAvatar===choice));});return;}const button=ev.target.closest('[data-action]');if(!button||button.disabled)return;click(button.dataset.action,button.dataset.id);});
-  app.addEventListener('input',ev=>{if(ev.target.id==='answer-input'){S.draft=ev.target.value;rememberDraft();updateCounter();}});
+  app.addEventListener('click',ev=>{const clubButton=ev.target.closest('[data-club-action]');
+    if(clubButton){
+      if(clubButton.disabled||S.snap?.mode!=='social-club-v2')return;
+      const club=window.ECKY_SOCIAL_PHONE;
+      club?.handle(clubButton.dataset.clubAction,clubButton.dataset.clubId,{
+        s:S.snap,root:app,send:action,legacy:click,toast:toastShow,rerender:renderGame
+      });
+      return;
+    }
+    const picked=ev.target.closest('[data-pick-avatar]');if(picked){choice=picked.dataset.pickAvatar;if(S.snap&&S.snap.phase==='LOBBY')return action('avatar',{avatar:choice});document.querySelectorAll('[data-pick-avatar]').forEach(b=>{b.classList.toggle('picked',b.dataset.pickAvatar===choice);b.setAttribute('aria-pressed',String(b.dataset.pickAvatar===choice));});return;}const button=ev.target.closest('[data-action]');if(!button||button.disabled)return;click(button.dataset.action,button.dataset.id);});
+  app.addEventListener('input',ev=>{if(ev.target.id==='club-answer'&&S.snap?.mode==='social-club-v2'){window.ECKY_SOCIAL_PHONE?.updateInput(app,S.snap);return;}if(ev.target.id==='answer-input'){S.draft=ev.target.value;rememberDraft();updateCounter();}});
   const code=(q.get('room')||'').trim().toUpperCase();
   if(/^[A-Z2-9]{6}$/.test(code) && localStorage.getItem(storageKey(code)))startSession(code,localStorage.getItem(storageKey(code)));
   else renderLanding();

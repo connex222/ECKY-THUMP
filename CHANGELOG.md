@@ -2,6 +2,15 @@
 
 Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.
 
+## [Unreleased] — Social Club v2 Stage 4 phone controller
+
+- Added separate opt-in Social Club phone screens, accessible on portrait phones when `SOCIAL_CLUB_PREVIEW=1`, without altering normal v1.8.3 gameplay.
+- Added server-capability-controlled lobby option for hosting Social Club, plus Quick/Standard/Long (3/5/6) round counts.
+- Built one-task-at-a-time submission for card selection, two head-to-head writing tasks, context seeds and Last Orders; server still validates every answer.
+- Added large one-tap A/B and raffle ballots, server-enforced eligibility and author anonymity, audience voting, reporting and host moderation.
+- Added scoreboards, champion, rematches, copy invite/TV links, preserved session recovery, reconnect status, aria-live phase announcements, UK labels, reduced-motion and high-contrast styles.
+- Regression tests and mock-screen browser checks cover lobby, submit and voting at 390px and 720px without horizontal overflow. The new mode is still opt-in and real-device multiplayer acceptance remains in November 2026.
+
 ## [Unreleased] — Social Club v2 Stage 3 television preview
 
 - Added a dedicated Social Club television renderer with Northern club-stage styling, large anonymous reveals, A/B comparisons, server-controlled results, avatar celebrations and a champion scene.
