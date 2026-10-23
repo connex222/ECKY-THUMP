@@ -2,6 +2,13 @@
 
 Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.
 
+## [Unreleased] — Approved Stage 6 content integration
+
+- Load 650 approved entries: 200 Family editorial proposals and 450 cards from the user-approved CSV, with stable IDs and 140 Family replacements; preserve old expansion source.
+- Adapt 37 uploaded texts for formatting, deduplication and brand removal; ledger includes before/after wording.
+- Honour `PREMIUM_CONTENT_ONLY=1` by excluding old draft expansion entries; add import validation and humour-tier tests.
+- Add exact CSV submission templates and the next-content brief.
+
 ## [Unreleased] — Social Club v2 Stage 5 compère and sound desk
 
 - Wrote 60 original UK English Our Maureen recording lines across 12 event groups, with a single configurable compère name, local audio filenames and a `recorded` flag per line.

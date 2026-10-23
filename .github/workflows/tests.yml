@@ -12,6 +12,7 @@ jobs:
           node-version: '22'
       - name: JavaScript syntax
         run: |
+          node --check scripts/stage-party-csv.js
           node --check server/index.js
           node --check server/game.js
           node --check server/game-cards.js
@@ -22,6 +23,8 @@ jobs:
       - run: npm test
       - name: Content catalogue structural audit
         run: npm run audit:content
+      - name: Approved Social Club card catalogue audit
+        run: npm run audit:approved-content
       - name: Editorial review queue (non-approving)
         run: npm run review:content
       - name: Repeatable Game Card simulation smoke test

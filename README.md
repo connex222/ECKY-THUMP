@@ -129,3 +129,7 @@ pre-recorded: the captions work immediately, while voice remains silent until an
 recording is placed at its manifest path and that line is marked `recorded:true`.
 The source manifest `server/packs/voice-lines.json` and browser copy
 `public/assets/voice-lines.json` must be kept in sync.
+
+## Approved Stage 6 cards (2026-10-23)
+
+The 200 approved Family editorial proposals and 450 user-supplied CSV entries are loaded through `server/packs/social-club-approved-v1.json` (650 approved items). Existing expansion data remains unchanged for audit. 140 old Family strings are superseded; 60 additional Family responses and 450 imported entries are appended. `PREMIUM_CONTENT_ONLY=1` filters out unapproved expansion entries; the original built-in starter texts remain. Use `npm run audit:approved-content` and the import ledger to verify. Input provenance/licence must be independently checked before any paid distribution. For requested next card formats, see `docs/CONTENT-REQUEST.md`.
