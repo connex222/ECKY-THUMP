@@ -116,3 +116,16 @@ SOCIAL_CLUB_PREVIEW=1 npm start
 On Windows PowerShell, run `$env:SOCIAL_CLUB_PREVIEW="1"; npm start` instead. Open the page, select **Host**, and tick **Social Club — new TV show preview**. It only becomes selectable if the server advertises preview support. Choose Quick (3 rounds), Standard (5 rounds), or Long (6 rounds), then invite two or more friends (3–12 players) and optionally open the stage link on a TV. Each player uses their own phone.
 
 This is not yet the final premium game: the compère audio, editorial content batches, six-card power-up set and final clean-up follow in later stages. On Render's free tier, room files are on **temporary storage** and may disappear on a new deployment. Always-on hosting and a persistent disk are needed before claiming safe restart recovery in production. Actual physical-device multiplayer playtests remain deferred until November 2026.
+
+### Social Club Stage 5 — Our Maureen
+
+The optional new TV show now includes **always-on written compère captions** and an original
+Web Audio brass sting, Last Orders bell, result cue and unanimous ECKY THUMP! slam.
+Tap **ENABLE SHOW SFX**, **PLAY LOBBY MUSIC**, or **ENABLE VOICE** on that TV separately.
+Use **MASTER VOLUME** to adjust all three. Nothing starts playing automatically.
+
+The 60 recording lines and exact filenames are in `VOICE-LINES.md`. Audio is not
+pre-recorded: the captions work immediately, while voice remains silent until an `.ogg`
+recording is placed at its manifest path and that line is marked `recorded:true`.
+The source manifest `server/packs/voice-lines.json` and browser copy
+`public/assets/voice-lines.json` must be kept in sync.

@@ -2,7 +2,7 @@
 /* ECKY THUMP Show FX 1.0 — consent-based original WebAudio cue generator.
    No sounds play before the device owner clicks ENABLE SHOW SFX. */
 (() => {
-  let enabled=false, ctx=null;
+  let enabled=false, ctx=null, masterVolume=1;
   // Even after an earlier opt-in, no new AudioContext is created until the user clicks.
   let unlocked=false;
   const AC=window.AudioContext||window.webkitAudioContext;
@@ -17,7 +17,7 @@
     o.frequency.setValueAtTime(freq,start);
     if(endFreq&&endFreq!==freq)o.frequency.exponentialRampToValueAtTime(Math.max(20,endFreq),start+length);
     vol.gain.setValueAtTime(.0001,start);
-    vol.gain.exponentialRampToValueAtTime(gain,start+.015);
+    vol.gain.exponentialRampToValueAtTime(Math.max(.0001,gain*masterVolume),start+.015);
     vol.gain.exponentialRampToValueAtTime(.0001,start+length);
     o.connect(vol).connect(ctx.destination);o.start(start);o.stop(start+length+.025);
   }
@@ -36,12 +36,17 @@
         case 'vote':note(510,t,.15,'sawtooth',.053,760);note(860,t+.16,.16,'triangle',.07,590);break;
         case 'reveal':[[261,0],[329,.14],[392,.28],[523,.45]].forEach(([f,d])=>note(f,t+d,.24,'triangle',.085));break;
         case 'champion':[[392,0],[494,.15],[587,.30],[784,.46],[988,.64],[1175,.83]].forEach(([f,d])=>note(f,t+d,.45,'triangle',.095));break;
+        case 'bell':[[880,0],[1175,.07],[1568,.14]].forEach(([f,d])=>note(f,t+d,1.05,'sine',.067));break;
+        case 'brass':[[196,0],[294,0],[392,0],[523,.24],[659,.24],[784,.24]].forEach(([f,d])=>note(f,t+d,.38,'sawtooth',.034));break;
+        case 'vote-close':note(380,t,.12,'triangle',.07,250);note(220,t+.17,.19,'triangle',.075);break;
+        case 'slam':[[147,0],[196,0],[294,0],[392,.14],[523,.14],[784,.27]].forEach(([f,d])=>note(f,t+d,.65,'sawtooth',.070));break;
         case 'skip':note(400,t,.15,'sawtooth',.053,220);break;
       }
     }catch(_){/* WebAudio is an optional enhancement: never break a game action. */}
   }
   window.ECKEY_SFX={
     get enabled(){return enabled;},get unlocked(){return unlocked;},
+    setVolume(value){masterVolume=Math.max(0,Math.min(1,Number(value)||0));},
     toggle(){enabled=!enabled;
       if(enabled&&!setup()){enabled=false;return false;}
       if(enabled)play('pick');return enabled;},

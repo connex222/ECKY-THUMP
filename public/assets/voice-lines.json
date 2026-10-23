@@ -1,0 +1,428 @@
+{
+  "schemaVersion": 1,
+  "compereName": "Our Maureen",
+  "language": "en-GB",
+  "description": "Private Social Club TV captions. Recordings are optional and disabled until recorded=true.",
+  "lines": [
+    {
+      "id": "maureen-lobby-01",
+      "trigger": "lobby",
+      "caption": "Come in, coats off, and find your daftest mate.",
+      "audio": "/assets/audio/maureen/maureen-lobby-01.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-lobby-02",
+      "trigger": "lobby",
+      "caption": "The kettle's on. The judgement's off.",
+      "audio": "/assets/audio/maureen/maureen-lobby-02.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-lobby-03",
+      "trigger": "lobby",
+      "caption": "Don't all rush for the meat raffle at once.",
+      "audio": "/assets/audio/maureen/maureen-lobby-03.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-lobby-04",
+      "trigger": "lobby",
+      "caption": "Welcome to the club. Mind the step.",
+      "audio": "/assets/audio/maureen/maureen-lobby-04.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-lobby-05",
+      "trigger": "lobby",
+      "caption": "We're open. Someone fetch the good biscuits.",
+      "audio": "/assets/audio/maureen/maureen-lobby-05.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-round-intro-01",
+      "trigger": "round-intro",
+      "caption": "Right, who's brought a decent answer tonight?",
+      "audio": "/assets/audio/maureen/maureen-round-intro-01.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-round-intro-02",
+      "trigger": "round-intro",
+      "caption": "Here we go. No pressure, just your reputation.",
+      "audio": "/assets/audio/maureen/maureen-round-intro-02.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-round-intro-03",
+      "trigger": "round-intro",
+      "caption": "Eyes front, phones ready, chins up.",
+      "audio": "/assets/audio/maureen/maureen-round-intro-03.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-round-intro-04",
+      "trigger": "round-intro",
+      "caption": "There's a hush. That can't be good.",
+      "audio": "/assets/audio/maureen/maureen-round-intro-04.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-round-intro-05",
+      "trigger": "round-intro",
+      "caption": "Next act, please. Keep it respectable-ish.",
+      "audio": "/assets/audio/maureen/maureen-round-intro-05.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-submit-01",
+      "trigger": "submit",
+      "caption": "Get writing. The committee's watching.",
+      "audio": "/assets/audio/maureen/maureen-submit-01.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-submit-02",
+      "trigger": "submit",
+      "caption": "Make it snappy. Our tea's going cold.",
+      "audio": "/assets/audio/maureen/maureen-submit-02.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-submit-03",
+      "trigger": "submit",
+      "caption": "Big ideas, little screens. Off you go.",
+      "audio": "/assets/audio/maureen/maureen-submit-03.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-submit-04",
+      "trigger": "submit",
+      "caption": "You can't blame the pen this time.",
+      "audio": "/assets/audio/maureen/maureen-submit-04.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-submit-05",
+      "trigger": "submit",
+      "caption": "Write something worth telling your nan. Maybe.",
+      "audio": "/assets/audio/maureen/maureen-submit-05.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-reveal-01",
+      "trigger": "reveal",
+      "caption": "Ooh. Someone actually put that in writing.",
+      "audio": "/assets/audio/maureen/maureen-reveal-01.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-reveal-02",
+      "trigger": "reveal",
+      "caption": "Well, that's an interesting choice of words.",
+      "audio": "/assets/audio/maureen/maureen-reveal-02.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-reveal-03",
+      "trigger": "reveal",
+      "caption": "Brace yourselves. This one's come from a mate.",
+      "audio": "/assets/audio/maureen/maureen-reveal-03.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-reveal-04",
+      "trigger": "reveal",
+      "caption": "Let's see what fell out of their head.",
+      "audio": "/assets/audio/maureen/maureen-reveal-04.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-reveal-05",
+      "trigger": "reveal",
+      "caption": "Here's the answer. I'll say nowt more.",
+      "audio": "/assets/audio/maureen/maureen-reveal-05.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-vote-01",
+      "trigger": "vote",
+      "caption": "A or B? Use your loaf.",
+      "audio": "/assets/audio/maureen/maureen-vote-01.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-vote-02",
+      "trigger": "vote",
+      "caption": "No peeking. Pick your favourite shocker.",
+      "audio": "/assets/audio/maureen/maureen-vote-02.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-vote-03",
+      "trigger": "vote",
+      "caption": "The ballot's open. Keep your elbows in.",
+      "audio": "/assets/audio/maureen/maureen-vote-03.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-vote-04",
+      "trigger": "vote",
+      "caption": "Phones out. We need a verdict.",
+      "audio": "/assets/audio/maureen/maureen-vote-04.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-vote-05",
+      "trigger": "vote",
+      "caption": "Vote fairly. Maureen knows where you sit.",
+      "audio": "/assets/audio/maureen/maureen-vote-05.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-vote-close-01",
+      "trigger": "vote-close",
+      "caption": "Right. The votes are in. Crikey.",
+      "audio": "/assets/audio/maureen/maureen-vote-close-01.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-vote-close-02",
+      "trigger": "vote-close",
+      "caption": "That's democracy at the Social Club.",
+      "audio": "/assets/audio/maureen/maureen-vote-close-02.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-vote-close-03",
+      "trigger": "vote-close",
+      "caption": "The club has spoken. Loudly, as usual.",
+      "audio": "/assets/audio/maureen/maureen-vote-close-03.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-vote-close-04",
+      "trigger": "vote-close",
+      "caption": "Numbers don't lie. Usually.",
+      "audio": "/assets/audio/maureen/maureen-vote-close-04.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-vote-close-05",
+      "trigger": "vote-close",
+      "caption": "And here's what the room made of that.",
+      "audio": "/assets/audio/maureen/maureen-vote-close-05.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-unanimous-win-01",
+      "trigger": "unanimous-win",
+      "caption": "ECKY THUMP! That's a proper walloping!",
+      "audio": "/assets/audio/maureen/maureen-unanimous-win-01.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-unanimous-win-02",
+      "trigger": "unanimous-win",
+      "caption": "Not one dissenter. Somebody ring the bell!",
+      "audio": "/assets/audio/maureen/maureen-unanimous-win-02.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-unanimous-win-03",
+      "trigger": "unanimous-win",
+      "caption": "Well, everyone's agreed. Mark the calendar.",
+      "audio": "/assets/audio/maureen/maureen-unanimous-win-03.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-unanimous-win-04",
+      "trigger": "unanimous-win",
+      "caption": "Clean sweep! Get the brass band out!",
+      "audio": "/assets/audio/maureen/maureen-unanimous-win-04.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-unanimous-win-05",
+      "trigger": "unanimous-win",
+      "caption": "ECKY THUMP! The room's lost its mind!",
+      "audio": "/assets/audio/maureen/maureen-unanimous-win-05.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-comeback-01",
+      "trigger": "comeback",
+      "caption": "Look who's back in the running!",
+      "audio": "/assets/audio/maureen/maureen-comeback-01.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-comeback-02",
+      "trigger": "comeback",
+      "caption": "From nowhere! Somebody check that scoreboard.",
+      "audio": "/assets/audio/maureen/maureen-comeback-02.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-comeback-03",
+      "trigger": "comeback",
+      "caption": "Ooh, we've got a proper contest now.",
+      "audio": "/assets/audio/maureen/maureen-comeback-03.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-comeback-04",
+      "trigger": "comeback",
+      "caption": "They weren't finished. Not by a long chalk.",
+      "audio": "/assets/audio/maureen/maureen-comeback-04.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-comeback-05",
+      "trigger": "comeback",
+      "caption": "A turn-up for the raffle books!",
+      "audio": "/assets/audio/maureen/maureen-comeback-05.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-last-orders-01",
+      "trigger": "last-orders",
+      "caption": "Last orders! Put your best nonsense forward.",
+      "audio": "/assets/audio/maureen/maureen-last-orders-01.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-last-orders-02",
+      "trigger": "last-orders",
+      "caption": "Final round. Don't spill your nerve.",
+      "audio": "/assets/audio/maureen/maureen-last-orders-02.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-last-orders-03",
+      "trigger": "last-orders",
+      "caption": "Bell's rung. It's the last chance saloon.",
+      "audio": "/assets/audio/maureen/maureen-last-orders-03.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-last-orders-04",
+      "trigger": "last-orders",
+      "caption": "One last answer. Make it worth the bus fare.",
+      "audio": "/assets/audio/maureen/maureen-last-orders-04.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-last-orders-05",
+      "trigger": "last-orders",
+      "caption": "Last orders, folks. This one's worth double.",
+      "audio": "/assets/audio/maureen/maureen-last-orders-05.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-champion-01",
+      "trigger": "champion",
+      "caption": "Make some noise for tonight's champion!",
+      "audio": "/assets/audio/maureen/maureen-champion-01.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-champion-02",
+      "trigger": "champion",
+      "caption": "Winner buys the crisps. Club rules.",
+      "audio": "/assets/audio/maureen/maureen-champion-02.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-champion-03",
+      "trigger": "champion",
+      "caption": "A champion! Someone polish the imaginary trophy.",
+      "audio": "/assets/audio/maureen/maureen-champion-03.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-champion-04",
+      "trigger": "champion",
+      "caption": "Well played. That's going on the noticeboard.",
+      "audio": "/assets/audio/maureen/maureen-champion-04.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-champion-05",
+      "trigger": "champion",
+      "caption": "Take a bow. You've earned your black pudding.",
+      "audio": "/assets/audio/maureen/maureen-champion-05.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-idle-nudge-01",
+      "trigger": "idle-nudge",
+      "caption": "There's room for another. Don't be shy.",
+      "audio": "/assets/audio/maureen/maureen-idle-nudge-01.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-idle-nudge-02",
+      "trigger": "idle-nudge",
+      "caption": "We're still here. The biscuits aren't.",
+      "audio": "/assets/audio/maureen/maureen-idle-nudge-02.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-idle-nudge-03",
+      "trigger": "idle-nudge",
+      "caption": "Waiting for the last straggler, as usual.",
+      "audio": "/assets/audio/maureen/maureen-idle-nudge-03.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-idle-nudge-04",
+      "trigger": "idle-nudge",
+      "caption": "Come along. Saturday won't wait forever.",
+      "audio": "/assets/audio/maureen/maureen-idle-nudge-04.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-idle-nudge-05",
+      "trigger": "idle-nudge",
+      "caption": "We've saved you a seat by the radiator.",
+      "audio": "/assets/audio/maureen/maureen-idle-nudge-05.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-awaiting-answers-01",
+      "trigger": "awaiting-answers",
+      "caption": "Ten seconds! Pens down soon, love.",
+      "audio": "/assets/audio/maureen/maureen-awaiting-answers-01.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-awaiting-answers-02",
+      "trigger": "awaiting-answers",
+      "caption": "Clock's ticking. Don't write a novel.",
+      "audio": "/assets/audio/maureen/maureen-awaiting-answers-02.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-awaiting-answers-03",
+      "trigger": "awaiting-answers",
+      "caption": "Someone's still composing their masterpiece.",
+      "audio": "/assets/audio/maureen/maureen-awaiting-answers-03.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-awaiting-answers-04",
+      "trigger": "awaiting-answers",
+      "caption": "Nearly there. Last chance for a cracker.",
+      "audio": "/assets/audio/maureen/maureen-awaiting-answers-04.ogg",
+      "recorded": false
+    },
+    {
+      "id": "maureen-awaiting-answers-05",
+      "trigger": "awaiting-answers",
+      "caption": "Hurry along. Our Maureen's got plans.",
+      "audio": "/assets/audio/maureen/maureen-awaiting-answers-05.ogg",
+      "recorded": false
+    }
+  ]
+}

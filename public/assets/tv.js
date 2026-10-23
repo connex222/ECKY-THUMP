@@ -69,6 +69,7 @@
       const club=window.ECKY_SOCIAL_TV;
       if(!club){el.textContent='Social Club stage could not load.';return;}
       const key=club.sceneKey(s);
+      window.ECKY_COMPERE?.onScene(s,key);
       if(lastSoundKey!==null&&lastSoundKey!==key)window.ECKEY_SFX?.play(club.cue(s));
       if(typeof s.serverNow==='number')clockOffset=s.serverNow-Date.now();
       lastSoundKey=key;lastSceneKey=key;current=s;
@@ -101,11 +102,28 @@
     const seconds=Math.max(0,Math.ceil(((current.deadline||Date.now()+clockOffset)-(Date.now()+clockOffset))/1000));
     t.textContent=current.paused?'PAUSED':`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;
     const key=`${current.round?.id}:${current.phase}:${seconds}`;
+    if(current.mode==='social-club-v2')window.ECKY_COMPERE?.onClock(current,seconds);
     if(!current.paused&&seconds>0&&seconds<=5&&['SEED','SUBMIT','VOTE'].includes(current.phase)&&key!==lastTick){lastTick=key;window.ECKEY_SFX?.play('countdown');}
 
   }
   el.addEventListener('click',e=>{if(!e.target.closest('[data-fx-toggle]'))return;const on=window.ECKEY_SFX?.toggle();el.querySelectorAll('[data-fx-toggle]').forEach(b=>{b.setAttribute('aria-pressed',String(!!on));b.querySelector('span').textContent=on?'🔊':'🔇';b.querySelector('strong').textContent=on?'SHOW SFX ON':'ENABLE SHOW SFX';});});
   el.addEventListener('click',async e=>{if(!e.target.closest('[data-sound-toggle]'))return;await window.ECKEY_AUDIO?.toggle();const control=el.querySelector('[data-sound-toggle]');if(control){control.setAttribute('aria-pressed',String(!!window.ECKEY_AUDIO?.enabled));control.querySelector('strong').textContent=window.ECKEY_AUDIO?.enabled?'MUSIC ON':'PLAY LOBBY MUSIC';}});
+  // These controls exist only in the Social Club preview TV stage.
+  el.addEventListener('click',event=>{
+    const button=event.target.closest('[data-voice-toggle]');
+    if(!button)return;
+    const enabled=window.ECKY_COMPERE?.toggleVoice();
+    button.setAttribute('aria-pressed',String(!!enabled));
+    const title=button.querySelector('strong');
+    if(title)title.textContent=enabled?'VOICE ON':'ENABLE VOICE';
+  });
+  el.addEventListener('input',event=>{
+    if(!event.target.matches('[data-master-volume]'))return;
+    window.ECKY_COMPERE?.setVolume(Number(event.target.value)/100);
+  });
+  document.addEventListener('ecky-compere-ready',()=>{
+    if(current?.mode==='social-club-v2')render(current);
+  });
   setInterval(updateTimer,250);
   async function connect(){
     while(true){

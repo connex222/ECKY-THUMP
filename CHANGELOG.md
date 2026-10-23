@@ -2,6 +2,13 @@
 
 Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.
 
+## [Unreleased] — Social Club v2 Stage 5 compère and sound desk
+
+- Wrote 60 original UK English Our Maureen recording lines across 12 event groups, with a single configurable compère name, local audio filenames and a `recorded` flag per line.
+- Added deterministic caption selection per TV scene, including extra cues for Last Orders, unanimous wins, comebacks, countdown nudges and idle lobbies. Captions remain on when voice is muted or recordings are missing.
+- Added opt-in recorded voice, per-TV master volume, existing opt-in music and SFX toggles, and four original browser-generated musical stings (brass, bell, vote-close and ECKY THUMP slam).
+- Kept normal v1.8.3 screens and sounds compatible. No recordings have been supplied or invented; voice audio remains silent until files are recorded and marked available.
+
 ## [Unreleased] — Social Club v2 Stage 4 phone controller
 
 - Added separate opt-in Social Club phone screens, accessible on portrait phones when `SOCIAL_CLUB_PREVIEW=1`, without altering normal v1.8.3 gameplay.
