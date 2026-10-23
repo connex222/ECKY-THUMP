@@ -7,7 +7,7 @@
   music.loop = true;
   music.preload = 'auto';
   music.volume = 0.28;
-  const state={enabled:false,scene:'LOBBY'};
+  const state={enabled:false,scene:'LOBBY',masterVolume:1};
   async function sync(){
     if (!state.enabled||state.scene!=='LOBBY'||document.hidden){music.pause();return;}
     try { await music.play(); }catch(err){
@@ -17,6 +17,7 @@
   }
   window.ECKEY_AUDIO={
     get enabled(){return state.enabled;},
+    setVolume(value){state.masterVolume=Math.max(0,Math.min(1,Number(value)||0));music.volume=0.28*state.masterVolume;},
     async toggle(){state.enabled=!state.enabled;await sync();return state.enabled;},
     setScene(scene){const next=scene==='LOBBY'?'LOBBY':'GAME';if(state.scene===next)return;state.scene=next;
       if(next==='GAME'){music.pause();music.currentTime=0;}else void sync();},

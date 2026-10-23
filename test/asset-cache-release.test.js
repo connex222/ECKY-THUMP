@@ -7,7 +7,7 @@ const root = path.resolve(__dirname, '..');
 
 test('TV entrypoint busts the pre-Stage-3 cached renderer', () => {
   const html = fs.readFileSync(path.join(root, 'public/tv/index.html'), 'utf8');
-  assert.match(html, /\/assets\/tv\.js\?v=2\.0\.0-stage3/);
+  assert.match(html, /\/assets\/tv\.js\?v=2\.0\.0-stage5/);
   assert.match(html, /\/assets\/social-club-tv\.js\?v=2\.0\.0/);
 });
 

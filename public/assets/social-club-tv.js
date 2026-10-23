@@ -21,17 +21,6 @@
   const moods = {LOBBY:'THE DOORS ARE OPEN',ROUND_INTRO:'NEXT ON STAGE',SUBMIT:'THE ROOM IS WRITING',
     REVEAL:'THE BIG REVEAL',VOTE:'MAKE YOUR CHOICE',MATCHUP_RESULT:'THE VERDICT',
     ROUND_SCORES:'THE LEADERBOARD',CHAMPION:'THE STAR OF THE NIGHT',COMPLETE:'ONE MORE ROUND?'};
-  const say = {
-    LOBBY:'Get your mates in. Maureen has got the raffle tickets.',
-    ROUND_INTRO:'Eyes on the stage, everyone. Here we go.',
-    SUBMIT:'Pens out, phones up. Make it a good one.',
-    REVEAL:'Here’s one somebody thought was a good idea.',
-    VOTE:'No shouting the answers. Vote on your phone.',
-    MATCHUP_RESULT:'And the club has spoken!',
-    ROUND_SCORES:'Have a look at the scoreboard, then.',
-    CHAMPION:'Give our champion a proper round of applause!',
-    COMPLETE:'Last orders? Or shall we do it again?'
-  };
   const clock = (s, offset = 0) => {
     if (s.paused) return 'PAUSED';
     if (s.deadline == null) return '—';
@@ -43,11 +32,16 @@
     <span class="club-room">ROOM ${esc(s.code)}</span>
     <span class="club-round">${s.phase === 'LOBBY' ? 'SATURDAY NIGHT' : `ROUND ${number(s.roundNumber)} / ${number(s.totalRounds)}`}</span>
   </header>`;
-  const hostCue = s => `<aside class="club-caption" aria-live="polite" aria-label="Our Maureen's captions"><strong>OUR MAUREEN</strong><span>${esc(say[s.phase] || 'Eyes on the telly!')}</span></aside>`;
+  const hostCue = s => {
+    const cue=window.ECKY_COMPERE?.display(s) || {speaker:'Our Maureen',caption:'Eyes on the telly!'};
+    return `<aside class="club-caption" aria-live="polite" aria-label="The compère's captions"><strong>${esc(cue.speaker)}</strong><span data-maureen-caption>${esc(cue.caption)}</span></aside>`;
+  };
   const stageFoot = s => `<footer class="club-footer"><span>GOOD FRIENDS. TERRIBLE ANSWERS.</span>
     <span>${esc(moods[s.phase] || 'SOCIAL CLUB')}</span><span class="club-timer" id="tv-timer" role="timer">${clock(s)}</span>
     <button class="club-audio" data-fx-toggle aria-pressed="${!!window.ECKEY_SFX?.enabled}" type="button"><span aria-hidden="true">${window.ECKEY_SFX?.enabled ? '🔊':'🔇'}</span><strong>${window.ECKEY_SFX?.enabled ? 'SHOW SFX ON':'ENABLE SHOW SFX'}</strong></button>
     <button class="club-audio" data-sound-toggle aria-pressed="${!!window.ECKEY_AUDIO?.enabled}" type="button"><span aria-hidden="true">♫</span><strong>${window.ECKEY_AUDIO?.enabled ? 'MUSIC ON':'PLAY LOBBY MUSIC'}</strong></button>
+    <button class="club-audio" data-voice-toggle aria-pressed="${!!window.ECKY_COMPERE?.voiceEnabled}" type="button"><span aria-hidden="true">🎙</span><strong>${window.ECKY_COMPERE?.voiceEnabled ? 'VOICE ON':'ENABLE VOICE'}</strong></button>
+    <label class="club-volume-control">MASTER VOLUME <input type="range" data-master-volume min="0" max="100" step="5" value="${Math.round((window.ECKY_COMPERE?.volume??0.7)*100)}" aria-label="Social Club master volume"></label>
   </footer>`;
   const playerLine = (s, showScore = false) => {
     const submitted = new Set(s.round?.submittedPlayerIds || []);
@@ -129,7 +123,10 @@
     </div>`;
   }
   function sceneKey(s){return [s.round?.id || 'lobby',s.phase,s.round?.groupIndex ?? 0,s.round?.visibleAnswers?.length ?? 0].join(':');}
-  function cue(s){return {ROUND_INTRO:'round',REVEAL:'reveal',VOTE:'vote',MATCHUP_RESULT:s.round?.result?.slam?'champion':'reveal',
-    CHAMPION:'champion',ROUND_SCORES:'tap'}[s.phase] || 'tap';}
+  function cue(s){
+    if(s.phase==='ROUND_INTRO')return s.round?.type==='FINAL'?'bell':'brass';
+    return {REVEAL:'reveal',VOTE:'vote',MATCHUP_RESULT:s.round?.result?.slam?'slam':'vote-close',
+      CHAMPION:'champion',ROUND_SCORES:'tap'}[s.phase]||'tap';
+  }
   window.ECKY_SOCIAL_TV={render,sceneKey,cue};
 })();

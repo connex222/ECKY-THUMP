@@ -167,3 +167,28 @@ body.tv-body .social-club .club-curtain-right{right:0;border-left:5px solid #bb7
   .social-club .club-score-row strong{font-size:clamp(20px,2vw,28px);}
   .social-club .club-score{font-size:clamp(19px,1.75vw,27px);}
 }
+
+/* Stage 5: small, legible TV sound desk — no automatic voice playback. */
+.social-club .club-volume-control{display:inline-flex;align-items:center;gap:10px;
+ color:var(--club-cream);font-size:clamp(13px,.95vw,20px);font-weight:850;white-space:nowrap;}
+.social-club .club-volume-control input{width:clamp(100px,9vw,170px);height:32px;accent-color:var(--club-brass);cursor:pointer;}
+.social-club .club-volume-control input:focus-visible{outline:4px solid #fff;outline-offset:5px;}
+.social-club .club-caption span{overflow-wrap:anywhere;}
+@media (max-width:1280px){
+ .social-club .club-footer{flex-wrap:wrap;justify-content:center;gap:6px 12px;}
+ .social-club .club-volume-control{min-height:44px;}
+}
+@media (prefers-reduced-motion:reduce){.social-club .club-audio{transition:none;}}
+/* Keep both lines of the sound desk visible on 720p television screens. */
+@media(max-height:780px){
+  .social-club .club-lobby{gap:4px;}
+  .social-club .club-neon{font-size:clamp(50px,5.7vw,90px);}
+  .social-club .club-roomcode{font-size:clamp(85px,10.5vw,142px);}
+  .social-club .club-join{gap:16px;}
+  .social-club .club-join img{height:100px;padding:4px;}
+  .social-club .club-join div{gap:3px;}
+  .social-club .club-caption{min-height:0;padding:5px 12px;margin:2px auto;}
+  .social-club .club-audio{min-height:38px;padding:6px 8px;}
+  .social-club .club-volume-control{min-height:36px;}
+  .social-club .club-footer{gap:4px 10px;line-height:1.15;}
+}
