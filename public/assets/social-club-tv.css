@@ -1,5 +1,5 @@
 /* ECKY THUMP Social Club — 10-foot stage. Only loaded on the TV page. */
-body.tv-body #tv-app{width:100%;max-width:none;margin:0;padding:0;min-height:100vh;}
+body.tv-body #tv-app.club-shell{width:100%;max-width:none;margin:0;padding:0;min-height:100vh;}
 body.tv-body #tv-app .social-club{--club-brass:#f8d88b;--club-cream:#fff6e3;--club-night:#170c1f;
   --club-ink:#2a122c;--club-pink:#f7b4d9;position:relative;display:flex;flex-direction:column;
   box-sizing:border-box;isolation:isolate;overflow:hidden;min-height:100vh;min-height:100dvh;

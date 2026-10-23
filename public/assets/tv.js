@@ -65,6 +65,7 @@
   function render(s){
     // Stage 3: the Social Club renderer is opt-in and cannot affect v1 rooms.
     if(s.mode==='social-club-v2'){
+      el.classList.add('club-shell');
       const club=window.ECKY_SOCIAL_TV;
       if(!club){el.textContent='Social Club stage could not load.';return;}
       const key=club.sceneKey(s);
@@ -76,6 +77,7 @@
       window.ECKEY_AUDIO?.setScene(s.phase==='LOBBY'?'LOBBY':'GAME');
       return;
     }
+    el.classList.remove('club-shell');
     const key=`${s.round?.id||'none'}:${s.phase}`;
     if(lastSoundKey!==null&&key!==lastSoundKey)window.ECKEY_SFX?.play(s.phase==='RESULTS'?(s.round?.skipReason?'skip':'reveal'):s.phase==='COMPLETE'?'champion':s.phase==='VOTE'?'vote':['SEED','SUBMIT'].includes(s.phase)?'round':'tap');
     const sceneChanged=lastSceneKey!==null&&lastSceneKey!==key;

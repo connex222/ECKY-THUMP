@@ -24,6 +24,8 @@ test('Stage 3 is conditionally loaded on TV without disrupting the established r
   assert.match(html,/social-club-tv\.css\?v=2\.0\.0/);
   assert.match(js,/if\(s\.mode==='social-club-v2'\)/);
   assert.match(js,/club\.render\(s\)/);
+  assert.match(js,/classList\.add\('club-shell'\)/);
+  assert.match(js,/classList\.remove\('club-shell'\)/);
   assert.match(js,/const body=s\.phase==='LOBBY'/);
   assert.doesNotMatch(file('public/index.html'),/social-club-tv\.js/);
 });
