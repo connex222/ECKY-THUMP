@@ -104,3 +104,15 @@ The premium rewrite is being developed in stages. **This is not the finished v2 
 For technical testing only, set `SOCIAL_CLUB_PREVIEW=1` and `ROOM_DATA_DIR` to a private writable directory, run `npm start`, and create an API room with `socialClub: true`. Complete instructions, scoring and caveats are in `DESIGN.md`. **Never commit files from `data/rooms/`**: they contain names and player-written answers, although session secrets remain hashed.
 
 Run `npm test` for both current-game and Social Club tests. Real-phone multiplayer sign-off remains deferred until November 2026. The existing Render service does not automatically acquire durable room storage just because this source includes persistence.
+
+## Social Club v2 — Stage 4 phone preview
+
+The new Social Club phone controller and TV stage are **optional** while v2.0 is being built. The original v1.8.3 game still starts by default. To try Social Club locally:
+
+```bash
+SOCIAL_CLUB_PREVIEW=1 npm start
+```
+
+On Windows PowerShell, run `$env:SOCIAL_CLUB_PREVIEW="1"; npm start` instead. Open the page, select **Host**, and tick **Social Club — new TV show preview**. It only becomes selectable if the server advertises preview support. Choose Quick (3 rounds), Standard (5 rounds), or Long (6 rounds), then invite two or more friends (3–12 players) and optionally open the stage link on a TV. Each player uses their own phone.
+
+This is not yet the final premium game: the compère audio, editorial content batches, six-card power-up set and final clean-up follow in later stages. On Render's free tier, room files are on **temporary storage** and may disappear on a new deployment. Always-on hosting and a persistent disk are needed before claiming safe restart recovery in production. Actual physical-device multiplayer playtests remain deferred until November 2026.
