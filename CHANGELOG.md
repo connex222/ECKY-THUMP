@@ -2,6 +2,13 @@
 
 Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.
 
+## [Unreleased] — Social Club v2 Stage 3 television preview
+
+- Added a dedicated Social Club television renderer with Northern club-stage styling, large anonymous reveals, A/B comparisons, server-controlled results, avatar celebrations and a champion scene.
+- Added TV-only non-identifying answer completion indicators and aggregate ballot progress to preview snapshots.
+- Preserved existing v1 television screens and all avatar files.
+- The Stage 3 renderer remains accessible only in Social Club preview rooms; the new phone controller is Stage 4.
+
 ## [Unreleased] — Social Club v2 Stage 2 engine preview
 
 - Added explicit, disabled-by-default Social Club v2 preview with the new phase, matchup, reveal, ballot and scoring engine; the default game remains v1.8.3.

@@ -314,6 +314,16 @@ function snapshot(room,viewerId,isTV=false){
   if(!r)return base;
   base.round={id:r.id,type:r.type,stage:r.stage,prompt:r.prompt,requiredWord:r.requiredWord,groupIndex:r.groupIndex,
     totalGroups:r.groups.length,answerCount:r.groups.reduce((n,g)=>n+[...g.entries.values()].filter(x=>!x.auto).length,0)};
+  // Public activity indicators, never private text or hidden author identity.
+  // These fields help the television light up avatars as answers arrive.
+  if(isTV && room.phase==='SUBMIT'){
+    base.round.submittedPlayerIds=room.round.stage==='seed'
+      ? [...r.seeds.keys()]
+      : room.players.filter(p=>expected(room,p.id).every(t=>{
+          const group=r.groups.find(g=>g.id===t.id||(['CARD','FINAL'].includes(r.type)&&g.players.includes(p.id)));
+          return !!group?.entries.has(p.id);
+        })).map(p=>p.id);
+  }
   if(player&&room.phase==='SUBMIT'){
     base.round.tasks=r.stage==='seed'?[{id:r.id,prompt:'Write one innocent line.',submitted:r.seeds.has(player.id)}]:expected(room,player.id).map(t=>{
       const g=r.groups.find(g=>g.id===t.id||(['CARD','FINAL'].includes(r.type)&&g.players.includes(player.id)));
@@ -327,6 +337,11 @@ function snapshot(room,viewerId,isTV=false){
     const revealed=room.phase==='REVEAL'?[...g.entries.values()].slice(0,r.revealIndex+1):[...g.entries.values()];
     base.round.visibleAnswers=revealed.map((e,i)=>({id:e.id,letter:String.fromCharCode(65+i),text:e.text,
       ...(['MATCHUP_RESULT','ROUND_SCORES','CHAMPION','COMPLETE'].includes(room.phase)?{authorId:e.authorId,authorName:room.players.find(p=>p.id===e.authorId)?.name,avatar:room.players.find(p=>p.id===e.authorId)?.avatar}: {})}));
+    if(room.phase==='VOTE'&&isTV){
+      const eligible=room.players.filter(p=>playerEligible(room,p,g)&&
+        [...g.entries.values()].some(e=>!e.auto&&e.authorId!==p.id));
+      base.round.voteProgress={cast:g.ballots.size,eligible:eligible.length};
+    }
     if(room.phase==='VOTE'){
       const hasVoted=(player?g.ballots:aud?g.audienceBallots:new Map()).has(viewerId);
       const eligible=!!(player&&playerEligible(room,player,g)||aud);

@@ -63,6 +63,19 @@
   function chaosStage(s){const chaos=s.chaos||{},events=chaos.events||[];const last=events.at(-1);const labels={'pudding':'BLACK PUDDING INCOMING!','wrench':'SOMEONE THREW A WRENCH!','shake':'THE STAGE IS SHAKING!'};const modifiers={'pudding-rain':'BLACK PUDDING RAIN','pier-panic':'PIER PANIC','crowd-roar':'CROWD ROAR'};
     return `<div class="postcard-heckle ${last?'postcard-heckle-live':''}" aria-live="polite">${last?`<strong>${esc(labels[last.kind]||'HECKLED!')}</strong><span>Courtesy of ${esc(last.by)}${last.targetId?' · '+esc(s.players.find(p=>p.id===last.targetId)?.name||'the contestants'):''}</span>`:''}${chaos.leader?`<small>THE BALCONY VOTES: ${esc(modifiers[chaos.leader]||'CHAOS')}</small>`:''}</div>`;}
   function render(s){
+    // Stage 3: the Social Club renderer is opt-in and cannot affect v1 rooms.
+    if(s.mode==='social-club-v2'){
+      const club=window.ECKY_SOCIAL_TV;
+      if(!club){el.textContent='Social Club stage could not load.';return;}
+      const key=club.sceneKey(s);
+      if(lastSoundKey!==null&&lastSoundKey!==key)window.ECKEY_SFX?.play(club.cue(s));
+      if(typeof s.serverNow==='number')clockOffset=s.serverNow-Date.now();
+      lastSoundKey=key;lastSceneKey=key;current=s;
+      el.innerHTML=club.render(s);
+      updateTimer();
+      window.ECKEY_AUDIO?.setScene(s.phase==='LOBBY'?'LOBBY':'GAME');
+      return;
+    }
     const key=`${s.round?.id||'none'}:${s.phase}`;
     if(lastSoundKey!==null&&key!==lastSoundKey)window.ECKEY_SFX?.play(s.phase==='RESULTS'?(s.round?.skipReason?'skip':'reveal'):s.phase==='COMPLETE'?'champion':s.phase==='VOTE'?'vote':['SEED','SUBMIT'].includes(s.phase)?'round':'tap');
     const sceneChanged=lastSceneKey!==null&&lastSceneKey!==key;
