@@ -1,0 +1,26 @@
+{
+  "newlyApproved": 200,
+  "previouslyApproved": 650,
+  "totalApproved": 850,
+  "sourceCardsCSV": 100,
+  "sourceModesCSV": 100,
+  "editorialChanges": 9,
+  "byKindAndRating": {
+    "adult/contracts": 7,
+    "adult/finalWords": 10,
+    "cheeky/contracts": 8,
+    "cheeky/finalWords": 10,
+    "cheeky/responses": 15,
+    "clean/cardPrompts": 25,
+    "clean/contextPrompts": 10,
+    "clean/contracts": 10,
+    "clean/doublePrompts": 10,
+    "clean/finalPrompts": 10,
+    "clean/finalWords": 15,
+    "clean/responses": 60,
+    "clean/witPrompts": 10
+  },
+  "originalCSVUnchanged": true,
+  "licenceVerified": false,
+  "approvedSource": "user chat approval 2026-10-23"
+}

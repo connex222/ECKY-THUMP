@@ -27,12 +27,17 @@ test('ordinary and other modes source imports preserve 200 original text entries
  assert.ok(pack.entries.filter(e=>e.reviewFlags.length).length>0);
 });
 
-test('new draft texts cannot enter the live approved catalogue',()=>{
+test('approved 200 have exact source IDs and do not mutate historical draft review',()=>{
  const live=require('../server/content');
- assert.equal(live.approvedPack.entries.length,650);
- const ids=new Set(live.approvedPack.entries.map(e=>e.id));
- for(const item of staged.entries)assert.equal(ids.has(item.id),false,`premature publication ${item.id}`);
+ assert.equal(live.approvedPack.entries.length,850);
+ const published=new Map(live.approvedPack.entries.map(e=>[e.id,e]));
+ for(const item of staged.entries){
+   assert.equal(published.get(item.id)?.editorialStatus,'approved',item.id);
+   assert.equal(published.get(item.id)?.rating,item.rating,item.id);
+   assert.equal(published.get(item.id)?.kind,item.kind,item.id);
+ }
  assert.equal(staged.published,false);
+ assert.ok(staged.entries.every(e=>e.editorialStatus==='draft'&&e.approval==='pending'));
 });
 
 test('writer generates safe, searchable review HTML and editable CSV ledger',()=>{

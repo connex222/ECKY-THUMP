@@ -26,7 +26,7 @@ jobs:
         run: npm run audit:content
       - name: Approved Social Club card catalogue audit
         run: npm run audit:approved-content
-      - name: Validate unapproved additional cards and mode decks
+      - name: Verify original CSV provenance for approved additional cards
         run: npm run audit:more-cards
       - name: Editorial review queue (non-approving)
         run: npm run review:content

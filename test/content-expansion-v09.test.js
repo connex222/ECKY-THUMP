@@ -28,7 +28,10 @@ test('rating ceilings are strict for every added library type',()=>{
       const allowed=tiers.slice(0,tiers.indexOf(tier)+1);
       const superseded=new Set(c.approvedPack.entries.map(e=>e.id));
       for(const item of c.expansion.entries.filter(e=>e.kind===kind)){
-        const expected=!superseded.has(item.id) && allowed.includes(item.rating);
+        const normal=item.text.toLocaleLowerCase('en-GB').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+        const approvedTexts=new Set(c.approvedPack.entries.map(e=>e.text.toLocaleLowerCase('en-GB').replace(/[^\p{L}\p{N}]+/gu,' ').trim()));
+        const approvedMatch=c.approvedPack.entries.some(e=>e.kind===kind && e.text===item.text && allowed.includes(e.rating));
+        const expected=approvedMatch || (!superseded.has(item.id) && !approvedTexts.has(normal) && allowed.includes(item.rating));
         assert.equal(pool.includes(item.text),expected,`${kind} ${tier} ${item.id}`);
       }
       for(const item of c.approvedPack.entries.filter(e=>e.kind===kind)){

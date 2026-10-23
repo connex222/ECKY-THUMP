@@ -1,20 +1,24 @@
-# ECKY THUMP — 200 incoming cards, Stage 6 editorial review
+# ECKY THUMP — 200 additional cards (approved and released)
 
-**Status: DRAFT — not approved, not published, not loaded into the game.**
+**Status: APPROVED — 23 October 2026.** The original `candidates.json` and source CSVs
+are retained **unchanged** as evidence of the submitted draft. `candidates.json` still
+contains `draft` / `published:false` because it is the historical review snapshot.
+The current live wording is in `server/packs/social-club-approved-v1.json`.
 
-The files received on 23 October 2026 contain exactly 200 entries:
+All 200 source IDs are approved. Nine flagged entries were replaced with the
+proposed alternatives in `EDITORIAL-SUMMARY.md`; the final decisions appear in
+`approved-ledger.csv` and `approved-summary.json`.
 
-- `party_more_cards.csv`: 75 response cards (60 Family, 15 Cheeky), 25 Family one-blank prompts.
-- `party_more_modes.csv`: 10 Family `witPrompts`, 10 Family `contextPrompts`, 10 Family `doublePrompts`, 10 Family `finalPrompts`, 35 `finalWords` across three ratings, and 25 `contracts` across three ratings.
+- `party_more_cards.csv`: 75 answers and 25 one-blank prompts.
+- `party_more_modes.csv`: 40 writing prompts, 35 Last Orders words, 25 contracts.
+- `candidates.json`: immutable historical 200-item draft review.
+- `approved-ledger.csv`: 200-row source-to-approved map, showing nine changes.
+- `approved-summary.json`: aggregated release counts and rights status.
 
-`candidates.json` preserves the original texts and unique source IDs; each entry has `editorialStatus: draft`, `readyToPublish: false`, `approval: pending` and `licence: unverified`. No wording is automatically altered. The new internal IDs begin `etsc-more-`.
+`npm run audit:more-cards` ensures the preserved CSVs reproduce their original
+review snapshots without self-collisions; `npm run audit:approved-content`
+validates 850 approved entries. The old 1,200-card expansion remains unchanged.
 
-`review.html` is a searchable, self-contained document. `editorial-ledger.csv` includes a blank `editor_decision` field. `summary.json` records rating and issue counts.
-
-**9 entries have automatic flags:** one repeated Family prompt, three duplicate older Last Orders words (*scone*, *snog*, *hangover*), four overused four-word openings and one Family-rated reference to a cocktail. The flagged entries require human editorial decisions; 191 others have no *automatic* flags but still need quality, age-rating and permission checks. These are **not nine necessarily unacceptable cards**.
-
-Run `npm run audit:more-cards` to verify exact reproducibility from the two CSVs; `npm test` validates invariants. No stage script modifies `server/packs/social-club-approved-v1.json` or production assets. After approval, resolve the flagged 9 first, preserve an old→new ledger, deduplicate against the live and draft catalogues and only then add approved entries to the runtime approved pack.
-
-## Reuse rights
-
-The uploaded CSVs contain no third-party provenance/rights statement. Confirm original authorship or a licence that permits adaptation, public hosting and potential paid distribution before commercial publication.
+**Permissions:** User editorial approval was received. The original CSVs do not
+record external copyright provenance, so redistribution and possible commercial
+usage rights have not been independently verified. Do not assert otherwise.

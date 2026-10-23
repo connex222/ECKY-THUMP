@@ -26,7 +26,11 @@ function readRows(filename, headers){
   });
 }
 function obtainSources(input){
- const accepted=JSON.parse(fs.readFileSync(path.join(input,'server/packs/social-club-approved-v1.json'),'utf8')).entries;
+ const allApproved=JSON.parse(fs.readFileSync(path.join(input,'server/packs/social-club-approved-v1.json'),'utf8')).entries;
+ // Previously imported cards must not count as duplicates of their own source CSV.
+ const previouslyImported=allApproved.filter(e=>e.id?.startsWith('etsc-more-'));
+ const importedTexts=new Set(previouslyImported.map(e=>normalise(e.text)));
+ const accepted=allApproved.filter(e=>!e.id?.startsWith('etsc-more-'));
  const legacy=JSON.parse(fs.readFileSync(path.join(input,'server/packs/after-dark-v09.json'),'utf8')).entries;
  const {cardPrompts,witPrompts,contextPrompts,doublePrompts,finalPrompts,responses,finalWords,contracts}=require(path.join(input,'server/content.js'));
  const pools={cardPrompts,witPrompts,contextPrompts,doublePrompts,finalPrompts,responses,finalWords,contracts};
@@ -37,7 +41,12 @@ function obtainSources(input){
   const keyFour=opening(text);openings.set(keyFour,(openings.get(keyFour)||0)+1);
  };
  for(const e of [...accepted,...legacy]){byId.add(e.id);add(e.text,e===null?'':accepted.includes(e)?'approved':'legacy',e.id)}
- for(const [kind,tiers] of Object.entries(pools)) for(const [rating,values] of Object.entries(tiers)) for(const text of values) add(text,'playable:'+kind+'/'+rating,null);
+ for(const [kind,tiers] of Object.entries(pools)) for(const [rating,values] of Object.entries(tiers)) for(const text of values) {
+   // The runtime pools also contain approved imports; ignore those exact new strings
+   // when re-running a historical review from the same source files.
+   if(importedTexts.has(normalise(text)))continue;
+   add(text,'playable:'+kind+'/'+rating,null);
+ }
  return {byText,byId,openings};
 }
 function stage(cardsPath,modesPath,repoRoot=root){

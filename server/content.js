@@ -229,7 +229,9 @@ for (const item of expansion.entries) {
   if (!pool || !pool[item.rating] || !item.text || !item.id) throw Error('Invalid expansion content '+item.id);
   // Preserve the existing v1 pack, but never deal a superseded or unapproved
   // expansion entry when the approved-only content switch is enabled.
-  if (premiumOnly || approvedIds.has(item.id)) continue;
+  const legacyKey=item.text.toLocaleLowerCase('en-GB').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+  // Approved wording wins over a legacy draft with a different ID.
+  if (premiumOnly || approvedIds.has(item.id) || approvedText.has(legacyKey)) continue;
   pool[item.rating].push(item.text);
 }
 for (const item of approvedPack.entries) buckets[item.kind][item.rating].push(item.text);

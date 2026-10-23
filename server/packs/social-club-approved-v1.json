@@ -2,7 +2,7 @@
   "id": "ecky-social-club-approved-v1",
   "version": "2.0.0",
   "status": "approved",
-  "description": "User-approved 200 Family proposals plus 450 adapted user CSV cards; no third-party source rights independently verified",
+  "description": "850 user-approved Social Club entries: 200 Family proposals, 450 prior CSV cards, 200 new CSV cards; original CSV ownership/usage rights not independently verified",
   "sourceFileSha256": "e57743fdec658cfc48c09739f23756c6da75d958f4fe6eb3f57e669920cbd8a0",
   "entries": [
     {
@@ -8254,6 +8254,2814 @@
         "csv-import"
       ],
       "source": "party_cards.csv"
+    },
+    {
+      "id": "etsc-more-100001",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a meat raffle with no meat left",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100001"
+    },
+    {
+      "id": "etsc-more-100002",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "the bingo caller's dramatic pause",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100002"
+    },
+    {
+      "id": "etsc-more-100003",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a tombola prize nobody wants back",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100003"
+    },
+    {
+      "id": "etsc-more-100004",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "Auntie Jean's legendary trifle",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100004"
+    },
+    {
+      "id": "etsc-more-100005",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a caravan awning in a gale",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100005"
+    },
+    {
+      "id": "etsc-more-100006",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "the chippy's last battered sausage",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100006"
+    },
+    {
+      "id": "etsc-more-100007",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "scraps on absolutely everything",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100007"
+    },
+    {
+      "id": "etsc-more-100008",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a raffle ticket stuck to your shoe",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100008"
+    },
+    {
+      "id": "etsc-more-100009",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "the committee's emergency meeting",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100009"
+    },
+    {
+      "id": "etsc-more-100010",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a strongly worded parish newsletter",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100010"
+    },
+    {
+      "id": "etsc-more-100011",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a buffet left out since dinnertime",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100011"
+    },
+    {
+      "id": "etsc-more-100012",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a vol-au-vent of uncertain origin",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100012"
+    },
+    {
+      "id": "etsc-more-100013",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "the quiz master's wrong answer sheet",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100013"
+    },
+    {
+      "id": "etsc-more-100014",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a fête dog show with one dog",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100014"
+    },
+    {
+      "id": "etsc-more-100015",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a giant marrow with a grudge",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100015"
+    },
+    {
+      "id": "etsc-more-100016",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a disqualified Victoria sponge",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100016"
+    },
+    {
+      "id": "etsc-more-100017",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a bouncy castle losing the will to live",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100017"
+    },
+    {
+      "id": "etsc-more-100018",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "the school gate's silent stare",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100018"
+    },
+    {
+      "id": "etsc-more-100019",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a lost property box from 1987",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100019"
+    },
+    {
+      "id": "etsc-more-100020",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "the PE teacher's whistle",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100020"
+    },
+    {
+      "id": "etsc-more-100021",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a nativity donkey with stage fright",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100021"
+    },
+    {
+      "id": "etsc-more-100022",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a tea urn that takes three hours",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100022"
+    },
+    {
+      "id": "etsc-more-100023",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a gravy boat full of custard",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100023"
+    },
+    {
+      "id": "etsc-more-100024",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a Yorkshire pudding the size of a hat",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100024"
+    },
+    {
+      "id": "etsc-more-100025",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a coat that's \"fine for one more winter\"",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100025"
+    },
+    {
+      "id": "etsc-more-100026",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "Grandad asleep in a deckchair",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100026"
+    },
+    {
+      "id": "etsc-more-100027",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a three-hour drive to look at a lake",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100027"
+    },
+    {
+      "id": "etsc-more-100028",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "an umbrella turned inside out",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100028"
+    },
+    {
+      "id": "etsc-more-100029",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "the smell of a damp caravan",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100029"
+    },
+    {
+      "id": "etsc-more-100030",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a Christmas jumper that plays a tune",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100030"
+    },
+    {
+      "id": "etsc-more-100031",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a cracker joke nobody understood",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100031"
+    },
+    {
+      "id": "etsc-more-100032",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "the last roast potato",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100032"
+    },
+    {
+      "id": "etsc-more-100033",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a row about board game rules",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100033"
+    },
+    {
+      "id": "etsc-more-100034",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a family group chat in capital letters",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100034"
+    },
+    {
+      "id": "etsc-more-100035",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a thumbs-up emoji from Nan",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100035"
+    },
+    {
+      "id": "etsc-more-100036",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "the club's broken jukebox",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100036"
+    },
+    {
+      "id": "etsc-more-100037",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a dartboard with one dart",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100037"
+    },
+    {
+      "id": "etsc-more-100038",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a pint of shandy and a pickled egg",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100038"
+    },
+    {
+      "id": "etsc-more-100039",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a bag of chips on the bus home",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100039"
+    },
+    {
+      "id": "etsc-more-100040",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a seagull with a criminal record",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100040"
+    },
+    {
+      "id": "etsc-more-100041",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a lollipop lady on a power trip",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100041"
+    },
+    {
+      "id": "etsc-more-100042",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a car boot haggle over 20p",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100042"
+    },
+    {
+      "id": "etsc-more-100043",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a tortoise called Speedy",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100043"
+    },
+    {
+      "id": "etsc-more-100044",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a carol singer who knows one verse",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100044"
+    },
+    {
+      "id": "etsc-more-100045",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a wheelie bin blown into next week",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100045"
+    },
+    {
+      "id": "etsc-more-100046",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "the neighbour's suspicious new shed",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100046"
+    },
+    {
+      "id": "etsc-more-100047",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a cutthroat hanging basket contest",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100047"
+    },
+    {
+      "id": "etsc-more-100048",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a hosepipe ban rebel",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100048"
+    },
+    {
+      "id": "etsc-more-100049",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a fruit cake older than the vicar",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100049"
+    },
+    {
+      "id": "etsc-more-100050",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a brass band missing its tuba",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100050"
+    },
+    {
+      "id": "etsc-more-100051",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a Morris dancer who's lost a hanky",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100051"
+    },
+    {
+      "id": "etsc-more-100052",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a mobility scooter at full speed",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100052"
+    },
+    {
+      "id": "etsc-more-100053",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a bowls club grudge match",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100053"
+    },
+    {
+      "id": "etsc-more-100054",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a crisp sandwich",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100054"
+    },
+    {
+      "id": "etsc-more-100055",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "tea you could stand a spoon up in",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100055"
+    },
+    {
+      "id": "etsc-more-100056",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a biscuit tin full of sewing kit",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100056"
+    },
+    {
+      "id": "etsc-more-100057",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "the \"good\" front room",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100057"
+    },
+    {
+      "id": "etsc-more-100058",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a cardigan with tissues up the sleeve",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100058"
+    },
+    {
+      "id": "etsc-more-100059",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a free buffet with a two-hour queue",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100059"
+    },
+    {
+      "id": "etsc-more-100060",
+      "kind": "responses",
+      "rating": "clean",
+      "text": "a vicar on a unicycle",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100060"
+    },
+    {
+      "id": "etsc-more-100061",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The meat raffle's top prize this week: _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100061"
+    },
+    {
+      "id": "etsc-more-100062",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "Nan's secret to a long life: _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100062"
+    },
+    {
+      "id": "etsc-more-100063",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The village fête lost its marquee because of _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100063"
+    },
+    {
+      "id": "etsc-more-100064",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The parish council's new bylaw bans _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100064"
+    },
+    {
+      "id": "etsc-more-100065",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "Found in the club's lost property box: _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100065"
+    },
+    {
+      "id": "etsc-more-100066",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "Tonight's bingo has been ruined by _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100066"
+    },
+    {
+      "id": "etsc-more-100067",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The highlight of our caravan holiday: _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100067"
+    },
+    {
+      "id": "etsc-more-100068",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The chippy now serves _____ with every fish supper.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100068"
+    },
+    {
+      "id": "etsc-more-100069",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "Christmas dinner went wrong the moment _____ arrived.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100069"
+    },
+    {
+      "id": "etsc-more-100070",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The gossip at the school gate is all about _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100070"
+    },
+    {
+      "id": "etsc-more-100071",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "Our quiz team's secret weapon: _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100071"
+    },
+    {
+      "id": "etsc-more-100072",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "Tonight's brass-band number celebrates _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100072"
+    },
+    {
+      "id": "etsc-more-100073",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "Grandad's answer to every problem: _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100073"
+    },
+    {
+      "id": "etsc-more-100074",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The family group chat exploded after _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100074"
+    },
+    {
+      "id": "etsc-more-100075",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "First prize on the tombola: _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100075"
+    },
+    {
+      "id": "etsc-more-100076",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The committee spent three hours arguing about _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100076"
+    },
+    {
+      "id": "etsc-more-100077",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "Coming soon to the social club: _____ night.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100077"
+    },
+    {
+      "id": "etsc-more-100078",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The bowls club has been banned from _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100078"
+    },
+    {
+      "id": "etsc-more-100079",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The work do's raffle prize: _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100079"
+    },
+    {
+      "id": "etsc-more-100080",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The council notice simply read: \"Beware of _____.\"",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100080"
+    },
+    {
+      "id": "etsc-more-100081",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "What's Mum hiding in the airing cupboard? _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100081"
+    },
+    {
+      "id": "etsc-more-100082",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The best seat in the club is next to _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100082"
+    },
+    {
+      "id": "etsc-more-100083",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "Boxing Day tradition in our house: _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100083"
+    },
+    {
+      "id": "etsc-more-100084",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The dog show judge was bribed with _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100084"
+    },
+    {
+      "id": "etsc-more-100085",
+      "kind": "cardPrompts",
+      "rating": "clean",
+      "text": "The vicar's sermon was mostly about _____.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100085"
+    },
+    {
+      "id": "etsc-more-100086",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "a vicar with a very long sermon",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100086"
+    },
+    {
+      "id": "etsc-more-100087",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "a handshake that lasted too long",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100087"
+    },
+    {
+      "id": "etsc-more-100088",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "the barmaid's very generous measures",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100088"
+    },
+    {
+      "id": "etsc-more-100089",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "a suspiciously cheerful milkman",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100089"
+    },
+    {
+      "id": "etsc-more-100090",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "prize-winning melons at the fête",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100090"
+    },
+    {
+      "id": "etsc-more-100091",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "a fireman's lift at the work do",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100091"
+    },
+    {
+      "id": "etsc-more-100092",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "a slow dance with the DJ",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100092"
+    },
+    {
+      "id": "etsc-more-100093",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "a cheeky wink across the bingo hall",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100093"
+    },
+    {
+      "id": "etsc-more-100094",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "the bowls club's tight white trousers",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100094"
+    },
+    {
+      "id": "etsc-more-100095",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "a holiday rep who's very hands-on",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100095"
+    },
+    {
+      "id": "etsc-more-100096",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "a bit of slap and tickle",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100096"
+    },
+    {
+      "id": "etsc-more-100097",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "a sweaty tango at the tea dance",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100097"
+    },
+    {
+      "id": "etsc-more-100098",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "a well-stuffed Christmas stocking",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100098"
+    },
+    {
+      "id": "etsc-more-100099",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "the postman's very large package",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100099"
+    },
+    {
+      "id": "etsc-more-100100",
+      "kind": "responses",
+      "rating": "cheeky",
+      "text": "Nan's big knickers on the line",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "100100"
+    },
+    {
+      "id": "etsc-more-200001",
+      "kind": "witPrompts",
+      "rating": "clean",
+      "text": "Name the social club's new signature mocktail.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200001"
+    },
+    {
+      "id": "etsc-more-200002",
+      "kind": "witPrompts",
+      "rating": "clean",
+      "text": "Invent a terrible prize for the meat raffle.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200002"
+    },
+    {
+      "id": "etsc-more-200003",
+      "kind": "witPrompts",
+      "rating": "clean",
+      "text": "Name a brass band's comeback album.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200003"
+    },
+    {
+      "id": "etsc-more-200004",
+      "kind": "witPrompts",
+      "rating": "clean",
+      "text": "Invent a new rule for the bowls green.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200004"
+    },
+    {
+      "id": "etsc-more-200005",
+      "kind": "witPrompts",
+      "rating": "clean",
+      "text": "Name the chippy's most ambitious new dish.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200005"
+    },
+    {
+      "id": "etsc-more-200006",
+      "kind": "witPrompts",
+      "rating": "clean",
+      "text": "Suggest a theme for the worst work do ever.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200006"
+    },
+    {
+      "id": "etsc-more-200007",
+      "kind": "witPrompts",
+      "rating": "clean",
+      "text": "Name a caravan that's seen better days.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200007"
+    },
+    {
+      "id": "etsc-more-200008",
+      "kind": "witPrompts",
+      "rating": "clean",
+      "text": "Invent a new category for the dog show.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200008"
+    },
+    {
+      "id": "etsc-more-200009",
+      "kind": "witPrompts",
+      "rating": "clean",
+      "text": "Write the parish council's new motto.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200009"
+    },
+    {
+      "id": "etsc-more-200010",
+      "kind": "witPrompts",
+      "rating": "clean",
+      "text": "Name a cake that should never enter a baking contest.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200010"
+    },
+    {
+      "id": "etsc-more-200011",
+      "kind": "contextPrompts",
+      "rating": "clean",
+      "text": "Give a harmless remark heard at the village fête.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200011"
+    },
+    {
+      "id": "etsc-more-200012",
+      "kind": "contextPrompts",
+      "rating": "clean",
+      "text": "Write a polite note to leave on a neighbour's windscreen.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200012"
+    },
+    {
+      "id": "etsc-more-200013",
+      "kind": "contextPrompts",
+      "rating": "clean",
+      "text": "Write an innocent thing to shout at a bowls match.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200013"
+    },
+    {
+      "id": "etsc-more-200014",
+      "kind": "contextPrompts",
+      "rating": "clean",
+      "text": "Write a perfectly normal text from Nan.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200014"
+    },
+    {
+      "id": "etsc-more-200015",
+      "kind": "contextPrompts",
+      "rating": "clean",
+      "text": "Quote a harmless line from the vicar's sermon.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200015"
+    },
+    {
+      "id": "etsc-more-200016",
+      "kind": "contextPrompts",
+      "rating": "clean",
+      "text": "Write a harmless comment about the buffet.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200016"
+    },
+    {
+      "id": "etsc-more-200017",
+      "kind": "contextPrompts",
+      "rating": "clean",
+      "text": "What innocent thing was said during flatpack assembly?",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200017"
+    },
+    {
+      "id": "etsc-more-200018",
+      "kind": "contextPrompts",
+      "rating": "clean",
+      "text": "Write something Grandad says while carving the turkey.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200018"
+    },
+    {
+      "id": "etsc-more-200019",
+      "kind": "contextPrompts",
+      "rating": "clean",
+      "text": "Write an innocent thing the bingo caller announces.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200019"
+    },
+    {
+      "id": "etsc-more-200020",
+      "kind": "contextPrompts",
+      "rating": "clean",
+      "text": "Write a perfectly ordinary caravan site notice.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200020"
+    },
+    {
+      "id": "etsc-more-200021",
+      "kind": "doublePrompts",
+      "rating": "clean",
+      "text": "Advertise a caravan that's mostly rust.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200021"
+    },
+    {
+      "id": "etsc-more-200022",
+      "kind": "doublePrompts",
+      "rating": "clean",
+      "text": "Sell a ticket to the club's karaoke night.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200022"
+    },
+    {
+      "id": "etsc-more-200023",
+      "kind": "doublePrompts",
+      "rating": "clean",
+      "text": "Advertise a tea urn that never quite boils.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200023"
+    },
+    {
+      "id": "etsc-more-200024",
+      "kind": "doublePrompts",
+      "rating": "clean",
+      "text": "Pitch a wet bank holiday at the seaside.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200024"
+    },
+    {
+      "id": "etsc-more-200025",
+      "kind": "doublePrompts",
+      "rating": "clean",
+      "text": "Advertise a second-hand Christmas jumper.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200025"
+    },
+    {
+      "id": "etsc-more-200026",
+      "kind": "doublePrompts",
+      "rating": "clean",
+      "text": "Sell the last unwanted tombola prize.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200026"
+    },
+    {
+      "id": "etsc-more-200027",
+      "kind": "doublePrompts",
+      "rating": "clean",
+      "text": "Advertise the chippy's new deep-fried pudding.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200027"
+    },
+    {
+      "id": "etsc-more-200028",
+      "kind": "doublePrompts",
+      "rating": "clean",
+      "text": "Sell a garden gnome to someone who hates gnomes.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200028"
+    },
+    {
+      "id": "etsc-more-200029",
+      "kind": "doublePrompts",
+      "rating": "clean",
+      "text": "Advertise the council's new bin rota.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200029"
+    },
+    {
+      "id": "etsc-more-200030",
+      "kind": "doublePrompts",
+      "rating": "clean",
+      "text": "Pitch a brass band for a wedding first dance.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200030"
+    },
+    {
+      "id": "etsc-more-200031",
+      "kind": "finalPrompts",
+      "rating": "clean",
+      "text": "Give a farewell speech to the club's broken jukebox.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200031"
+    },
+    {
+      "id": "etsc-more-200032",
+      "kind": "finalPrompts",
+      "rating": "clean",
+      "text": "Make the last announcement before the club locks up.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200032"
+    },
+    {
+      "id": "etsc-more-200033",
+      "kind": "finalPrompts",
+      "rating": "clean",
+      "text": "Give the closing toast at Nan's 90th.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200033"
+    },
+    {
+      "id": "etsc-more-200034",
+      "kind": "finalPrompts",
+      "rating": "clean",
+      "text": "Read out the last will of the meat raffle.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200034"
+    },
+    {
+      "id": "etsc-more-200035",
+      "kind": "finalPrompts",
+      "rating": "clean",
+      "text": "Give the winner's speech for best hanging basket.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200035"
+    },
+    {
+      "id": "etsc-more-200036",
+      "kind": "finalPrompts",
+      "rating": "clean",
+      "text": "Give a retirement speech for the lollipop lady.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200036"
+    },
+    {
+      "id": "etsc-more-200037",
+      "kind": "finalPrompts",
+      "rating": "clean",
+      "text": "Make a final appeal for the new tea urn fund.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200037"
+    },
+    {
+      "id": "etsc-more-200038",
+      "kind": "finalPrompts",
+      "rating": "clean",
+      "text": "Announce the results of a bitterly fought quiz.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200038"
+    },
+    {
+      "id": "etsc-more-200039",
+      "kind": "finalPrompts",
+      "rating": "clean",
+      "text": "Give the eulogy for a much-loved caravan.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200039"
+    },
+    {
+      "id": "etsc-more-200040",
+      "kind": "finalPrompts",
+      "rating": "clean",
+      "text": "Make the closing speech at the work Christmas do.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200040"
+    },
+    {
+      "id": "etsc-more-200041",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "gravy",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200041"
+    },
+    {
+      "id": "etsc-more-200042",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "tombola",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200042"
+    },
+    {
+      "id": "etsc-more-200043",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "whippet",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200043"
+    },
+    {
+      "id": "etsc-more-200044",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "cardigan",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200044"
+    },
+    {
+      "id": "etsc-more-200045",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "kettle",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200045"
+    },
+    {
+      "id": "etsc-more-200046",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "brolly",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200046"
+    },
+    {
+      "id": "etsc-more-200047",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "marrow",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200047"
+    },
+    {
+      "id": "etsc-more-200048",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "gnome",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200048"
+    },
+    {
+      "id": "etsc-more-200049",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "flapjack",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200049"
+    },
+    {
+      "id": "etsc-more-200050",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "ferret",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200050"
+    },
+    {
+      "id": "etsc-more-200051",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "bingo",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200051"
+    },
+    {
+      "id": "etsc-more-200052",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "chippy",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200052"
+    },
+    {
+      "id": "etsc-more-200053",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "wellies",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200053"
+    },
+    {
+      "id": "etsc-more-200054",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "crumpet",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200054"
+    },
+    {
+      "id": "etsc-more-200055",
+      "kind": "finalWords",
+      "rating": "clean",
+      "text": "trifle",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200055"
+    },
+    {
+      "id": "etsc-more-200056",
+      "kind": "finalWords",
+      "rating": "cheeky",
+      "text": "knickers",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200056"
+    },
+    {
+      "id": "etsc-more-200057",
+      "kind": "finalWords",
+      "rating": "cheeky",
+      "text": "wink",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200057"
+    },
+    {
+      "id": "etsc-more-200058",
+      "kind": "finalWords",
+      "rating": "cheeky",
+      "text": "lovebite",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200058"
+    },
+    {
+      "id": "etsc-more-200059",
+      "kind": "finalWords",
+      "rating": "cheeky",
+      "text": "tipsy",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200059"
+    },
+    {
+      "id": "etsc-more-200060",
+      "kind": "finalWords",
+      "rating": "cheeky",
+      "text": "frisky",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200060"
+    },
+    {
+      "id": "etsc-more-200061",
+      "kind": "finalWords",
+      "rating": "cheeky",
+      "text": "cleavage",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200061"
+    },
+    {
+      "id": "etsc-more-200062",
+      "kind": "finalWords",
+      "rating": "cheeky",
+      "text": "saucy",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200062"
+    },
+    {
+      "id": "etsc-more-200063",
+      "kind": "finalWords",
+      "rating": "cheeky",
+      "text": "hanky-panky",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200063"
+    },
+    {
+      "id": "etsc-more-200064",
+      "kind": "finalWords",
+      "rating": "cheeky",
+      "text": "bum",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200064"
+    },
+    {
+      "id": "etsc-more-200065",
+      "kind": "finalWords",
+      "rating": "cheeky",
+      "text": "smooch",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200065"
+    },
+    {
+      "id": "etsc-more-200066",
+      "kind": "finalWords",
+      "rating": "adult",
+      "text": "shag",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200066"
+    },
+    {
+      "id": "etsc-more-200067",
+      "kind": "finalWords",
+      "rating": "adult",
+      "text": "afterparty",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200067"
+    },
+    {
+      "id": "etsc-more-200068",
+      "kind": "finalWords",
+      "rating": "adult",
+      "text": "condom",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200068"
+    },
+    {
+      "id": "etsc-more-200069",
+      "kind": "finalWords",
+      "rating": "adult",
+      "text": "nipples",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200069"
+    },
+    {
+      "id": "etsc-more-200070",
+      "kind": "finalWords",
+      "rating": "adult",
+      "text": "bollocks",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200070"
+    },
+    {
+      "id": "etsc-more-200071",
+      "kind": "finalWords",
+      "rating": "adult",
+      "text": "orgasm",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200071"
+    },
+    {
+      "id": "etsc-more-200072",
+      "kind": "finalWords",
+      "rating": "adult",
+      "text": "threesome",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200072"
+    },
+    {
+      "id": "etsc-more-200073",
+      "kind": "finalWords",
+      "rating": "adult",
+      "text": "lube",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200073"
+    },
+    {
+      "id": "etsc-more-200074",
+      "kind": "finalWords",
+      "rating": "adult",
+      "text": "striptease",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200074"
+    },
+    {
+      "id": "etsc-more-200075",
+      "kind": "finalWords",
+      "rating": "adult",
+      "text": "quickie",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200075"
+    },
+    {
+      "id": "etsc-more-200076",
+      "kind": "contracts",
+      "rating": "clean",
+      "text": "Answer like a bingo caller.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200076"
+    },
+    {
+      "id": "etsc-more-200077",
+      "kind": "contracts",
+      "rating": "clean",
+      "text": "Answer like a disappointed headteacher.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200077"
+    },
+    {
+      "id": "etsc-more-200078",
+      "kind": "contracts",
+      "rating": "clean",
+      "text": "Answer like a weather presenter in a storm.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200078"
+    },
+    {
+      "id": "etsc-more-200079",
+      "kind": "contracts",
+      "rating": "clean",
+      "text": "Answer like a nervous best man.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200079"
+    },
+    {
+      "id": "etsc-more-200080",
+      "kind": "contracts",
+      "rating": "clean",
+      "text": "Answer like a nature documentary narrator.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200080"
+    },
+    {
+      "id": "etsc-more-200081",
+      "kind": "contracts",
+      "rating": "clean",
+      "text": "Answer like a commentator at a dog show.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200081"
+    },
+    {
+      "id": "etsc-more-200082",
+      "kind": "contracts",
+      "rating": "clean",
+      "text": "Answer like a council official reading a notice.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200082"
+    },
+    {
+      "id": "etsc-more-200083",
+      "kind": "contracts",
+      "rating": "clean",
+      "text": "Answer like Nan on speakerphone.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200083"
+    },
+    {
+      "id": "etsc-more-200084",
+      "kind": "contracts",
+      "rating": "clean",
+      "text": "Answer like a pirate captain.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200084"
+    },
+    {
+      "id": "etsc-more-200085",
+      "kind": "contracts",
+      "rating": "clean",
+      "text": "Answer like a sat nav that's given up.",
+      "editorialStatus": "approved",
+      "tags": [
+        "clean",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200085"
+    },
+    {
+      "id": "etsc-more-200086",
+      "kind": "contracts",
+      "rating": "cheeky",
+      "text": "Answer like a holiday rep after three sangrias.",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200086"
+    },
+    {
+      "id": "etsc-more-200087",
+      "kind": "contracts",
+      "rating": "cheeky",
+      "text": "Answer like a flirty bingo caller.",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200087"
+    },
+    {
+      "id": "etsc-more-200088",
+      "kind": "contracts",
+      "rating": "cheeky",
+      "text": "Answer like someone trying to sound sober.",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200088"
+    },
+    {
+      "id": "etsc-more-200089",
+      "kind": "contracts",
+      "rating": "cheeky",
+      "text": "Answer like a romance novel narrator.",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200089"
+    },
+    {
+      "id": "etsc-more-200090",
+      "kind": "contracts",
+      "rating": "cheeky",
+      "text": "Answer like a dodgy second-hand car dealer.",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200090"
+    },
+    {
+      "id": "etsc-more-200091",
+      "kind": "contracts",
+      "rating": "cheeky",
+      "text": "Answer like a gossiping hairdresser.",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200091"
+    },
+    {
+      "id": "etsc-more-200092",
+      "kind": "contracts",
+      "rating": "cheeky",
+      "text": "Answer like someone texting their ex at midnight.",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200092"
+    },
+    {
+      "id": "etsc-more-200093",
+      "kind": "contracts",
+      "rating": "cheeky",
+      "text": "Answer like a maid of honour on her fourth prosecco.",
+      "editorialStatus": "approved",
+      "tags": [
+        "cheeky",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200093"
+    },
+    {
+      "id": "etsc-more-200094",
+      "kind": "contracts",
+      "rating": "adult",
+      "text": "Answer like a late-night chat line voice.",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200094"
+    },
+    {
+      "id": "etsc-more-200095",
+      "kind": "contracts",
+      "rating": "adult",
+      "text": "Answer like a hungover stag at breakfast.",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200095"
+    },
+    {
+      "id": "etsc-more-200096",
+      "kind": "contracts",
+      "rating": "adult",
+      "text": "Answer like an erotic audiobook narrator.",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200096"
+    },
+    {
+      "id": "etsc-more-200097",
+      "kind": "contracts",
+      "rating": "adult",
+      "text": "Answer like a divorce lawyer smelling money.",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200097"
+    },
+    {
+      "id": "etsc-more-200098",
+      "kind": "contracts",
+      "rating": "adult",
+      "text": "Answer like a sex therapist who's seen it all.",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200098"
+    },
+    {
+      "id": "etsc-more-200099",
+      "kind": "contracts",
+      "rating": "adult",
+      "text": "Answer like a drunk aunt at a wedding.",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200099"
+    },
+    {
+      "id": "etsc-more-200100",
+      "kind": "contracts",
+      "rating": "adult",
+      "text": "Answer like a burlesque compère.",
+      "editorialStatus": "approved",
+      "tags": [
+        "adult",
+        "approved-stage6",
+        "approved-more-cards-2026-10-23"
+      ],
+      "source": "user-2026-10-23-csv",
+      "sourceId": "200100"
     }
-  ]
+  ],
+  "additionalSources": [
+    "party_more_cards.csv",
+    "party_more_modes.csv"
+  ],
+  "additionalSourceShas256": {
+    "party_more_cards.csv": "fb8023e8603ede5084b7ff5ec77c48e32aa7f4d6960a21f6d0106905a37ff331",
+    "party_more_modes.csv": "0fb640587910f32982d16ade4657b0e3b2bbcefcaab009d1ae40a602c7c89552"
+  }
 }
