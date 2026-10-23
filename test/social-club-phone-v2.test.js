@@ -86,6 +86,17 @@ test('Voting uses single large choices and never offers a vote to a contestant i
   assert.doesNotMatch(allowed,/GOLD|SILVER/);
 });
 
+test("Voting letters match the TV even when a player’s own raffle entry is excluded",()=>{
+  const c=controller();
+  const html=c.render(snapshot({phase:'VOTE',title:'THE MEAT RAFFLE',round:{id:'raffle',type:'CARD',
+    vote:{eligible:true,voted:false,choices:[{id:'e2',text:'Other entry',letter:'B'},{id:'e3',text:'Third entry',letter:'C'}]}}}));
+  assert.match(html,/<strong>B<\/strong>/);
+  assert.match(html,/<strong>C<\/strong>/);
+  assert.doesNotMatch(html,/<strong>A<\/strong>/);
+  const server=fs.readFileSync(path.join(root,'server/social-club.js'),'utf8');
+  assert.match(server,/letter:String\.fromCharCode\(65\+i\)/);
+});
+
 test('Answer text and names are HTML escaped, and results show authors only after voting',()=>{
   const c=controller();
   const html=c.render(snapshot({phase:'VOTE',title:'THE TURN',round:{id:'r',type:'WIT',

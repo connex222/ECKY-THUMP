@@ -101,7 +101,7 @@
     return `<section class="club-phone-panel club-phone-vote"><div class="club-phone-eyebrow">${esc(s.title)} · ${isDuel?'HEAD TO HEAD':'YOUR ONE VOTE'}</div>
       <h1>Who gets your vote?</h1><p class="club-phone-lead">${isDuel?'Tap A or B. You get one vote.':'Choose one answer. No voting for yourself.'}</p>
       <div class="club-phone-choices ${isDuel?'is-duel':''}">${answers.map((a,i)=>`<div class="club-phone-choice">
-        ${b('vote',`<strong>${String.fromCharCode(65+i)}</strong><span>${esc(a.text)}</span>`,'vote',`data-club-id="${esc(a.id)}" ${state.busy||s.paused?'disabled':''}`)}
+        ${b('vote',`<strong>${esc(a.letter||String.fromCharCode(65+i))}</strong><span>${esc(a.text)}</span>`,'vote',`data-club-id="${esc(a.id)}" ${state.busy||s.paused?'disabled':''}`)}
         ${b('report','REPORT','minor',`data-club-id="${esc(a.id)}" aria-label="Report answer ${i+1}"`)}
         ${host(s)?b('hide','HIDE ENTRY','minor',`data-club-id="${esc(a.id)}" aria-label="Hide answer ${i+1}"`):''}</div>`).join('')}</div>
       <p class="club-phone-note">Voting closes automatically. You can only vote once.</p><div class="club-phone-timer" id="timer" role="timer">--:--</div>

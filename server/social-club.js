@@ -345,7 +345,7 @@ function snapshot(room,viewerId,isTV=false){
     if(room.phase==='VOTE'){
       const hasVoted=(player?g.ballots:aud?g.audienceBallots:new Map()).has(viewerId);
       const eligible=!!(player&&playerEligible(room,player,g)||aud);
-      base.round.vote={eligible,voted:hasVoted,groupId:g.id,choices:[...g.entries.values()].filter(e=>!e.auto&&(!player||e.authorId!==player.id)).map(e=>({id:e.id,text:e.text}))};
+      base.round.vote={eligible,voted:hasVoted,groupId:g.id,choices:[...g.entries.values()].map((e,i)=>({id:e.id,text:e.text,letter:String.fromCharCode(65+i),authorId:e.authorId,auto:e.auto})).filter(e=>!e.auto&&(!player||e.authorId!==player.id)).map(({id,text,letter})=>({id,text,letter}))};
     }
     if(g.result&&room.phase!=='VOTE')base.round.result=g.result;
   }
