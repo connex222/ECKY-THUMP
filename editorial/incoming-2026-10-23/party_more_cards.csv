@@ -1,0 +1,101 @@
+id,deck,card_type,text,pick
+100001,Family-friendly,Answer (white),a meat raffle with no meat left,
+100002,Family-friendly,Answer (white),the bingo caller's dramatic pause,
+100003,Family-friendly,Answer (white),a tombola prize nobody wants back,
+100004,Family-friendly,Answer (white),Auntie Jean's legendary trifle,
+100005,Family-friendly,Answer (white),a caravan awning in a gale,
+100006,Family-friendly,Answer (white),the chippy's last battered sausage,
+100007,Family-friendly,Answer (white),scraps on absolutely everything,
+100008,Family-friendly,Answer (white),a raffle ticket stuck to your shoe,
+100009,Family-friendly,Answer (white),the committee's emergency meeting,
+100010,Family-friendly,Answer (white),a strongly worded parish newsletter,
+100011,Family-friendly,Answer (white),a buffet left out since dinnertime,
+100012,Family-friendly,Answer (white),a vol-au-vent of uncertain origin,
+100013,Family-friendly,Answer (white),the quiz master's wrong answer sheet,
+100014,Family-friendly,Answer (white),a fête dog show with one dog,
+100015,Family-friendly,Answer (white),a giant marrow with a grudge,
+100016,Family-friendly,Answer (white),a disqualified Victoria sponge,
+100017,Family-friendly,Answer (white),a bouncy castle losing the will to live,
+100018,Family-friendly,Answer (white),the school gate's silent stare,
+100019,Family-friendly,Answer (white),a lost property box from 1987,
+100020,Family-friendly,Answer (white),the PE teacher's whistle,
+100021,Family-friendly,Answer (white),a nativity donkey with stage fright,
+100022,Family-friendly,Answer (white),a tea urn that takes three hours,
+100023,Family-friendly,Answer (white),a gravy boat full of custard,
+100024,Family-friendly,Answer (white),a Yorkshire pudding the size of a hat,
+100025,Family-friendly,Answer (white),"a coat that's ""fine for one more winter""",
+100026,Family-friendly,Answer (white),Grandad asleep in a deckchair,
+100027,Family-friendly,Answer (white),a three-hour drive to look at a lake,
+100028,Family-friendly,Answer (white),an umbrella turned inside out,
+100029,Family-friendly,Answer (white),the smell of a damp caravan,
+100030,Family-friendly,Answer (white),a Christmas jumper that plays a tune,
+100031,Family-friendly,Answer (white),a cracker joke nobody understood,
+100032,Family-friendly,Answer (white),the last roast potato,
+100033,Family-friendly,Answer (white),a row about board game rules,
+100034,Family-friendly,Answer (white),a family group chat in capital letters,
+100035,Family-friendly,Answer (white),a thumbs-up emoji from Nan,
+100036,Family-friendly,Answer (white),the club's broken jukebox,
+100037,Family-friendly,Answer (white),a dartboard with one dart,
+100038,Family-friendly,Answer (white),a pint of shandy and a pickled egg,
+100039,Family-friendly,Answer (white),a bag of chips on the bus home,
+100040,Family-friendly,Answer (white),a seagull with a criminal record,
+100041,Family-friendly,Answer (white),a lollipop lady on a power trip,
+100042,Family-friendly,Answer (white),a car boot haggle over 20p,
+100043,Family-friendly,Answer (white),a tortoise called Speedy,
+100044,Family-friendly,Answer (white),a carol singer who knows one verse,
+100045,Family-friendly,Answer (white),a wheelie bin blown into next week,
+100046,Family-friendly,Answer (white),the neighbour's suspicious new shed,
+100047,Family-friendly,Answer (white),a cutthroat hanging basket contest,
+100048,Family-friendly,Answer (white),a hosepipe ban rebel,
+100049,Family-friendly,Answer (white),a fruit cake older than the vicar,
+100050,Family-friendly,Answer (white),a brass band missing its tuba,
+100051,Family-friendly,Answer (white),a Morris dancer who's lost a hanky,
+100052,Family-friendly,Answer (white),a mobility scooter at full speed,
+100053,Family-friendly,Answer (white),a bowls club grudge match,
+100054,Family-friendly,Answer (white),a crisp sandwich,
+100055,Family-friendly,Answer (white),tea you could stand a spoon up in,
+100056,Family-friendly,Answer (white),a biscuit tin full of sewing kit,
+100057,Family-friendly,Answer (white),"the ""good"" front room",
+100058,Family-friendly,Answer (white),a cardigan with tissues up the sleeve,
+100059,Family-friendly,Answer (white),a free buffet with a two-hour queue,
+100060,Family-friendly,Answer (white),a vicar on a unicycle,
+100061,Family-friendly,Start (black),The meat raffle's top prize this week: _____.,1
+100062,Family-friendly,Start (black),Nan's secret to a long life: _____.,1
+100063,Family-friendly,Start (black),The village fête was cancelled because of _____.,1
+100064,Family-friendly,Start (black),The parish council's new bylaw bans _____.,1
+100065,Family-friendly,Start (black),Found in the club's lost property box: _____.,1
+100066,Family-friendly,Start (black),Tonight's bingo has been ruined by _____.,1
+100067,Family-friendly,Start (black),The highlight of our caravan holiday: _____.,1
+100068,Family-friendly,Start (black),The chippy now serves _____ with every fish supper.,1
+100069,Family-friendly,Start (black),Christmas dinner went wrong the moment _____ arrived.,1
+100070,Family-friendly,Start (black),The gossip at the school gate is all about _____.,1
+100071,Family-friendly,Start (black),Our quiz team's secret weapon: _____.,1
+100072,Family-friendly,Start (black),The brass band's new number is a tribute to _____.,1
+100073,Family-friendly,Start (black),Grandad's answer to every problem: _____.,1
+100074,Family-friendly,Start (black),The family group chat exploded after _____.,1
+100075,Family-friendly,Start (black),First prize on the tombola: _____.,1
+100076,Family-friendly,Start (black),The committee spent three hours arguing about _____.,1
+100077,Family-friendly,Start (black),Coming soon to the social club: _____ night.,1
+100078,Family-friendly,Start (black),The bowls club has been banned from _____.,1
+100079,Family-friendly,Start (black),The work do's raffle prize: _____.,1
+100080,Family-friendly,Start (black),"The council notice simply read: ""Beware of _____.""",1
+100081,Family-friendly,Start (black),What's Mum hiding in the airing cupboard? _____.,1
+100082,Family-friendly,Start (black),The best seat in the club is next to _____.,1
+100083,Family-friendly,Start (black),Boxing Day tradition in our house: _____.,1
+100084,Family-friendly,Start (black),The dog show judge was bribed with _____.,1
+100085,Family-friendly,Start (black),The vicar's sermon was mostly about _____.,1
+100086,Cheeky,Answer (white),a vicar with a very long sermon,
+100087,Cheeky,Answer (white),a handshake that lasted too long,
+100088,Cheeky,Answer (white),the barmaid's very generous measures,
+100089,Cheeky,Answer (white),a suspiciously cheerful milkman,
+100090,Cheeky,Answer (white),prize-winning melons at the fête,
+100091,Cheeky,Answer (white),a fireman's lift at the work do,
+100092,Cheeky,Answer (white),a slow dance with the DJ,
+100093,Cheeky,Answer (white),a cheeky wink across the bingo hall,
+100094,Cheeky,Answer (white),the bowls club's tight white trousers,
+100095,Cheeky,Answer (white),a holiday rep who's very hands-on,
+100096,Cheeky,Answer (white),a bit of slap and tickle,
+100097,Cheeky,Answer (white),a sweaty tango at the tea dance,
+100098,Cheeky,Answer (white),a well-stuffed Christmas stocking,
+100099,Cheeky,Answer (white),the postman's very large package,
+100100,Cheeky,Answer (white),Nan's big knickers on the line,

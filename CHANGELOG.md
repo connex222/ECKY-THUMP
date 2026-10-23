@@ -2,6 +2,13 @@
 
 Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.
 
+## Stage 6 — Additional cards received (review only, not released)
+
+- Staged 100 ordinary-card and 100 mode-specific CSV entries with stable source IDs.
+- Added draft-only HTML/CSV review and an audited mode-aware CSV staging script.
+- Flagged nine entries needing editorial review; left all game pools, approved source and deployed content untouched.
+
+
 ## [Unreleased] — Approved Stage 6 content integration
 
 - Load 650 approved entries: 200 Family editorial proposals and 450 cards from the user-approved CSV, with stable IDs and 140 Family replacements; preserve old expansion source.

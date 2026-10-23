@@ -1,0 +1,101 @@
+id,deck,kind,text
+200001,Family-friendly,witPrompts,Name the social club's new signature cocktail.
+200002,Family-friendly,witPrompts,Invent a terrible prize for the meat raffle.
+200003,Family-friendly,witPrompts,Name a brass band's comeback album.
+200004,Family-friendly,witPrompts,Invent a new rule for the bowls green.
+200005,Family-friendly,witPrompts,Name the chippy's most ambitious new dish.
+200006,Family-friendly,witPrompts,Suggest a theme for the worst work do ever.
+200007,Family-friendly,witPrompts,Name a caravan that's seen better days.
+200008,Family-friendly,witPrompts,Invent a new category for the dog show.
+200009,Family-friendly,witPrompts,Write the parish council's new motto.
+200010,Family-friendly,witPrompts,Name a cake that should never enter a baking contest.
+200011,Family-friendly,contextPrompts,Write an innocent line overheard at the village fête.
+200012,Family-friendly,contextPrompts,Write a polite note to leave on a neighbour's windscreen.
+200013,Family-friendly,contextPrompts,Write an innocent thing to shout at a bowls match.
+200014,Family-friendly,contextPrompts,Write a perfectly normal text from Nan.
+200015,Family-friendly,contextPrompts,Write an innocent line from a vicar's sermon.
+200016,Family-friendly,contextPrompts,Write a harmless comment about the buffet.
+200017,Family-friendly,contextPrompts,Write an innocent line said while building flatpack furniture.
+200018,Family-friendly,contextPrompts,Write something Grandad says while carving the turkey.
+200019,Family-friendly,contextPrompts,Write an innocent thing the bingo caller announces.
+200020,Family-friendly,contextPrompts,Write a perfectly ordinary caravan site notice.
+200021,Family-friendly,doublePrompts,Advertise a caravan that's mostly rust.
+200022,Family-friendly,doublePrompts,Sell a ticket to the club's karaoke night.
+200023,Family-friendly,doublePrompts,Advertise a tea urn that never quite boils.
+200024,Family-friendly,doublePrompts,Pitch a wet bank holiday at the seaside.
+200025,Family-friendly,doublePrompts,Advertise a second-hand Christmas jumper.
+200026,Family-friendly,doublePrompts,Sell the last unwanted tombola prize.
+200027,Family-friendly,doublePrompts,Advertise the chippy's new deep-fried pudding.
+200028,Family-friendly,doublePrompts,Sell a garden gnome to someone who hates gnomes.
+200029,Family-friendly,doublePrompts,Advertise the council's new bin rota.
+200030,Family-friendly,doublePrompts,Pitch a brass band for a wedding first dance.
+200031,Family-friendly,finalPrompts,Give a farewell speech to the club's broken jukebox.
+200032,Family-friendly,finalPrompts,Make the last announcement before the club locks up.
+200033,Family-friendly,finalPrompts,Give the closing toast at Nan's 90th.
+200034,Family-friendly,finalPrompts,Read out the last will of the meat raffle.
+200035,Family-friendly,finalPrompts,Give the winner's speech for best hanging basket.
+200036,Family-friendly,finalPrompts,Give a retirement speech for the lollipop lady.
+200037,Family-friendly,finalPrompts,Make a final appeal for the new tea urn fund.
+200038,Family-friendly,finalPrompts,Announce the results of a bitterly fought quiz.
+200039,Family-friendly,finalPrompts,Give the eulogy for a much-loved caravan.
+200040,Family-friendly,finalPrompts,Make the closing speech at the work Christmas do.
+200041,Family-friendly,finalWords,gravy
+200042,Family-friendly,finalWords,tombola
+200043,Family-friendly,finalWords,whippet
+200044,Family-friendly,finalWords,cardigan
+200045,Family-friendly,finalWords,kettle
+200046,Family-friendly,finalWords,brolly
+200047,Family-friendly,finalWords,marrow
+200048,Family-friendly,finalWords,gnome
+200049,Family-friendly,finalWords,scone
+200050,Family-friendly,finalWords,ferret
+200051,Family-friendly,finalWords,bingo
+200052,Family-friendly,finalWords,chippy
+200053,Family-friendly,finalWords,wellies
+200054,Family-friendly,finalWords,crumpet
+200055,Family-friendly,finalWords,trifle
+200056,Cheeky,finalWords,knickers
+200057,Cheeky,finalWords,wink
+200058,Cheeky,finalWords,snog
+200059,Cheeky,finalWords,tipsy
+200060,Cheeky,finalWords,frisky
+200061,Cheeky,finalWords,cleavage
+200062,Cheeky,finalWords,saucy
+200063,Cheeky,finalWords,hanky-panky
+200064,Cheeky,finalWords,bum
+200065,Cheeky,finalWords,smooch
+200066,Very adult,finalWords,shag
+200067,Very adult,finalWords,hangover
+200068,Very adult,finalWords,condom
+200069,Very adult,finalWords,nipples
+200070,Very adult,finalWords,bollocks
+200071,Very adult,finalWords,orgasm
+200072,Very adult,finalWords,threesome
+200073,Very adult,finalWords,lube
+200074,Very adult,finalWords,striptease
+200075,Very adult,finalWords,quickie
+200076,Family-friendly,contracts,Answer like a bingo caller.
+200077,Family-friendly,contracts,Answer like a disappointed headteacher.
+200078,Family-friendly,contracts,Answer like a weather presenter in a storm.
+200079,Family-friendly,contracts,Answer like a nervous best man.
+200080,Family-friendly,contracts,Answer like a nature documentary narrator.
+200081,Family-friendly,contracts,Answer like a commentator at a dog show.
+200082,Family-friendly,contracts,Answer like a council official reading a notice.
+200083,Family-friendly,contracts,Answer like Nan on speakerphone.
+200084,Family-friendly,contracts,Answer like a pirate captain.
+200085,Family-friendly,contracts,Answer like a sat nav that's given up.
+200086,Cheeky,contracts,Answer like a holiday rep after three sangrias.
+200087,Cheeky,contracts,Answer like a flirty bingo caller.
+200088,Cheeky,contracts,Answer like someone trying to sound sober.
+200089,Cheeky,contracts,Answer like a romance novel narrator.
+200090,Cheeky,contracts,Answer like a dodgy second-hand car dealer.
+200091,Cheeky,contracts,Answer like a gossiping hairdresser.
+200092,Cheeky,contracts,Answer like someone texting their ex at midnight.
+200093,Cheeky,contracts,Answer like a maid of honour on her fourth prosecco.
+200094,Very adult,contracts,Answer like a late-night chat line voice.
+200095,Very adult,contracts,Answer like a hungover stag at breakfast.
+200096,Very adult,contracts,Answer like an erotic audiobook narrator.
+200097,Very adult,contracts,Answer like a divorce lawyer smelling money.
+200098,Very adult,contracts,Answer like a sex therapist who's seen it all.
+200099,Very adult,contracts,Answer like a drunk aunt at a wedding.
+200100,Very adult,contracts,Answer like a burlesque compère.

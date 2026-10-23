@@ -12,7 +12,9 @@
     "review:content": "node scripts/review-content.js",
     "simulate:smoke": "node scripts/simulate-game-cards.js 2 20261021",
     "stage:party-csv": "node scripts/stage-party-csv.js",
-    "audit:approved-content": "node scripts/audit-approved-content.js"
+    "audit:approved-content": "node scripts/audit-approved-content.js",
+    "stage:more-cards": "node scripts/stage-more-cards.js",
+    "audit:more-cards": "node scripts/audit-more-cards.js"
   },
   "engines": {
     "node": ">=20.11"

@@ -1,0 +1,30 @@
+{
+  "total": 200,
+  "ordinary": 100,
+  "modes": 100,
+  "readyForReview": 200,
+  "flagged": 9,
+  "clearOfAutomaticFlags": 191,
+  "byKindAndRating": {
+    "clean/responses": 60,
+    "clean/cardPrompts": 25,
+    "cheeky/responses": 15,
+    "clean/witPrompts": 10,
+    "clean/contextPrompts": 10,
+    "clean/doublePrompts": 10,
+    "clean/finalPrompts": 10,
+    "clean/finalWords": 15,
+    "cheeky/finalWords": 10,
+    "adult/finalWords": 10,
+    "clean/contracts": 10,
+    "cheeky/contracts": 8,
+    "adult/contracts": 7
+  },
+  "flags": {
+    "duplicates-existing-content": 4,
+    "repeated-four-word-opening": 4,
+    "family-drink-reference-review": 1
+  },
+  "approved": 0,
+  "published": 0
+}
