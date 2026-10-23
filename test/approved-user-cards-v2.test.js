@@ -9,24 +9,24 @@ const pack = c.approvedPack;
 const projectRoot = path.join(__dirname, '..');
 const norm = text => text.toLocaleLowerCase('en-GB').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 
-test('approved overlay contains exactly the approved 200 staged and 450 uploaded cards', () => {
+test('approved overlay includes the 650 previously approved entries and 200 additional cards', () => {
   assert.equal(pack.id, 'ecky-social-club-approved-v1');
-  assert.equal(pack.entries.length, 650);
+  assert.equal(pack.entries.length, 850);
   assert.equal(pack.entries.filter(e=>e.id.startsWith('etsc-csv-')).length, 450);
-  assert.equal(pack.entries.filter(e=>!e.id.startsWith('etsc-csv-')).length, 200);
+  assert.equal(pack.entries.filter(e=>!e.id.startsWith('etsc-csv-')&&!e.id.startsWith('etsc-more-')).length, 200);
   const ids = pack.entries.map(e=>e.id);
   assert.equal(new Set(ids).size, ids.length);
-  assert.equal(new Set(pack.entries.map(e=>norm(e.text))).size, 650);
+  assert.equal(new Set(pack.entries.map(e=>norm(e.text))).size, 850);
   assert.ok(pack.entries.every(e=>e.editorialStatus==='approved'));
 });
 
 test('every imported prompt is single-blank and every response is short and insertion-ready', () => {
   for (const e of pack.entries) {
     assert.ok(['clean', 'cheeky', 'adult'].includes(e.rating));
-    assert.ok(['responses', 'cardPrompts'].includes(e.kind));
+    assert.ok(['responses', 'cardPrompts', 'witPrompts', 'contextPrompts', 'doublePrompts', 'finalPrompts', 'finalWords', 'contracts'].includes(e.kind));
     assert.ok(e.text && e.text===e.text.trim());
     if(e.kind==='responses') {assert.ok(e.text.length<=45,e.id);assert.ok(!e.text.includes(':'),e.id);}
-    else {assert.ok(e.text.length<=90,e.id);assert.equal((e.text.match(/_____/g)||[]).length,1,e.id);}
+    else if(e.kind==='cardPrompts') {assert.ok(e.text.length<=90,e.id);assert.equal((e.text.match(/_____/g)||[]).length,1,e.id);}
   }
   const openings = new Map();
   for (const e of pack.entries.filter(x=>x.kind==='responses')) {
@@ -60,7 +60,7 @@ test('PREMIUM_CONTENT_ONLY=1 filters unapproved expansion content while retainin
   const x=JSON.parse(p.stdout);
   assert.equal(x.oldIn,false);
   assert.equal(x.newIn,true);
-  assert.equal(x.approved,650);
+  assert.equal(x.approved,850);
 });
 
 test('approved import ledger tracks all edits without touching the original pack', () => {

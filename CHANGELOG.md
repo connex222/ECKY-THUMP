@@ -2,6 +2,24 @@
 
 Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.
 
+## Stage 6 — Additional cards received (review only, not released)
+
+- Staged 100 ordinary-card and 100 mode-specific CSV entries with stable source IDs.
+- Added draft-only HTML/CSV review and an audited mode-aware CSV staging script.
+- Flagged nine entries needing editorial review; left all game pools, approved source and deployed content untouched.
+
+
+## [Unreleased] — Stage 6: 200 additional approved comedy entries
+
+- Promoted both 23 October CSVs into the approved content overlay: 75 responses,
+  25 one-blank prompts, 40 writing-mode prompts, 35 Last Orders words and 25 contracts.
+- Applied the user's approval of nine editorial replacements; preserved original
+  source text and old-to-new mappings in `editorial/incoming-2026-10-23`.
+- Approved content rises from 650 to 850 entries; the 1,200 legacy draft pack
+  remains immutable. Added regression tests for ratings, exact CSV provenance,
+  uniqueness and approved-only mode.
+- Rights status for the uploaded material is still unverified independently.
+
 ## [Unreleased] — Approved Stage 6 content integration
 
 - Load 650 approved entries: 200 Family editorial proposals and 450 cards from the user-approved CSV, with stable IDs and 140 Family replacements; preserve old expansion source.

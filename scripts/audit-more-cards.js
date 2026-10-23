@@ -1,0 +1,12 @@
+'use strict';
+const path=require('node:path');
+const {stage}=require('./stage-more-cards');
+const root=path.resolve(__dirname,'..');
+const dir=path.join(root,'editorial/incoming-2026-10-23');
+const pack=stage(path.join(dir,'party_more_cards.csv'),path.join(dir,'party_more_modes.csv'));
+const expected=require('../editorial/incoming-2026-10-23/candidates.json');
+const {isDeepStrictEqual}=require('node:util');
+if(!isDeepStrictEqual(pack,expected))throw Error('Source CSVs have diverged from staged review candidates');
+if(pack.summary.approved!==0||pack.summary.published!==0||pack.published!==false)throw Error('Unapproved content cannot be published');
+if(pack.entries.some(e=>e.editorialStatus!=='draft'||e.readyToPublish!==false))throw Error('Unexpected candidate approval state');
+console.log(JSON.stringify(pack.summary,null,2));
