@@ -24,7 +24,7 @@ test('lobby music ships locally, can be toggled by player or TV, and will not au
  for(const page of ['public/index.html','public/tv/index.html']){
    const html=read(page);
    assert.match(html,/lobby-audio\.js\?v=1\.1\.0/);
-   assert.match(html,/modern-v1\.5\.css\?v=1\.6\.0/);assert.match(html,/neon-arena-v1\.6\.css\?v=1\.6\.0/);
+   assert.match(html,/social-club-v2\.css\?v=2\.0\.0/);
    assert.match(read('public/assets/modern-v1.5.css'),/showtime\.css\?v=1\.1\.0/);
  }
  assert.match(audio,/enabled:false/);

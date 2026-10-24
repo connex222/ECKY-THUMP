@@ -1,3 +1,14 @@
+# Changelog — ECKY THUMP
+
+## [2.0.0] — Stage 8 consolidation (release candidate, 24 October 2026)
+
+- Consolidated browser stylesheet loading into one CSS asset while keeping the historical source CSS for backward-compatible URLs and regression tests.
+- Added no-build native ES module with shared escaping, server clock synchronisation and avatar lookup; classic phone and TV controllers consume it dynamically.
+- Canonical public version comes from the server package via `/api/health`, not a hardcoded phone footer.
+- Added focus, forced-colours, stronger contrast and reduced-motion support; moved older historical docs to `docs/archive/stage8-history/`.
+- Added voluntary paid Render persistent disk blueprint example without changing the existing free service.
+- November real-device QA and House Cards remain outstanding; version 2.0.0 is still a Social Club **preview** until accepted.
+
 # Changelog
 
 Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.

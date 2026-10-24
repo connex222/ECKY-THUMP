@@ -12,7 +12,7 @@ const rooms=process.env.SOCIAL_CLUB_PREVIEW==='1'?persistence.restore():new Map(
 const connections=new Map();
 const allowed='ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 const port=Number(process.env.PORT||3000);
-const mime={'.ogg':'audio/ogg','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'application/javascript; charset=utf-8','.svg':'image/svg+xml','.ico':'image/x-icon','.json':'application/json; charset=utf-8'};
+const mime={'.ogg':'audio/ogg','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'application/javascript; charset=utf-8','.mjs':'application/javascript; charset=utf-8','.svg':'image/svg+xml','.ico':'image/x-icon','.json':'application/json; charset=utf-8'};
 const RATE_WINDOW=60000, perIp=new Map();
 const creationRates=new Map(),joinRates=new Map();
 function budget(map,ip,limit){const now=Date.now();const prior=map.get(ip);const entry=prior&&now-prior.start<RATE_WINDOW?prior:{start:now,count:0};entry.count++;map.set(ip,entry);if(entry.count>limit){const e=Error('Too many requests. Try again shortly.');e.statusCode=429;throw e;}}

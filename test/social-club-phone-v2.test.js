@@ -23,8 +23,8 @@ test('Stage 4 entrypoint loads the phone controller before existing app.js',()=>
   const html=fs.readFileSync(path.join(root,'public/index.html'),'utf8');
   const app=fs.readFileSync(path.join(root,'public/assets/app.js'),'utf8');
   assert.ok(html.indexOf('social-club-phone.js')<html.indexOf('/assets/app.js'));
-  assert.match(html,/social-club-phone\.css\?v=2\.0\.0-stage7/);
-  assert.match(html,/social-club-phone\.js\?v=2\.0\.0-stage7/);
+  assert.match(html,/social-club-v2\.css\?v=2\.0\.0/);
+  assert.match(html,/social-club-phone\.js\?v=2\.0\.0/);
   assert.match(app,/s\.mode==='social-club-v2'/);
   assert.match(app,/club\?\.handle\(/);
   assert.match(app,/socialClub:!!document\.getElementById\('social-club-choice'\)\.checked/);

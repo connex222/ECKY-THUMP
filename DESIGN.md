@@ -207,3 +207,12 @@ This feature lives in `server/social-club-cards.js`, not the classic 15-card `se
 - Last Orders (FINAL): all cards unavailable, and all scoring is identical to card-free play.
 
 House rules in the v2 renderer: a host-only `social-set-cards` action is legal in the lobby; players may invoke `social-play-card` with their own exact hand ID, an optional target entry/task and text. Legacy actions are still disallowed in Social Club. Host moderation, content rating checks and bearer-token authentication remain in place. At 720p or lower, Game Card events should stay as the one focal TV moment; reduced-motion and keyboard-focus fallbacks are mandatory.
+
+
+## Stage 8 release engineering decisions (24 October 2026)
+
+- One stylesheet, `public/assets/social-club-v2.css`, serves both phone and TV. It preserves the original six low-specificity layered legacy sheets followed by the five stacked override sheets, then the separately scoped Social Club phone/TV rules. Previous files stay at their static URLs for legacy regression tests and cached old clients; they are **not loaded by the new pages**. Deleting them immediately would break those clients and existing baseline tests.
+- `public/assets/shared.mjs` is a native ES module for escaping, clock and avatar resolution. Main phone and TV controllers import it with no bundler. Avatar registry/IDs/artwork stay byte-for-byte unchanged.
+- Version source of truth is `package.json`. The server's `/api/health` endpoint exposes it to the phone footer.
+- `render.persistent.example.yaml` specifies an optional paid starter plus `/data` disk, but the deployed service remains on its currently selected plan. Node does not guarantee classic-mode persistence; only Social Club has disk snapshot support.
+- The November 2026 device/human-laughter acceptance is pending; use `docs/NOVEMBER-ACCEPTANCE.md`.

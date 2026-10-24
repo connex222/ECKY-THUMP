@@ -1,18 +1,19 @@
 'use strict';
-(() => {
+(async () => {
+  const {escapeHtml, serverClockOffset, resolveAvatar} = await import('./shared.mjs');
   const LEGACY_LOGO_SVG='/assets/ecky-logo.svg';
   const el=document.getElementById('tv-app');
   const q=new URLSearchParams(location.search),code=(q.get('room')||'').toUpperCase();
   const frag=new URLSearchParams(location.hash.slice(1));
-  const AVATARS=window.ECKEY_AVATARS||[];const avatar=id=>{const a=AVATARS.find(x=>x.id===id)||AVATARS[0];return a?`<img class="player-avatar" src="${a.image}" alt="">`:'';};
-  const celebration=id=>{const a=AVATARS.find(x=>x.id===id)||AVATARS[0];return a?`<img class="spotlight-art ${a.celebration?'has-poster':'portrait-only'}" src="${a.celebration||a.image}" alt="${a.name}">`:'';};
+  const AVATARS=window.ECKEY_AVATARS||[];const avatar=id=>{const a=resolveAvatar(AVATARS,id);return a?`<img class="player-avatar" src="${a.image}" alt="">`:'';};
+  const celebration=id=>{const a=resolveAvatar(AVATARS,id);return a?`<img class="spotlight-art ${a.celebration?'has-poster':'portrait-only'}" src="${a.celebration||a.image}" alt="${a.name}">`:'';};
   function tvWinners(s){const r=s.round||{},winners=(r.entries||[]).filter(e=>e.award?.rank===1).slice(0,3);if(!winners.length)return '';return `<div class="tv-winners">${winners.map(e=>`<div class="tv-winner-card">${celebration(e.authorAvatar)}<div class="tv-winner-details"><span>ROUND ${s.roundNumber} ★ ${e.award.isJoint?'JOINT WINNER':'WINNER'}</span><strong>${esc(e.authorName)}</strong><small>+${e.award.points} POINTS</small></div></div>`).join('')}</div>`;}
   const store=`tnl-stage-${code}`;
   const secret=frag.get('key')||sessionStorage.getItem(store);
   if(secret)sessionStorage.setItem(store,secret);
   history.replaceState(null,'',`/tv/?room=${encodeURIComponent(code)}`);
   let current=null,connected=false,lastSoundKey=null,lastTick=null,lastSceneKey=null,scenePulse=false,clockOffset=0;
-  const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const esc=escapeHtml;
   const joinLink=`${location.origin}/join/?room=${encodeURIComponent(code)}`;
   const showFx=()=>`<button type="button" class="sound-switch show-sfx-switch" data-fx-toggle aria-pressed="${!!window.ECKEY_SFX?.enabled}"><span aria-hidden="true">${window.ECKEY_SFX?.enabled?'🔊':'🔇'}</span><strong>${window.ECKEY_SFX?.enabled?'SHOW SFX ON':'ENABLE SHOW SFX'}</strong></button>`;
   const tvHead=s=>`<div class="tv-show-top"><span class="tv-show-round">ROUND ${s.roundNumber}/${s.totalRounds}</span><span class="tv-show-mode">${esc(s.phase==='SEED'?'CONTEXT COLLAPSE':s.phase==='VOTE'?'CAST YOUR VOTES':s.phase==='RESULTS'?'THE VERDICT':s.round?.label||'SHOWTIME')}</span></div>`;
@@ -71,7 +72,7 @@
       const key=club.sceneKey(s);
       window.ECKY_COMPERE?.onScene(s,key);
       if(lastSoundKey!==null&&lastSoundKey!==key)window.ECKEY_SFX?.play(club.cue(s));
-      if(typeof s.serverNow==='number')clockOffset=s.serverNow-Date.now();
+      if(typeof s.serverNow==='number')clockOffset=serverClockOffset(s.serverNow);
       lastSoundKey=key;lastSceneKey=key;current=s;
       el.innerHTML=club.render(s);
       updateTimer();
@@ -82,7 +83,7 @@
     const key=`${s.round?.id||'none'}:${s.phase}`;
     if(lastSoundKey!==null&&key!==lastSoundKey)window.ECKEY_SFX?.play(s.phase==='RESULTS'?(s.round?.skipReason?'skip':'reveal'):s.phase==='COMPLETE'?'champion':s.phase==='VOTE'?'vote':['SEED','SUBMIT'].includes(s.phase)?'round':'tap');
     const sceneChanged=lastSceneKey!==null&&lastSceneKey!==key;
-    if(typeof s.serverNow==='number')clockOffset=s.serverNow-Date.now();
+    if(typeof s.serverNow==='number')clockOffset=serverClockOffset(s.serverNow);
     lastSoundKey=key;lastSceneKey=key;scenePulse=sceneChanged;current=s;
     const body=s.phase==='LOBBY'?intro(s):s.phase==='SEED'?contextOpening(s):s.phase==='SUBMIT'?submission(s):s.phase==='VOTE'?voting(s):s.phase==='RESULTS'?results(s):finished(s);
     const lastChaos=(s.chaos?.events||[]).at(-1);
