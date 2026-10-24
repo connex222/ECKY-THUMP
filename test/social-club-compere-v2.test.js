@@ -23,7 +23,8 @@ test('Our Maureen manifest has precisely 60 distinctive, short UK voice lines an
     assert.ok(line.caption.match(/[A-Za-z]/));
     assert.ok(line.caption.match(/[.!?]$/));
     assert.ok(line.caption.split(/\s+/).length<12,`${line.id}: ${line.caption}`);
-    assert.equal(line.recorded,false,`Do not invent recordings for ${line.id}`);
+    assert.equal(typeof line.recorded,'boolean');
+    if(line.recorded)assert.ok(fs.existsSync(path.join(root,'public',line.audio)),`Missing recorded audio ${line.id}`);
     assert.equal(line.audio,`/assets/audio/maureen/${line.id}.ogg`);
     assert.doesNotMatch(line.caption,/[<>]/);
   }
@@ -44,8 +45,8 @@ function mock({available=true}={}){
   const fetch=()=>{fetches++;return new Promise(resolve=>{resolveFetch=resolve;});};
   const sandbox={window,document,fetch,Date,Math,Number,Audio:function(){audioPlays++;}};
   vm.runInNewContext(read('public/assets/compere.js'),sandbox);
-  const load=async()=>{
-    if(available)resolveFetch({ok:true,json:async()=>manifest});
+  const load=async(customManifest=manifest)=>{
+    if(available)resolveFetch({ok:true,json:async()=>customManifest});
     else resolveFetch({ok:false});
     await new Promise(setImmediate);
   };
@@ -78,11 +79,21 @@ test('Voice requires a user-controlled toggle and a recorded, locally named clip
   const h=mock();await h.load();
   h.api.onScene(snap('ROUND_INTRO'),'x01:INTRO');
   assert.equal(h.api.voiceEnabled,false);
-  assert.equal(h.api.toggleVoice(),true);
+  assert.equal(h.api.toggleVoice(),manifest.lines.some(line=>line.recorded),'Voice toggling reflects installed files');
+  if(h.api.voiceEnabled)h.api.toggleVoice();
+  const noRecorded=JSON.parse(JSON.stringify(manifest));
+  noRecorded.lines.forEach(line=>line.recorded=false);
+  const empty=mock();await empty.load(noRecorded);
+  assert.equal(empty.api.toggleVoice(),false,'No installed audio must not falsely report VOICE ON');
+  const withOneRecording=JSON.parse(JSON.stringify(manifest));
+  withOneRecording.lines[0].recorded=true;
+  const n=mock();await n.load(withOneRecording);
+  assert.equal(n.api.recordingsAvailable,1);
+  assert.equal(n.api.toggleVoice(),true);
   h.api.onScene(snap('REVEAL'),'x01:REVEAL:0:1');
   assert.equal(h.audioPlays(),0,'Unrecorded sounds must not request files');
-  assert.equal(h.api.toggleVoice(),false);
-  assert.equal(h.api.voiceEnabled,false);
+  assert.equal(n.api.toggleVoice(),false);
+  assert.equal(n.api.voiceEnabled,false);
   h.api.setVolume(.35);
   assert.equal(h.api.volume,.35);
   assert.equal(h.window.ECKEY_SFX.volume,.35);
@@ -118,6 +129,7 @@ test('TV includes local compère assets and dedicated controls without changing 
   assert.match(tv,/ECKY_COMPERE\?\.onScene/);
   assert.match(tv,/data-master-volume/);
   assert.match(renderer,/data-voice-toggle/);
+  assert.match(renderer,/RECORDINGS NEEDED/);
   assert.match(renderer,/data-maureen-caption/);
   assert.match(renderer,/data-master-volume/);
   assert.match(css,/club-volume-control/);
@@ -127,4 +139,17 @@ test('TV includes local compère assets and dedicated controls without changing 
   assert.match(sfx,/case 'vote-close'/);
   assert.doesNotMatch(read('public/index.html'),/compere\.js/);
   assert.doesNotMatch(tv,/innerHTML\s*=\s*.*caption/);
+});
+
+test('TV marks voice action unavailable without audio and unlocks it after verified audio exists',()=>{
+  const vm=require('node:vm');
+  const make=(count)=>{
+    const win={ECKY_COMPERE:{voiceEnabled:false,recordingsAvailable:count,display(){return {speaker:'Our Maureen',caption:'Hello!'};}},ECKEY_SFX:{enabled:false},ECKEY_AUDIO:{enabled:false}};
+    vm.runInNewContext(read('public/assets/social-club-tv.js'),{window:win,location:{host:'localhost'},Date,Math,Number});
+    return win.ECKY_SOCIAL_TV.render({code:'ACD234',phase:'LOBBY',players:[],roundNumber:0,totalRounds:5});
+  };
+  assert.match(make(0),/data-voice-toggle[^>]*disabled/);
+  assert.match(make(0),/RECORDINGS NEEDED/);
+  assert.doesNotMatch(make(1),/data-voice-toggle[^>]*disabled/);
+  assert.match(make(1),/ENABLE VOICE/);
 });

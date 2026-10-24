@@ -106,12 +106,15 @@
     return config.volume;
   }
   function toggleVoice(){
+    // Never show a misleading 'VOICE ON' state when there are no recordings.
+    if(!config.lines.some(line=>line.recorded)){config.voiceEnabled=false;return false;}
     config.voiceEnabled=!config.voiceEnabled;
     if(!config.voiceEnabled)stopVoice();
     // A click enables future voice cues. No playback until a recorded clip exists.
     return config.voiceEnabled;
   }
   const api={get name(){return config.name;},get voiceEnabled(){return config.voiceEnabled;},
+    get recordingsAvailable(){return config.lines.filter(line=>line.recorded).length;},
     get volume(){return config.volume;},display,onScene,onClock,toggleVoice,setVolume,
     /** Trigger selection is pure and does not reveal the writer. */
     trigger,select,stop:stopVoice};

@@ -28,8 +28,14 @@ npm run simulate:smoke       # deterministic simulation, not real-human QA
 - Friends join on their phones; each round reveals its instructions on screen.
 - In Social Club, submit private answers, watch the anonymous TV reveal, then vote. Authors are revealed after votes lock. No self-voting. The server decides the score.
 - A Quick show includes Meat Raffle, The Turn and Last Orders. A Standard show includes all five challenges; Long adds another Turn.
-- Optional House Cards and recorded voice are **not** complete/verified for general release. The 60 Maureen captions are ready; recordings must be supplied separately.
+- Optional House Cards are implemented in Social Club but still require November device testing. The 60 Maureen captions are ready; her spoken recordings must be supplied separately and are **not installed** in this release. Voice controls remain disabled until verified recordings are imported.
 - The host can moderate and pause; everyone can reconnect with their original room/seat token if the room survives.
+
+## Optional voice recordings and room durability
+
+- `npm run audio:check` reports which Our Maureen recordings are verified and flags broken recordings. A clean report with **0 recorded / 60 remaining** means the audio pipeline is ready, **not** that her voice exists yet.
+- Recordings you have permission to use can be prepared with `npm run audio:import -- /path/to/recordings`. It converts valid short `.wav`, `.mp3`, `.flac`, `.m4a` or `.ogg` files to mono Ogg Opus using locally installed FFmpeg, then updates both identical voice manifests. `node scripts/import-maureen-audio.js --dry-run /path/to/recordings` validates without changing files. See `docs/STAGE10-AUDIO-DURABILITY.md` and `VOICE-LINES.md` for exact filenames.
+- A storage error no longer stops a game or crashes the server; `/api/health` reports recovery state. **This is not a substitute for a private persistent disk**, which must be separately enabled and tested before offering restart guarantees.
 
 ## Documentation and safety
 

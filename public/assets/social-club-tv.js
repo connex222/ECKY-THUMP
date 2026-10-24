@@ -40,7 +40,7 @@
     <span>${esc(moods[s.phase] || 'SOCIAL CLUB')}</span><span class="club-timer" id="tv-timer" role="timer">${clock(s)}</span>
     <button class="club-audio" data-fx-toggle aria-pressed="${!!window.ECKEY_SFX?.enabled}" type="button"><span aria-hidden="true">${window.ECKEY_SFX?.enabled ? '🔊':'🔇'}</span><strong>${window.ECKEY_SFX?.enabled ? 'SHOW SFX ON':'ENABLE SHOW SFX'}</strong></button>
     <button class="club-audio" data-sound-toggle aria-pressed="${!!window.ECKEY_AUDIO?.enabled}" type="button"><span aria-hidden="true">♫</span><strong>${window.ECKEY_AUDIO?.enabled ? 'MUSIC ON':'PLAY LOBBY MUSIC'}</strong></button>
-    <button class="club-audio" data-voice-toggle aria-pressed="${!!window.ECKY_COMPERE?.voiceEnabled}" type="button"><span aria-hidden="true">🎙</span><strong>${window.ECKY_COMPERE?.voiceEnabled ? 'VOICE ON':'ENABLE VOICE'}</strong></button>
+    <button class="club-audio" data-voice-toggle aria-pressed="${!!window.ECKY_COMPERE?.voiceEnabled}" ${window.ECKY_COMPERE?.recordingsAvailable ? '':'disabled title="Install the approved Our Maureen recordings first"'} type="button"><span aria-hidden="true">🎙</span><strong>${!window.ECKY_COMPERE?.recordingsAvailable ? 'RECORDINGS NEEDED':window.ECKY_COMPERE?.voiceEnabled ? 'VOICE ON':'ENABLE VOICE'}</strong></button>
     <label class="club-volume-control">MASTER VOLUME <input type="range" data-master-volume min="0" max="100" step="5" value="${Math.round((window.ECKY_COMPERE?.volume??0.7)*100)}" aria-label="Social Club master volume"></label>
   </footer>`;
   const playerLine = (s, showScore = false) => {

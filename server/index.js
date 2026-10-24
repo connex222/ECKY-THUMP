@@ -5,10 +5,10 @@ const path=require('node:path');
 const crypto=require('node:crypto');
 const game=require('./game');
 const telemetry=require('./telemetry');
-const persistence=require('./persistence');
+const durability=require('./durability');
 const {qrSVG}=require('./qr');
 const ROOT=path.resolve(__dirname,'../public');
-const rooms=process.env.SOCIAL_CLUB_PREVIEW==='1'?persistence.restore():new Map();
+const rooms=process.env.SOCIAL_CLUB_PREVIEW==='1'?durability.restore():new Map();
 const connections=new Map();
 const allowed='ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 const port=Number(process.env.PORT||3000);
@@ -21,7 +21,7 @@ function send(res,status,data){res.writeHead(status,{'Content-Type':'application
 function bad(res,error,status=400){send(res,status,{error:error.message||String(error)});}
 function touch(room){room.lastActivity=Date.now();}
 function broadcast(room) {
-  if(room.config.socialClub)persistence.store(room);
+  if(room.config.socialClub)durability.store(room);
   const channels=connections.get(room.code);
   if(!channels)return;
   for(const channel of channels) {
@@ -73,7 +73,7 @@ function requireOrigin(req) {
 function route(req,res) {
   const url=new URL(req.url,`http://${req.headers.host||'localhost'}`);
   const pathname=url.pathname;
-  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKY THUMP',version:require('../package.json').version,uptime:process.uptime(),socialClubPreviewAvailable:process.env.SOCIAL_CLUB_PREVIEW==='1'});
+  if(pathname==='/api/health'&&req.method==='GET')return send(res,200,{status:'ok',service:'ECKY THUMP',version:require('../package.json').version,uptime:process.uptime(),socialClubPreviewAvailable:process.env.SOCIAL_CLUB_PREVIEW==='1',roomRecovery:durability.status()});
   if(pathname==='/api/rooms'&&req.method==='POST')return (async()=>{
     requireOrigin(req);const body=await readBodyOrEmpty(req);
     if(body.socialClub){
@@ -82,7 +82,7 @@ function route(req,res) {
     }
     const created=game.newRoom(body);let c;do{c=code();}while(rooms.has(c));created.room.code=c;
     rooms.set(c,created.room);touch(created.room);
-    if(created.room.config.socialClub)persistence.store(created.room);
+    if(created.room.config.socialClub)durability.store(created.room);
     send(res,201,{code:c,seatId:created.id,secret:created.secret});
   })();
   const match=pathname.match(/^\/api\/rooms\/([A-Z2-9]{6})(?:\/(join|snapshot|events|display-token|action|join-qr.svg|telemetry))?$/);
@@ -293,12 +293,12 @@ const timer=setInterval(()=>{
     if(game.tick(room))broadcast(room);
     // Preserve an active games night with at least one live SSE controller.
     // Hard-cap room lifetime to 24 hours to avoid indefinite retention of ghosts.
-    if((now-room.lastActivity>6*60*60*1000 && !(connections.get(c)?.size)) || now-room.created>(room.config.socialClub?6:24)*60*60*1000){for(const ch of connections.get(c)||[])ch.res.end();connections.delete(c);rooms.delete(c);if(room.config.socialClub)persistence.remove(c);}
+    if((now-room.lastActivity>6*60*60*1000 && !(connections.get(c)?.size)) || now-room.created>(room.config.socialClub?6:24)*60*60*1000){for(const ch of connections.get(c)||[])ch.res.end();connections.delete(c);rooms.delete(c);if(room.config.socialClub)durability.remove(c);}
   }
   for(const [key,value] of perIp)if(now-value.start>2*RATE_WINDOW)perIp.delete(key);
 },300);
 const snapshotTimer=setInterval(()=>{
-  for(const room of rooms.values())if(room.config.socialClub)persistence.store(room);
+  for(const room of rooms.values())if(room.config.socialClub)durability.store(room);
   for(const map of [creationRates,joinRates])for(const [ip,item] of map)if(Date.now()-item.start>2*RATE_WINDOW)map.delete(ip);
 },5000);
 server.on('close',()=>{clearInterval(timer);clearInterval(snapshotTimer);});

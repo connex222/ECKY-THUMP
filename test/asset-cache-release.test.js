@@ -18,3 +18,9 @@ test('Phone displays and loads the currently deployed legacy version', () => {
   assert.match(html, /\/assets\/app\.js\?v=2\.0\.0/);
   assert.match(js, /data-release-version/);
 });
+
+test('Stage 10 compère and TV renderer are cache-busted together', () => {
+  const html=fs.readFileSync(path.join(root,'public/tv/index.html'),'utf8');
+  assert.match(html,/\/assets\/compere\.js\?v=2\.0\.0-stage10/);
+  assert.match(html,/\/assets\/social-club-tv\.js\?v=2\.0\.0-stage10/);
+});
