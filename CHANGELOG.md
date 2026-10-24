@@ -2,6 +2,13 @@
 
 Current project history, consolidated from the previous per-version guides. For historical design material see `docs/archive/`.
 
+## [Unreleased] — Social Club Stage 7, six optional Game Cards
+
+- Implemented a separate, server-authoritative six-card game for Social Club, **off by default**. Holding is capped at one and playing at one per round. The existing 15-card classic mode remains backward compatible.
+- Added DOUBLE OR NOWT, NICKED, HECKLE, SECOND CHANCE, automatic UNDERDOG and the three-second POWER CUT, with TV banners and captions and one contextual phone action (no power-up drawer).
+- Guarded timing, eligibility, score modifiers, server-validated written heckles/rewrites, anonymity until results and persistence/reconnect. No effects in Last Orders.
+- Added new HTTP + engine regression tests and hand-testing checklist. Existing game ratings, content packs and avatar art are unchanged.
+
 ## Stage 6 — Additional cards received (review only, not released)
 
 - Staged 100 ordinary-card and 100 mode-specific CSV entries with stable source IDs.

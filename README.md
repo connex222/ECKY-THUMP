@@ -4,6 +4,31 @@
 
 **Language and branding:** All player-facing text uses UK English and the official name **ECKY THUMP**. Legacy API identifiers (such as `ECKEY_AVATARS`) remain stable to protect compatibility. See `docs/UK-ENGLISH-STYLE.md`.
 
+## Social Club v2 — Stage 7, six optional Game Cards (preview)
+
+The original game remains available. When the server has `SOCIAL_CLUB_PREVIEW=1`, a host can tick **Social Club — New TV Show Preview** on the start screen. In the Social Club lobby only, the host may enable **Six Game Cards**. These are **OFF by default**, held one at a time, and every player may play **at most one per round**. The TV announces the play with a large banner and a caption from Our Maureen. Phones never show a power-up tray; only a single contextual **Play a card** action appears.
+
+| Card | When / precise effect |
+|---|---|
+| **DOUBLE OR NOWT** | Before answering a head-to-head duel. Win the next duel to double that duel's points; lose or tie and that duel scores zero. |
+| **NICKED** | Nick 100 points from the leader during a round's introduction or submission; only if that person leads you and has at least 100. |
+| **HECKLE** | While the TV is revealing answers, attach a validated, maximum 80-character heckle beneath one already revealed answer. One heckle per answer. |
+| **SECOND CHANCE** | While submissions are still open in The Turn or Crossed Wires, replace one already submitted answer once. The entry ID stays the same; if everyone submits early, a short 12-second grace period allows the card to be used. |
+| **UNDERDOG** | Automatically assigned to the uniquely last-place contestant at the beginning of eligible head-to-head rounds, awarding +150 if they win their next duel. |
+| **POWER CUT** | During writing, queue a three-second blackout before the next anonymous reveal. Purely theatrical, no score change. |
+
+None of these cards is awarded or played in **Last Orders**. Optional Game Cards do not change the normal private room format, existing avatars or rating limits. The older 15-card system is still available only in **classic games**, to avoid breaking previously tested game-night play. Real phone/TV multiplayer acceptance is still scheduled for **November 2026**.
+
+**Real-phone/TV Stage 7 acceptance checklist (deferred):**
+
+1. Host a Social Club room with Game Cards OFF and confirm the normal game is unchanged. Enable cards in a second lobby and confirm other players cannot alter the setting.
+2. Use three, eight and twelve players; confirm one held card only and a single **Play a card** phone control, never a tray.
+3. Play each of the six effects; verify the full-width TV banner, compère caption, votes, scoreboard and card consumption. For **UNDERDOG**, set up a uniquely last-place contestant in round two.
+4. Play **POWER CUT** in a writing phase: the TV must go fully dark for precisely three seconds before any answer text appears. Under reduced-motion settings the effect must remain readable without flashing.
+5. Check **SECOND CHANCE** input remains focused during reconnection, and HECKLE text is escaped and never identifies the author before voting closes.
+6. Confirm Last Orders scores match a match with cards disabled, and confirm phone-only play remains understandable without a TV.
+7. Disconnect/reconnect a phone mid-round, pause/resume, and restart the server on persistent storage; no second play or duplicated score may be possible.
+
 ## Requirements
 
 - Node.js **20.11+** (22 LTS recommended)

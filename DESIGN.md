@@ -193,3 +193,17 @@ A normal host creation through the original UI still starts a v1 game. The new A
 - Each writing contestant sees **only their current pending task**, with server-owned ID, chosen response card and draft; a head-to-head writing round needs two submissions. Context seeds are a separate stage.
 - On the server-owned VOTE phase phones display eligible A/B or raffle tiles; ineligible contestants get an explicit non-voting screen. Scores and names appear only in result phases.
 - Social Club still needs Stage 5 audio, Stage 6 editorially approved content, Stage 7 six-card powers and Stage 8 code/document consolidation. Real-device tests remain November 2026.
+
+## Stage 7 — Six Social Club Game Cards (implemented 24 October 2026)
+
+This feature lives in `server/social-club-cards.js`, not the classic 15-card `server/game-cards.js`. It remains **off by default**. At most one six-card offer is assigned per player at each non-finale round. Cards cannot be transferred and expire at the next round. Plays are atomic, validated server-side and recorded in a moment that shows on the TV for a brief period. Session snapshots contain only the viewer's own held card and permitted targets; every TV view receives the same public played-card moment. The server does not expose opponent hands.
+
+- DOUBLE OR NOWT: before any duel answer is submitted, choose the first upcoming assigned duel. Win by its normal award to double the points; lose or tie and score zero. A unanimous win's bonus is part of the doubled award.
+- NICKED: only while writing/introduction, and only against a real leading player holding at least 100 points. Moves exactly 100, net zero to the combined table.
+- HECKLE: reveal phase, existing and already visible answer only; sanitised server-side, maximum 80 characters, one heckle per answer, shown on TV without exposing the author.
+- SECOND CHANCE: during SUBMIT in The Turn/Crossed Wires, rewrite one existing submitted answer; preserve answer ID, never reopen voting. When all players submit early and a SECOND CHANCE is still held, shorten the deadline to a maximum 12-second grace period instead of skipping straight to reveal.
+- UNDERDOG: automatically granted when a single contestant is last after the first round, only for head-to-head rounds. The bonus is +150 only for winning their earliest assigned duel; otherwise it expires.
+- POWER CUT: played during SUBMIT and queued for the first REVEAL, with a server-timed 3000ms black screen. The first answer does not appear in TV snapshots while blackout is active. It changes no score.
+- Last Orders (FINAL): all cards unavailable, and all scoring is identical to card-free play.
+
+House rules in the v2 renderer: a host-only `social-set-cards` action is legal in the lobby; players may invoke `social-play-card` with their own exact hand ID, an optional target entry/task and text. Legacy actions are still disallowed in Social Club. Host moderation, content rating checks and bearer-token authentication remain in place. At 720p or lower, Game Card events should stay as the one focal TV moment; reduced-motion and keyboard-focus fallbacks are mandatory.

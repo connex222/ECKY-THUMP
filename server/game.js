@@ -73,7 +73,7 @@ function newRoom({name, rating='clean', length='party', pace='relaxed', gameCard
   if (!['relaxed','lively'].includes(pace)) throw Error('Invalid party pace.');
   if (typeof gameCards!=='boolean') throw Error('Game Cards setting must be on or off.');
   if (typeof socialClub!=='boolean') throw Error('Social Club preview must be on or off.');
-  if (socialClub && gameCards) throw Error('Social Club preview does not use Game Cards yet.');
+  // Social Club has its own optional six-card system; classic Game Cards remain separate.
   if (rating === 'adult' && !adultConfirmed) throw Error('The host must confirm all players are adults.');
   const hostName=validateName(name);
   const secret=SECRET(); const id=randomId();

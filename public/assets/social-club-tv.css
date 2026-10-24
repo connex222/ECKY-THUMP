@@ -192,3 +192,14 @@ body.tv-body .social-club .club-curtain-right{right:0;border-left:5px solid #bb7
   .social-club .club-volume-control{min-height:36px;}
   .social-club .club-footer{gap:4px 10px;line-height:1.15;}
 }
+
+/* Stage 7: the Game Card is a theatrical, TV-first event. */
+.social-club .club-gamecard-moment{position:absolute;inset:24% 4% auto;z-index:8;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:25px 35px;background:#18071bee;border:6px solid #ffe59f;border-radius:30px;box-shadow:0 0 0 999vmax #12071977,0 12px 55px #000;pointer-events:none;}
+.social-club .club-gamecard-moment span{font-size:clamp(23px,2.3vw,48px);color:#fff1c9;font-weight:900;}
+.social-club .club-gamecard-moment strong{font-size:clamp(62px,7vw,142px);color:#ffe2a1;line-height:1;}
+.social-club .club-gamecard-moment p{font-size:clamp(24px,2.6vw,54px);color:#fff;margin:0;}
+.social-club .club-heckle{font-size:clamp(24px,2vw,43px);font-weight:850;color:#fff0bd;padding:6px 14px;border:3px dashed #ffdb82;border-radius:12px;}
+.social-club .club-blackout{background:#080808!important;color:#fff;position:fixed;inset:0;z-index:12;max-width:none;min-height:100vh;}
+.social-club .club-blackout h1{font-size:clamp(66px,8vw,160px);color:#fff;}
+.social-club .club-blackout p{font-size:clamp(28px,2.6vw,58px);color:#fff;}
+@media (prefers-reduced-motion:reduce){.social-club .club-gamecard-moment{animation:none!important;transition:none!important;}}

@@ -114,7 +114,7 @@ test('TV includes local compère assets and dedicated controls without changing 
   const renderer=read('public/assets/social-club-tv.js'),css=read('public/assets/social-club-tv.css');
   const sfx=read('public/assets/show-sfx.js');
   assert.match(html,/compere\.js\?v=2\.0\.0-stage5/);
-  assert.match(html,/social-club-tv\.js\?v=2\.0\.0-stage5/);
+  assert.match(html,/social-club-tv\.js\?v=2\.0\.0-stage7/);
   assert.match(tv,/ECKY_COMPERE\?\.onScene/);
   assert.match(tv,/data-master-volume/);
   assert.match(renderer,/data-voice-toggle/);
