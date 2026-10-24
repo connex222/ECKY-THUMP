@@ -92,3 +92,11 @@ body.net-offline .club-phone-button[data-club-action="submit"],body.net-offline 
 @media (prefers-contrast:more){.club-phone-panel,.club-phone-person,.club-phone-card,.club-phone-result-row{border-color:#fff;border-width:3px;}.club-phone-header,.club-phone-note,.club-phone-footer{color:#fff;}}
 
 #club-live-announce{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important;border:0!important;}
+
+/* Stage 7: exactly one optional card action, no inventory tray. */
+.club-phone-power{position:relative;z-index:1;margin:17px auto;padding:18px;max-width:720px;border:2px solid #ffde9e;border-radius:18px;background:#40233c;color:#fff3da;}
+.club-phone-power h2{margin:0 0 6px;color:#ffe5a4;font-size:24px;}
+.club-phone-power p{font-size:17px;margin:4px 0 12px;}
+.club-phone-power label{display:block;margin:12px 0 4px;font-size:15px;font-weight:800;color:#ffe0a1;}
+.club-phone-power textarea,.club-phone-power select{width:100%;min-height:56px;margin-bottom:12px;background:#fffaf2;color:#281424;border-radius:12px;padding:12px;}
+.club-phone-power .club-phone-button{min-height:60px;}

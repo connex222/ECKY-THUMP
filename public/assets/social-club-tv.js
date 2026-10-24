@@ -68,10 +68,12 @@
   const reveal = s => {
     const answers = s.round?.visibleAnswers || [];
     const active = answers.at(-1);
+    const heckle=(s.round?.heckles||[]).find(h=>h.entryId===active?.id);
+    if(s.round?.blackout)return `<main class="club-centre club-blackout" aria-live="polite"><h1>POWER CUT!</h1><p>Someone's fiddled with the fuse box…</p></main>`;
     return `<main class="club-centre club-reveal">${roundLabel(s)}
       <p class="club-kicker">ANSWER ${answers.length} ${s.round?.totalGroups > 1 ? `· SET ${number(s.round.groupIndex)+1} OF ${number(s.round.totalGroups)}` : ''}</p>
       <div class="club-reveal-frame"><span class="club-letter">${esc(active?.letter || '…')}</span>
-      <blockquote class="club-answer">${esc(active?.text || 'Here comes your answer…')}</blockquote></div>
+      <blockquote class="club-answer">${esc(active?.text || 'Here comes your answer…')}</blockquote>${heckle?`<div class="club-heckle">HECKLE · ${esc(heckle.text)}</div>`:''}</div>
       <p class="club-hint">NO NAMES UNTIL THE VOTE IS OVER</p></main>`;
   };
   const vote = s => {
@@ -116,9 +118,11 @@
     const screens={LOBBY:lobby,ROUND_INTRO:intro,SUBMIT:submission,REVEAL:reveal,VOTE:vote,
       MATCHUP_RESULT:result,ROUND_SCORES:scores,CHAMPION:champion,COMPLETE:champion};
     const body=(screens[s.phase] || intro)(s);
+    const event=s.gameCards?.moment;
     return `<div class="social-club club-${esc((s.phase||'LOBBY').toLowerCase())}" data-club-phase="${esc(s.phase)}">
       <div class="club-curtain club-curtain-left" aria-hidden="true"></div><div class="club-curtain club-curtain-right" aria-hidden="true"></div>
       ${stageHeader(s)}${body}${hostCue(s)}${stageFoot(s)}
+      ${event?`<div class="club-gamecard-moment" role="status" aria-live="polite"><span>OUR MAUREEN PRESENTS</span><strong>${esc(event.title)}</strong><p>${esc(event.by)} · ${esc(event.description)}</p></div>`:''}
       ${s.paused ? '<div class="club-pause-banner" role="status">OUR MAUREEN HAS CALLED A BREATHER · SHOW PAUSED</div>':''}
     </div>`;
   }

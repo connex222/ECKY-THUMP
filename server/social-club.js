@@ -3,6 +3,7 @@
  * Gameplay and voting are server-authoritative. No runtime dependencies.
  */
 const crypto=require('node:crypto');
+const powers=require('./social-club-cards');
 const {cardPrompts,witPrompts,contextPrompts,doublePrompts,finalPrompts,responses,finalWords,getPool}=require('./content');
 const token=()=>crypto.randomBytes(12).toString('hex');
 const pick=a=>a[crypto.randomInt(a.length)];
@@ -59,13 +60,14 @@ function beginRound(room){
     seeds:new Map(),hands:['CARD','DOUBLE'].includes(kind)?responseHands(room,kind==='CARD'?7:5):new Map(),
     scored:false,readyForNext:new Set()};
   room.paused=false;room.pauseRemaining=null;room.social.groupResults=[];
+  powers.onRound(room);
   phase(room,'ROUND_INTRO',6000);
 }
 function start(room){
   if(room.phase!=='LOBBY')throw Error('The game has already started.');
   if(room.players.length<3)throw Error('You need at least three contestants.');
-  room.config.gameCards=false;
   room.social={version:2,phaseStartedAt:Date.now(),groupResults:[],lastChampion:null};
+  powers.init(room);
   room.playlist=[...SCHEDULES[room.config.length]];
   room.roundIndex=0;
   for(const p of room.players){p.score=0;p.firsts=0;}
@@ -135,7 +137,12 @@ function submit(room,player,taskId,value,validate){
   if(room.phase!=='SUBMIT'||r.stage!=='answer'||room.paused)throw Error('Answers are not open.');
   if(room.deadline&&Date.now()>=room.deadline)throw Error('Submission deadline has passed.');
   group.entries.set(player.id,{id:token(),authorId:player.id,text,auto:false});touch(room);
-  if(allSubmitted(room))endSubmission(room);
+  if(allSubmitted(room)){
+    const grace=room.config.gameCards&&['WIT','CONTEXT'].includes(r.type)&&
+      [...room.social.cards.hand.values()].includes('SECOND_CHANCE');
+    if(grace){r.secondChanceGrace=true;room.deadline=Math.min(room.deadline||Infinity,Date.now()+12000);touch(room);}
+    else endSubmission(room);
+  }
 }
 function allSubmitted(room){
   const r=room.round;return room.players.every(p=>expected(room,p.id).every(t=>{
@@ -148,10 +155,14 @@ function endSubmission(room){
   for(const g of r.groups)for(const id of g.players)if(!g.entries.has(id))g.entries.set(id,{id:token(),authorId:id,text:"Our Maureen couldn't read their handwriting",auto:true});
   r.groupIndex=0;reveal(room);
 }
-function reveal(room){const r=room.round;r.revealIndex=0;phase(room,'REVEAL',2700);}
+function reveal(room){const r=room.round;r.revealIndex=0;
+  if(r.powerCutPending){r.powerCutPending=false;r.powerCutUntil=Date.now()+3000;phase(room,'REVEAL',3000);}
+  else phase(room,'REVEAL',2700);
+}
 function revealNext(room){
   const r=room.round,g=r.groups[r.groupIndex];
   if(room.phase!=='REVEAL')throw Error('No reveal in progress.');
+  if(r.powerCutUntil){if(Date.now()<r.powerCutUntil)return; r.powerCutUntil=null;phase(room,'REVEAL',2700);return;}
   if(r.revealIndex+1<g.entries.size){r.revealIndex++;phase(room,'REVEAL',2700);return;}
   phase(room,'VOTE',15000);
 }
@@ -219,6 +230,7 @@ function scoreGroup(room,g){
     const points=base*multiplier+bonus;
     awards.push({entryId:e.id,authorId:e.authorId,base,bonus,points,forfeit:e.auto,voteWeight:counts.get(e.id),unanimous:isUnanimous});
   }
+  powers.applyAwards(room,g,awards);
   for(const award of awards){
     const player=room.players.find(p=>p.id===award.authorId);
     if(player){player.score+=award.points;if(award.unanimous)player.firsts++;}
@@ -308,7 +320,7 @@ function snapshot(room,viewerId,isTV=false){
   const base={mode:'social-club-v2',code:room.code,revision:room.revision,serverNow:Date.now(),phase:room.phase,
     deadline:room.deadline,paused:room.paused,roundNumber:room.roundIndex+1,totalRounds:room.playlist.length,
     title:r?TITLES[r.type]:null,rule:r?RULES[r.type]:null,config:room.config,
-    tv:isTV,players:room.players.map(p=>({id:p.id,name:p.name,avatar:p.avatar,score:p.score,online:p.online})),
+    tv:isTV,gameCards:powers.publicView(room,viewerId,isTV),players:room.players.map(p=>({id:p.id,name:p.name,avatar:p.avatar,score:p.score,online:p.online})),
     you:isTV?null:player?{id:player.id,name:player.name,avatar:player.avatar,isHost:room.ownerId===player.id,role:'player'}:
       aud?{id:aud.id,name:aud.name,role:'audience'}:null};
   if(!r)return base;
@@ -334,7 +346,8 @@ function snapshot(room,viewerId,isTV=false){
   if(['REVEAL','VOTE','MATCHUP_RESULT','ROUND_SCORES','CHAMPION','COMPLETE'].includes(room.phase)){
     const g=r.groups[r.groupIndex];
     // Authors and vote tallies stay secret until voting closes.
-    const revealed=room.phase==='REVEAL'?[...g.entries.values()].slice(0,r.revealIndex+1):[...g.entries.values()];
+    const revealed=room.phase==='REVEAL'?(r.powerCutUntil&&Date.now()<r.powerCutUntil?[]:[...g.entries.values()].slice(0,r.revealIndex+1)):[...g.entries.values()];
+    base.round.blackout=room.phase==='REVEAL'&&!!r.powerCutUntil&&Date.now()<r.powerCutUntil;
     base.round.visibleAnswers=revealed.map((e,i)=>({id:e.id,letter:String.fromCharCode(65+i),text:e.text,
       ...(['MATCHUP_RESULT','ROUND_SCORES','CHAMPION','COMPLETE'].includes(room.phase)?{authorId:e.authorId,authorName:room.players.find(p=>p.id===e.authorId)?.name,avatar:room.players.find(p=>p.id===e.authorId)?.avatar}: {})}));
     if(room.phase==='VOTE'&&isTV){
@@ -347,11 +360,22 @@ function snapshot(room,viewerId,isTV=false){
       const eligible=!!(player&&playerEligible(room,player,g)||aud);
       base.round.vote={eligible,voted:hasVoted,groupId:g.id,choices:[...g.entries.values()].map((e,i)=>({id:e.id,text:e.text,letter:String.fromCharCode(65+i),authorId:e.authorId,auto:e.auto})).filter(e=>!e.auto&&(!player||e.authorId!==player.id)).map(({id,text,letter})=>({id,text,letter}))};
     }
+    if(isTV&&r.heckles)base.round.heckles=[...r.heckles].filter(([entryId])=>revealed.some(e=>e.id===entryId)).map(([entryId,h])=>({entryId,text:h.text,by:h.by}));
     if(g.result&&room.phase!=='VOTE')base.round.result=g.result;
   }
   if(['ROUND_SCORES','CHAMPION','COMPLETE'].includes(room.phase))base.round.standings=[...room.players].sort((a,b)=>b.score-a.score).map(p=>({id:p.id,name:p.name,avatar:p.avatar,score:p.score}));
   if(['CHAMPION','COMPLETE'].includes(room.phase))base.champion=s.lastChampion;
   return base;
 }
-module.exports={TITLES,RULES,SCHEDULES,pairings,beginRound,start,submitSeed,submit,startSubmit,startRewrite,endSubmission,
+function playGameCard(room,player,cardId,options,validate){
+  powers.play(room,player,cardId,{...options,materialise:(taskId,value)=>materialise(room,player,taskId,value,validate)},validate);
+  if(room.phase==='SUBMIT'&&room.round.secondChanceGrace&&allSubmitted(room)&&
+    ![...room.social.cards.hand.values()].includes('SECOND_CHANCE'))endSubmission(room);
+}
+function setGameCards(room,enabled){
+  if(room.phase!=='LOBBY')throw Error('Game Cards can only be changed in the lobby.');
+  if(typeof enabled!=='boolean')throw Error('Game Cards must be on or off.');
+  room.config.gameCards=enabled;touch(room);
+}
+module.exports={setGameCards,playGameCard,TITLES,RULES,SCHEDULES,pairings,beginRound,start,submitSeed,submit,startSubmit,startRewrite,endSubmission,
   revealNext,vote,scoreGroup,endVoting,report,hide,skip,nextResult,nextRound,tick,pause,resume,playAgain,snapshot,expected};

@@ -12,7 +12,7 @@
     const text=String(value ?? '').trim().replace(/\s+/g,' ');
     return count(text) >= 3 && count(text) <= 160 && !/[<>\u0000-\u001f]/.test(text);
   };
-  const state={roundId:null,taskId:null,values:new Map(),picked:new Map(),busy:false};
+  const state={roundId:null,taskId:null,values:new Map(),picked:new Map(),busy:false,cardText:'',cardTarget:''};
   const rating={clean:'FAMILY',cheeky:'CHEEKY',adult:'AFTER DARK · 18+'};
   const lengths={quick:'QUICK · 3 ROUNDS',standard:'STANDARD · 5 ROUNDS',party:'LONG · 6 ROUNDS'};
   const avatar=id=>{
@@ -51,6 +51,7 @@
       <div class="club-phone-tally">${badge(rating[s.config?.rating]||'FAMILY')}${badge(lengths[s.config?.length]||'STANDARD')}${badge(`${players.length} / 12 PLAYERS`)}</div>
       <h2>Who's here?</h2><div class="club-phone-players">${players.map(p=>`<div class="club-phone-person">${avatar(p.avatar)}<span>${esc(p.name)}${p.id===s.you?.id?' · YOU':''}</span><small>${p.online?'IN':'AWAY'}</small>
         ${host(s)&&p.id!==s.you?.id?b('remove-player','REMOVE','minor',`data-club-id="${esc(p.id)}" aria-label="Remove ${esc(p.name)}"`):''}</div>`).join('')}</div>
+      ${host(s)?`<section class="club-phone-lobby-options"><h2>Optional Game Cards</h2><p>Six little bits of mischief; off by default. One held and one played per round. Never used in Last Orders.</p>${b('toggle-club-cards',s.gameCards?.enabled?'TURN GAME CARDS OFF':'ENABLE SIX GAME CARDS',s.gameCards?.enabled?'is-current':'secondary')}</section>`:''}
       ${host(s)?`<div class="club-phone-lobby-options"><h2>Club rules</h2><p>The host sets the humour level. After Dark requires everyone to confirm they are 18+.</p>
         <div class="club-phone-tool-grid">${['clean','cheeky','adult'].map(key=>b('rating',rating[key],s.config?.rating===key?'is-current':'secondary',`data-club-id="${key}" aria-pressed="${s.config?.rating===key}"`)).join('')}</div>
         ${need>0?`<p class="club-phone-note">Waiting for ${need} more ${need===1?'player':'players'}. You need at least three.</p>`:''}
@@ -132,24 +133,39 @@
       ${host(s)&&s.phase==='COMPLETE'?b('play-again','PLAY AGAIN WITH THE SAME MATES','primary'):''}
       ${b('leave','BACK TO TITLE','secondary')}</section>`;
   }
+  function cardAction(s){
+    if(!s.gameCards?.enabled||s.round?.type==='FINAL'||s.you?.role==='audience')return '';
+    const card=s.gameCards.hold;
+    if(!card)return '';
+    const targetNeeded=['HECKLE','SECOND_CHANCE'].includes(card.id);
+    return `<section class="club-phone-power" aria-label="Your one Game Card"><h2>${esc(card.title)}</h2>
+      <p>${esc(card.description)}</p>
+      ${targetNeeded&&card.playable?`<label for="club-card-target">${card.id==='HECKLE'?'WHICH REVEALED ANSWER?':'WHICH SUBMITTED ANSWER?'}</label>
+        <select id="club-card-target" class="club-phone-input">${card.targets.map((t,i)=>`<option value="${esc(t.id)}" ${state.cardTarget===t.id?'selected':''}>${esc(t.label||`Answer ${i+1}`)}</option>`).join('')}</select>
+        <label for="club-card-text">${card.id==='HECKLE'?'YOUR HECKLE (MAX 80 CHARACTERS)':'YOUR REPLACEMENT ANSWER'}</label>
+        <textarea id="club-card-text" class="club-phone-input" rows="2" maxlength="${card.id==='HECKLE'?80:160}" placeholder="Keep it funny, not nasty">${esc(state.cardText)}</textarea>`:''}
+      ${card.playable?b('play-club-card',`PLAY A CARD · ${esc(card.title)}`,'secondary'):watchHint('Hold this card until it becomes playable.')}
+    </section>`;
+  }
   function render(s){
-    if(state.roundId!==s.round?.id){state.roundId=s.round?.id||null;state.taskId=null;state.values.clear();state.picked.clear();}
+    if(state.roundId!==s.round?.id){state.roundId=s.round?.id||null;state.taskId=null;state.values.clear();state.picked.clear();state.cardText='';state.cardTarget='';}
     const phase=s.phase;
     const body=phase==='LOBBY'?lobby(s):phase==='ROUND_INTRO'?watch(s,'Eyes on the telly!',s.rule||'Our Maureen is about to introduce the round.'):
       phase==='SUBMIT'?(s.you?.role==='audience'?watch(s,'Enjoy the show','Contestants are writing their answers.'):submit(s)):
       phase==='REVEAL'?watch(s,'Here come the answers','Watch the stage for the big reveal.'):
       phase==='VOTE'?vote(s):phase==='MATCHUP_RESULT'?result(s):phase==='ROUND_SCORES'?scores(s):champion(s);
-    return frame(s,body);
+    const withCard=['ROUND_INTRO','SUBMIT','REVEAL'].includes(phase)?body+cardAction(s):body;
+    return frame(s,withCard);
   }
   function capture(root){
-    const input=root.querySelector('#club-answer');
+    const input=root.querySelector('#club-answer')||root.querySelector('#club-card-text');
     if(!input)return null;
     const focus=document.activeElement===input,position=focus?{start:input.selectionStart,end:input.selectionEnd}:null;
-    return {focus,position};
+    return {focus,position,inputId:input.id};
   }
   function restore(root,saved){
     if(!saved?.focus)return;
-    const input=root.querySelector('#club-answer');
+    const input=root.querySelector('#'+(saved.inputId==='club-card-text'?'club-card-text':'club-answer'));
     if(input){input.focus({preventScroll:true});if(saved.position)input.setSelectionRange(saved.position.start,saved.position.end);}
   }
   function updateInput(root,s){
@@ -194,6 +210,24 @@
       finally{state.busy=false;}
       return;
     }
+    if(name==='toggle-club-cards')return send('social-set-cards',{enabled:!s.gameCards?.enabled});
+    if(name==='play-club-card'){
+      const card=s.gameCards?.hold;
+      if(!card?.playable)return toast('This card cannot be played right now.');
+      const target=(card.targets||[]).some(t=>t.id===state.cardTarget)?state.cardTarget:card.targets?.[0]?.id;
+      const options={cardId:card.id};
+      if(card.id==='HECKLE'){
+        if(!target||!checkAnswer(state.cardText)||count(state.cardText)>80)return toast('Choose an answer and write a short heckle.');
+        options.entryId=target;options.text=state.cardText;
+      }
+      if(card.id==='SECOND_CHANCE'){
+        if(!target||!checkAnswer(state.cardText))return toast('Choose a submitted answer and rewrite it.');
+        options.taskId=target;options.value=state.cardText;
+      }
+      const success=await send('social-play-card',options);
+      if(success){state.cardText='';state.cardTarget='';}
+      return;
+    }
     if(name==='rating')return send('set-lobby-rating',{rating:id});
     if(name==='next')return send('social-next');
     if(name==='start'||name==='play-again'||name==='pause'||name==='resume'||name==='adult-consent')return send(name);
@@ -230,5 +264,9 @@
       try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)navigator.vibrate?.([25,35,25]);}catch(_){/* optional */}
     }
   }
-  window.ECKY_SOCIAL_PHONE={render,capture,restore,updateInput,handle,onSnapshot,checkAnswer,state,available:false};
+  function updatePower(event){
+    if(event.target?.id==='club-card-text')state.cardText=event.target.value;
+    if(event.target?.id==='club-card-target')state.cardTarget=event.target.value;
+  }
+  window.ECKY_SOCIAL_PHONE={render,capture,restore,updateInput,updatePower,handle,onSnapshot,checkAnswer,state,available:false};
 })();
