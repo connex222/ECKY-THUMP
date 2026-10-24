@@ -86,6 +86,7 @@ test('Voice requires a user-controlled toggle and a recorded, locally named clip
   const empty=mock();await empty.load(noRecorded);
   assert.equal(empty.api.toggleVoice(),false,'No installed audio must not falsely report VOICE ON');
   const withOneRecording=JSON.parse(JSON.stringify(manifest));
+  withOneRecording.lines.forEach(line=>line.recorded=false);
   withOneRecording.lines[0].recorded=true;
   const n=mock();await n.load(withOneRecording);
   assert.equal(n.api.recordingsAvailable,1);

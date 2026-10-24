@@ -12,7 +12,11 @@ const filename='maureen-lobby-01';
 function temp(){
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'ecky-maureen-test-'));
  for(const p of ['server/packs','public/assets'])fs.mkdirSync(path.join(dir,p),{recursive:true});
- for(const p of ['server/packs/voice-lines.json','public/assets/voice-lines.json'])fs.copyFileSync(path.join(root,p),path.join(dir,p));
+ for(const p of ['server/packs/voice-lines.json','public/assets/voice-lines.json']){
+  const snapshot=JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
+  snapshot.lines.forEach(line=>line.recorded=false);
+  fs.writeFileSync(path.join(dir,p),JSON.stringify(snapshot,null,2)+'\n');
+ }
  const incoming=path.join(dir,'incoming');fs.mkdirSync(incoming);return {dir,incoming};
 }
 function makeWave(file){

@@ -1,0 +1,310 @@
+{
+  "schemaVersion": 1,
+  "title": "Our Maureen — Voice 1 original synthetic production source",
+  "voiceCharacterId": "5d672f52-20b5-41c8-96c8-c83169415d7c",
+  "provider": "Fish Audio Drama 3 via Creative Claw",
+  "voiceId": "14ef1f48db4a4096843297e2f48e1c51",
+  "language": "en-GB",
+  "recordings": [
+    {
+      "id": "maureen-lobby-01",
+      "text": "Come in, coats off, and find your daftest mate.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/4c80fa13-a9e1-419d-98a5-c1cbde0b690c.mp3"
+    },
+    {
+      "id": "maureen-lobby-02",
+      "text": "The kettle's on. The judgement's off.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/b439f662-e363-4c50-932c-4487b0c300e3.mp3"
+    },
+    {
+      "id": "maureen-lobby-03",
+      "text": "Don't all rush for the meat raffle at once.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/f94a0a3a-53ae-4649-a30e-0307e8fa648d.mp3"
+    },
+    {
+      "id": "maureen-lobby-04",
+      "text": "Welcome to the club. Mind the step.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/5355fccc-7a61-4b44-959c-4b4873ec6e27.mp3"
+    },
+    {
+      "id": "maureen-lobby-05",
+      "text": "We're open. Someone fetch the good biscuits.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/6e72664c-3e6c-43f7-a614-97bf4e6ade28.mp3"
+    },
+    {
+      "id": "maureen-round-intro-01",
+      "text": "Right, who's brought a decent answer tonight?",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/30448cc4-2de3-4e35-93c9-dbf238318428.mp3"
+    },
+    {
+      "id": "maureen-round-intro-02",
+      "text": "Here we go. No pressure, just your reputation.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/fd8de64a-731d-44e8-8cde-73edca9604ef.mp3"
+    },
+    {
+      "id": "maureen-round-intro-03",
+      "text": "Eyes front, phones ready, chins up.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/07477f8f-f5a5-439e-9968-51205835e71d.mp3"
+    },
+    {
+      "id": "maureen-round-intro-04",
+      "text": "There's a hush. That can't be good.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/5360bbd1-d365-4665-a7be-50227af89807.mp3"
+    },
+    {
+      "id": "maureen-round-intro-05",
+      "text": "Next act, please. Keep it respectable-ish.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/29bddba1-874b-4568-82ff-30473e621765.mp3"
+    },
+    {
+      "id": "maureen-submit-01",
+      "text": "Get writing. The committee's watching.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/d215cfa1-424a-4620-8178-e5229a25ba7f.mp3"
+    },
+    {
+      "id": "maureen-submit-02",
+      "text": "Make it snappy. Our tea's going cold.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/10256851-4b9b-4e79-bc6b-8c7697c469fb.mp3"
+    },
+    {
+      "id": "maureen-submit-03",
+      "text": "Big ideas, little screens. Off you go.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/7b8d723c-1f81-49fa-95ba-f8f8029f202e.mp3"
+    },
+    {
+      "id": "maureen-submit-04",
+      "text": "You can't blame the pen this time.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/9a49a04a-8209-4f00-a4fc-4fdfd6b79019.mp3"
+    },
+    {
+      "id": "maureen-submit-05",
+      "text": "Write something worth telling your nan. Maybe.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/981aa332-4baf-436a-a640-0d860208b2a4.mp3"
+    },
+    {
+      "id": "maureen-reveal-01",
+      "text": "Ooh. Someone actually put that in writing.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/017216b4-ce70-4942-97cb-26544c8bb6c5.mp3"
+    },
+    {
+      "id": "maureen-reveal-02",
+      "text": "Well, that's an interesting choice of words.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/fadfd542-49c5-4989-9b1a-30a83ed0ada7.mp3"
+    },
+    {
+      "id": "maureen-reveal-03",
+      "text": "Brace yourselves. This one's come from a mate.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/357a20eb-af0f-4a67-85cf-ecb28656b8aa.mp3"
+    },
+    {
+      "id": "maureen-reveal-04",
+      "text": "Let's see what fell out of their head.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/67f7a7be-9fbf-4a98-be1f-03a09398eeba.mp3"
+    },
+    {
+      "id": "maureen-reveal-05",
+      "text": "Here's the answer. I'll say nowt more.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/67ade483-a79a-4df6-8433-4899d3132502.mp3"
+    },
+    {
+      "id": "maureen-vote-01",
+      "text": "A or B? Use your loaf.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/864840e4-5c3e-44f7-8e47-f7ef4ebf24ef.mp3"
+    },
+    {
+      "id": "maureen-vote-02",
+      "text": "No peeking. Pick your favourite shocker.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/33c26796-b28f-4af8-b78b-d7df9e46b1db.mp3"
+    },
+    {
+      "id": "maureen-vote-03",
+      "text": "The ballot's open. Keep your elbows in.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/0b961ea7-0ad0-431b-bd0c-a33965a5350c.mp3"
+    },
+    {
+      "id": "maureen-vote-04",
+      "text": "Phones out. We need a verdict.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/19a5032c-ac34-4cde-8370-435f5b15d8b1.mp3"
+    },
+    {
+      "id": "maureen-vote-05",
+      "text": "Vote fairly. Maureen knows where you sit.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/eb149ef2-0f59-4e89-83fa-17b0212e88ff.mp3"
+    },
+    {
+      "id": "maureen-vote-close-01",
+      "text": "Right. The votes are in. Crikey.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/af4c3991-61e9-4ae8-a900-5dc648e8b095.mp3"
+    },
+    {
+      "id": "maureen-vote-close-02",
+      "text": "That's democracy at the Social Club.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/51c6d830-d7a6-4f97-b92a-53107238efa2.mp3"
+    },
+    {
+      "id": "maureen-vote-close-03",
+      "text": "The club has spoken. Loudly, as usual.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/77854b11-2480-4afb-810e-fd61026ae9d6.mp3"
+    },
+    {
+      "id": "maureen-vote-close-04",
+      "text": "Numbers don't lie. Usually.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/182ebb3c-4240-4df7-941b-0e4d8b0be56a.mp3"
+    },
+    {
+      "id": "maureen-vote-close-05",
+      "text": "And here's what the room made of that.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/5f748067-9f5c-4cef-84e8-ae15a68a633e.mp3"
+    },
+    {
+      "id": "maureen-unanimous-win-01",
+      "text": "ECKY THUMP! That's a proper walloping!",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/28da5615-4550-4609-ae17-4c9778485a8f.mp3"
+    },
+    {
+      "id": "maureen-unanimous-win-02",
+      "text": "Not one dissenter. Somebody ring the bell!",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/18308a6b-d0fd-4d4e-8178-c444093af1de.mp3"
+    },
+    {
+      "id": "maureen-unanimous-win-03",
+      "text": "Well, everyone's agreed. Mark the calendar.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/543aeabb-a71b-45f3-a391-00ea77645bc7.mp3"
+    },
+    {
+      "id": "maureen-unanimous-win-04",
+      "text": "Clean sweep! Get the brass band out!",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/6d5b08d5-43a4-4846-adb5-575c62f2eeb3.mp3"
+    },
+    {
+      "id": "maureen-unanimous-win-05",
+      "text": "ECKY THUMP! The room's lost its mind!",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/ad657678-1a04-4cba-9fc7-ff7e1baaf4ce.mp3"
+    },
+    {
+      "id": "maureen-comeback-01",
+      "text": "Look who's back in the running!",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/4933d07c-c9d4-466b-856e-3ec99e900671.mp3"
+    },
+    {
+      "id": "maureen-comeback-02",
+      "text": "From nowhere! Somebody check that scoreboard.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/1623d042-c3b6-403c-8ef1-a59aee0fc1b0.mp3"
+    },
+    {
+      "id": "maureen-comeback-03",
+      "text": "Ooh, we've got a proper contest now.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/88e85359-6807-4293-aa91-786535f519bc.mp3"
+    },
+    {
+      "id": "maureen-comeback-04",
+      "text": "They weren't finished. Not by a long chalk.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/9ed1d46f-668b-4db6-a37a-151e69c3adca.mp3"
+    },
+    {
+      "id": "maureen-comeback-05",
+      "text": "A turn-up for the raffle books!",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/7c16a01f-e9c0-4af1-8e02-d258b9103bd6.mp3"
+    },
+    {
+      "id": "maureen-last-orders-01",
+      "text": "Last orders! Put your best nonsense forward.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/dafe7cf4-20ac-42c4-a9db-12855e787adf.mp3"
+    },
+    {
+      "id": "maureen-last-orders-02",
+      "text": "Final round. Don't spill your nerve.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/cfca1b76-440e-47d4-bd7d-c0b0a172d67a.mp3"
+    },
+    {
+      "id": "maureen-last-orders-03",
+      "text": "Bell's rung. It's the last chance saloon.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/a7623fa3-0c17-4745-926c-0d4f1b4be676.mp3"
+    },
+    {
+      "id": "maureen-last-orders-04",
+      "text": "One last answer. Make it worth the bus fare.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/a60660a3-d5a5-4170-bd34-5791b29507fb.mp3"
+    },
+    {
+      "id": "maureen-last-orders-05",
+      "text": "Last orders, folks. This one's worth double.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/8f2bbf87-dcde-41de-9ffe-e4159842fbfb.mp3"
+    },
+    {
+      "id": "maureen-champion-01",
+      "text": "Make some noise for tonight's champion!",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/471dd213-70a0-45c7-829d-3a6efd04d19e.mp3"
+    },
+    {
+      "id": "maureen-champion-02",
+      "text": "Winner buys the crisps. Club rules.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/3e4c8b9e-ca72-4b70-9e5d-db4c7e606385.mp3"
+    },
+    {
+      "id": "maureen-champion-03",
+      "text": "A champion! Someone polish the imaginary trophy.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/3c4ea344-6b4a-41f4-9d4f-13fd7507287e.mp3"
+    },
+    {
+      "id": "maureen-champion-04",
+      "text": "Well played. That's going on the noticeboard.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/67c2a0c3-d278-4213-8d2d-94c4196f2d15.mp3"
+    },
+    {
+      "id": "maureen-champion-05",
+      "text": "Take a bow. You've earned your black pudding.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/e79118dc-3894-44fc-9690-12891ce2d1b2.mp3"
+    },
+    {
+      "id": "maureen-idle-nudge-01",
+      "text": "There's room for another. Don't be shy.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/632c0b8e-cd9f-42b9-9e92-02142ae4e2c9.mp3"
+    },
+    {
+      "id": "maureen-idle-nudge-02",
+      "text": "We're still here. The biscuits aren't.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/7d72a309-0bd5-494f-8501-566afe879b72.mp3"
+    },
+    {
+      "id": "maureen-idle-nudge-03",
+      "text": "Waiting for the last straggler, as usual.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/63c979ab-dca2-48a3-8c71-8b0a24ebe340.mp3"
+    },
+    {
+      "id": "maureen-idle-nudge-04",
+      "text": "Come along. Saturday won't wait forever.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/5a134dc4-14a7-4e45-a6da-fe691240630e.mp3"
+    },
+    {
+      "id": "maureen-idle-nudge-05",
+      "text": "We've saved you a seat by the radiator.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/84426b94-d687-4492-b3bd-edd9125f03eb.mp3"
+    },
+    {
+      "id": "maureen-awaiting-answers-01",
+      "text": "Ten seconds! Pens down soon, love.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/9391fb4f-c7bf-4e9c-9391-4311dbe13a3d.mp3"
+    },
+    {
+      "id": "maureen-awaiting-answers-02",
+      "text": "Clock's ticking. Don't write a novel.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/dcc73c2d-00c5-40ca-a7a3-985380329223.mp3"
+    },
+    {
+      "id": "maureen-awaiting-answers-03",
+      "text": "Someone's still composing their masterpiece.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/1e74b525-202e-4be8-a6e0-2d7c293621d0.mp3"
+    },
+    {
+      "id": "maureen-awaiting-answers-04",
+      "text": "Nearly there. Last chance for a cracker.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/8974bcc6-3d3a-4629-a9f0-da018e3347d0.mp3"
+    },
+    {
+      "id": "maureen-awaiting-answers-05",
+      "text": "Hurry along. Our Maureen's got plans.",
+      "url": "https://cdn.creativeclaw.co/u/f3e7a3b1/audio/f3733655-fcf0-4561-8c5e-2e58c1617edd.mp3"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+name: Import approved Our Maureen recordings
+on:
+  push:
+    branches:
+      - feature/maureen-voice1-full-library
+    paths:
+      - docs/maureen-production-sources.json
+      - scripts/assemble-maureen-voice.js
+      - test/social-club-audio-import-stage10.test.js
+      - test/social-club-compere-v2.test.js
+      - .github/workflows/import-maureen-voice.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install sound-processing tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          command -v ffmpeg
+          command -v ffprobe
+      - name: Assemble all 60 AI-generated voice recordings
+        run: node scripts/assemble-maureen-voice.js
+      - name: Verify imported Ogg files and manifests
+        run: |
+          npm run audio:check
+          npm test
+          npm run audit:content
+          npm run audit:approved-content
+      - name: Commit verified game assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/assets/audio/maureen server/packs/voice-lines.json public/assets/voice-lines.json
+          git diff --cached --quiet && { echo "ERROR: no new recordings were staged"; exit 1; }
+          git commit -m "Install 60 verified Our Maureen Voice 1 Ogg recordings"
+          git push origin HEAD:feature/maureen-voice1-full-library
