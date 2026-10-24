@@ -21,8 +21,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Check sound-processing tools
+      - name: Install sound-processing tools
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
           command -v ffmpeg
           command -v ffprobe
       - name: Assemble all 60 AI-generated voice recordings
