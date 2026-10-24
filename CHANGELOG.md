@@ -1,3 +1,10 @@
+## Stage 9 — House Cards (24 October 2026)
+
+- Added private, opt-in, pre-match House Cards (maximum five per player) with host review and removal.
+- Added rating-aware server validation, snapshot privacy, user moderation permissions and room-only dealing in The Meat Raffle and The Hard Sell.
+- Repaired Social Club pre-match lobby recovery for persistently provisioned rooms; no Render plan change.
+- Added HTTP, engine and restart regression tests. Full in-person acceptance remains due in November.
+
 # Changelog — ECKY THUMP
 
 ## [2.0.0] — Stage 8 consolidation (release candidate, 24 October 2026)

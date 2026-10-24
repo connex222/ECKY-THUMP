@@ -12,7 +12,7 @@
     const text=String(value ?? '').trim().replace(/\s+/g,' ');
     return count(text) >= 3 && count(text) <= 160 && !/[<>\u0000-\u001f]/.test(text);
   };
-  const state={roundId:null,taskId:null,values:new Map(),picked:new Map(),busy:false,cardText:'',cardTarget:''};
+  const state={roundId:null,taskId:null,values:new Map(),picked:new Map(),busy:false,cardText:'',cardTarget:'',houseDraft:''};
   const rating={clean:'FAMILY',cheeky:'CHEEKY',adult:'AFTER DARK · 18+'};
   const lengths={quick:'QUICK · 3 ROUNDS',standard:'STANDARD · 5 ROUNDS',party:'LONG · 6 ROUNDS'};
   const avatar=id=>{
@@ -51,6 +51,21 @@
       <div class="club-phone-tally">${badge(rating[s.config?.rating]||'FAMILY')}${badge(lengths[s.config?.length]||'STANDARD')}${badge(`${players.length} / 12 PLAYERS`)}</div>
       <h2>Who's here?</h2><div class="club-phone-players">${players.map(p=>`<div class="club-phone-person">${avatar(p.avatar)}<span>${esc(p.name)}${p.id===s.you?.id?' · YOU':''}</span><small>${p.online?'IN':'AWAY'}</small>
         ${host(s)&&p.id!==s.you?.id?b('remove-player','REMOVE','minor',`data-club-id="${esc(p.id)}" aria-label="Remove ${esc(p.name)}"`):''}</div>`).join('')}</div>
+      <section class="club-phone-lobby-options club-phone-house" aria-label="House Cards">
+        <h2>House Cards · Private jokes</h2>
+        <p>Add up to five short cards each, just for this room. Your host can remove them before the show. They're never added to the main deck.</p>
+        ${host(s)?b('toggle-house-cards',s.houseCards?.enabled?'TURN HOUSE CARDS OFF':'ENABLE HOUSE CARDS',s.houseCards?.enabled?'is-current':'secondary'):''}
+        ${s.houseCards?.enabled?`<p class="club-phone-note">${Number(s.houseCards.total||0)} house cards in the club · up to ${Number(s.houseCards.limit||5)} per player</p>
+          ${s.you?.role==='player'?`<div class="club-phone-house-editor"><label for="club-house-text">YOUR PRIVATE JOKE</label>
+            <textarea id="club-house-text" class="club-phone-input" rows="2" maxlength="100" placeholder="Nan's secret bingo strategy">${esc(state.houseDraft)}</textarea>
+            <p class="club-phone-note">3–45 characters. No links, phone numbers or unsuitable wording.</p>
+            ${b('add-house-card','ADD HOUSE CARD','secondary',`id="club-house-add" ${count(state.houseDraft.trim())<3||count(state.houseDraft.trim())>45||s.houseCards?.yours?.length>=5?'disabled':''}`)}</div>
+            <div class="club-phone-house-list"><h3>Your cards (${s.houseCards?.yours?.length||0}/5)</h3>
+              ${(s.houseCards?.yours||[]).map(card=>`<div class="club-phone-house-row"><span>${esc(card.text)}</span>${b('remove-house-card','REMOVE','minor',`data-club-id="${esc(card.id)}" aria-label="Remove your House Card"`)}</div>`).join('')||'<p class="club-phone-note">No house cards added yet.</p>'}</div>`:''}
+          ${host(s)?`<details class="club-phone-house-review"><summary>HOST REVIEW · ${Number(s.houseCards?.total||0)} CARDS</summary>
+            ${(s.houseCards?.moderation||[]).map(card=>`<div class="club-phone-house-row"><span><strong>${esc(card.authorName)}</strong> · ${esc(card.text)}</span>${b('remove-house-card','REMOVE','minor',`data-club-id="${esc(card.id)}" aria-label="Remove card from ${esc(card.authorName)}"`)}</div>`).join('')||'<p class="club-phone-note">No cards to review yet.</p>'}</details>`:''}`
+          :'<p class="club-phone-note">House Cards are off. Your host may turn them on before the show.</p>'}
+      </section>
       ${host(s)?`<section class="club-phone-lobby-options"><h2>Optional Game Cards</h2><p>Six little bits of mischief; off by default. One held and one played per round. Never used in Last Orders.</p>${b('toggle-club-cards',s.gameCards?.enabled?'TURN GAME CARDS OFF':'ENABLE SIX GAME CARDS',s.gameCards?.enabled?'is-current':'secondary')}</section>`:''}
       ${host(s)?`<div class="club-phone-lobby-options"><h2>Club rules</h2><p>The host sets the humour level. After Dark requires everyone to confirm they are 18+.</p>
         <div class="club-phone-tool-grid">${['clean','cheeky','adult'].map(key=>b('rating',rating[key],s.config?.rating===key?'is-current':'secondary',`data-club-id="${key}" aria-pressed="${s.config?.rating===key}"`)).join('')}</div>
@@ -158,14 +173,14 @@
     return frame(s,withCard);
   }
   function capture(root){
-    const input=root.querySelector('#club-answer')||root.querySelector('#club-card-text');
+    const input=root.querySelector('#club-answer')||root.querySelector('#club-card-text')||root.querySelector('#club-house-text');
     if(!input)return null;
     const focus=document.activeElement===input,position=focus?{start:input.selectionStart,end:input.selectionEnd}:null;
     return {focus,position,inputId:input.id};
   }
   function restore(root,saved){
     if(!saved?.focus)return;
-    const input=root.querySelector('#'+(saved.inputId==='club-card-text'?'club-card-text':'club-answer'));
+    const input=root.querySelector('#'+(saved.inputId==='club-house-text'?'club-house-text':saved.inputId==='club-card-text'?'club-card-text':'club-answer'));
     if(input){input.focus({preventScroll:true});if(saved.position)input.setSelectionRange(saved.position.start,saved.position.end);}
   }
   function updateInput(root,s){
@@ -209,6 +224,20 @@
       try{await send(s.you?.role==='audience'?'social-audience-vote':'social-vote',{entryId:id});}
       finally{state.busy=false;}
       return;
+    }
+    if(name==='toggle-house-cards')return send('social-set-house-cards',{enabled:!s.houseCards?.enabled});
+    if(name==='add-house-card'){
+      if(state.busy)return;
+      const value=state.houseDraft.trim();
+      if(!checkAnswer(value)||count(value)>45)return toast('House Cards must be 3–45 characters.');
+      state.busy=true;
+      try{const ok=await send('social-add-house-card',{text:value});if(ok)state.houseDraft='';}
+      finally{state.busy=false;}
+      return;
+    }
+    if(name==='remove-house-card'){
+      if(!window.confirm('Remove this House Card from the room?'))return;
+      return send('social-remove-house-card',{cardId:id});
     }
     if(name==='toggle-club-cards')return send('social-set-cards',{enabled:!s.gameCards?.enabled});
     if(name==='play-club-card'){
@@ -266,6 +295,11 @@
   }
   function updatePower(event){
     if(event.target?.id==='club-card-text')state.cardText=event.target.value;
+    if(event.target?.id==='club-house-text'){
+      state.houseDraft=event.target.value;
+      const button=document.querySelector('#club-house-add');
+      if(button)button.disabled=!checkAnswer(state.houseDraft)||count(state.houseDraft.trim())>45;
+    }
     if(event.target?.id==='club-card-target')state.cardTarget=event.target.value;
   }
   window.ECKY_SOCIAL_PHONE={render,capture,restore,updateInput,updatePower,handle,onSnapshot,checkAnswer,state,available:false};

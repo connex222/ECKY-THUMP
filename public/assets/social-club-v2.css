@@ -1434,3 +1434,15 @@ body.tv-body .social-club .club-curtain-right{right:0;border-left:5px solid #bb7
   body.e15-modern .app-shell { padding-bottom: max(50px, env(safe-area-inset-bottom)); }
 }
 
+
+/* House Cards are written on phones and moderated before the match starts. */
+.club-phone-house{border-top:1px solid #b6938b;margin-top:22px;padding-top:18px;}
+.club-phone-house-editor{margin-top:16px;}
+.club-phone-house-editor label{display:block;color:#fff0d5;font-weight:850;margin:10px 0;}
+.club-phone-house-editor .club-phone-input{min-height:93px;font-size:19px!important;}
+.club-phone-house-list h3{font-size:19px;margin:20px 0 9px;color:#ffe5b1;}
+.club-phone-house-row{display:flex;align-items:center;gap:9px;padding:10px;margin:7px 0;background:#442b42;border:1px solid #b49a87;border-radius:12px;}
+.club-phone-house-row span{flex:1;overflow-wrap:anywhere;font-size:17px;color:#fff8ec;}
+.club-phone-house-row .club-phone-button{flex:0 0 auto;width:auto;}
+.club-phone-house-review{margin:18px 0;padding:8px 11px;border:2px solid #c7a084;border-radius:12px;}
+.club-phone-house-review summary{min-height:48px;display:flex;align-items:center;font-weight:850;cursor:pointer;color:#fff1dd;}

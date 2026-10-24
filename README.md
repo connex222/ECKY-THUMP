@@ -46,3 +46,8 @@ npm run simulate:smoke       # deterministic simulation, not real-human QA
 ## Archived development notes (for reference only)
 
 Earlier README and older development notes are archived under `docs/archive/stage8-history/`.
+
+
+### Stage 9 — optional House Cards
+
+The host can enable **House Cards** in a Social Club lobby (off by default). Each current contestant may submit up to five original response cards (3–45 visible characters, same rating/text filters as normal writing). The host can review and remove cards before the show; players can remove their own. The room-only cards are mixed into The Meat Raffle and The Hard Sell hands and cleared when the room expires. They are **not** added to the approved global content catalogue. Host kicking removes that contestant's House Cards. Optional room recovery before the match starts is now supported when private disk persistence is enabled. Do not use House Cards for identifying information, harassment or copied material; automatic filters do not replace host judgement.
