@@ -78,11 +78,11 @@ function newRoom({name, rating='clean', length='party', pace='relaxed', gameCard
   const hostName=validateName(name);
   const secret=SECRET(); const id=randomId();
   const room={
-    code:'', created:Date.now(), lastActivity:Date.now(), config:{rating,length,pace,gameCards,socialClub}, phase:'LOBBY',
+    code:'', created:Date.now(), lastActivity:Date.now(), config:{rating,length,pace,gameCards,socialClub,houseCards:false}, phase:'LOBBY',
     ownerId:id, displayHashes:[], players:[{id,name:hostName,avatar:validateAvatar(avatar),tokenHash:hash(secret),adultConfirmed:!!adultConfirmed,ready:true,online:false,joined:0,score:0,firsts:0,golds:0,silvers:0}],
     audience:[], chaosEvents:[], chaosVotes:new Map(), chaosSerial:0,
     playlist:[], roundIndex:-1, round:null, deadline:null, paused:false, pauseRemaining:null, pauses:0,
-    revision:1, promptHistory:new Set(), responseDeck:null, responseDealt:0, results:[], events:new Set(), reports:[], finishedAt:null,
+    revision:1, promptHistory:new Set(), responseDeck:null, responseDealt:0, houseCards:new Map(), houseResponseDeck:null, results:[], events:new Set(), reports:[], finishedAt:null,
   };
   powers.init(room);
   return {room,id,secret};
@@ -126,6 +126,13 @@ function setLobbyRating(room,rating) {
   if(rating==='adult'&&[...room.players,...room.audience].some(p=>!p.adultConfirmed))
     throw Error('Everyone must tap “I am 18+” on their own controller before After Dark can be enabled.');
   if(room.config.rating===rating)return;
+  // Changing down to Family must never smuggle stronger House Cards into the room.
+  if(room.config.socialClub&&room.houseCards?.size){
+    for(const card of room.houseCards.values()){
+      try{validateAnswer(card.text,rating);}
+      catch(_){throw Error('Remove House Cards unsuitable for the chosen humour rating first.');}
+    }
+  }
   room.config.rating=rating;
   room.promptHistory=new Set();room.responseDeck=null;
   room.revision++;
@@ -165,7 +172,12 @@ function removePlayer(room, id) {
   if(id===room.ownerId) throw Error('The host cannot remove themselves.');
   const index=room.players.findIndex(p=>p.id===id);
   if(index<0) throw Error('That friend is not in the room.');
-  room.players.splice(index,1);room.revision++;
+  room.players.splice(index,1);
+  if(room.config.socialClub&&room.houseCards){
+    for(const [cardId,card] of room.houseCards)if(card.authorId===id)room.houseCards.delete(cardId);
+    room.houseResponseDeck=null;
+  }
+  room.revision++;
   return id;
 }
 function findPlayer(room, secret) {

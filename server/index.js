@@ -170,13 +170,16 @@ function route(req,res) {
         else throw Error('Audience members can only heckle, vote on chaos, and confirm age.');
         touch(room);send(res,200,{ok:true,revision:room.revision});broadcast(room);return;
       }
-      if(room.config.socialClub&&['social-seed','social-submit','social-vote','social-next','social-play-card','social-set-cards'].includes(body.type)){
+      if(room.config.socialClub&&['social-seed','social-submit','social-vote','social-next','social-play-card','social-set-cards','social-set-house-cards','social-add-house-card','social-remove-house-card'].includes(body.type)){
         switch(body.type){
           case 'social-seed':game.social.submitSeed(room,p,body.value,game.validateAnswer);break;
           case 'social-submit':game.social.submit(room,p,body.taskId,body.value,game.validateAnswer);break;
           case 'social-vote':game.social.vote(room,p,body.entryId);break;
           case 'social-next':host(who,room);game.social.nextRound(room);break;
           case 'social-set-cards':host(who,room);game.social.setGameCards(room,body.enabled);break;
+          case 'social-set-house-cards':host(who,room);game.social.setHouseCards(room,body.enabled);break;
+          case 'social-add-house-card':game.social.addHouseCard(room,p,body.text,game.validateAnswer);break;
+          case 'social-remove-house-card':game.social.removeHouseCard(room,p,body.cardId);break;
           case 'social-play-card':game.social.playGameCard(room,p,body.cardId,{entryId:body.entryId,taskId:body.taskId,value:body.value,text:body.text},game.validateAnswer);break;
         }
         touch(room);send(res,200,{ok:true,revision:room.revision});broadcast(room);return;

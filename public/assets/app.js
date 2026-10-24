@@ -485,7 +485,7 @@
       return;
     }
     const picked=ev.target.closest('[data-pick-avatar]');if(picked){choice=picked.dataset.pickAvatar;if(S.snap&&S.snap.phase==='LOBBY')return action('avatar',{avatar:choice});document.querySelectorAll('[data-pick-avatar]').forEach(b=>{b.classList.toggle('picked',b.dataset.pickAvatar===choice);b.setAttribute('aria-pressed',String(b.dataset.pickAvatar===choice));});return;}const button=ev.target.closest('[data-action]');if(!button||button.disabled)return;click(button.dataset.action,button.dataset.id);});
-  app.addEventListener('input',ev=>{if(['club-card-target','club-card-text'].includes(ev.target.id)&&S.snap?.mode==='social-club-v2'){window.ECKY_SOCIAL_PHONE?.updatePower(ev);return;}if(ev.target.id==='club-answer'&&S.snap?.mode==='social-club-v2'){window.ECKY_SOCIAL_PHONE?.updateInput(app,S.snap);return;}if(ev.target.id==='answer-input'){S.draft=ev.target.value;rememberDraft();updateCounter();}});
+  app.addEventListener('input',ev=>{if(['club-card-target','club-card-text','club-house-text'].includes(ev.target.id)&&S.snap?.mode==='social-club-v2'){window.ECKY_SOCIAL_PHONE?.updatePower(ev);return;}if(ev.target.id==='club-answer'&&S.snap?.mode==='social-club-v2'){window.ECKY_SOCIAL_PHONE?.updateInput(app,S.snap);return;}if(ev.target.id==='answer-input'){S.draft=ev.target.value;rememberDraft();updateCounter();}});
   app.addEventListener('change',ev=>{if(ev.target.id==='club-card-target'&&S.snap?.mode==='social-club-v2')window.ECKY_SOCIAL_PHONE?.updatePower(ev);});
   const code=(q.get('room')||'').trim().toUpperCase();
   if(/^[A-Z2-9]{6}$/.test(code) && localStorage.getItem(storageKey(code)))startSession(code,localStorage.getItem(storageKey(code)));

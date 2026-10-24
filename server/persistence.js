@@ -41,7 +41,7 @@ function restore(now=Date.now()){
     const full=path.join(dir,file);
     try{
       const obj=JSON.parse(fs.readFileSync(full,'utf8'),decode),room=obj.room;
-      if(obj.version!==VERSION||!room||room.code!==file.slice(0,-5)||!room.config?.socialClub||!room.social||
+      if(obj.version!==VERSION||!room||room.code!==file.slice(0,-5)||!room.config?.socialClub||(room.phase!=='LOBBY'&&!room.social)||
          !Number.isFinite(room.created)||room.created>now||now-room.created>=MAX_AGE||
          !Array.isArray(room.players)||room.players.length<1||room.players.length>12||
          !Array.isArray(room.audience)||!Array.isArray(room.playlist)||!(room.promptHistory instanceof Set)){
@@ -53,6 +53,13 @@ function restore(now=Date.now()){
         if(typeof participant.tokenHash!=='string'||!/^[a-f0-9]{64}$/.test(participant.tokenHash))throw Error('Invalid hashed session.');
         participant.online=false;participant.hasConnected=false;
       }
+      if(room.houseCards!==undefined&&!(room.houseCards instanceof Map))continue;
+      if(room.houseCards instanceof Map &&(room.houseCards.size>60 || [...room.houseCards.values()].some(c=>
+        !c||typeof c.id!=='string'||typeof c.text!=='string'||typeof c.authorId!=='string'||
+        c.text.length>180||!room.players.some(p=>p.id===c.authorId))))continue;
+      room.houseCards??=new Map();
+      room.config.houseCards??=false;
+      room.houseResponseDeck??=null;
       if(room.round&&(!Array.isArray(room.round.groups)||!(room.round.prompts instanceof Map)||
         !(room.round.seeds instanceof Map)||!(room.round.hands instanceof Map)))continue;
       room.lastActivity=now;

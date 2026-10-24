@@ -12,6 +12,45 @@ const TITLES={CARD:'THE MEAT RAFFLE',WIT:'THE TURN',CONTEXT:'CROSSED WIRES',DOUB
 const RULES={CARD:'Choose a response card for the club raffle.',WIT:'Two punchlines for two different opponents.',CONTEXT:'Write an innocent line, then twist another contestant’s.',DOUBLE:'Pick a card and write a sales pitch twice.',FINAL:'Use the required word. Last Orders counts double.'};
 const SCHEDULES={quick:['CARD','WIT','FINAL'],standard:['CARD','WIT','CONTEXT','DOUBLE','FINAL'],party:['CARD','WIT','CONTEXT','DOUBLE','WIT','FINAL']};
 const ROUND_MS={CARD:90000,WIT:120000,CONTEXT:125000,DOUBLE:140000,FINAL:140000};
+const MAX_HOUSE_CARDS=5,MAX_HOUSE_LENGTH=45;
+const normaliseCard=text=>String(text).toLocaleLowerCase('en-GB').replace(/\s+/g,' ').trim();
+function houseList(room){return [...(room.houseCards||new Map()).values()];}
+function setHouseCards(room,enabled){
+  if(room.phase!=='LOBBY')throw Error('House Cards can only be changed in the lobby.');
+  if(typeof enabled!=='boolean')throw Error('House Cards must be on or off.');
+  room.config.houseCards=enabled;
+  room.houseResponseDeck=null;
+  touch(room);
+}
+function addHouseCard(room,player,text,validate){
+  if(room.phase!=='LOBBY')throw Error('House Cards may only be written before the show starts.');
+  if(!room.config.houseCards)throw Error('The host has not enabled House Cards.');
+  if(!room.players.includes(player))throw Error('Only current contestants may write House Cards.');
+  const value=validate(text,room.config.rating);
+  const length=typeof Intl.Segmenter==='function'?[...new Intl.Segmenter('en-GB',{granularity:'grapheme'}).segment(value)].length:Array.from(value).length;
+  if(length>MAX_HOUSE_LENGTH)throw Error('House Cards must be 45 characters or fewer.');
+  if(houseList(room).filter(c=>c.authorId===player.id).length>=MAX_HOUSE_CARDS)
+    throw Error('You can add up to five House Cards.');
+  const norm=normaliseCard(value);
+  if(houseList(room).some(c=>normaliseCard(c.text)===norm)||getPool(responses,'adult').some(c=>normaliseCard(c)===norm))
+    throw Error('That card is already in the club deck.');
+  room.houseCards??=new Map();
+  const id=token();room.houseCards.set(id,{id,authorId:player.id,text:value});
+  room.houseResponseDeck=null;touch(room);
+  return id;
+}
+function removeHouseCard(room,actor,id){
+  if(room.phase!=='LOBBY')throw Error('House Cards may only be removed in the lobby.');
+  const card=room.houseCards?.get(id);
+  if(!card)throw Error('That House Card is unavailable.');
+  if(card.authorId!==actor.id&&room.ownerId!==actor.id)throw Error('Only the author or the host may remove this card.');
+  room.houseCards.delete(id);room.houseResponseDeck=null;touch(room);
+}
+function housePool(room){
+  if(!room.config.houseCards)return [];
+  return [...new Set(houseList(room).filter(c=>room.players.some(p=>p.id===c.authorId)).map(c=>c.text))];
+}
+
 function touch(room){room.revision=(room.revision||0)+1;room.lastActivity=Date.now();}
 function phase(room,name,ms=null){room.phase=name;room.social.phaseStartedAt=Date.now();room.deadline=ms===null?null:Date.now()+ms;touch(room);}
 function unusedPrompt(room,pool){
@@ -29,17 +68,38 @@ function pairings(players,roundToken){
 }
 function responseHands(room,size){
   const pool=[...new Set(getPool(responses,room.config.rating))];
+  const custom=housePool(room);
   const needed=room.players.length*size;
-  if(pool.length<needed)throw Error('Not enough unique response cards for this room.');
-  // Deal without repeats for an entire room until the pool is exhausted.
+  if(pool.length+custom.length<needed)throw Error('Not enough unique response cards for this room.');
+  // Shuffle House Cards between contestants and include up to one per hand.
+  // The private room pool is never copied into the global content catalogue.
+  const houseCount=Math.min(custom.length,room.players.length);
+  const customDraw=[],usedCustom=new Set();
+  if(houseCount){
+    room.houseResponseDeck??=shuffle(custom);
+    while(customDraw.length<houseCount){
+      if(!room.houseResponseDeck.length)room.houseResponseDeck=shuffle(custom.filter(x=>!usedCustom.has(x)));
+      const next=room.houseResponseDeck.shift();
+      if(!usedCustom.has(next)){customDraw.push(next);usedCustom.add(next);}
+    }
+  }
+  // Deal standard cards without repeats in each whole round.
   const drawn=[],thisDeal=new Set();
   room.responseDeck??=shuffle(pool);
-  while(drawn.length<needed){
+  while(drawn.length<needed-houseCount){
     if(!room.responseDeck.length)room.responseDeck=shuffle(pool.filter(x=>!thisDeal.has(x)));
     const x=room.responseDeck.shift();
     if(!thisDeal.has(x)){drawn.push(x);thisDeal.add(x);}
   }
-  return new Map(room.players.map((p,i)=>[p.id,drawn.slice(i*size,(i+1)*size).map(text=>({id:token(),text}))]));
+  const seats=shuffle(room.players.map(p=>p.id));
+  const customBySeat=new Map(seats.slice(0,houseCount).map((id,i)=>[id,customDraw[i]]));
+  let offset=0;
+  return new Map(room.players.map(p=>{
+    const count=size-(customBySeat.has(p.id)?1:0);
+    const hand=drawn.slice(offset,offset+count);offset+=count;
+    if(customBySeat.has(p.id))hand.push(customBySeat.get(p.id));
+    return [p.id,shuffle(hand).map(text=>({id:token(),text}))];
+  }));
 }
 function beginRound(room){
   const kind=room.playlist[room.roundIndex];
@@ -323,6 +383,16 @@ function snapshot(room,viewerId,isTV=false){
     tv:isTV,gameCards:powers.publicView(room,viewerId,isTV),players:room.players.map(p=>({id:p.id,name:p.name,avatar:p.avatar,score:p.score,online:p.online})),
     you:isTV?null:player?{id:player.id,name:player.name,avatar:player.avatar,isHost:room.ownerId===player.id,role:'player'}:
       aud?{id:aud.id,name:aud.name,role:'audience'}:null};
+  // Lobby-only house text. The host may moderate every card; a contestant sees
+  // only their own. TVs, audience, opponents and active-match clients see counts.
+  if(room.phase==='LOBBY'){
+    const cards=houseList(room).filter(c=>room.players.some(p=>p.id===c.authorId));
+    const canModerate=!!player&&room.ownerId===player.id;
+    base.houseCards={enabled:room.config.houseCards===true,limit:MAX_HOUSE_CARDS,total:cards.length,
+      yours:player?cards.filter(c=>c.authorId===player.id).map(c=>({id:c.id,text:c.text})):[],
+      moderation:canModerate?cards.map(c=>({id:c.id,text:c.text,authorId:c.authorId,
+        authorName:room.players.find(p=>p.id===c.authorId)?.name})):[]};
+  }
   if(!r)return base;
   base.round={id:r.id,type:r.type,stage:r.stage,prompt:r.prompt,requiredWord:r.requiredWord,groupIndex:r.groupIndex,
     totalGroups:r.groups.length,answerCount:r.groups.reduce((n,g)=>n+[...g.entries.values()].filter(x=>!x.auto).length,0)};
@@ -377,5 +447,5 @@ function setGameCards(room,enabled){
   if(typeof enabled!=='boolean')throw Error('Game Cards must be on or off.');
   room.config.gameCards=enabled;touch(room);
 }
-module.exports={setGameCards,playGameCard,TITLES,RULES,SCHEDULES,pairings,beginRound,start,submitSeed,submit,startSubmit,startRewrite,endSubmission,
+module.exports={setHouseCards,addHouseCard,removeHouseCard,responseHands,setGameCards,playGameCard,TITLES,RULES,SCHEDULES,pairings,beginRound,start,submitSeed,submit,startSubmit,startRewrite,endSubmission,
   revealNext,vote,scoreGroup,endVoting,report,hide,skip,nextResult,nextRound,tick,pause,resume,playAgain,snapshot,expected};
