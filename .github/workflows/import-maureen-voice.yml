@@ -6,6 +6,8 @@ on:
     paths:
       - docs/maureen-production-sources.json
       - scripts/assemble-maureen-voice.js
+      - test/social-club-audio-import-stage10.test.js
+      - test/social-club-compere-v2.test.js
       - .github/workflows/import-maureen-voice.yml
   workflow_dispatch:
 permissions:
