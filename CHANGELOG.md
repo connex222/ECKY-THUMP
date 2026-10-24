@@ -1,3 +1,10 @@
+## Stage 10 — Our Maureen recording importer and resilient room saves (24 October 2026)
+
+- Add a zero-dependency, offline FFmpeg importer for the 60 existing Maureen lines; audio checked by exact filename and media probe before changing the paired manifests. No spoken files generated or labelled as recorded.
+- Disable the misleading TV voice toggle until at least one actual clip is installed; leave captions, music and sound cues intact. Bust the updated TV audio asset cache.
+- Make Social Club snapshot store, cleanup, and startup restore failures non-fatal. Health now reports best-effort/ephemeral/degraded recovery state without claiming a private cloud disk.
+- Add local IO and audio conversion regression tests, CI recording integrity check and detailed handoff instructions. Existing 850 approved cards, Game Cards, House Cards and Classic compatibility remain unchanged.
+
 ## Stage 9 — House Cards (24 October 2026)
 
 - Added private, opt-in, pre-match House Cards (maximum five per player) with host review and removal.

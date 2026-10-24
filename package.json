@@ -2,7 +2,7 @@
   "name": "ecky-thump-game-night",
   "version": "2.0.0",
   "private": true,
-  "description": "ECKY THUMP Social Club v2.0.0 — classic mode plus optional Social Club preview",
+  "description": "ECKY THUMP Social Club v2.0.0 \u2014 classic mode plus optional Social Club preview",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
@@ -14,7 +14,9 @@
     "stage:party-csv": "node scripts/stage-party-csv.js",
     "audit:approved-content": "node scripts/audit-approved-content.js",
     "stage:more-cards": "node scripts/stage-more-cards.js",
-    "audit:more-cards": "node scripts/audit-more-cards.js"
+    "audit:more-cards": "node scripts/audit-more-cards.js",
+    "audio:check": "node scripts/import-maureen-audio.js --check",
+    "audio:import": "node scripts/import-maureen-audio.js --import"
   },
   "engines": {
     "node": ">=20.11"

@@ -6,6 +6,8 @@ Our Maureen is the fictional compère at the ECKY THUMP Social Club. Her display
 
 ## Recording and activation
 
+**Preferred Stage 10 importer:** Record your own or properly licensed lines into a folder using the IDs below as filenames, then run `node scripts/import-maureen-audio.js --dry-run /path/to/folder` and `npm run audio:import -- /path/to/folder`. With FFmpeg on PATH, this converts and loudness-normalises 0.15–20-second clips to mono Ogg Opus, checks the output and updates both manifests. Importing a partial batch is supported. Check the result with `npm run audio:check`. No sound is synthesised or obtained from a paid provider by these scripts. The original five-step manual process follows for reference.
+
 1. Record the following short lines in your natural voice. A warm, dry Northern delivery is encouraged; the lines work without putting on an accent.
 2. Export one mono `.ogg` file per ID, using exactly the filename shown (for example, `maureen-reveal-01.ogg`).
 3. Place recordings in `public/assets/audio/maureen/` (create that folder).
