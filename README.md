@@ -1,170 +1,48 @@
-# ECKY THUMP
+# ECKY THUMP v2.0.0 — Social Club
 
-**Version 1.8.3 — Neon Arena + optional Game Cards, read-only TV links, SSE reconnect fixes and editorial review tooling.** A private browser-based comedy party game for 3–12 players and up to 30 audience members. Players use their phones; a separate browser tab or TV can show the shared stage. No paid services or accounts are required for local play.
+**Good friends. Terrible answers.** A private games-night party game for 3–12 invited friends, played on phones with an optional TV show stage. Written in UK English.
 
-**Language and branding:** All player-facing text uses UK English and the official name **ECKY THUMP**. Legacy API identifiers (such as `ECKEY_AVATARS`) remain stable to protect compatibility. See `docs/UK-ENGLISH-STYLE.md`.
+## Start in three steps
 
-## Social Club v2 — Stage 7, six optional Game Cards (preview)
+1. Install Node.js 20.11 or later and download the source ZIP. Unzip it.
+2. Open a terminal in the `ECKY-THUMP` folder and run `npm start` (no runtime packages or build tools required).
+3. Visit `http://localhost:3000/` on the computer; share its reachable network address with phones on the same Wi-Fi. Choose Host, invite friends by QR/link, and press Start once at least three join.
 
-The original game remains available. When the server has `SOCIAL_CLUB_PREVIEW=1`, a host can tick **Social Club — New TV Show Preview** on the start screen. In the Social Club lobby only, the host may enable **Six Game Cards**. These are **OFF by default**, held one at a time, and every player may play **at most one per round**. The TV announces the play with a large banner and a caption from Our Maureen. Phones never show a power-up tray; only a single contextual **Play a card** action appears.
+**Two game experiences:** The original Classic mode remains available and is the default; optional **Social Club** has theatrical TV reveals, A/B voting, Our Maureen captions and six opt-in Game Cards. On the Render service, Social Club preview availability is controlled by `SOCIAL_CLUB_PREVIEW=1`. Do not offer it as fully tested until November's genuine multi-device acceptance.
 
-| Card | When / precise effect |
-|---|---|
-| **DOUBLE OR NOWT** | Before answering a head-to-head duel. Win the next duel to double that duel's points; lose or tie and that duel scores zero. |
-| **NICKED** | Nick 100 points from the leader during a round's introduction or submission; only if that person leads you and has at least 100. |
-| **HECKLE** | While the TV is revealing answers, attach a validated, maximum 80-character heckle beneath one already revealed answer. One heckle per answer. |
-| **SECOND CHANCE** | While submissions are still open in The Turn or Crossed Wires, replace one already submitted answer once. The entry ID stays the same; if everyone submits early, a short 12-second grace period allows the card to be used. |
-| **UNDERDOG** | Automatically assigned to the uniquely last-place contestant at the beginning of eligible head-to-head rounds, awarding +150 if they win their next duel. |
-| **POWER CUT** | During writing, queue a three-second blackout before the next anonymous reveal. Purely theatrical, no score change. |
+**Private game:** no public matchmaking. A room lasts up to six hours. Social Club room recovery only survives a restart if `ROOM_DATA_DIR` is on a private, genuinely persistent disk; the free Render instance does not provide this guarantee. Original Classic rooms are not persisted across server restarts.
 
-None of these cards is awarded or played in **Last Orders**. Optional Game Cards do not change the normal private room format, existing avatars or rating limits. The older 15-card system is still available only in **classic games**, to avoid breaking previously tested game-night play. Real phone/TV multiplayer acceptance is still scheduled for **November 2026**.
-
-**Real-phone/TV Stage 7 acceptance checklist (deferred):**
-
-1. Host a Social Club room with Game Cards OFF and confirm the normal game is unchanged. Enable cards in a second lobby and confirm other players cannot alter the setting.
-2. Use three, eight and twelve players; confirm one held card only and a single **Play a card** phone control, never a tray.
-3. Play each of the six effects; verify the full-width TV banner, compère caption, votes, scoreboard and card consumption. For **UNDERDOG**, set up a uniquely last-place contestant in round two.
-4. Play **POWER CUT** in a writing phase: the TV must go fully dark for precisely three seconds before any answer text appears. Under reduced-motion settings the effect must remain readable without flashing.
-5. Check **SECOND CHANCE** input remains focused during reconnection, and HECKLE text is escaped and never identifies the author before voting closes.
-6. Confirm Last Orders scores match a match with cards disabled, and confirm phone-only play remains understandable without a TV.
-7. Disconnect/reconnect a phone mid-round, pause/resume, and restart the server on persistent storage; no second play or duplicated score may be possible.
-
-## Requirements
-
-- Node.js **20.11+** (22 LTS recommended)
-- Windows, macOS or Linux, plus a current mobile browser
-- A shared Wi-Fi network for local games, or a hosted HTTPS URL for different homes
-
-## Start the game
-
-**Windows:** extract the project and double-click `START-GAME-WINDOWS.bat`. The launcher checks Node, chooses an available port, starts the server, waits for `/api/health` and opens your browser. The URL printed by the launcher can be used on the same Wi-Fi. Never use `localhost` in an invite link for a different phone.
-
-**macOS / Linux / manual:**
+## Everyday commands
 
 ```bash
-node --version          # >= 20.11
-npm test
-npm start               # defaults to port 3000; use PORT=3001 if needed
+npm start                    # run the game
+npm test                     # all automated Node tests
+npm run audit:content        # check the legacy content catalogue
+npm run audit:approved-content # check the approved Social Club cards
+npm run simulate:smoke       # deterministic simulation, not real-human QA
 ```
 
-No runtime npm dependencies are used at present. Install dependencies only if future releases add a `package-lock.json`. Once the server is running, open `http://localhost:3000` on the host PC or the advertised LAN address on your other devices.
+## Game night, from start to finish
 
-## How to play
+- The host creates a private room and chooses FAMILY / CHEEKY / AFTER DARK (18+), match length and pace.
+- Friends join on their phones; each round reveals its instructions on screen.
+- In Social Club, submit private answers, watch the anonymous TV reveal, then vote. Authors are revealed after votes lock. No self-voting. The server decides the score.
+- A Quick show includes Meat Raffle, The Turn and Last Orders. A Standard show includes all five challenges; Long adds another Turn.
+- Optional House Cards and recorded voice are **not** complete/verified for general release. The 60 Maureen captions are ready; recordings must be supplied separately.
+- The host can moderate and pause; everyone can reconnect with their original room/seat token if the room survives.
 
-1. **Host** creates a private room, chooses content rating (Clean, Cheeky or Adult), length (2, 4 or 6 rounds), pace, nickname and avatar.
-2. **Optional:** enable **Game Cards** in the lobby to add playable disruptions, strategic bets and comeback effects. Disabled by default until playtested.
-3. Invite at least two friends with the QR code or room code; open a separate read-only TV view from host controls.
-4. Players complete challenges and anonymously vote Gold (2 weight) and Silver (1 weight). No self-voting.
-5. Results add base points. A Game Card can apply a **separate bounded bonus or penalty**. The Last Laugh finale doubles base scoring but never Game Card bonuses.
+## Documentation and safety
 
-### The five challenges
+- `DESIGN.md` — canonical phases, scoring, content policy and developer design decisions.
+- `CHANGELOG.md` — history; `VOICE-LINES.md` — 60 compère scripts and recording paths.
+- `docs/NOVEMBER-ACCEPTANCE.md` — **uncompleted** real phone/TV tests and approval gates.
+- `docs/CONTENT-REQUEST.md` / `docs/templates/` — submission formats for future cards.
+- `docs/archive/` — older design guides and test reports. Kept for traceability.
+- `render.persistent.example.yaml` — optional paid Render persistent-disk blueprint; **not applied** to your running service. Do not enable a paid plan without the owner's authorisation. When setting up a new persistent service, attach a private disk at `/data`, set `ROOM_DATA_DIR=/data/rooms`, and confirm backups, privacy and deletion policy. Plain room JSON contains private player answers (but only hashed session tokens).
+- **Before commercial use**, verify permissions/licensing for third-party CSV submissions, the game name, and UK age/safety requirements. Passing automated tests does not establish approval.
 
-| Challenge | Format |
-|---|---|
-| Card Clash | Choose the funniest response from 7 private cards |
-| Quick Wit | Write an original punchline |
-| Context Collapse | Write an innocent line, then twist someone else's |
-| Double Trouble | Choose a response card and add your own sales pitch |
-| The Last Laugh | Mandatory word and double base points |
+---
 
-### Game Cards (optional)
+## Archived development notes (for reference only)
 
-Fifteen **separate playable-effect cards**, not the shared comedy-response deck. Five Chaos effects, five Tactical gambles, five Equalisers for trailing contestants. The rules are server-authoritative. Players can hold two, play one per round and two per match, and a global Chaos effect can fire at most once per round. Use the visible **quick-play bar** for immediately available powers, or open the collapsible **POWER-UPS** tray for descriptions, predictions and card replacement. Server-validated availability tells you when a card cannot be played. You may replace one held Game Card per active round if its current effect is unsuitable. Equalisers automatically activate once earned; they never change the finale. Early disruption windows are 10–12 seconds; Fast Fingers has 12 seconds (Lively) or 20 seconds (Relaxed) **after activation** to submit, and still requires a Gold vote. Host pauses freeze all power-up clocks. An activated Fast Fingers power shows its own private bonus countdown on the controller. See `docs/GAME-CARDS.md` for detailed rules.
-
-### Hosting and security
-
-The server uses native Node.js HTTP, REST and Server-Sent Events (SSE)—**not WebSockets or Express**. Session tokens are stored locally in each controller; refresh or reconnect restores the seat for that running room. Room state lives in memory and disappears when the server restarts. TV links are private bearer tokens; do not share them publicly. Adult mode requires affirmative 18+ confirmation and has limited content moderation. The host can hide entries and remove players between games.
-
-## Source architecture
-
-- `server/index.js`: HTTP router, static file delivery, authentication, SSE connections, room lifetime
-- `server/game.js`: gameplay phases, scoring, question/response decks, snapshots
-- `server/content.js` + `server/packs/`: comedy content and optional Game Card catalogue
-- `server/game-cards.js`: validation, draw limits, effects and Equaliser grants
-- `server/telemetry.js`: bounded in-memory anonymous gameplay diagnostics
-- `public/index.html` + `public/assets/app.js`: mobile controller
-- `public/tv/index.html` + `public/assets/tv.js`: TV/stage UI
-- `test/`: Node built-in unit/integration tests, including avatar integrity checks
-
-All existing avatar files, IDs, bindings and rendering functions are preserved by the v1.7 expansion.
-
-## Tests, telemetry and troubleshooting
-
-```bash
-npm test
-node --check server/game-cards.js
-node --check server/index.js
-```
-
-The room host can request telemetry with `GET /api/rooms/ROOMCODE/telemetry` using their Bearer session token. It contains only event types, card IDs, durations and predefined error categories; no jokes, IPs or player names. Events are deleted on restart or room expiration. Use it for local playtests, not persistent user tracking.
-
-If another device cannot join, check that all local devices are on the same LAN, that Windows Firewall permits Node, and that you shared the LAN URL instead of `localhost`. If the port is occupied, the Windows launcher chooses another port automatically; otherwise set `PORT`. Render hosting uses `npm start` and a persistent Node process; verify the Render build/deploy status separately after pushing updates.
-
-## Further reading
-
-- `CHANGELOG.md`: consolidated version history
-- `docs/ARCHITECTURE.md`: lifecycle, endpoints and authority rules
-- `docs/GAME-CARDS.md`: mechanics, risks, limits and tester checklist
-- `docs/SIMULATION-v1.7.1.md`: earlier 1,080-match smoke test and caveats
-- `docs/SIMULATION-v1.8.md`: follow-up mechanical comparison of games with and without powers
-- `docs/archive/`: historical version guides and design notes
-
-## v1.8.2 testing limits
-
-The game has automated engine, route and content-lint checks. Real-phone multiplayer, living-room TV readability and human-perceived Game Card fairness still need physical playtesting. Do not interpret passing simulated tests as proof of a good games-night experience. Ballots are locked on submission; users can retry the *same* ballot but cannot change it. Game Cards remain opt-in for hosts.
-
-## v1.8.3 pre-November readiness
-
-- TV access tokens cannot mutate the lobby. Each distinct TV token has an independent SSE stream (up to the existing display-token limit); a reconnect replaces only a stream for the same TV token or participant seat.
-- Run npm run audit:content for structural failures and npm run review:content for an editorial triage summary (node scripts/review-content.js --all prints the full queue). **All 1,200 draft entries still require human approval.** This tool never publishes or rewrites jokes.
-- Run npm run simulate:smoke for a repeatable synthetic Game Card run, or node scripts/simulate-game-cards.js 12 20261021 for a larger sample. Synthetic results do not establish enjoyment or fairness.
-- The current Render deploy remains in-memory and cannot recover active matches from a restart. Durable storage requires a privacy and hosting decision, not an unreviewed file dump of adult game answers.
-- See docs/NOVEMBER-PLAYTEST-HANDOFF.md for deferred physical-device tests and launch gates.
-
-
-## Social Club v2 engine preview — work in progress
-
-The premium rewrite is being developed in stages. **This is not the finished v2 game**, and the default v1.8.3 experience is unchanged. The Stage 2 engine adds serial TV-answer-reveal states, head-to-head assignments, server-locked A/B ballots, moderated entries, capped audience voting, and private JSON room recovery. It is gated behind an explicit environment setting and has **no public phone/TV controls yet**.
-
-For technical testing only, set `SOCIAL_CLUB_PREVIEW=1` and `ROOM_DATA_DIR` to a private writable directory, run `npm start`, and create an API room with `socialClub: true`. Complete instructions, scoring and caveats are in `DESIGN.md`. **Never commit files from `data/rooms/`**: they contain names and player-written answers, although session secrets remain hashed.
-
-Run `npm test` for both current-game and Social Club tests. Real-phone multiplayer sign-off remains deferred until November 2026. The existing Render service does not automatically acquire durable room storage just because this source includes persistence.
-
-## Social Club v2 — Stage 4 phone preview
-
-The new Social Club phone controller and TV stage are **optional** while v2.0 is being built. The original v1.8.3 game still starts by default. To try Social Club locally:
-
-```bash
-SOCIAL_CLUB_PREVIEW=1 npm start
-```
-
-On Windows PowerShell, run `$env:SOCIAL_CLUB_PREVIEW="1"; npm start` instead. Open the page, select **Host**, and tick **Social Club — new TV show preview**. It only becomes selectable if the server advertises preview support. Choose Quick (3 rounds), Standard (5 rounds), or Long (6 rounds), then invite two or more friends (3–12 players) and optionally open the stage link on a TV. Each player uses their own phone.
-
-This is not yet the final premium game: the compère audio, editorial content batches, six-card power-up set and final clean-up follow in later stages. On Render's free tier, room files are on **temporary storage** and may disappear on a new deployment. Always-on hosting and a persistent disk are needed before claiming safe restart recovery in production. Actual physical-device multiplayer playtests remain deferred until November 2026.
-
-### Social Club Stage 5 — Our Maureen
-
-The optional new TV show now includes **always-on written compère captions** and an original
-Web Audio brass sting, Last Orders bell, result cue and unanimous ECKY THUMP! slam.
-Tap **ENABLE SHOW SFX**, **PLAY LOBBY MUSIC**, or **ENABLE VOICE** on that TV separately.
-Use **MASTER VOLUME** to adjust all three. Nothing starts playing automatically.
-
-The 60 recording lines and exact filenames are in `VOICE-LINES.md`. Audio is not
-pre-recorded: the captions work immediately, while voice remains silent until an `.ogg`
-recording is placed at its manifest path and that line is marked `recorded:true`.
-The source manifest `server/packs/voice-lines.json` and browser copy
-`public/assets/voice-lines.json` must be kept in sync.
-
-## Approved Stage 6 cards (2026-10-23)
-
-The 200 approved Family editorial proposals and 450 user-supplied CSV entries are loaded through `server/packs/social-club-approved-v1.json` (650 approved items). Existing expansion data remains unchanged for audit. 140 old Family strings are superseded; 60 additional Family responses and 450 imported entries are appended. `PREMIUM_CONTENT_ONLY=1` filters out unapproved expansion entries; the original built-in starter texts remain. Use `npm run audit:approved-content` and the import ledger to verify. Input provenance/licence must be independently checked before any paid distribution. For requested next card formats, see `docs/CONTENT-REQUEST.md`.
-
-### Additional approved game cards (23 October 2026)
-
-The 200 additional entries from `party_more_cards.csv` and `party_more_modes.csv`
-are approved and included in the Social Club content pools (850 total approved).
-The source CSVs, original review state, nine final wording changes and full
-ledger are kept in `editorial/incoming-2026-10-23/`. `PREMIUM_CONTENT_ONLY=1`
-restricts expansion pools to approved material plus original built-in starter
-material; do not enable it without confirming enough content for your intended
-session length. Editorial approval is not proof of a third-party reuse licence.
+Earlier README and older development notes are archived under `docs/archive/stage8-history/`.

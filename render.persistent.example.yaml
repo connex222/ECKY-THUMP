@@ -1,0 +1,22 @@
+# OPTIONAL paid blueprint. Do not link/sync this until the owner chooses a paid plan.
+# A free plan has ephemeral files and can sleep; it cannot guarantee room recovery.
+services:
+  - type: web
+    name: ECKY-THUMP-PERSISTENT
+    runtime: node
+    plan: starter
+    region: frankfurt
+    buildCommand: npm test && npm run audit:content && npm run audit:approved-content
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SOCIAL_CLUB_PREVIEW
+        value: '1'
+      - key: ROOM_DATA_DIR
+        value: /data/rooms
+    disk:
+      name: ecky-thump-room-data
+      mountPath: /data
+      sizeGB: 1

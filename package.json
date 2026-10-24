@@ -1,8 +1,8 @@
 {
   "name": "ecky-thump-game-night",
-  "version": "1.8.3",
+  "version": "2.0.0",
   "private": true,
-  "description": "ECKY THUMP v1.8.3 — pre-November reliability and editorial readiness",
+  "description": "ECKY THUMP Social Club v2.0.0 — classic mode plus optional Social Club preview",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",

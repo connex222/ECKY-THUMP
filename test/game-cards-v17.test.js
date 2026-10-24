@@ -229,7 +229,7 @@ test('UI exposes lobby toggle, private Game Card controls and TV effect banner w
   const tv=fs.readFileSync(path.join(root,'public/assets/tv.js'),'utf8');
   for(const phrase of ['toggle-game-cards','play-game-card','choose-game-extra','e17-card-tray','gameCardTray(s)','gameCardSwitch(s)'])assert.ok(app.includes(phrase),phrase);
   for(const phrase of ['e17-stage-effect','stagePlayers(s)','e17-stage-roster'])assert.ok(tv.includes(phrase),phrase);
-  for(const page of ['public/index.html','public/tv/index.html'])assert.ok(fs.readFileSync(path.join(root,page),'utf8').includes('neon-arena-v1.7.css'));
+  for(const page of ['public/index.html','public/tv/index.html'])assert.ok(fs.readFileSync(path.join(root,page),'utf8').includes('social-club-v2.css'));
 });
 test('failed forged activations never spend a private card or award bonus points',()=>{
   const r=setup(),p=r.players[0],other=r.players[1];

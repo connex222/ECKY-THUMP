@@ -8,7 +8,7 @@ const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 test('v1.6 neon arena extends the low-priority modern layer and avatars load first',()=>{
  for(const file of ['public/index.html','public/tv/index.html']){
   const html=read(file);
-  assert.match(html,/modern-v1\.5\.css\?v=1\.6\.0/);assert.match(html,/neon-arena-v1\.6\.css\?v=1\.6\.0/);
+  assert.match(html,/social-club-v2\.css\?v=2\.0\.0/);
   assert.match(html,/e15-modern/);
   assert.doesNotMatch(html,/interface-v1\.4\.css|seaside-postcard\.css|postcard-reset/);
   assert.ok(html.indexOf('avatars.js')<html.indexOf(file.includes('tv/')?'tv.js':'app.js'));

@@ -21,7 +21,7 @@ function snapshot(phase){
 test('Stage 3 is conditionally loaded on TV without disrupting the established renderer',()=>{
   const html=file('public/tv/index.html');const js=file('public/assets/tv.js');
   assert.match(html,/social-club-tv\.js\?v=2\.0\.0/);
-  assert.match(html,/social-club-tv\.css\?v=2\.0\.0/);
+  assert.match(html,/social-club-v2\.css\?v=2\.0\.0/);
   assert.match(js,/if\(s\.mode==='social-club-v2'\)/);
   assert.match(js,/club\.render\(s\)/);
   assert.match(js,/classList\.add\('club-shell'\)/);

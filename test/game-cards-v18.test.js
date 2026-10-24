@@ -98,7 +98,7 @@ test('quick actions appear before the collapsible drawer and retain predictive b
   assert.match(css,/\.e18-quickcards/);
   for(const htmlFile of ['public/index.html','public/tv/index.html']){
     const html=fs.readFileSync(path.join(root,htmlFile),'utf8');
-    assert.match(html,/game-cards-v1\.8\.css/);
+    assert.match(html,/social-club-v2\.css\?v=2\.0\.0/);
     assert.match(html,/avatars\.js\?v=1\.1\.0/);
   }
 });
@@ -147,8 +147,8 @@ test('actual HTTP server delivers updated CSS and JavaScript to mobile and TV',a
     }
     const home=await (await fetch(base)).text();
     const tv=await (await fetch(base+'/tv/')).text();
-    assert.match(home,/game-cards-v1\.8\.css\?v=1\.8\.0/);
-    assert.match(tv,/game-cards-v1\.8\.css\?v=1\.8\.0/);
+    assert.match(home,/social-club-v2\.css\?v=2\.0\.0/);
+    assert.match(tv,/social-club-v2\.css\?v=2\.0\.0/);
   }finally{await new Promise(resolve=>server.close(resolve));}
 });
 

@@ -13,9 +13,9 @@ test('the chosen neon logo ships with real transparency and is loaded in both pa
  assert.ok(img.length>20000&&img.subarray(0,4).toString()==='RIFF');
  for(const page of ['public/index.html','public/tv/index.html']){
   const html=read(page);
-  assert.match(html,/modern-v1\.5\.css\?v=1\.6\.0/);
-  assert.match(html,/neon-arena-v1\.6\.css\?v=1\.6\.0/);
-  assert.ok(html.indexOf('modern-v1.5.css')<html.indexOf('neon-arena-v1.6.css'));
+  assert.match(html,/social-club-v2\.css\?v=2\.0\.0/);
+  assert.doesNotMatch(html,/neon-arena-v1\.6\.css/);
+  assert.equal((html.match(/rel="stylesheet"/g)||[]).length,1);
   assert.match(html,/avatars\.js\?v=1\.1\.0/);
  }
  assert.match(read('public/assets/app.js'),/v16-logo--/);

@@ -110,7 +110,7 @@ test('accessible v1.8.2 polish stylesheet is loaded on mobile and TV without mod
   assert.match(css,/:focus-visible/);assert.match(css,/prefers-reduced-motion/);assert.match(css,/prefers-contrast/);
   for(const file of ['public/index.html','public/tv/index.html']){
     const html=fs.readFileSync(path.join(project,file),'utf8');
-    assert.match(html,/game-night-v1\.8\.2\.css\?v=1\.8\.2/);
+    assert.match(html,/social-club-v2\.css\?v=2\.0\.0/);
     assert.match(html,/avatars\.js\?v=1\.1\.0/);
   }
 });

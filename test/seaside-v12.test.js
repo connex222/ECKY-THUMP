@@ -18,7 +18,7 @@ test('all 42 avatar library files, metadata and bindings are byte-for-byte uncha
 });
 test('the v1.5 visual reset is modular, keeps avatar scripts and preserves accessibility behaviour',()=>{
  for(const page of ['public/index.html','public/tv/index.html']){
-  const html=read(page);assert.match(html,/e15-modern/);assert.match(html,/modern-v1\.5\.css\?v=1\.6\.0/);assert.match(html,/neon-arena-v1\.6\.css\?v=1\.6\.0/);assert.match(html,/avatars\.js\?v=1\.1\.0/);
+  const html=read(page);assert.match(html,/e15-modern/);assert.match(html,/social-club-v2\.css\?v=2\.0\.0/);assert.match(html,/social-club-v2\.css\?v=2\.0\.0/);assert.match(html,/avatars\.js\?v=1\.1\.0/);
  }
  assert.match(read('public/assets/modern-v1.5.css'),/prefers-reduced-motion:reduce/);
  assert.match(read('public/assets/app.js'),/navigator\.vibrate/);

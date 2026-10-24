@@ -1,5 +1,6 @@
 'use strict';
-(() => {
+(async () => {
+  const {escapeHtml, formatClock, serverClockOffset, resolveAvatar} = await import('./shared.mjs');
   const LEGACY_LOGO_SVG='/assets/ecky-logo.svg';
   const app=document.getElementById('app'),toast=document.getElementById('toast');
   const S={code:null,secret:null,snap:null,selected:null,gold:null,silver:null,draft:'',roundId:null,stage:null,connected:false,stream:null,scenePulse:false,lastTick:null,clockOffset:0,powerDrawerOpen:false};
@@ -10,15 +11,21 @@
   }
   window.addEventListener('error',()=>diagnostic('uncaught'));
   window.addEventListener('unhandledrejection',()=>diagnostic('uncaught'));
+  let releaseVersion='SOCIAL CLUB PREVIEW';
+  fetch('/api/health',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{
+    if(!data||!/^\d+\.\d+\.\d+$/.test(data.version))return;
+    releaseVersion='v'+data.version;
+    document.querySelectorAll('[data-release-version]').forEach(el=>el.textContent=releaseVersion);
+  }).catch(()=>{});
   const q=new URLSearchParams(location.search);
   const AVATARS=window.ECKEY_AVATARS||[];let choice='adult-01';
-  const avatar=(id,extra='')=>{const a=AVATARS.find(x=>x.id===id)||AVATARS[0];return a?`<img class="player-avatar ${extra}" src="${a.image}" alt="" loading="lazy">`:'';};
+  const avatar=(id,extra='')=>{const a=resolveAvatar(AVATARS,id);return a?`<img class="player-avatar ${extra}" src="${a.image}" alt="" loading="lazy">`:'';};
   const gallery=[...AVATARS].sort((a,b)=>Number(!!b.spotlight)-Number(!!a.spotlight));
   const avatarPicker=()=>`<div class="avatar-picker"><span class="eyebrow">PICK YOUR ALTER EGO · 32 TO CHOOSE FROM</span><p class="avatar-help">Seven refreshed headliners first, then the full original cast. Swipe or scroll to see everyone.</p><div class="avatar-scroll" role="group" aria-label="Choose an avatar">${gallery.map(a=>`<button type="button" class="avatar-tile ${choice===a.id?'picked':''}" data-pick-avatar="${a.id}" aria-pressed="${choice===a.id}" title="${esc(a.name)}"><img src="${a.image}" alt="" loading="lazy" decoding="async">${a.spotlight?'<span class="avatar-new">NEW LOOK</span>':''}<span>${esc(a.name)}</span></button>`).join('')}</div></div>`;
-  const celebration=(id)=>{const a=AVATARS.find(x=>x.id===id)||AVATARS[0];return a?`<img class="spotlight-art ${a.celebration?'has-poster':'portrait-only'}" src="${esc(a.celebration||a.image)}" alt="${esc(a.name)}" loading="lazy" decoding="async">`:'';};
+  const celebration=(id)=>{const a=resolveAvatar(AVATARS,id);return a?`<img class="spotlight-art ${a.celebration?'has-poster':'portrait-only'}" src="${esc(a.celebration||a.image)}" alt="${esc(a.name)}" loading="lazy" decoding="async">`:'';};
   const resultWinner=(s)=>{const first=s.round?.entries?.filter(e=>e.award?.rank===1)||[];if(!first.length)return '';return `<div class="round-winners"><div class="eyebrow">★ TONIGHT'S ROUND HEADLINER${first.length>1?'S':''}</div><div class="winner-cast">${first.slice(0,3).map(e=>`<div class="winner-spotlight">${celebration(e.authorAvatar)}<div class="winner-spotlight-copy"><strong>${esc(e.authorName)}</strong><span>+${e.award.points} POINTS${e.award.isJoint?' · JOINT WINNER':''}</span></div></div>`).join('')}</div></div>`;};
-  const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const fmt=n=>{const seconds=Math.max(0,Math.ceil(n/1000));return `${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;};
+  const esc=escapeHtml;
+  const fmt=formatClock;
   const joinUrl=code=>`${location.origin}/join/?room=${encodeURIComponent(code)}`;
   const num=n=>Number(n||0);
   const copyText=async text=>{if(navigator.clipboard?.writeText)return navigator.clipboard.writeText(text);const field=document.createElement('textarea');field.value=text;field.style.position='fixed';field.style.left='-10000px';document.body.appendChild(field);field.select();const ok=document.execCommand('copy');field.remove();if(!ok)throw Error('Clipboard unavailable.');};
@@ -77,12 +84,16 @@
     }
   }
   function onSnapshot(snap){
-    if(typeof snap.serverNow==='number') S.clockOffset=snap.serverNow-Date.now();
+    if(typeof snap.serverNow==='number') S.clockOffset=serverClockOffset(snap.serverNow);
     if(!S.snap || S.roundId!==snap.round?.id || S.stage!==snap.phase){S.roundId=snap.round?.id||null;S.selected=null;S.gold=null;S.silver=null;S.powerDrawerOpen=false;restoreDraft(snap);}
     const prev=S.snap;
     if(snap.mode==='social-club-v2')window.ECKY_SOCIAL_PHONE?.onSnapshot(snap,prev);
     const oldKey=prev?`${prev.round?.id||'none'}:${prev.phase}`:null;
     const newKey=`${snap.round?.id||'none'}:${snap.phase}`;
+    if (!prev || newKey !== oldKey) {
+      const announcement = document.getElementById('phase-announcement');
+      if (announcement) announcement.textContent = `${snap.title || 'Round'} — ${String(snap.phase || 'LOBBY').replaceAll('_', ' ').toLowerCase()}`;
+    }
     if(oldKey && oldKey!==newKey){
       if(snap.phase==='RESULTS'&&snap.round?.entries?.some(e=>e.authorName===snap.you?.name&&e.award?.rank===1))thump([40,40,80,50,140]);
       window.ECKEY_SFX?.play(snap.phase==='RESULTS'?(snap.round?.skipReason?'skip':'reveal'):snap.phase==='COMPLETE'?'champion':snap.phase==='VOTE'?'vote':snap.phase==='SEED'||snap.phase==='SUBMIT'?'round':'tap');
@@ -368,7 +379,7 @@
     let ss=0,se=0;if(active){ss=previousInput.selectionStart;se=previousInput.selectionEnd;}
     if(s.you?.role==='audience'){app.innerHTML=renderAudience(s);S.scenePulse=false;updateConnection();syncScene();return;}
     const main=s.phase==='LOBBY'?renderLobby(s):s.phase==='SEED'?contextSeed(s):s.phase==='SUBMIT'?renderSubmit(s):s.phase==='VOTE'?renderVote(s):s.phase==='RESULTS'?renderResults(s):renderComplete(s);
-    app.innerHTML=nav()+(s.phase==='LOBBY'?'':roomTop(s))+`<main class="room-layout ${s.phase==='LOBBY'?'showtime-room':''} ${S.scenePulse?'scene-enter':''}">${main}${s.phase==='LOBBY'?'':sidePanel(s)}</main><div class="footer-note">ECKY THUMP v1.8.3 · PRIVATE GAME NIGHT</div>`;
+    app.innerHTML=nav()+(s.phase==='LOBBY'?'':roomTop(s))+`<main class="room-layout ${s.phase==='LOBBY'?'showtime-room':''} ${S.scenePulse?'scene-enter':''}">${main}${s.phase==='LOBBY'?'':sidePanel(s)}</main><div class="footer-note">ECKY THUMP <span data-release-version>${esc(releaseVersion)}</span> · PRIVATE GAME NIGHT</div>`;
     const input=document.getElementById('answer-input');if(input){input.value=S.draft;updateCounter();if(active){input.focus();input.setSelectionRange(ss,se);}}
     S.renderedStage=s.phase;S.renderedRound=s.round?.id;
     S.scenePulse=false;updateTimer();updateConnection();syncScene();
